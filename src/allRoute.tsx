@@ -1,3 +1,4 @@
+import React from "react";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import Header from "./Framework/components/Header";
 import { Toolbar } from "@mui/material";
@@ -150,7 +151,7 @@ export const allRouter = (type: string | undefined) => {
     })
 
     if (type === 'employee') {
-       commonRoutes = [...commonRoutes,EmployeeRoutes('ceo')]
+        commonRoutes = [...commonRoutes, EmployeeRoutes('ceo')]
     }
     if (type === 'customer') {
         // commonRoutes.push(CustomerRoutes)

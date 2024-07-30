@@ -1,3 +1,4 @@
+import React from "react";
 import { Avatar, Box, Card, CardContent, Container, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -7,12 +8,13 @@ import truckMoving from './assets/commercial/truckwithbuilding.gif';
 import bikeMoving from "./assets/bike/bikewithbuilding.gif"
 
 // nav - img
-import bikeLogo from "./assets/navAssets/Bike.svg";
-import loanLogo from "./assets/navAssets/Loan.svg";
-import healthLogo from "./assets/navAssets/Health.svg";
-import carLogo from "./assets/navAssets/car.svg";
-import travelLogo from "./assets/navAssets/plane.svg";
-import commercialLogo from "./assets/navAssets/commercial.svg"
+// import bikeLogo from "./assets/navAssets/Bike.svg";
+// import loanLogo from "./assets/navAssets/Loan.svg";
+// import healthLogo from "./assets/navAssets/Health.svg";
+// import carLogo from "./assets/navAssets/car.svg";
+// import travelLogo from "./assets/navAssets/plane.svg";
+// import commercialLogo from "./assets/navAssets/commercial.svg"
+import bikeLogo from "./assets/navAssets/"
 import { useState } from "react";
 
 const Home = () => {
