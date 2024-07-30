@@ -1,0 +1,167 @@
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import Header from "./Framework/components/Header";
+import { Toolbar } from "@mui/material";
+import Footer from "./Framework/components/Footer";
+import Home from "./Home";
+import LoanLandingPage from "./loan/pages/LoanLandingPage";
+import CompareQuotes from "./Framework/components/CompareQuotes";
+import LoanQuotesPage from "./loan/pages/LoanQuotesPage";
+import LoanPaymentPage from "./loan/pages/LoanPaymentPage";
+import TravelHome from "./travel/pages/TravelHome";
+import TravelPayment from "./travel/pages/TravelPayment";
+import HealthHome from "./health/pages/HealthHome";
+import HealthProposal from "./health/pages/HealthProposal";
+import HealthPayment from "./health/pages/HealthPayment";
+import Register from "./crm/common/Register";
+import EmployeeLogin from "./crm/employee/pages/EmployeeLogin";
+import Login from "./crm/common/Login";
+import PageNotFound from "./Framework/components/PageNotFound";
+
+import CrmLayout from "./crm/layout/CrmLayout";
+import EmployeeChild from "./crm/employee/routes/EmployeeChild";
+
+
+export const allRouter = (type: string | undefined) => {
+    let commonRoutes = [
+        {
+            path: "/",
+            element: <>
+                <Header />
+                <Toolbar />
+                <Outlet />
+                <Footer />
+            </>,
+            children: [
+                {
+                    index: true,
+                    element: <Home />,
+                },
+                {
+                    path: 'loan',
+                    element: <Outlet />,
+                    children: [
+                        {
+                            index: true,
+                            element: <LoanLandingPage />
+                        },
+                        {
+                            path: 'quotes',
+                            element: <Outlet />,
+                            children: [
+                                {
+                                    index: true,
+                                    element: <LoanQuotesPage />
+                                }, {
+                                    path: 'compare/:id',
+                                    element: <CompareQuotes />
+                                }
+                            ]
+                        },
+                        {
+                            path: 'payment',
+                            element: <LoanPaymentPage />
+                        }
+                    ]
+                },
+                {
+                    path: 'travel',
+                    element: <Outlet />,
+                    children: [
+                        {
+                            index: true,
+                            element: <TravelHome />
+                        },
+                        {
+                            path: 'quotes',
+                            element: <Outlet />,
+                            children: [
+                                {
+                                    index: true,
+                                    element: <LoanQuotesPage />
+                                },
+                                {
+                                    path: 'compare/:id',
+                                    element: <CompareQuotes />
+                                }
+                            ]
+                        },
+                        {
+                            path: 'payment',
+                            element: <TravelPayment />
+                        }
+                    ]
+                },
+                {
+                    path: 'health',
+                    element: <Outlet />,
+                    children: [
+                        {
+                            index: true,
+                            element: <HealthHome />
+                        },
+                        {
+                            path: 'quotes',
+                            element: <Outlet />,
+                            children: [
+                                {
+                                    index: true,
+                                    element: <LoanQuotesPage />
+                                },
+                                {
+                                    path: 'compare/:id',
+                                    element: <CompareQuotes />
+                                }
+                            ]
+                        },
+                        {
+                            path: 'proposal',
+                            element: <HealthProposal />
+                        },
+                        {
+                            path: 'payment',
+                            element: <HealthPayment />
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            path: 'signin',
+            element: <Login />
+        },
+        {
+            path: 'signup',
+            element: <Register />
+        },
+        {
+            path: 'employee/login',
+            element: <EmployeeLogin />
+        },
+        {
+            path: '*',
+            element: <PageNotFound />
+        },
+    ]
+
+    const EmployeeRoutes = (role: string) => ({
+        path: 'employee/dashboard',
+        element: <CrmLayout />,
+        children: [...EmployeeChild(role)]
+    })
+
+    if (type === 'employee') {
+       commonRoutes = [...commonRoutes,EmployeeRoutes('ceo')]
+    }
+    if (type === 'customer') {
+        // commonRoutes.push(CustomerRoutes)
+    }
+    if (type === 'posp') {
+        // commonRoutes.push()
+    }
+
+    return createBrowserRouter(commonRoutes);
+}
+
+
+
+
