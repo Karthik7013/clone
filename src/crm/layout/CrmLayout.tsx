@@ -1,8 +1,8 @@
-import { AppBar, Avatar, Badge, Box, Card, CardContent, Divider, Drawer, IconButton, InputAdornment, ListItemIcon, Menu, MenuItem, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
+import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Divider, Drawer, IconButton, InputAdornment, ListItemIcon, Menu, MenuItem, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
 import React from "react";
 import { Home, Logout, PersonAdd, NotesRounded } from '@mui/icons-material';
 import SideBar from "../common/SideDrawer";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootProps } from "../../types/RootProps";
 import { toggleTheme } from "../../redux/slice/uiSlice";
@@ -209,9 +209,18 @@ const CrmLayout = () => {
                     sx={{ flexGrow: 1, width: { md: `calc(100% - ${drawerWidth}px)` } }}
                 >
                     <Toolbar />
-
-                    <Outlet />
-
+                    <Toolbar>
+                        <Breadcrumbs aria-label="breadcrumb">
+                            <Link color="inherit" to="/employee/dashboard">
+                                Dashboard
+                            </Link>
+                            <Typography color="text.primary">Analytics</Typography>
+                        </Breadcrumbs>
+                    </Toolbar>
+                    <Divider />
+                    <CardContent>
+                        <Outlet />
+                    </CardContent>
                 </Box>
             </Box> :
                 <PageNotFound />}

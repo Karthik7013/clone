@@ -1,4 +1,4 @@
-
+import React from "react"
 import { Link } from "react-router-dom"
 import PageNotFoundSvg from "../../assets/pages/404 error with a tired person-pana.svg"
 import { Stack } from "@mui/material"

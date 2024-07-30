@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Box, Card, CardContent, Container, Grid } from "@mui/material";
+import { Avatar, Box, Card, CardContent, Container, Grid, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 
 // bg-layer
@@ -8,13 +8,12 @@ import truckMoving from './assets/commercial/truckwithbuilding.gif';
 import bikeMoving from "./assets/bike/bikewithbuilding.gif"
 
 // nav - img
-// import bikeLogo from "./assets/navAssets/Bike.svg";
-// import loanLogo from "./assets/navAssets/Loan.svg";
-// import healthLogo from "./assets/navAssets/Health.svg";
-// import carLogo from "./assets/navAssets/car.svg";
-// import travelLogo from "./assets/navAssets/plane.svg";
-// import commercialLogo from "./assets/navAssets/commercial.svg"
-import bikeLogo from "./assets/navAssets/"
+import loanLogo from "./assets/navAssets/Loan.svg";
+import healthLogo from "./assets/navAssets/Health.svg";
+import carLogo from "./assets/navAssets/car.svg";
+import travelLogo from "./assets/navAssets/plane.svg";
+import commercialLogo from "./assets/navAssets/commercial.svg"
+import bikeLogo from "./assets/navAssets/bike.svg";
 import { useState } from "react";
 
 const Home = () => {
@@ -86,7 +85,7 @@ const Home = () => {
         <Container maxWidth='lg'>
             <Grid container spacing={2} mt={1} flexGrow={1}>
                 <Grid item xs={4} sm={3} md={3} lg={2}>
-                    <Card onClick={() => setVehicleType('car')}>
+                    <Card elevation={0} onClick={() => setVehicleType('car')}>
                         <CardContent>
                             <Avatar src={carLogo} sx={{ width: "60px", height: "60px" }} variant="square" />
                             <div className="addition-service-card-title">Car</div>
@@ -94,7 +93,7 @@ const Home = () => {
                     </Card>
                 </Grid>
                 <Grid item xs={4} sm={3} md={3} lg={2}>
-                    <Card onClick={() => setVehicleType('bike')}>
+                    <Card elevation={0} onClick={() => setVehicleType('bike')}>
                         <CardContent>
                             <Avatar src={bikeLogo} sx={{ width: "60px", height: "60px" }} variant="square" />
                             <div className="addition-service-card-title">Bike</div>
@@ -102,7 +101,7 @@ const Home = () => {
                     </Card>
                 </Grid>
                 <Grid item xs={4} sm={3} md={3} lg={2}>
-                    <Card onClick={() => setVehicleType('commercial')}>
+                    <Card elevation={0} onClick={() => setVehicleType('commercial')} component={Stack} gap={2} justifyContent={'center'}>
                         <CardContent>
                             <Avatar sx={{ width: "60px", height: "60px" }} variant="square" src={commercialLogo} />
                             <div className="addition-service-card-title">Commercial</div>
@@ -113,7 +112,7 @@ const Home = () => {
                     products.map((nav: navProps, _: number) => {
                         return <Grid key={_} item xs={4} sm={3} md={3} lg={2}>
                             <Link to={nav.path} >
-                                <Card>
+                                <Card elevation={0}>
                                     <CardContent>
                                         <Avatar src={nav.imgUrl} sx={{ width: "60px", height: "60px", objectFit: 'cover' }} variant="square" />
                                         <div className="addition-service-card-title">{nav.name}</div>

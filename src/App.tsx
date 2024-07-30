@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Navigate, Outlet, Route, RouterProvider, Routes } from 'react-router-dom'
 import Footer from './Framework/components/Footer'
-import { ThemeProvider, Toolbar } from '@mui/material'
+import { CssBaseline, ThemeProvider, Toolbar } from '@mui/material'
 import Header from './Framework/components/Header'
 import Home from './Home';
 import theme from './theme/theme';
@@ -33,6 +33,7 @@ const App = () => {
     const type = useSelector((state: RootProps) => state.auth.profile?.type);
     const alert = useSelector((state: RootProps) => state.auth.alert);
     const handleClose = () => dispatch(closeAlert());
+    const role = useSelector((state: RootProps) => state.auth.profile?.role);
 
 
     const RootLayout = () => {
@@ -46,9 +47,10 @@ const App = () => {
 
     return (
         <ThemeProvider theme={theme({ dark, borderRadius: 5 })}>
+            <CssBaseline />
             <AlertBox alert={alert} onClose={handleClose} />
 
-            <RouterProvider router={allRouter(type)}></RouterProvider>
+            <RouterProvider router={allRouter({ type, role })}></RouterProvider>
             {/* <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<RootLayout />}>

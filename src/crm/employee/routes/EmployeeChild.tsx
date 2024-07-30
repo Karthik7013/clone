@@ -1,3 +1,4 @@
+import React from "react"
 import AccessManagement from "../pages/AccessManagement"
 import AdminService from "../pages/AdminService"
 import BussinessAnalytics from "../pages/BussinessAnalytics"
@@ -11,7 +12,6 @@ import IncomeService from "../pages/IcomeService"
 import PageNotFound from "../../../Framework/components/PageNotFound"
 
 const getEmployeeRoutes = (role: string) => {
-    
     switch (role) {
         case 'ceo':
             return [
@@ -92,7 +92,7 @@ const getEmployeeRoutes = (role: string) => {
         default:
             return [
                 {
-                    path: '*',
+                    index: true,
                     element: <PageNotFound />
                 }
             ]

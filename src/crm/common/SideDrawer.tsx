@@ -1,6 +1,7 @@
 import { Avatar, Divider, Icon, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { navProps } from '../../types/AuthProps/AuthProps';
+import React from 'react';
 // type navProps = {
 //     title: string,
 //     path: string,

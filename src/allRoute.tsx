@@ -22,7 +22,7 @@ import CrmLayout from "./crm/layout/CrmLayout";
 import EmployeeChild from "./crm/employee/routes/EmployeeChild";
 
 
-export const allRouter = (type: string | undefined) => {
+export const allRouter = (props: { type: string; role: string | undefined; }) => {
     let commonRoutes = [
         {
             path: "/",
@@ -150,13 +150,13 @@ export const allRouter = (type: string | undefined) => {
         children: [...EmployeeChild(role)]
     })
 
-    if (type === 'employee') {
-        commonRoutes = [...commonRoutes, EmployeeRoutes('ceo')]
+    if (props.type === 'employee') {
+        commonRoutes = [...commonRoutes, EmployeeRoutes(props.role)]
     }
-    if (type === 'customer') {
+    if (props.type === 'customer') {
         // commonRoutes.push(CustomerRoutes)
     }
-    if (type === 'posp') {
+    if (props.type === 'posp') {
         // commonRoutes.push()
     }
 
