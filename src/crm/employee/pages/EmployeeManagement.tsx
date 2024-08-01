@@ -1,89 +1,57 @@
 import { Delete, Edit, GroupAddRounded } from '@mui/icons-material';
-import { Box, Button, Checkbox, Grid, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, styled, Typography } from '@mui/material'
+import { Box, Button, Checkbox, Chip, Divider, Grid, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, styled, Toolbar, Typography } from '@mui/material'
 import React from 'react'
-import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowsProp, GridToolbarContainer } from '@mui/x-data-grid';
+import { Link } from 'react-router-dom';
+import ModeEditRoundedIcon from '@mui/icons-material/ModeEditRounded';
+import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 const EmployeeManagement = () => {
     const rows: GridRowsProp = [
-        { id: 1, col1: 'Mia', col2: 'employee' },
-        { id: 2, col1: 'Xavier', col2: 'ceo' },
-        { id: 3, col1: 'Katie', col2: 'employee' },
-        { id: 4, col1: 'Sam', col2: 'employee' },
-        { id: 5, col1: 'Wendy', col2: 'ceo' },
-        { id: 6, col1: 'Liam', col2: 'employee' },
-        { id: 7, col1: 'Emma', col2: 'admin' },
-        { id: 8, col1: 'Ursula', col2: 'employee' },
-        { id: 9, col1: 'Henry', col2: 'admin' },
-        { id: 10, col1: 'Noah', col2: 'ceo' },
-        { id: 11, col1: 'Jack', col2: 'admin' },
-        { id: 12, col1: 'Charlie', col2: 'employee' },
-        { id: 13, col1: 'Zane', col2: 'ceo' },
-        { id: 14, col1: 'Grace', col2: 'employee' },
-        { id: 15, col1: 'Rachel', col2: 'employee' },
-        { id: 16, col1: 'Peter', col2: 'ceo' },
-        { id: 17, col1: 'Frank', col2: 'employee' },
-        { id: 18, col1: 'Alice', col2: 'ceo' },
-        { id: 19, col1: 'Tina', col2: 'employee' },
-        { id: 20, col1: 'V', col2: 'ceo' },
-        { id: 21, col1: 'B', col2: 'employee' },
-        { id: 22, col1: 'G', col2: 'employee' },
-        { id: 23, col1: 'O', col2: 'ceo' },
-        { id: 24, col1: 'Yvonne', col2: 'employee' },
-        { id: 25, col1: 'Ivy', col2: 'ceo' },
-        { id: 26, col1: 'D', col2: 'employee' },
-        { id: 27, col1: 'N', col2: 'employee' },
-        { id: 28, col1: 'Quinn', col2: 'ceo' },
-        { id: 29, col1: 'R', col2: 'employee' },
-        { id: 30, col1: 'J', col2: 'employee' },
-        { id: 31, col1: 'H', col2: 'ceo' },
-        { id: 32, col1: 'E', col2: 'admin' },
-        { id: 33, col1: 'W', col2: 'employee' },
-        { id: 34, col1: 'X', col2: 'employee' },
-        { id: 35, col1: 'A', col2: 'ceo' },
-        { id: 36, col1: 'Charlie', col2: 'admin' },
-        { id: 37, col1: 'L', col2: 'employee' },
-        { id: 38, col1: 'F', col2: 'employee' },
-        { id: 39, col1: 'B', col2: 'ceo' },
-        { id: 40, col1: 'Zane', col2: 'employee' },
-        { id: 41, col1: 'D', col2: 'employee' },
-        { id: 42, col1: 'Mia', col2: 'ceo' },
-        { id: 43, col1: 'V', col2: 'employee' },
-        { id: 44, col1: 'R', col2: 'ceo' },
-        { id: 45, col1: 'Katie', col2: 'employee' },
-        { id: 46, col1: 'N', col2: 'employee' },
-        { id: 47, col1: 'Yvonne', col2: 'ceo' },
-        { id: 48, col1: 'O', col2: 'employee' },
-        { id: 49, col1: 'Jack', col2: 'employee' },
-        { id: 50, col1: 'Emma', col2: 'ceo' },
-        { id: 51, col1: 'Frank', col2: 'employee' },
-        { id: 52, col1: 'Ursula', col2: 'employee' },
-        { id: 53, col1: 'Ivy', col2: 'ceo' },
-        { id: 54, col1: 'Peter', col2: 'employee' },
-        { id: 55, col1: 'Tina', col2: 'ceo' },
-        { id: 56, col1: 'Xavier', col2: 'employee' },
-        { id: 57, col1: 'Liam', col2: 'employee' },
-        { id: 58, col1: 'David', col2: 'ceo' },
-        { id: 59, col1: 'Rachel', col2: 'employee' },
-        { id: 60, col1: 'Sam', col2: 'employee' }
+        { id: 1, col1: '123456789', col2: 'Mia Khalifa', col3: 'Admin', col4: 'CEO', col5: 'Active', col6: 'karthiktumala143@gmail.com', col7: '26-11-1999', col8: '+91 7013140693', col9: 'Super' },
+        { id: 2, col1: '987654321', col2: 'John Doe', col3: 'User', col4: 'Manager', col5: 'Inactive', col6: 'johndoe@example.com', col7: '15-05-1985', col8: '+91 9999999999', col9: 'Admin' },
+        { id: 3, col1: '192837465', col2: 'Jane Smith', col3: 'Admin', col4: 'Lead', col5: 'Active', col6: 'janesmith@example.com', col7: '02-03-1990', col8: '+91 8888888888', col9: 'Editor' },
+        { id: 4, col1: '564738291', col2: 'Robert Brown', col3: 'User', col4: 'Developer', col5: 'Pending', col6: 'robertbrown@example.com', col7: '20-11-1988', col8: '+91 7777777777', col9: 'User' },
+        { id: 5, col1: '102938475', col2: 'Emily Davis', col3: 'Admin', col4: 'Designer', col5: 'Active', col6: 'emilydavis@example.com', col7: '14-07-1983', col8: '+91 6666666666', col9: 'Admin' },
+        { id: 6, col1: '564829374', col2: 'Michael Wilson', col3: 'User', col4: 'Analyst', col5: 'Inactive', col6: 'michaelwilson@example.com', col7: '30-12-1992', col8: '+91 5555555555', col9: 'Editor' },
+        { id: 7, col1: '473829102', col2: 'Sophia Martinez', col3: 'Admin', col4: 'Coordinator', col5: 'Active', col6: 'sophiamartinez@example.com', col7: '25-09-1986', col8: '+91 4444444444', col9: 'Super' },
+        { id: 8, col1: '983746251', col2: 'James Taylor', col3: 'User', col4: 'Tester', col5: 'Pending', col6: 'jamestaylor@example.com', col7: '11-01-1989', col8: '+91 3333333333', col9: 'User' },
+        { id: 9, col1: '284736591', col2: 'Olivia Anderson', col3: 'Admin', col4: 'Marketing', col5: 'Active', col6: 'oliviaanderson@example.com', col7: '19-08-1991', col8: '+91 2222222222', col9: 'Admin' },
+        { id: 10, col1: '736492817', col2: 'William Thomas', col3: 'User', col4: 'Support', col5: 'Inactive', col6: 'williamthomas@example.com', col7: '12-04-1987', col8: '+91 1111111111', col9: 'Editor' },
+        { id: 11, col1: '102938475', col2: 'Ava Wilson', col3: 'Admin', col4: 'Sales', col5: 'Active', col6: 'avawilson@example.com', col7: '22-05-1993', col8: '+91 9999999990', col9: 'Super' },
+        { id: 12, col1: '564738291', col2: 'Liam Lee', col3: 'User', col4: 'Product Manager', col5: 'Pending', col6: 'liamlee@example.com', col7: '07-06-1984', col8: '+91 8888888889', col9: 'User' },
+        { id: 13, col1: '384756291', col2: 'Isabella Harris', col3: 'Admin', col4: 'HR', col5: 'Active', col6: 'isabellaharris@example.com', col7: '17-12-1990', col8: '+91 7777777778', col9: 'Admin' },
+        { id: 14, col1: '284736910', col2: 'Mason Clark', col3: 'User', col4: 'Intern', col5: 'Inactive', col6: 'masonclark@example.com', col7: '29-01-1995', col8: '+91 6666666665', col9: 'Editor' },
+        { id: 15, col1: '736492018', col2: 'Mia Lewis', col3: 'Admin', col4: 'Executive', col5: 'Active', col6: 'mialewis@example.com', col7: '05-10-1988', col8: '+91 5555555554', col9: 'Super' },
+        { id: 16, col1: '493827465', col2: 'Noah Walker', col3: 'User', col4: 'Consultant', col5: 'Pending', col6: 'noahwalker@example.com', col7: '23-11-1992', col8: '+91 4444444443', col9: 'User' },
+        { id: 17, col1: '102938576', col2: 'Emma Robinson', col3: 'Admin', col4: 'Strategist', col5: 'Active', col6: 'emmarobinson@example.com', col7: '14-09-1987', col8: '+91 3333333332', col9: 'Admin' },
+        { id: 18, col1: '564738392', col2: 'Oliver King', col3: 'User', col4: 'Data Scientist', col5: 'Inactive', col6: 'oliverking@example.com', col7: '31-05-1986', col8: '+91 2222222221', col9: 'Editor' },
+        { id: 19, col1: '284736020', col2: 'Charlotte Wright', col3: 'Admin', col4: 'Operations', col5: 'Active', col6: 'charlottewright@example.com', col7: '09-03-1994', col8: '+91 1111111110', col9: 'Super' },
+        { id: 20, col1: '736492347', col2: 'Ethan Scott', col3: 'User', col4: 'Business Analyst', col5: 'Pending', col6: 'ethanscott@example.com', col7: '18-02-1989', col8: '+91 9999999989', col9: 'User' },
     ];
 
     const columns: GridColDef[] = [
-        { field: 'col1', headerName: 'Column 1', width: 150 },
-        { field: 'col2', headerName: 'Column 2', width: 150 },
-    ];
-    const [checked, setChecked] = React.useState([0]);
+        { field: 'col1', headerName: 'Employee ID', width: 150 },
+        {
+            field: 'col2', headerName: 'Employee Name', width: 150,
+            renderCell: (params) => <Link to="/employee/dashboard/profile">{params.value}</Link>
 
-    const handleToggle = (value: any) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
+        },
+        { field: 'col3', headerName: 'Access', width: 150 },
+        { field: 'col4', headerName: 'Role', width: 150 },
+        { field: 'col5', headerName: 'Status', width: 150, renderCell: (params) => <Chip variant='filled' label={params.value} clickable /> },
+        { field: 'col6', headerName: 'Email', width: 150 },
+        { field: 'col7', headerName: 'Join Date', width: 150 },
+        { field: 'col8', headerName: 'Contact', width: 150 },
+        {
+            field: 'col9', headerName: 'Actions', width: 150, renderCell: (params) => {
+                return <Stack direction={'row'}>
+                    <IconButton><ModeEditRoundedIcon color='info' /></IconButton>
+                    <IconButton><DeleteOutlineRoundedIcon color='error' /></IconButton>
+                </Stack>
+            }
         }
+    ];
 
-        setChecked(newChecked);
-    };
 
 
     const StyledGridOverlay = styled('div')(({ theme }) => ({
@@ -93,12 +61,12 @@ const EmployeeManagement = () => {
         justifyContent: 'center',
         height: '100%',
         '& .no-rows-primary': {
-          fill: theme.palette.mode === 'light' ? '#AEB8C2' : '#3D4751',
+            fill: theme.palette.mode === 'light' ? '#AEB8C2' : '#3D4751',
         },
         '& .no-rows-secondary': {
-          fill: theme.palette.mode === 'light' ? '#E8EAED' : '#1D2126',
+            fill: theme.palette.mode === 'light' ? '#E8EAED' : '#1D2126',
         },
-      }));
+    }));
 
     function CustomNoRowsOverlay() {
         return (
@@ -132,28 +100,62 @@ const EmployeeManagement = () => {
             </StyledGridOverlay>
         );
     }
+
+
+
+    function ToolbarHeader(props: unknown) {
+        return (
+            <>
+                <GridToolbarContainer sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', p: 1 }}>
+                    <Box>
+                        <Typography variant="h6">
+                            EmployeeManagement
+                        </Typography>
+                        <Typography variant='caption' color={'text.secondary'}>Manage All Employee Details and add new Employee</Typography>
+                    </Box>
+                    <Box>
+                        <Button variant='contained' size='small' startIcon={<GroupAddRounded />}>New Employee</Button>
+                    </Box>
+                </GridToolbarContainer>
+                <Divider />
+            </>
+
+        );
+    }
+
+
+
+
+
+
+
+
     return (
         <Box>
 
             <Grid container>
-                <Grid item xs={5}>
-                    <Typography variant="h6">
-                        EmployeeManagement...
-                    </Typography>
-                </Grid>
-                <Grid item xs={7} component={Stack} justifyContent={'flex-end'}>
-                    <Button startIcon={<GroupAddRounded />} size='small' variant='contained'>Add Employee</Button>
+
+
+                <Grid item xs={12}>
+                    <Box sx={{ height: 460, width: '100%' }}>
+                        <DataGrid
+                            sx={{ '--DataGrid-overlayHeight': '300px' }}
+                            slots={{
+                                noRowsOverlay: CustomNoRowsOverlay,
+                                toolbar: ToolbarHeader,
+                            }}
+                            rows={rows} columns={columns} checkboxSelection
+                            disableRowSelectionOnClick />
+                    </Box>
                 </Grid>
             </Grid>
 
 
 
-            <Box sx={{ height: 350, width: '100%', mt: 5 }}>
-                <DataGrid
-                    sx={{ '--DataGrid-overlayHeight': '300px' }}
-                    slots={{ noRowsOverlay: CustomNoRowsOverlay }}
-                    rows={rows} columns={columns} />
-            </Box>
+
+
+
+
 
         </Box>
     )

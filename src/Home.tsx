@@ -13,7 +13,7 @@ import healthLogo from "./assets/navAssets/Health.svg";
 import carLogo from "./assets/navAssets/car.svg";
 import travelLogo from "./assets/navAssets/plane.svg";
 import commercialLogo from "./assets/navAssets/commercial.svg"
-import bikeLogo from "./assets/navAssets/bike.svg";
+import bikeLogo from "./assets/navAssets/Bike.svg";
 import { useState } from "react";
 
 const Home = () => {

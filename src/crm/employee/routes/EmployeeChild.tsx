@@ -52,10 +52,6 @@ const getEmployeeRoutes = (role: string) => {
                     element: <EmployeeProfile />
                 },
                 {
-                    path: 'employee/:id',
-                    element: <>Employee Profile Page with id:xxx123</>
-                },
-                {
                     path: 'access-management',
                     element: <AccessManagement />
                 }
