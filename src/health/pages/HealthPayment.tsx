@@ -1,3 +1,6 @@
+import React from "react"
+
+
 const HealthPayment = () => {
   return (
     <div>HealthPayment</div>

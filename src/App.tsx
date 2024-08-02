@@ -49,7 +49,6 @@ const App = () => {
         <ThemeProvider theme={theme({ dark, borderRadius: 5 })}>
             <CssBaseline />
             <AlertBox alert={alert} onClose={handleClose} />
-
             <RouterProvider router={allRouter({ type, role })}></RouterProvider>
             {/* <BrowserRouter>
                 <Routes>

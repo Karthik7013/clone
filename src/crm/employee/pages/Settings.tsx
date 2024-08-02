@@ -24,7 +24,7 @@ const Settings = () => {
         </CardContent>
       </Grid>
       <Grid item xs={12} md={3}>
-        <Card>
+        <Card sx={{ bgcolor: (theme) => alpha(theme.palette.error.dark, 0.1), mt: 3, borderLeft: "4px solid", borderColor: (theme) => theme.palette.error.dark }}>
           <CardContent sx={{ p: 2 }}>
             <Typography variant='subtitle2'>Password Requirment</Typography>
           </CardContent>
@@ -36,17 +36,13 @@ const Settings = () => {
               </ListItem>
               <ListItem>At least one uppercase letter</ListItem>
               <ListItem>At least one number</ListItem>
-
             </List>
           </CardContent>
-
-
-
         </Card>
       </Grid>
       <Grid item xs={12}>
         <Divider />
-        <Paper sx={{ bgcolor: (theme) => alpha(theme.palette.error.dark, 0.1),mt:3 }}>
+        <Paper sx={{ bgcolor: (theme) => alpha(theme.palette.error.dark, 0.1), mt: 3 }}>
           <CardContent>
             <Typography variant='h6'>Delete Account </Typography>
             <Stack rowGap={2} mt={1} maxWidth={600}>
@@ -59,9 +55,7 @@ const Settings = () => {
             </Stack>
           </CardContent>
         </Paper>
-
       </Grid>
-
     </Grid>
   )
 }

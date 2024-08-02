@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Divider, Drawer, IconButton, InputAdornment, ListItemIcon, Menu, MenuItem, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
+import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Divider, Drawer, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
 import React from "react";
 import { Home, Logout, PersonAdd, NotesRounded } from '@mui/icons-material';
 import SideBar from "../common/SideDrawer";
@@ -218,6 +218,7 @@ const CrmLayout = () => {
                         </Breadcrumbs>
                     </Toolbar>
                     <Divider />
+                    <LinearProgress />
                     <CardContent>
                         <Outlet />
                     </CardContent>

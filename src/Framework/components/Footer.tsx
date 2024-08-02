@@ -53,16 +53,16 @@ const Footer = () => {
                 >
                     <Box sx={{ width: { xs: '100%', sm: '60%' } }}>
                         <Box mb={1}>
-                            <Card elevation={0}>
-                                <CardMedia
-                                    component="img"
-                                    alt="green iguana"
 
-                                    sx={{ maxWidth: '120px' }}
+                            <CardMedia
+                                component="img"
+                                alt="green iguana"
 
-                                    image="/logo.jpg"
-                                />
-                            </Card>
+                                sx={{ maxWidth: '120px' }}
+
+                                image="/logo.jpg"
+                            />
+
                         </Box>
                         <Typography variant="body2" fontWeight={600} gutterBottom>
                             NameLix 360° Insurance pvt.lmtd

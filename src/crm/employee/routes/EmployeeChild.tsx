@@ -48,7 +48,7 @@ const getEmployeeRoutes = (role: string) => {
                     element: <Settings />
                 },
                 {
-                    path: 'profile',
+                    path: 'profile/:id',
                     element: <EmployeeProfile />
                 },
                 {

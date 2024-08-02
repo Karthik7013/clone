@@ -33,8 +33,7 @@ const EmployeeManagement = () => {
         { field: 'col1', headerName: 'Employee ID', width: 150 },
         {
             field: 'col2', headerName: 'Employee Name', width: 150,
-            renderCell: (params) => <Link to="/employee/dashboard/profile">{params.value}</Link>
-
+            renderCell: (params) => <Link to={`/employee/dashboard/profile/${params.row.col1}`}>{params.value}</Link>
         },
         { field: 'col3', headerName: 'Access', width: 150 },
         { field: 'col4', headerName: 'Role', width: 150 },

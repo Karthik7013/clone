@@ -22,6 +22,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootProps } from '../../types/RootProps';
 import { handleLogout } from '../../redux/slice/authSlice';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
+import CustomButton from '../ui-components/CustomButton';
+import CustomAppBar from '../ui-components/CustomAppBar';
 const Header: React.FC = () => {
 
     const dispatch = useDispatch()
@@ -58,7 +60,7 @@ const Header: React.FC = () => {
 
 
     return (
-        <AppBar>
+        <CustomAppBar>
             <Container maxWidth="xl">
                 <Toolbar>
                     <Box component={'a'} href='/' sx={{ background: 'white', borderRadius: '0.75rem', padding: 0.5, display: { xs: 'none', md: 'block' } }}>
@@ -150,13 +152,11 @@ const Header: React.FC = () => {
                     </Box>
                     <Box sx={{ flexGrow: { xs: 1, md: 0 }, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                         <Switch size='small' checked={dark} color='info' onChange={toggleMode} />
-                        <Typography variant='body1' mx={1}>{dark ? "Light" : "Dark"}</Typography>
                         {islogin ? <>
-
                             <Tooltip title="Logout">
-                                <Button onClick={() => dispatch(handleLogout())} startIcon={<LogoutRoundedIcon />} sx={{ color: 'white' }}>
+                                <CustomButton onClick={() => dispatch(handleLogout())} startIcon={<LogoutRoundedIcon />} sx={{ color: 'white' }}>
                                     Logout
-                                </Button>
+                                </CustomButton>
                             </Tooltip>
 
                             <Tooltip title={<Typography variant="body1">Role : {profile?.role}</Typography>}>
@@ -166,7 +166,6 @@ const Header: React.FC = () => {
                                     <Avatar src={'https://img.freepik.com/free-photo/3d-illustration-young-business-man-with-funny-expression-his-face_1142-55156.jpg'} sx={{ width: 38, height: 38 }}>{profile?.firstname[0]}</Avatar>
                                 </IconButton>
                             </Tooltip>
-
                         </> :
                             <Tooltip title="Signin">
                                 <Button startIcon={<LoginRoundedIcon />} onClick={handleOpenSignInMenu} sx={{ color: 'white' }}>
@@ -174,8 +173,6 @@ const Header: React.FC = () => {
                                 </Button>
                             </Tooltip>
                         }
-
-
                         <Menu
                             sx={{ mt: '45px', px: 2 }}
                             id="menu-appbar"
@@ -221,13 +218,11 @@ const Header: React.FC = () => {
                                         </MenuItem>
                                     </>
                             }
-
                         </Menu>
-
                     </Box>
                 </Toolbar>
             </Container>
-        </AppBar>
+        </CustomAppBar>
     )
 }
 

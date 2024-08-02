@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Box, Card, CardContent, Container, Grid, Stack } from "@mui/material";
+import { Avatar, Box, Button, Card, CardContent, CardMedia, Container, Grid, ListItem, ListItemIcon, ListItemText, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 // bg-layer
@@ -15,6 +15,7 @@ import travelLogo from "./assets/navAssets/plane.svg";
 import commercialLogo from "./assets/navAssets/commercial.svg"
 import bikeLogo from "./assets/navAssets/Bike.svg";
 import { useState } from "react";
+import giftBox from './assets/spark.svg';
 
 const Home = () => {
     type navProps = {
@@ -26,21 +27,37 @@ const Home = () => {
     const [vehicleType, setVehicleType] = useState<'car' | 'bike' | 'commercial'>('car');
 
     // products navigations images url
-    const products: navProps[] = [{
-        imgUrl: healthLogo,
-        name: "Health",
-        path: 'health'
-    },
-    {
-        imgUrl: travelLogo,
-        name: "Travel",
-        path: 'travel'
-    },
-    {
-        imgUrl: loanLogo,
-        name: "Loan",
-        path: 'loan'
-    }]
+    const products: navProps[] = [
+        {
+            imgUrl: carLogo,
+            name: "Car",
+            path: '/motor/car'
+        },
+        {
+            imgUrl: bikeLogo,
+            name: "Bike",
+            path: '/motor/bike'
+        },
+        {
+            imgUrl: commercialLogo,
+            name: "Commercial",
+            path: '/motor/commercial'
+        },
+        {
+            imgUrl: healthLogo,
+            name: "Health",
+            path: 'health'
+        },
+        {
+            imgUrl: travelLogo,
+            name: "Travel",
+            path: 'travel'
+        },
+        {
+            imgUrl: loanLogo,
+            name: "Loan",
+            path: 'loan'
+        }]
 
     // get the background moving layer car bike commercial
     const Layer = () => {
@@ -81,47 +98,71 @@ const Home = () => {
     }
 
     return <Box sx={{ height: "100vh" }}>
-        <Layer />
+        {/* <Layer /> */}
         <Container maxWidth='lg'>
-            <Grid container spacing={2} mt={1} flexGrow={1}>
-                <Grid item xs={4} sm={3} md={3} lg={2}>
-                    <Card elevation={0} onClick={() => setVehicleType('car')}>
-                        <CardContent>
-                            <Avatar src={carLogo} sx={{ width: "60px", height: "60px" }} variant="square" />
-                            <div className="addition-service-card-title">Car</div>
-                        </CardContent>
-                    </Card>
+            <Grid container rowGap={2} spacing={2} mt={1} flexGrow={1}>
+                <Grid item xs={12}>
+                    <Stack direction={'row'} justifyContent={'space-between'}>
+                        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                            <Typography variant="h4">Lets Find Your</Typography>
+                            <Typography variant="h4" fontWeight={600}>Best Insurance Plan</Typography>
+                            <Stack direction={'row'} gap={2} >
+                                <ListItem>
+                                    <ListItemIcon sx={{ minWidth: 24 }}>
+                                        <CardMedia sx={{ width: 16, height: 16 }} component={'img'} image={giftBox} alt="" /></ListItemIcon>
+                                    <ListItemText>
+                                        <Typography variant="body1">
+
+                                            Quick, easy &
+                                            hassle free</Typography>
+                                    </ListItemText>
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemIcon sx={{ minWidth: 24 }}>
+                                        <CardMedia sx={{ width: 16, height: 16 }} component={'img'} image={giftBox} alt="" />
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        <Typography variant="body1">
+                                            80+ Insurer Partners Support</Typography>
+                                    </ListItemText>
+                                </ListItem>
+                            </Stack>
+                            <ListItem>
+                                <ListItemIcon sx={{ minWidth: 24 }}>
+                                    <CardMedia sx={{ width: 16, height: 16 }} component={'img'} image={giftBox} alt="" /></ListItemIcon>
+                                <ListItemText>
+                                    <Typography variant="body1">
+
+                                        Quick, easy &
+                                        hassle free</Typography>
+                                </ListItemText>
+                            </ListItem>
+
+                        </Box>
+                        <Box>
+                            <Card elevation={0}>
+                                <CardMedia height={200} component={'img'} image="https://static.pbcdn.in/cdn/images/home/health-web-desktop.png" alt='card1' />
+                            </Card>
+                        </Box>
+                    </Stack>
+
                 </Grid>
-                <Grid item xs={4} sm={3} md={3} lg={2}>
-                    <Card elevation={0} onClick={() => setVehicleType('bike')}>
-                        <CardContent>
-                            <Avatar src={bikeLogo} sx={{ width: "60px", height: "60px" }} variant="square" />
-                            <div className="addition-service-card-title">Bike</div>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={4} sm={3} md={3} lg={2}>
-                    <Card elevation={0} onClick={() => setVehicleType('commercial')} component={Stack} gap={2} justifyContent={'center'}>
-                        <CardContent>
-                            <Avatar sx={{ width: "60px", height: "60px" }} variant="square" src={commercialLogo} />
-                            <div className="addition-service-card-title">Commercial</div>
-                        </CardContent>
-                    </Card>
-                </Grid>
+
                 {
                     products.map((nav: navProps, _: number) => {
                         return <Grid key={_} item xs={4} sm={3} md={3} lg={2}>
                             <Link to={nav.path} >
-                                <Card elevation={0}>
-                                    <CardContent>
-                                        <Avatar src={nav.imgUrl} sx={{ width: "60px", height: "60px", objectFit: 'cover' }} variant="square" />
-                                        <div className="addition-service-card-title">{nav.name}</div>
-                                    </CardContent>
-                                </Card>
+                                <CardContent sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                                    <Avatar src={nav.imgUrl} sx={{ width: "24px", height: "24px", objectFit: 'cover' }} variant="square" />
+                                    <Typography className="addition-service-card-title">{nav.name}</Typography>
+                                </CardContent>
                             </Link>
                         </Grid>
                     })
                 }
+                <Grid item xs={12}>
+                    <Button sx={{ margin: 'auto' }} size="small" variant="outlined">View all products</Button>
+                </Grid>
             </Grid>
         </Container>
     </Box>
