@@ -18,11 +18,11 @@ const EmployeeProfile = () => {
           </Stack>
           <List dense>
             <ListItem sx={{ px: 0 }}>
-              <ListItemIcon sx={{ minWidth: 34 }}><MailRoundedIcon /></ListItemIcon>
+              <ListItemIcon sx={{ minWidth: 34 }}><MailRoundedIcon fontSize='small' /></ListItemIcon>
               <ListItemText>karthiktumala143@gmail.com</ListItemText>
             </ListItem>
             <ListItem sx={{ px: 0 }}>
-              <ListItemIcon sx={{ minWidth: 34 }}><PhoneAndroidRoundedIcon /></ListItemIcon>
+              <ListItemIcon sx={{ minWidth: 34 }}><PhoneAndroidRoundedIcon fontSize='small' /></ListItemIcon>
               <ListItemText>+91 7013140693</ListItemText>
             </ListItem>
           </List>

@@ -2,7 +2,7 @@ import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Divider, Dr
 import React from "react";
 import { Home, Logout, PersonAdd, NotesRounded } from '@mui/icons-material';
 import SideBar from "../common/SideDrawer";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootProps } from "../../types/RootProps";
 import { toggleTheme } from "../../redux/slice/uiSlice";
@@ -11,9 +11,11 @@ import PageNotFound from "../../Framework/components/PageNotFound";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
-
 const drawerWidth = 240;
 const CrmLayout = () => {
+    const location = useLocation();
+    const links = location.pathname.split('/').slice(2);
+    console.log(links)
 
     const dispatch = useDispatch()
     const profile = useSelector((state: RootProps) => state.auth.profile);
@@ -76,8 +78,6 @@ const CrmLayout = () => {
 
         </Card>
     }
-
-
 
     return (
         <Box>
@@ -211,10 +211,14 @@ const CrmLayout = () => {
                     <Toolbar />
                     <Toolbar>
                         <Breadcrumbs aria-label="breadcrumb">
-                            <Link color="inherit" to="/employee/dashboard">
-                                Dashboard
-                            </Link>
-                            <Typography color="text.primary">Analytics</Typography>
+                            {links.map((e, index) => {
+                                if (links.length - 1 === index) {
+                                    return <Typography variant="body1">{e}</Typography>
+                                }
+                                return <Link color="inherit" to="/employee/dashboard">
+                                    {e}
+                                </Link>
+                            })}
                         </Breadcrumbs>
                     </Toolbar>
                     <Divider />

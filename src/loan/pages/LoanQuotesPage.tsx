@@ -1,12 +1,12 @@
 import React from "react";
-import { Badge, Box, Button, Card, CardMedia, Checkbox, Container, Divider, Drawer, FormControlLabel, FormGroup, Grid, List, ListItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography } from "@mui/material"
+import { Alert, Badge, Box, Button, Card, CardMedia, Checkbox, Container, Divider, Drawer, FormControlLabel, FormGroup, Grid, LinearProgress, List, ListItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import CompareArrowsRoundedIcon from '@mui/icons-material/CompareArrowsRounded';
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded"
 import { useState } from "react";
-
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 const LoanQuotesPage = () => {
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const scrollBarStyles = {
@@ -34,7 +34,8 @@ const LoanQuotesPage = () => {
             <Toolbar>
                 <Box component={Stack} gap={2} flexDirection='row' alignItems='center'>
                     <TuneRoundedIcon />
-                    <Typography variant='subtitle1'>Sort & Filter</Typography></Box>
+                    <Typography variant='subtitle1'>Sort & Filter</Typography>
+                </Box>
             </Toolbar>
 
             <Divider />
@@ -97,11 +98,17 @@ const LoanQuotesPage = () => {
                         <Grid container columns={18} spacing={2}>
                             <Grid item xs={18}>
                                 <Grid container rowGap={3}>
+                                    {/* <Alert sx={{ width: '100%' }} icon={<InfoRoundedIcon />}>
+                                        <Typography>
+                                            This is a dummy alert...
+                                        </Typography>
+                                    </Alert> */}
+
 
                                     {/* quote cards */}
 
 
-                                    {[1, 2, 3, 4].map((e: number) => (
+                                    {[1, 2].map((e: number) => (
                                         <Grid key={e} container rowSpacing={2}>
                                             <Grid item xs={12}>
                                                 <Card sx={{ borderRadius: '9px', boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px', padding: '10px' }}>
@@ -144,6 +151,44 @@ const LoanQuotesPage = () => {
 
                                     ))}
 
+                                    {/* loading quote cards */}
+                                    {
+                                        [1, 2, 3, 4].map((e: number) => {
+                                            return <Grid container rowSpacing={2}>
+                                                <Grid item xs={12}>
+                                                    <Card sx={{ borderRadius: '9px', boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px', padding: '10px' }}>
+                                                        <Box display={'flex'}>
+                                                            <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
+
+                                                                <Skeleton sx={{
+                                                                    height: { xs: 60, md: '100%' }, width: { xs: 100, md: 120 }
+                                                                }} animation='wave' />
+                                                                <Box flex={1} display={'flex'} sx={{ justifyContent: { lg: 'center' } }}>
+                                                                    <Box sx={{ display: { xs: 'flex', lg: 'block' }, gap: 1 }}>
+                                                                        <Skeleton width={200} height={20} />
+                                                                        <Skeleton width={200} height={20} />
+                                                                    </Box>
+                                                                </Box>
+                                                            </Box>
+                                                            <Box >
+                                                                <Skeleton width={100} height={50} />
+                                                            </Box>
+                                                        </Box>
+                                                        <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                                                            <Box >
+                                                                <Skeleton width={18} height={30} />
+                                                            </Box>
+                                                            <Box>
+                                                                <Skeleton width={100} height={16} />
+                                                            </Box>
+                                                        </Box>
+                                                    </Card>
+                                                </Grid>
+                                            </Grid>
+                                        })
+                                    }
+
+
                                     <Link to="/loan/payment">payment</Link>
                                 </Grid>
                             </Grid>
@@ -152,6 +197,7 @@ const LoanQuotesPage = () => {
                 </Box>
 
                 <Stack width={300} rowGap={3} py={3} pr={3} sx={{ display: { xs: 'none', md: 'flex' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'scroll', ...scrollBarHidden }}>
+                    {[1, 2].map((e: number) => <Skeleton key={e} sx={{ borderRadius: '1em', minHeight: '120px' }} variant='rectangular' animation="pulse"></Skeleton>)}
                     {[1, 2].map((e: number) => <Skeleton key={e} sx={{ borderRadius: '1em', minHeight: '120px' }} variant='rectangular' animation="pulse"></Skeleton>)}
                 </Stack>
             </Stack>

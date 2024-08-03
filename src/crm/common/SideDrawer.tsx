@@ -14,7 +14,6 @@ type props = {
 
 const SideDrawer = (props: props) => {
     const items = props.items;
-    console.log(items)
     return (<div>
 
         <Toolbar >
