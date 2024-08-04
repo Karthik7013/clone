@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Badge, Box, Button, Card, CardMedia, Checkbox, Container, Divider, Drawer, FormControlLabel, FormGroup, Grid, LinearProgress, List, ListItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography } from "@mui/material"
+import { Alert, Badge, Box, Button, Card, CardContent, CardMedia, Checkbox, Container, Divider, Drawer, FormControlLabel, FormGroup, Grid, LinearProgress, List, ListItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
@@ -197,8 +197,14 @@ const LoanQuotesPage = () => {
                 </Box>
 
                 <Stack width={300} rowGap={3} py={3} pr={3} sx={{ display: { xs: 'none', md: 'flex' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'scroll', ...scrollBarHidden }}>
-                    {[1, 2].map((e: number) => <Skeleton key={e} sx={{ borderRadius: '1em', minHeight: '120px' }} variant='rectangular' animation="pulse"></Skeleton>)}
-                    {[1, 2].map((e: number) => <Skeleton key={e} sx={{ borderRadius: '1em', minHeight: '120px' }} variant='rectangular' animation="pulse"></Skeleton>)}
+
+                    {
+                        [1, 2].map((e: number) => {
+                            return <Card>
+                                <CardMedia component={'img'} image="https://img.freepik.com/free-vector/health-insurance-template-vector-blog-banner_53876-111243.jpg?size=626&ext=jpg&ga=GA1.1.1631789375.1722771379&semt=ais_hybrid" height={'100%'} />
+                            </Card>
+                        })
+                    }
                 </Stack>
             </Stack>
             <Paper

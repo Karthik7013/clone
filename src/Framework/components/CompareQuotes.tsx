@@ -24,7 +24,7 @@ const CompareQuotes = () => {
               </ListItem>
             </Stack>
             <Box gap={2} flex={1} component={Stack} direction={'row'}>
-              {[1, 2, 3].map((e) => <Card elevation={0} sx={{ width: '100%', maxWidth: 300, p: 1, border: '1px solid gray' }}>
+              {[1, 2, 3].map((e) => <Card elevation={2} sx={{ width: '100%', maxWidth: 300, p: 1, border: '1px solid #e5e5e5' }}>
                 <Stack direction={'row'} gap={2}>
                   <CardMedia
                     component={'img'}
@@ -59,7 +59,7 @@ const CompareQuotes = () => {
 
       </Box>
       <Container sx={{ mt: 5 }}>
-        <Accordion elevation={4}>
+        {['Important Features', 'Benfits', 'Add Ons'].map((e: string) => <Accordion elevation={4}>
           <AccordionSummary
             expandIcon={<ExpandMore />}
             aria-label="Expand"
@@ -68,13 +68,13 @@ const CompareQuotes = () => {
           >
             <ListItem>
               <ListItemIcon sx={{ minWidth: '34px' }}><StarsRoundedIcon color='warning' /></ListItemIcon>
-              <ListItemText><Typography variant='h6'>Important Features</Typography></ListItemText>
+              <ListItemText><Typography variant='h6'>{e}</Typography></ListItemText>
             </ListItem>
           </AccordionSummary>
           <AccordionDetails>
             <Divider />
           </AccordionDetails>
-        </Accordion>
+        </Accordion>)}
       </Container>
     </>
   )
