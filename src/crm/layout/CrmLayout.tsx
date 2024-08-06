@@ -103,7 +103,7 @@ const CrmLayout = () => {
                             Hellow {profile?.firstname} !
                         </Typography>
                         <Box flex={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <TextField sx={{ maxWidth: 400, margin: 'auto' }} fullWidth variant="outlined" size="small"
+                            <TextField sx={{ display: { xs: 'none', md: 'block' }, maxWidth: 400, margin: 'auto' }} fullWidth variant="outlined" size="small"
                                 placeholder="Search"
                                 InputProps={{
                                     endAdornment: <InputAdornment position="start"><SearchRoundedIcon /></InputAdornment>,
@@ -111,12 +111,14 @@ const CrmLayout = () => {
                             ></TextField>
                         </Box>
                         <Stack direction="row" alignItems='center' gap={2}>
-                            <Switch checked={dark} color="info" size="small" onChange={handleTheme} />
+                            <Stack direction={'row'} sx={{ display: { xs: 'none', md: 'block' } }}>
 
-                            <Badge color="error" badgeContent={4}>
-                                <IconButton color="inherit"><NotificationsIcon /></IconButton>
-                            </Badge>
+                                <Switch checked={dark} color="info" size="small" onChange={handleTheme} />
 
+                                <Badge color="error" badgeContent={4}>
+                                    <IconButton color="inherit"><NotificationsIcon /></IconButton>
+                                </Badge>
+                            </Stack>
 
                             <Tooltip
                                 sx={{ maxWidth: '100%' }}

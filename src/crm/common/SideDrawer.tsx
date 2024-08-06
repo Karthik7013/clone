@@ -1,4 +1,4 @@
-import { Avatar, Divider, Icon, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Divider, Icon, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { navProps } from '../../types/AuthProps/AuthProps';
 import React from 'react';
@@ -14,9 +14,8 @@ type props = {
 
 const SideDrawer = (props: props) => {
     const items = props.items;
-    return (<div>
-
-        <Toolbar >
+    return (<Box>
+        <Toolbar>
             <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} /><Typography variant="body1">Namelix</Typography>
         </Toolbar>
         <Divider />
@@ -25,10 +24,9 @@ const SideDrawer = (props: props) => {
             {items.map((item, index: number) => (
                 <Link to={item.path} key={index}>
                     <ListItem key={index} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton disableRipple>
                             <ListItemIcon>
                                 <Icon>{item.icon}</Icon>
-
                             </ListItemIcon>
                             <ListItemText primary={item.title} />
                         </ListItemButton>
@@ -37,7 +35,7 @@ const SideDrawer = (props: props) => {
             ))}
         </List>
 
-    </div>
+    </Box>
     )
 }
 

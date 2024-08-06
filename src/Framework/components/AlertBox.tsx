@@ -35,7 +35,7 @@ const AlertBox = ({ alert, onClose }: props) => {
         backgroundColor: alert.type && alpha(theme.palette[alert.type].main, 0.05),
         borderWidth: '1px',
         borderLeft: '4px solid',
-        borderLeftColor: alert.type && theme.palette[alert.type].main,
+        borderLeftColor: alert.type && theme.palette[alert.type].main
     }));
 
     const AlertIcon = (type: 'info' | 'error' | 'warning' | 'success' | undefined) => {
@@ -60,6 +60,7 @@ const AlertBox = ({ alert, onClose }: props) => {
             autoHideDuration={3000}
             onClose={handleClose}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+
         >
             <CustomAlert variant='outlined' icon={AlertIcon(alert.type)} severity={alert.type}>{alert.message}</CustomAlert>
         </Snackbar>

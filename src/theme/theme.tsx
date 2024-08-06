@@ -6,18 +6,24 @@ type customStylesProps = {
 }
 
 const theme = (customStyles: customStylesProps) => {
+    const { dark, borderRadius } = customStyles
     return createTheme({
         palette: {
-            mode: customStyles.dark ? 'dark' : 'light',
+            mode: dark ? 'dark' : 'light',
             background: {
-                default: customStyles.dark ? '#090a19' : '#FFFDFB'
+                default: dark ? '#020f16' : '#FFFDFB',
+                paper: dark ? '#020f16' : '#FFFDFB'
+            },
+            primary: {
+                main: '#23a8fa',
+                contrastText: '#fff'
             },
         },
         shape: {
-            borderRadius: customStyles.borderRadius
+            borderRadius: borderRadius
         },
         typography: {
-            fontFamily: 'Montserrat'
+            fontFamily: 'Montserrat',
         },
         components: {
             MuiAccordion: {
@@ -28,8 +34,22 @@ const theme = (customStyles: customStylesProps) => {
                         }
                     }
                 }
+            },
+            MuiAppBar: {
+                styleOverrides: {
+                    root: {
+                        // backgroundColor: dark ? "#003f67" : '#23a8fa'
+                    }
+                }
+            },
+            MuiListItemText: {
+                styleOverrides: {
+                    root: {
+                        color: dark ? '#fff' : '#040D12',
+                    }
+                }
             }
-        }
+        },
     })
 
 }

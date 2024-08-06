@@ -1,32 +1,34 @@
 import { Delete, Edit, GroupAddRounded } from '@mui/icons-material';
 import { Box, Button, Checkbox, Chip, Divider, Grid, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, styled, Toolbar, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { DataGrid, GridColDef, GridRowsProp, GridToolbarContainer } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import ModeEditRoundedIcon from '@mui/icons-material/ModeEditRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
+import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
+import CustomButton from '../../../Framework/ui-components/CustomButton';
 const EmployeeManagement = () => {
     const rows: GridRowsProp = [
-        { id: 1, col1: '123456789', col2: 'Mia Khalifa', col3: 'Admin', col4: 'CEO', col5: 'Active', col6: 'karthiktumala143@gmail.com', col7: '26-11-1999', col8: '+91 7013140693', col9: 'Super' },
-        { id: 2, col1: '987654321', col2: 'John Doe', col3: 'User', col4: 'Manager', col5: 'Inactive', col6: 'johndoe@example.com', col7: '15-05-1985', col8: '+91 9999999999', col9: 'Admin' },
-        { id: 3, col1: '192837465', col2: 'Jane Smith', col3: 'Admin', col4: 'Lead', col5: 'Active', col6: 'janesmith@example.com', col7: '02-03-1990', col8: '+91 8888888888', col9: 'Editor' },
-        { id: 4, col1: '564738291', col2: 'Robert Brown', col3: 'User', col4: 'Developer', col5: 'Pending', col6: 'robertbrown@example.com', col7: '20-11-1988', col8: '+91 7777777777', col9: 'User' },
-        { id: 5, col1: '102938475', col2: 'Emily Davis', col3: 'Admin', col4: 'Designer', col5: 'Active', col6: 'emilydavis@example.com', col7: '14-07-1983', col8: '+91 6666666666', col9: 'Admin' },
-        { id: 6, col1: '564829374', col2: 'Michael Wilson', col3: 'User', col4: 'Analyst', col5: 'Inactive', col6: 'michaelwilson@example.com', col7: '30-12-1992', col8: '+91 5555555555', col9: 'Editor' },
-        { id: 7, col1: '473829102', col2: 'Sophia Martinez', col3: 'Admin', col4: 'Coordinator', col5: 'Active', col6: 'sophiamartinez@example.com', col7: '25-09-1986', col8: '+91 4444444444', col9: 'Super' },
-        { id: 8, col1: '983746251', col2: 'James Taylor', col3: 'User', col4: 'Tester', col5: 'Pending', col6: 'jamestaylor@example.com', col7: '11-01-1989', col8: '+91 3333333333', col9: 'User' },
-        { id: 9, col1: '284736591', col2: 'Olivia Anderson', col3: 'Admin', col4: 'Marketing', col5: 'Active', col6: 'oliviaanderson@example.com', col7: '19-08-1991', col8: '+91 2222222222', col9: 'Admin' },
-        { id: 10, col1: '736492817', col2: 'William Thomas', col3: 'User', col4: 'Support', col5: 'Inactive', col6: 'williamthomas@example.com', col7: '12-04-1987', col8: '+91 1111111111', col9: 'Editor' },
-        { id: 11, col1: '102938475', col2: 'Ava Wilson', col3: 'Admin', col4: 'Sales', col5: 'Active', col6: 'avawilson@example.com', col7: '22-05-1993', col8: '+91 9999999990', col9: 'Super' },
-        { id: 12, col1: '564738291', col2: 'Liam Lee', col3: 'User', col4: 'Product Manager', col5: 'Pending', col6: 'liamlee@example.com', col7: '07-06-1984', col8: '+91 8888888889', col9: 'User' },
-        { id: 13, col1: '384756291', col2: 'Isabella Harris', col3: 'Admin', col4: 'HR', col5: 'Active', col6: 'isabellaharris@example.com', col7: '17-12-1990', col8: '+91 7777777778', col9: 'Admin' },
-        { id: 14, col1: '284736910', col2: 'Mason Clark', col3: 'User', col4: 'Intern', col5: 'Inactive', col6: 'masonclark@example.com', col7: '29-01-1995', col8: '+91 6666666665', col9: 'Editor' },
-        { id: 15, col1: '736492018', col2: 'Mia Lewis', col3: 'Admin', col4: 'Executive', col5: 'Active', col6: 'mialewis@example.com', col7: '05-10-1988', col8: '+91 5555555554', col9: 'Super' },
-        { id: 16, col1: '493827465', col2: 'Noah Walker', col3: 'User', col4: 'Consultant', col5: 'Pending', col6: 'noahwalker@example.com', col7: '23-11-1992', col8: '+91 4444444443', col9: 'User' },
-        { id: 17, col1: '102938576', col2: 'Emma Robinson', col3: 'Admin', col4: 'Strategist', col5: 'Active', col6: 'emmarobinson@example.com', col7: '14-09-1987', col8: '+91 3333333332', col9: 'Admin' },
-        { id: 18, col1: '564738392', col2: 'Oliver King', col3: 'User', col4: 'Data Scientist', col5: 'Inactive', col6: 'oliverking@example.com', col7: '31-05-1986', col8: '+91 2222222221', col9: 'Editor' },
-        { id: 19, col1: '284736020', col2: 'Charlotte Wright', col3: 'Admin', col4: 'Operations', col5: 'Active', col6: 'charlottewright@example.com', col7: '09-03-1994', col8: '+91 1111111110', col9: 'Super' },
-        { id: 20, col1: '736492347', col2: 'Ethan Scott', col3: 'User', col4: 'Business Analyst', col5: 'Pending', col6: 'ethanscott@example.com', col7: '18-02-1989', col8: '+91 9999999989', col9: 'User' },
+        { id: 1, col1: '1234', col2: 'Mia', col3: 'Backend', col4: 'Admin', col5: 'Telecaller', col6: 'Active', col7: 'karthiktumala143@gmail.com', col8: '05-12-2020', col9: '+91 6048382743' },
+        { id: 2, col1: '5678', col2: 'John', col3: 'Frontend', col4: 'User', col5: 'Developer', col6: 'Inactive', col7: 'john.doe@example.com', col8: '15-01-2021', col9: '+91 7894561230' },
+        { id: 3, col1: '9101', col2: 'Sara', col3: 'Database', col4: 'Admin', col5: 'Analyst', col6: 'Active', col7: 'sara.connor@example.com', col8: '22-02-2022', col9: '+91 3456789012' },
+        { id: 4, col1: '1122', col2: 'Emma', col3: 'Backend', col4: 'User', col5: 'Designer', col6: 'Pending', col7: 'emma.jones@example.com', col8: '30-03-2023', col9: '+91 6543210987' },
+        { id: 5, col1: '3344', col2: 'Lucas', col3: 'Frontend', col4: 'Admin', col5: 'Manager', col6: 'Active', col7: 'lucas.lee@example.com', col8: '01-04-2024', col9: '+91 5678901234' },
+        { id: 6, col1: '5566', col2: 'Sophia', col3: 'Frontend', col4: 'User', col5: 'Tester', col6: 'Inactive', col7: 'sophia.williams@example.com', col8: '10-05-2021', col9: '+91 6789012345' },
+        { id: 7, col1: '7788', col2: 'Daniel', col3: 'Database', col4: 'Admin', col5: 'Support', col6: 'Active', col7: 'daniel.brown@example.com', col8: '20-06-2022', col9: '+91 7890123456' },
+        { id: 8, col1: '9900', col2: 'Olivia', col3: 'Backend', col4: 'User', col5: 'Consultant', col6: 'Pending', col7: 'olivia.smith@example.com', col8: '15-07-2023', col9: '+91 8901234567' },
+        { id: 9, col1: '2233', col2: 'James', col3: 'Frontend', col4: 'Admin', col5: 'Marketing', col6: 'Active', col7: 'james.taylor@example.com', col8: '25-08-2021', col9: '+91 9012345678' },
+        { id: 10, col1: '4455', col2: 'Ava', col3: 'Backend', col4: 'User', col5: 'HR', col6: 'Inactive', col7: 'ava.johnson@example.com', col8: '05-09-2022', col9: '+91 0123456789' },
+        { id: 11, col1: '6677', col2: 'Noah', col3: 'Database', col4: 'Admin', col5: 'Sales', col6: 'Active', col7: 'noah.davis@example.com', col8: '15-10-2023', col9: '+91 1234567890' },
+        { id: 12, col1: '8899', col2: 'Mia', col3: 'Frontend', col4: 'User', col5: 'Executive', col6: 'Pending', col7: 'mia.clark@example.com', col8: '30-11-2021', col9: '+91 2345678901' },
+        { id: 13, col1: '1010', col2: 'Ethan', col3: 'Backend', col4: 'Admin', col5: 'Designer', col6: 'Active', col7: 'ethan.martin@example.com', col8: '01-12-2022', col9: '+91 3456789012' },
+        { id: 14, col1: '1212', col2: 'Isabella', col3: 'Database', col4: 'User', col5: 'Support', col6: 'Inactive', col7: 'isabella.lewis@example.com', col8: '15-01-2023', col9: '+91 4567890123' },
+        { id: 15, col1: '3434', col2: 'Liam', col3: 'Frontend', col4: 'Admin', col5: 'Manager', col6: 'Active', col7: 'liam.walker@example.com', col8: '20-02-2024', col9: '+91 5678901234' },
+        { id: 16, col1: '5656', col2: 'Charlotte', col3: 'Backend', col4: 'User', col5: 'Analyst', col6: 'Pending', col7: 'charlotte.morris@example.com', col8: '25-03-2021', col9: '+91 6789012345' },
+        { id: 17, col1: '7878', col2: 'Mason', col3: 'Database', col4: 'Admin', col5: 'Consultant', col6: 'Active', col7: 'mason.taylor@example.com', col8: '30-04-2022', col9: '+91 7890123456' },
+        { id: 18, col1: '9090', col2: 'Amelia', col3: 'Frontend', col4: 'User', col5: 'Marketing', col6: 'Inactive', col7: 'amelia.martin@example.com', col8: '15-05-2023', col9: '+91 8901234567' },
+        { id: 19, col1: '2121', col2: 'Oliver', col3: 'Backend', col4: 'Admin', col5: 'Sales', col6: 'Active', col7: 'oliver.white@example.com', col8: '01-06-2022', col9: '+91 9012345678' },
+        { id: 20, col1: '4343', col2: 'Avery', col3: 'Database', col4: 'User', col5: 'Executive', col6: 'Pending', col7: 'avery.carter@example.com', col8: '15-07-2021', col9: '+91 0123456789' }
     ];
 
     const columns: GridColDef[] = [
@@ -35,14 +37,15 @@ const EmployeeManagement = () => {
             field: 'col2', headerName: 'Employee Name', width: 150,
             renderCell: (params) => <Link to={`/employee/dashboard/profile/${params.row.col1}`}>{params.value}</Link>
         },
-        { field: 'col3', headerName: 'Access', width: 150 },
-        { field: 'col4', headerName: 'Role', width: 150 },
-        { field: 'col5', headerName: 'Status', width: 150, renderCell: (params) => <Chip variant='filled' label={params.value} clickable /> },
-        { field: 'col6', headerName: 'Email', width: 150 },
-        { field: 'col7', headerName: 'Join Date', width: 150 },
-        { field: 'col8', headerName: 'Contact', width: 150 },
+        { field: 'col3', headerName: 'Department', width: 150 },
+        { field: 'col4', headerName: 'Access', width: 150 },
+        { field: 'col5', headerName: 'Role', width: 150 },
+        { field: 'col6', headerName: 'Status', width: 150, renderCell: (params) => <Chip variant='filled' label={params.value} clickable /> },
+        { field: 'col7', headerName: 'Email', width: 150 },
+        { field: 'col8', headerName: 'Join Date', width: 150 },
+        { field: 'col9', headerName: 'Contact', width: 150 },
         {
-            field: 'col9', headerName: 'Actions', width: 150, renderCell: (params) => {
+            field: 'co10', headerName: 'Actions', width: 150, renderCell: (params) => {
                 return <Stack direction={'row'}>
                     <IconButton><ModeEditRoundedIcon color='info' /></IconButton>
                     <IconButton><DeleteOutlineRoundedIcon color='error' /></IconButton>
@@ -51,7 +54,7 @@ const EmployeeManagement = () => {
         }
     ];
 
-
+    const [editMode, setEditMode] = useState(false);
 
     const StyledGridOverlay = styled('div')(({ theme }) => ({
         display: 'flex',
@@ -100,8 +103,6 @@ const EmployeeManagement = () => {
         );
     }
 
-
-
     function ToolbarHeader(props: unknown) {
         return (
             <>
@@ -122,27 +123,18 @@ const EmployeeManagement = () => {
         );
     }
 
-
-
-
-
-
-
-
     return (
         <Box>
-
             <Grid container>
-
-
                 <Grid item xs={12}>
-                    <Box sx={{ height: 460, width: '100%' }}>
+                    <Box sx={{ height: 460, width: { xs: 380, md: '100%' } }}>
                         <DataGrid
                             sx={{ '--DataGrid-overlayHeight': '300px' }}
                             slots={{
                                 noRowsOverlay: CustomNoRowsOverlay,
                                 toolbar: ToolbarHeader,
                             }}
+                            getRowId={(rowId) => rowId.id}
                             rows={rows} columns={columns} checkboxSelection
                             disableRowSelectionOnClick />
                     </Box>
