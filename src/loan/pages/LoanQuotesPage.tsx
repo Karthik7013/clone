@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Badge, Box, Button, Card, CardContent, CardMedia, Checkbox, Container, Divider, Drawer, FormControlLabel, FormGroup, Grid, LinearProgress, List, ListItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography } from "@mui/material"
+import { Alert, Badge, Box, Button, Card, CardContent, CardMedia, Checkbox, Chip, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Drawer, FormControlLabel, FormGroup, Grid, LinearProgress, List, ListItem, Paper, Skeleton, Slide, Slider, Stack, TextField, Toolbar, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
@@ -7,8 +7,11 @@ import CompareArrowsRoundedIcon from '@mui/icons-material/CompareArrowsRounded';
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded"
 import { useState } from "react";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+
 const LoanQuotesPage = () => {
+    const [viewDetails, setViewDetails] = useState(false)
     const [isMobile, setIsMobile] = useState<boolean>(false);
+    const [productCompare, setProductCompare] = useState([]);
     const scrollBarStyles = {
         overflow: 'auto', // Enable scrollbars
         '&::-webkit-scrollbar': {
@@ -32,19 +35,30 @@ const LoanQuotesPage = () => {
     const NavItems = (
         <Box sx={{ width: '240px' }}>
             <Toolbar>
-                <Box component={Stack} gap={2} flexDirection='row' alignItems='center'>
-                    <TuneRoundedIcon />
-                    <Typography variant='subtitle1'>Sort & Filter</Typography>
+                <Box width={'100%'} component={Stack} justifyContent={'space-between'} direction='row' alignItems='center'>
+                    <Box component={Stack} direction='row' alignItems={'center'} gap={1}>
+                        <TuneRoundedIcon fontSize="small" />
+                        <Typography variant='subtitle1'>Sort</Typography>
+                    </Box>
+                    <Box>
+                        <Chip clickable label="clear" size="small" color="default" />
+                    </Box>
+
+
+
                 </Box>
             </Toolbar>
 
             <Divider />
             <List>
                 <ListItem>
-                    <TextField />
+                    <TextField size="small" label='Sum Insure' />
                 </ListItem>
                 <ListItem>
-                    <TextField />
+                    <Slider />
+                </ListItem>
+                <ListItem>
+                    <TextField size="small" />
                 </ListItem>
             </List>
             <Toolbar>
@@ -55,12 +69,35 @@ const LoanQuotesPage = () => {
             </Toolbar>
             <Divider />
             <List>
-                <ListItem disablePadding>
+                <ListItem>
                     <TextField />
                 </ListItem>
+                <ListItem>
+                    <Button variant="contained" sx={{ width: '100%' }}>Apply</Button>
+                </ListItem>
+
             </List>
+
+
+
         </Box>
     );
+
+    const openViewDetails = () => {
+        setViewDetails(true)
+    }
+
+    const closeViewDetails = () => {
+        setViewDetails(false);
+    }
+
+    const handleCompare = (id: number) => {
+        if (productCompare.length <= 3) {
+
+        }
+    }
+    const cancel = () => setProductCompare([])
+
 
     return (
         <Box>
@@ -98,11 +135,11 @@ const LoanQuotesPage = () => {
                         <Grid container columns={18} spacing={2}>
                             <Grid item xs={18}>
                                 <Grid container rowGap={3}>
-                                    {/* <Alert sx={{ width: '100%' }} icon={<InfoRoundedIcon />}>
+                                    <Alert sx={{ width: '100%' }} icon={<InfoRoundedIcon />}>
                                         <Typography>
                                             This is a dummy alert...
                                         </Typography>
-                                    </Alert> */}
+                                    </Alert>
 
 
                                     {/* quote cards */}
@@ -138,11 +175,11 @@ const LoanQuotesPage = () => {
                                                     </Box>
                                                     <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                                                         <FormGroup>
-                                                            <FormControlLabel control={<Checkbox size='small' />} label={<Typography variant="caption">Compare</Typography>} />
+                                                            <FormControlLabel control={<Checkbox onChange={() => handleCompare(e)} size='small' />} label={<Typography variant="caption">Compare</Typography>} />
                                                         </FormGroup>
-                                                        <Box>
+                                                        <Button size="small" onClick={openViewDetails}>
                                                             <Typography variant='caption' color={'text.secondary'}>View Details</Typography>
-                                                        </Box>
+                                                        </Button>
                                                     </Box>
                                                 </Card>
                                             </Grid>
@@ -185,6 +222,27 @@ const LoanQuotesPage = () => {
                                             </Grid>
                                         })
                                     }
+                                    {/* view product details */}
+
+                                    <Dialog
+                                        open={viewDetails}
+
+                                        keepMounted
+                                        // onClose={closeViewDetails}
+                                        aria-describedby="alert-dialog-slide-description"
+                                    >
+                                        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+                                        <DialogContent>
+                                            <DialogContentText id="alert-dialog-slide-description">
+                                                Let Google help apps determine location. This means sending anonymous
+                                                location data to Google, even when no apps are running.
+                                            </DialogContentText>
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button onClick={closeViewDetails}>Disagree</Button>
+                                            <Button onClick={closeViewDetails}>Agree</Button>
+                                        </DialogActions>
+                                    </Dialog>
 
 
                                     <Link to="/loan/payment">payment</Link>
@@ -194,7 +252,6 @@ const LoanQuotesPage = () => {
                     </Container>
                 </Box>
                 <Stack width={300} rowGap={3} py={3} pr={3} sx={{ display: { xs: 'none', md: 'flex' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'scroll', ...scrollBarHidden }}>
-
                     {
                         [1, 2].map((e: number) => {
                             return <Card>
@@ -204,7 +261,8 @@ const LoanQuotesPage = () => {
                     }
                 </Stack>
             </Stack>
-            <Paper
+
+            {productCompare.length !== 0 && <Paper
                 role="dialog"
                 aria-modal="false"
                 aria-label="Cookie banner"
@@ -252,8 +310,6 @@ const LoanQuotesPage = () => {
 
                             })}
 
-
-
                         </Box>
                         <Stack
                             gap={2}
@@ -277,8 +333,8 @@ const LoanQuotesPage = () => {
                     </Stack>
                 </Container>
 
-            </Paper>
-        </Box>
+            </Paper>}
+        </Box >
     )
 }
 

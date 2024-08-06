@@ -143,9 +143,15 @@ const Header: React.FC = () => {
                                 </Stack>
                             </MenuItem>
                         </Menu>
-                        <Button sx={{ color: 'white', display: 'block' }}>
-                            Claims
-                        </Button>
+                        <Tooltip
+                            title={<>
+                                hellowjlksjkljlkjklfjakfja;
+                            </>}>
+                            <Button sx={{ color: 'white', display: 'block' }}>
+                                Claims
+                            </Button>
+                        </Tooltip>
+
                         <Button sx={{ color: 'white', display: 'block' }}>
                             Contact
                         </Button>
