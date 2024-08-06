@@ -18,6 +18,17 @@ const theme = (customStyles: customStylesProps) => {
         },
         typography: {
             fontFamily: 'Montserrat'
+        },
+        components: {
+            MuiAccordion: {
+                styleOverrides: {
+                    root: {
+                        '&.Mui-expanded': {
+                            margin: 0
+                        }
+                    }
+                }
+            }
         }
     })
 

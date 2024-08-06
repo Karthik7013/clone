@@ -59,7 +59,7 @@ const CompareQuotes = () => {
 
       </Box>
       <Container sx={{ mt: 5 }}>
-        {['Important Features', 'Benfits', 'Add Ons'].map((e: string) => <Accordion elevation={4}>
+        {['Important Features', 'Benfits', 'Add Ons'].map((e: string) => <Accordion elevation={1}>
           <AccordionSummary
             expandIcon={<ExpandMore />}
             aria-label="Expand"

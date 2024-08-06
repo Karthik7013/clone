@@ -111,7 +111,7 @@ const LoanQuotesPage = () => {
                                     {[1, 2].map((e: number) => (
                                         <Grid key={e} container rowSpacing={2}>
                                             <Grid item xs={12}>
-                                                <Card sx={{ borderRadius: '9px', boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px', padding: '10px' }}>
+                                                <Card sx={{ borderRadius: '9px', padding: '10px' }}>
                                                     <Box display={'flex'}>
                                                         <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
                                                             <CardMedia
@@ -147,8 +147,6 @@ const LoanQuotesPage = () => {
                                                 </Card>
                                             </Grid>
                                         </Grid>
-
-
                                     ))}
 
                                     {/* loading quote cards */}
@@ -156,7 +154,7 @@ const LoanQuotesPage = () => {
                                         [1, 2, 3, 4].map((e: number) => {
                                             return <Grid container rowSpacing={2}>
                                                 <Grid item xs={12}>
-                                                    <Card sx={{ borderRadius: '9px', boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px', padding: '10px' }}>
+                                                    <Card sx={{ borderRadius: '9px', padding: '10px' }}>
                                                         <Box display={'flex'}>
                                                             <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
 
@@ -195,7 +193,6 @@ const LoanQuotesPage = () => {
                         </Grid>
                     </Container>
                 </Box>
-
                 <Stack width={300} rowGap={3} py={3} pr={3} sx={{ display: { xs: 'none', md: 'flex' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'scroll', ...scrollBarHidden }}>
 
                     {
