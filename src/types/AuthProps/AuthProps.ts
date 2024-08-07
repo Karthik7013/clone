@@ -17,8 +17,8 @@ type authProps = {
 type profileProps = {
     joinDate: string,
     access?: string[],
-    type: 'employee' | 'posp' | 'customer',
-    role: string,
+    type: 'employee' | 'customer' | 'posp' | undefined,
+    role: 'ceo' | 'hr' | 'accountant' | 'telecallers' | undefined,
     firstname: string,
     lastname: string,
     dob: string,

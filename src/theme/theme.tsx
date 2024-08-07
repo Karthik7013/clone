@@ -2,11 +2,12 @@ import { createTheme } from "@mui/material";
 
 type customStylesProps = {
     dark: boolean,
-    borderRadius: number
+    borderRadius: number,
+    fontFamily: string
 }
 
 const theme = (customStyles: customStylesProps) => {
-    const { dark, borderRadius } = customStyles
+    const { dark, borderRadius, fontFamily } = customStyles;
     return createTheme({
         palette: {
             mode: dark ? 'dark' : 'light',
@@ -23,7 +24,7 @@ const theme = (customStyles: customStylesProps) => {
             borderRadius: borderRadius
         },
         typography: {
-            fontFamily: 'Montserrat',
+            fontFamily: fontFamily,
         },
         components: {
             MuiAccordion: {

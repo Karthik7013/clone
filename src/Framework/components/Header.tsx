@@ -24,6 +24,9 @@ import { handleLogout } from '../../redux/slice/authSlice';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import CustomButton from '../ui-components/CustomButton';
 import CustomAppBar from '../ui-components/CustomAppBar';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 const Header: React.FC = () => {
 
     const dispatch = useDispatch()
@@ -206,19 +209,19 @@ const Header: React.FC = () => {
                                     <>
                                         <MenuItem onClick={() => navigate('/signin')}>
                                             <Stack direction={'row'} gap={1} >
-                                                <ManageAccountsIcon fontSize='small' />
+                                                <AccountCircleRoundedIcon fontSize='small' />
                                                 <Typography textAlign="center" >cusotmer</Typography>
                                             </Stack>
                                         </MenuItem>
                                         <MenuItem onClick={() => navigate('/signin')}>
                                             <Stack direction={'row'} gap={1}>
-                                                <LeaderboardIcon fontSize='small' />
+                                                <AssignmentIndIcon fontSize='small' />
                                                 <Typography textAlign="center">posp</Typography>
                                             </Stack>
                                         </MenuItem>
                                         <MenuItem onClick={() => navigate('/employee/login')}>
                                             <Stack direction={'row'} gap={1}>
-                                                <LogoutRoundedIcon fontSize='small' />
+                                                <AdminPanelSettingsIcon fontSize='small' />
                                                 <Typography textAlign="center">Admin</Typography>
                                             </Stack>
                                         </MenuItem>

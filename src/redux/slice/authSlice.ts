@@ -246,7 +246,6 @@ const authSlice = createSlice({
                 // state.profile = customerProfile;
                 // window.location.href = '/customer/dashboard';
 
-
                 // state.profile = pospProfile;
                 // window.location.href = '/posp/dashboard';
             })

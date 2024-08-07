@@ -13,6 +13,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import Container from '@mui/material/Container';
 
+import LoginAvatar from "../../assets/user-profile.svg";
+import AgentAvatar from '../../assets/agent-svgrepo-com.svg';
+
 function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -48,8 +51,8 @@ const Login = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1}}>
-                        <LockOutlinedIcon />
+                    <Avatar src={AgentAvatar} sx={{ width: 70, height: 70, m: 1 }}>
+
                     </Avatar>
                     <Typography component="h1" textAlign='center' variant="h5">
                         Sign in <br />  Customer/Posp

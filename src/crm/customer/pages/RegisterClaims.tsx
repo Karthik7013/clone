@@ -1,7 +1,8 @@
-
+import { Box } from "@mui/material"
+import React from "react"
 const RegisterClaims = () => {
   return (
-    <div>RegisterClaims</div>
+    <Box>RegisterClaims</Box>
   )
 }
 

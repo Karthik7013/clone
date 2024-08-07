@@ -20,9 +20,15 @@ import PageNotFound from "./Framework/components/PageNotFound";
 
 import CrmLayout from "./crm/layout/CrmLayout";
 import EmployeeChild from "./crm/employee/routes/EmployeeChild";
+import getCustomerRoutes from "./crm/customer/routes/CustomerChilds";
+import getPospRoutes from "./crm/posp/routes/pospChilds";
 
+type allRouterProps = {
+    type: 'employee' | 'customer' | 'posp' | undefined,
+    role: 'ceo' | 'hr' | 'accountant' | 'telecallers' | undefined,
+}
 
-export const allRouter = (props: { type: string; role: string | undefined; }) => {
+export const allRouter = (props: allRouterProps) => {
     let commonRoutes = [
         {
             path: "/",
@@ -144,20 +150,32 @@ export const allRouter = (props: { type: string; role: string | undefined; }) =>
         },
     ]
 
-    const EmployeeRoutes = (role: string) => ({
+    const employeeRoutes = (role: string) => ({
         path: 'employee/dashboard',
         element: <CrmLayout />,
         children: [...EmployeeChild(role)]
     })
 
+    const customerRoutes = () => ({
+        path: 'customer/dashboard',
+        element: <CrmLayout />,
+        children: [...getCustomerRoutes()]
+    })
+
+    const pospRoutes = () => ({
+        path: 'posp/dashboard',
+        element: <CrmLayout />,
+        children: [...getPospRoutes()]
+    })
+
     if (props.type === 'employee') {
-        commonRoutes = [...commonRoutes, EmployeeRoutes(props.role)]
+        commonRoutes.push(employeeRoutes(props.role))
     }
     if (props.type === 'customer') {
-        // commonRoutes.push(CustomerRoutes)
+        commonRoutes.push(customerRoutes())
     }
     if (props.type === 'posp') {
-        // commonRoutes.push()
+        commonRoutes.push(pospRoutes())
     }
 
     return createBrowserRouter(commonRoutes);

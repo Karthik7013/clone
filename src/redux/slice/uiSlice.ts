@@ -5,7 +5,9 @@ import { uiProps } from "../../types/UiProps/uiProps";
 const getPreference = () => localStorage.getItem('dark') || 'light'
 
 const initialState: uiProps = {
-    dark: getPreference() === 'dark' ? true : false
+    dark: getPreference() === 'dark' ? true : false,
+    borderRadius: 32,
+    fontFamily: 'Poppins'
 }
 
 const uiSlice = createSlice({
@@ -15,9 +17,12 @@ const uiSlice = createSlice({
         toggleTheme: (state) => {
             state.dark = !state.dark
             localStorage.setItem('dark', state.dark ? 'dark' : 'light')
+        },
+        changeBorderRadius: (state, action) => {
+            state.borderRadius = action.payload
         }
     }
 })
 
-export const { toggleTheme } = uiSlice.actions
+export const { toggleTheme, changeBorderRadius } = uiSlice.actions
 export default uiSlice.reducer

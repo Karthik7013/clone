@@ -148,12 +148,12 @@ const LoanQuotesPage = () => {
                                     {[1, 2].map((e: number) => (
                                         <Grid key={e} container rowSpacing={2}>
                                             <Grid item xs={12}>
-                                                <Card sx={{ borderRadius: '9px', padding: '10px' }}>
+                                                <Card sx={{ borderRadius: '9px', padding: '6px' }}>
                                                     <Box display={'flex'}>
                                                         <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
                                                             <CardMedia
                                                                 component="img"
-                                                                sx={{ borderRadius: '0.6em', height: { xs: 60, md: 80 }, width: { xs: 100, md: 120 } }}
+                                                                sx={{ borderRadius: '0.4em', height: { xs: 60, md: 60 }, width: { xs: 100, md: 100 } }}
                                                                 image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
                                                             />
                                                             <Box flex={1} display={'flex'} sx={{ justifyContent: { lg: 'center' } }}>
@@ -262,7 +262,7 @@ const LoanQuotesPage = () => {
                 </Stack>
             </Stack>
 
-            {productCompare.length !== 0 && <Paper
+            <Paper
                 role="dialog"
                 aria-modal="false"
                 aria-label="Cookie banner"
@@ -333,7 +333,7 @@ const LoanQuotesPage = () => {
                     </Stack>
                 </Container>
 
-            </Paper>}
+            </Paper>
         </Box >
     )
 }

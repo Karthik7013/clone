@@ -67,8 +67,12 @@ const getEmployeeRoutes = (role: string) => {
                     element: <AccessManagement />
                 },
                 {
-                    path: 'employee/:id',
-                    element: <>Employee Profile Page with id:xxx123</>
+                    path: 'profile/:id',
+                    element: <EmployeeProfile />
+                },
+                {
+                    path: 'settings',
+                    element: <>HR Settings</>
                 }
             ]
         case 'accountant':
