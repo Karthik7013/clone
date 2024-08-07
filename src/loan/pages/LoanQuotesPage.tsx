@@ -7,6 +7,7 @@ import CompareArrowsRoundedIcon from '@mui/icons-material/CompareArrowsRounded';
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded"
 import { useState } from "react";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+import MessageBox from "../../Framework/components/MessageBox";
 
 const LoanQuotesPage = () => {
     const [viewDetails, setViewDetails] = useState(false)
@@ -135,11 +136,10 @@ const LoanQuotesPage = () => {
                         <Grid container columns={18} spacing={2}>
                             <Grid item xs={18}>
                                 <Grid container rowGap={3}>
-                                    <Alert sx={{ width: '100%' }} icon={<InfoRoundedIcon />}>
-                                        <Typography>
-                                            This is a dummy alert...
-                                        </Typography>
-                                    </Alert>
+
+                                    <MessageBox type="info">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero eius ea veniam consectetur cumque non vero illo numquam? Earum quod aut corporis repellendus, error a quis commodi at sunt excepturi ipsum neque, voluptate id iure. Sapiente asperiores atque dicta, unde quo eos
+                                    </MessageBox>
 
 
                                     {/* quote cards */}

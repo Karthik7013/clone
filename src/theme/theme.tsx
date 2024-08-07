@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import { alpha, createTheme, useTheme } from "@mui/material";
 
 type customStylesProps = {
     dark: boolean,
@@ -8,6 +8,7 @@ type customStylesProps = {
 
 const theme = (customStyles: customStylesProps) => {
     const { dark, borderRadius, fontFamily } = customStyles;
+    const theme = useTheme();
     return createTheme({
         palette: {
             mode: dark ? 'dark' : 'light',

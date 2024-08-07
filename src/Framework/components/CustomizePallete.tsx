@@ -34,7 +34,7 @@ const CustomizePallete = () => {
         zIndex: 99999,
         position: 'fixed',
         right: 0,
-        top: '50%',
+        top: '10%',
     }));
     const handleDrawer = () => {
 
