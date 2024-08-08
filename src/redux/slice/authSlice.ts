@@ -62,9 +62,26 @@ const ceoProfile: profileProps = {
             path: "/employee/dashboard/settings",
             icon: "settings",
         },
+    ],
+    menuProps: [
+        {
+            icon: 'home',
+            path: '/',
+            title: 'Home'
+        },
+        {
+            icon: 'account_circle',
+            path: '/',
+            title: 'Profile'
+        },
+        {
+            icon: 'settings_account_box',
+            path: '/',
+            title: 'My Account'
+        }
     ]
 }
-const hrProfile = {
+const hrProfile: profileProps = {
     joinDate: '26-11-1999',
     access: ['hr'],
     role: 'hr', // ceo hr accountant callers
@@ -85,7 +102,8 @@ const hrProfile = {
             path: "/employee/dashboard/access-management",
             icon: "checklist_rtl",
         }
-    ]
+    ],
+    menuProps: []
 }
 
 const customerProfile: profileProps = {
@@ -96,7 +114,6 @@ const customerProfile: profileProps = {
     joinDate: '12-04-1999',
     lastname: 'Doe',
     custId: '1234',
-    role: 'customer',
     sideProps: [
         {
             title: "Dashboard",
@@ -128,7 +145,8 @@ const customerProfile: profileProps = {
             path: "/customer/dashboard/help",
             icon: "call_quality",
         }
-    ]
+    ],
+    menuProps: []
 }
 
 const pospProfile: profileProps = {
@@ -140,7 +158,7 @@ const pospProfile: profileProps = {
     joinDate: '12-04-1999',
     lastname: 'Goe',
     custId: '1234',
-    role: 'Agent',
+    role: 'agent',
     sideProps: [
         {
             title: "Home",
@@ -177,7 +195,9 @@ const pospProfile: profileProps = {
             path: "/posp/dashboard/help",
             icon: "help",
         }
-    ]
+    ],
+    menuProps: [],
+    access: ['posp']
 }
 
 const initialState: authProps = {
@@ -205,7 +225,6 @@ const authSlice = createSlice({
         handleLogout: (state) => {
             state.isLogin = false
             state.token = null
-
             state.profile = null
         },
         closeAlert: (state) => {

@@ -27,6 +27,8 @@ import CustomAppBar from '../ui-components/CustomAppBar';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import CallRoundedIcon from '@mui/icons-material/CallRounded';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 const Header: React.FC = () => {
 
     const dispatch = useDispatch()
@@ -75,15 +77,7 @@ const Header: React.FC = () => {
                         />
                     </Box>
                     <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
+                        <MenuIcon />
                     </Box>
                     <Typography
                         variant="h5"
@@ -101,7 +95,7 @@ const Header: React.FC = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
                         <Tooltip title="Insurance Product">
-                            <Button onClick={handleOpenProductMenu} sx={{ color: 'white', display: 'block' }}>
+                            <Button endIcon={<KeyboardArrowDownRoundedIcon />} onClick={handleOpenProductMenu} sx={{ color: 'white' }}>
                                 Insurance Products
                             </Button>
                         </Tooltip>
@@ -155,8 +149,8 @@ const Header: React.FC = () => {
                             </Button>
                         </Tooltip>
 
-                        <Button sx={{ color: 'white', display: 'block' }}>
-                            Contact
+                        <Button startIcon={<CallRoundedIcon />} sx={{ color: 'white' }}>
+                            Talk to Expert
                         </Button>
                     </Box>
                     <Box sx={{ flexGrow: { xs: 1, md: 0 }, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>

@@ -91,7 +91,6 @@ const CustomizePallete = () => {
                     >
                         <FormControlLabel value="Poppins" control={<Radio />} label="Poppins" />
                         <FormControlLabel value="Montserrat" control={<Radio />} label="Montserrat" />
-
                     </RadioGroup>
 
                 </ListItem>

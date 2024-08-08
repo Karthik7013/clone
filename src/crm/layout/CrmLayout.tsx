@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Divider, Drawer, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
+import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
 import React from "react";
 import { Home, Logout, PersonAdd, NotesRounded } from '@mui/icons-material';
 import SideBar from "../common/SideDrawer";
@@ -19,6 +19,7 @@ const CrmLayout = () => {
 
     const dispatch = useDispatch()
     const profile = useSelector((state: RootProps) => state.auth.profile);
+    console.log(profile?.menuProps)
     const type = useSelector((state: RootProps) => state.auth.profile?.type);
     const dark = useSelector((state: RootProps) => state.ui.dark);
 
@@ -115,7 +116,7 @@ const CrmLayout = () => {
 
                                 <Switch checked={dark} color="info" size="small" onChange={handleTheme} />
 
-                              
+
                             </Stack>
 
                             <Tooltip
@@ -148,19 +149,14 @@ const CrmLayout = () => {
                                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
-                                <MenuItem onClick={handleClose}>
-                                    <ListItemIcon>
-                                        <Home fontSize="small" />
-                                    </ListItemIcon>
-                                    <Typography component='a' href="/">Home</Typography>
-                                </MenuItem>
-                                <MenuItem onClick={handleClose}>
-                                    <ListItemIcon>
-                                        <PersonAdd fontSize="small" />
-                                    </ListItemIcon>
-                                    <Typography component='a' href={`/${type}/dashboard/profile`}>Profile</Typography>
-                                </MenuItem>
-
+                                {
+                                    profile.menuProps.map((menuItems) => <MenuItem onClick={handleClose}>
+                                        <ListItemIcon>
+                                            <Icon fontSize="small">{menuItems.icon}</Icon>
+                                        </ListItemIcon>
+                                        <Typography component='a' href={menuItems.path}>{menuItems.title}</Typography>
+                                    </MenuItem>)
+                                }
                                 <Divider />
                                 <MenuItem onClick={handleOnclick}>
                                     <ListItemIcon>

@@ -1,7 +1,7 @@
 import React from "react";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import Header from "./Framework/components/Header";
-import { Toolbar } from "@mui/material";
+import { Container, Toolbar } from "@mui/material";
 import Footer from "./Framework/components/Footer";
 import Home from "./Home";
 import LoanLandingPage from "./loan/pages/LoanLandingPage";
@@ -22,6 +22,7 @@ import CrmLayout from "./crm/layout/CrmLayout";
 import EmployeeChild from "./crm/employee/routes/EmployeeChild";
 import getCustomerRoutes from "./crm/customer/routes/CustomerChilds";
 import getPospRoutes from "./crm/posp/routes/pospChilds";
+import VehicleHome from "./vehicle/pages/VehicleHome";
 
 type allRouterProps = {
     type: 'employee' | 'customer' | 'posp' | undefined,
@@ -127,6 +128,24 @@ export const allRouter = (props: allRouterProps) => {
                         {
                             path: 'payment',
                             element: <HealthPayment />
+                        }
+                    ]
+                },
+                {
+                    path: 'motor',
+                    element: <Outlet />,
+                    children: [
+                        {
+                            path: 'car',
+                            element: <VehicleHome />
+                        },
+                        {
+                            path: 'bike',
+                            element: <VehicleHome />
+                        },
+                        {
+                            path: 'commercial',
+                            element: <VehicleHome />
                         }
                     ]
                 }

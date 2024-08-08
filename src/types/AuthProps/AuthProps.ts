@@ -18,7 +18,7 @@ type profileProps = {
     joinDate: string,
     access?: string[],
     type: 'employee' | 'customer' | 'posp' | undefined,
-    role: 'ceo' | 'hr' | 'accountant' | 'telecallers' | undefined,
+    role?: 'ceo' | 'hr' | 'accountant' | 'telecallers' | 'agent' | undefined,
     firstname: string,
     lastname: string,
     dob: string,
@@ -26,7 +26,9 @@ type profileProps = {
     empId?: string,
     custId?: string,
     pospId?: string,
-    sideProps: navProps[]
+    sideProps: navProps[],
+    menuProps: navProps[],
+    department?: 'backend' | 'sales' | 'operation'
 }
 
 export type { authProps, profileProps, navProps }
