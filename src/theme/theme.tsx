@@ -5,9 +5,38 @@ type customStylesProps = {
     borderRadius: number,
     fontFamily: string
 }
+declare module '@mui/material/styles' {
+    interface Palette {
+        custom?: {
+            blue: string;
+            green: string;
+            orange: string;
+        };
+    }
+
+    interface PaletteOptions {
+        custom?: {
+            blue?: string;
+            green?: string;
+            orange?: string;
+        };
+    }
+}
+
+const token = (dark: boolean) => ({
+    ...(dark ? {
+        primary: {
+            100: '#23a8fa'
+        }
+    } : {
+
+    })
+})
 
 const theme = (customStyles: customStylesProps) => {
     const { dark, borderRadius, fontFamily } = customStyles;
+    const colors = token(!dark);
+    console.log(colors)
     return createTheme({
         palette: {
             mode: dark ? 'dark' : 'light',
@@ -19,6 +48,9 @@ const theme = (customStyles: customStylesProps) => {
                 main: '#23a8fa',
                 contrastText: '#fff'
             },
+            custom: {
+                blue: '#23a8fa'
+            }
         },
         shape: {
             borderRadius: borderRadius

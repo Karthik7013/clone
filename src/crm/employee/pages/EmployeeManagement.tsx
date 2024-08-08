@@ -7,6 +7,7 @@ import ModeEditRoundedIcon from '@mui/icons-material/ModeEditRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
 import CustomButton from '../../../Framework/ui-components/CustomButton';
+import MessageBox from '../../../Framework/components/MessageBox';
 const EmployeeManagement = () => {
     const rows: GridRowsProp = [
         { id: 1, col1: '1234', col2: 'Mia', col3: 'Backend', col4: 'Admin', col5: 'Telecaller', col6: 'Active', col7: 'karthiktumala143@gmail.com', col8: '05-12-2020', col9: '+91 6048382743' },
@@ -125,9 +126,12 @@ const EmployeeManagement = () => {
 
     return (
         <Box>
-            <Grid container>
-                <Grid item xs={12}>
-                    <Box sx={{ height: 460, width: { xs: 380, md: '100%' } }}>
+            <MessageBox type='warning' >
+                Access Denied
+            </MessageBox>
+            <Grid container mt={2}>
+                <Grid item xs={12} sx={{ maxWidth: '100dvw', overflowX: 'scroll' }}>
+                    <Box sx={{ height: 460 }}>
                         <DataGrid
                             sx={{ '--DataGrid-overlayHeight': '300px' }}
                             slots={{
