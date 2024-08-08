@@ -137,7 +137,8 @@ export const allRouter = (props: allRouterProps) => {
                     children: [
                         {
                             path: 'car',
-                            element: <VehicleHome />
+                            element: <VehicleHome />,
+                            
                         },
                         {
                             path: 'bike',
