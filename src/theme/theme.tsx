@@ -8,7 +8,6 @@ type customStylesProps = {
 
 const theme = (customStyles: customStylesProps) => {
     const { dark, borderRadius, fontFamily } = customStyles;
-    const theme = useTheme();
     return createTheme({
         palette: {
             mode: dark ? 'dark' : 'light',
@@ -57,5 +56,3 @@ const theme = (customStyles: customStylesProps) => {
 }
 
 export default theme;
-
-

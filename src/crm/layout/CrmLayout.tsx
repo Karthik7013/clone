@@ -115,14 +115,12 @@ const CrmLayout = () => {
 
                                 <Switch checked={dark} color="info" size="small" onChange={handleTheme} />
 
-                                <Badge color="error" badgeContent={4}>
-                                    <IconButton color="inherit"><NotificationsIcon /></IconButton>
-                                </Badge>
+                              
                             </Stack>
 
                             <Tooltip
                                 sx={{ maxWidth: '100%' }}
-                                title={<ProfileCard profile={profile} />}
+                                title=""
                             >
                                 <IconButton
                                     onClick={handleClick}

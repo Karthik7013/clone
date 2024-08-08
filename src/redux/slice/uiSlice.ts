@@ -20,9 +20,12 @@ const uiSlice = createSlice({
         },
         changeBorderRadius: (state, action) => {
             state.borderRadius = action.payload
+        },
+        changeFontFamily: (state, action) => {
+            state.fontFamily = action.payload;
         }
     }
 })
 
-export const { toggleTheme, changeBorderRadius } = uiSlice.actions
+export const { toggleTheme, changeBorderRadius,changeFontFamily } = uiSlice.actions
 export default uiSlice.reducer

@@ -34,7 +34,8 @@ const EmployeeLogin = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = { email: "mani123@gmail.com", password: "1234" }
-        dispatch(loginUser(data));
+        let x = dispatch(loginUser(data));
+  
     }
     return (
         <Box>

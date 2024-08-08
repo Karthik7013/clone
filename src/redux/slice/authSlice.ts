@@ -240,11 +240,11 @@ const authSlice = createSlice({
                 state.token = action.payload.data
 
                 // state.profile = hrProfile
-                // state.profile = ceoProfile
-                // window.location.href = '/employee/dashboard';
+                state.profile = ceoProfile
+                window.location.href = '/employee/dashboard';
 
-                state.profile = customerProfile;
-                window.location.href = '/customer/dashboard';
+                // state.profile = customerProfile;
+                // window.location.href = '/customer/dashboard';
 
                 // state.profile = pospProfile;
                 // window.location.href = '/posp/dashboard';

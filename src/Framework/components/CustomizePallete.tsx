@@ -1,12 +1,12 @@
 import React from 'react'
 import ColorLensRoundedIcon from '@mui/icons-material/ColorLensRounded';
-import { Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Slider, Toolbar, Typography } from '@mui/material';
+import { Box, Divider, Drawer, FormControlLabel, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Radio, RadioGroup, Slider, Toolbar, Typography } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import { keyframes } from '@emotion/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootProps } from '../../types/RootProps';
-import { changeBorderRadius } from '../../redux/slice/uiSlice';
+import { changeBorderRadius, changeFontFamily } from '../../redux/slice/uiSlice';
 const CustomizePallete = () => {
     const dispatch = useDispatch();
     const borderRadius = useSelector((state: RootProps) => state.ui.borderRadius);
@@ -47,6 +47,10 @@ const CustomizePallete = () => {
         const value = event.target.value;
         dispatch(changeBorderRadius(value))
     }
+    const handleChangeFamily = (event: any) => {
+        const value = event.target.value;
+        dispatch(changeFontFamily(value))
+    }
 
 
 
@@ -56,12 +60,13 @@ const CustomizePallete = () => {
                 <Typography>Customization</Typography>
             </Toolbar>
             <Divider />
-            <List>
+            <List dense>
                 <ListItem>
                     <ListItemText>
                         <Typography variant='body2'>Border Radius : {borderRadius}px</Typography>
                     </ListItemText>
                 </ListItem>
+
                 <ListItem>
                     <Slider
                         onChange={handleBorderRadius}
@@ -70,15 +75,27 @@ const CustomizePallete = () => {
                         marks
                         valueLabelFormat={valuetext} valueLabelDisplay="auto" step={4} min={0} max={16} />
                 </ListItem>
-
+                <Divider />
                 <ListItem>
                     <ListItemText>
                         <Typography variant='body2'>Font Family : {fontFamily}</Typography>
                     </ListItemText>
                 </ListItem>
                 <ListItem>
+                    <RadioGroup
+                        value={fontFamily}
+                        onChange={handleChangeFamily}
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="row-radio-buttons-group"
+                    >
+                        <FormControlLabel value="Poppins" control={<Radio />} label="Poppins" />
+                        <FormControlLabel value="Montserrat" control={<Radio />} label="Montserrat" />
+
+                    </RadioGroup>
 
                 </ListItem>
+                <Divider />
             </List>
 
         </Box>
