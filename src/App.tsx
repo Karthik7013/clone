@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet, RouterProvider } from 'react-router-dom'
 import Footer from './Framework/components/Footer'
-import { Avatar, CssBaseline, Fab, ThemeProvider, Toolbar } from '@mui/material'
+import { Avatar, CssBaseline, Fab, LinearProgress, ThemeProvider, Toolbar } from '@mui/material'
 import Header from './Framework/components/Header';
 import theme from './theme/theme';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,10 +32,11 @@ const App = () => {
         <ThemeProvider theme={theme({ dark, borderRadius, fontFamily })}>
             <CssBaseline />
             <AlertBox alert={alert} onClose={handleClose} />
-            <RouterProvider router={allRouter({ type, role })}></RouterProvider>
+            <React.Suspense fallback={<LinearProgress />}>
+                <RouterProvider router={allRouter({ type, role })}></RouterProvider>
+            </React.Suspense>
             <CustomizePallete />
             <ChatBot />
-
         </ThemeProvider>
     )
 }

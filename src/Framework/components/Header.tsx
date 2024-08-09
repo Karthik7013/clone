@@ -30,7 +30,7 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 const Header: React.FC = () => {
-
+    console.log('Header...')
     const dispatch = useDispatch()
     const dark = useSelector((state: RootProps) => state.ui.dark);
     const [anchorElProducts, setAnchorElProducts] = useState(null);
