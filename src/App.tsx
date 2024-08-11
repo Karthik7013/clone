@@ -32,7 +32,7 @@ const App = () => {
             <CssBaseline />
             <AlertBox alert={alert} onClose={handleClose} />
             <React.Suspense fallback={<LinearProgress />}>
-                <RouterProvider router={allRouter({ type, role })}></RouterProvider>
+                <RouterProvider router={allRouter(profile)}></RouterProvider>
             </React.Suspense>
             <CustomizePallete />
             <ChatBot />

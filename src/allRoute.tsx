@@ -22,6 +22,7 @@ import CrmLayout from "./crm/layout/CrmLayout";
 import EmployeeChild from "./crm/employee/routes/EmployeeChild";
 import getCustomerRoutes from "./crm/customer/routes/CustomerChilds";
 import getPospRoutes from "./crm/posp/routes/pospChilds";
+import ChatBot from "./Framework/components/ChatBot";
 
 const VehicleHome = React.lazy(() => import("./vehicle/pages/VehicleHome"))
 
@@ -38,7 +39,7 @@ export const allRouter = (props: allRouterProps) => {
                 <Header />
                 <Toolbar />
                 <Outlet />
-                {/* <ChatBot /> */}
+                <ChatBot />
                 <Footer />
             </>,
             children: [

@@ -294,8 +294,8 @@ const authSlice = createSlice({
                 state.token = action.payload.data
 
 
-                // state.profile = newHrProfile
-                state.profile = newCeoProfile
+                state.profile = newHrProfile
+                // state.profile = newCeoProfile
                 window.location.href = '/employee/dashboard';
 
 
