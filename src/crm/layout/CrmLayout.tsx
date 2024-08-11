@@ -1,6 +1,6 @@
 import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
 import React from "react";
-import { Home, Logout, PersonAdd, NotesRounded } from '@mui/icons-material';
+import { Logout, NotesRounded } from '@mui/icons-material';
 import SideBar from "../common/SideDrawer";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,9 +8,9 @@ import { RootProps } from "../../types/RootProps";
 import { toggleTheme } from "../../redux/slice/uiSlice";
 import { handleLogout } from "../../redux/slice/authSlice";
 import PageNotFound from "../../Framework/components/PageNotFound";
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-
+import LightModeIcon from '@mui/icons-material/LightMode';
+import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 const drawerWidth = 240;
 const CrmLayout = () => {
     const location = useLocation();
@@ -54,31 +54,7 @@ const CrmLayout = () => {
     const handleTheme = () => dispatch(toggleTheme()); //toggle theme
 
 
-    // profileCard 
-    const ProfileCard = ({ profile: any }) => {
-        console.log(profile, 'profiler')
-        return <Card sx={{ minWidth: 300 }}>
-            <CardContent>
-                <Stack>
-                    <Stack direction={'row'} alignItems={'center'} gap={1}>
-                        <Avatar src="https://img.freepik.com/free-photo/3d-illustration-young-business-man-with-funny-expression-his-face_1142-55156.jpg" />
-                        <Box>
-                            <Typography variant="body1">{`${profile?.firstname} ${profile.lastname}`}</Typography>
-                            <Typography variant="caption">{profile?.role}</Typography>
-                        </Box>
-                    </Stack>
-                    <Divider sx={{ my: 1 }} />
 
-                    <Typography variant="caption">Emp ID : {profile.empId}</Typography>
-                    <Typography variant="caption">Access : {profile.access}</Typography>
-                    <Typography variant="caption">Join Date : {profile.joinDate}</Typography>
-                </Stack>
-
-            </CardContent>
-
-
-        </Card>
-    }
 
     return (
         <Box>
@@ -114,7 +90,8 @@ const CrmLayout = () => {
                         <Stack direction="row" alignItems='center' gap={2}>
                             <Stack direction={'row'} sx={{ display: { xs: 'none', md: 'block' } }}>
 
-                                <Switch checked={dark} color="info" size="small" onChange={handleTheme} />
+
+                                <IconButton sx={{ mr: 2 }} onClick={handleTheme} color='inherit'>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
 
 
                             </Stack>

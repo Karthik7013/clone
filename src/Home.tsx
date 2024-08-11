@@ -1,6 +1,7 @@
 import React from "react";
-import { Avatar, Box, Button, Card, CardContent, CardMedia, Container, Grid, ListItem, ListItemIcon, ListItemText, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardContent, CardMedia, Container, Grid, ListItem, ListItemIcon, ListItemText, Paper, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+
 
 // bg-layer
 import carMoving from "./assets/car/carMoving.gif";
@@ -16,7 +17,7 @@ import commercialLogo from "./assets/navAssets/commercial.svg"
 import bikeLogo from "./assets/navAssets/Bike.svg";
 import { useState } from "react";
 import giftBox from './assets/spark.svg';
-
+import Slider from "react-slick";
 const Home = () => {
     type navProps = {
         imgUrl: string,
@@ -24,7 +25,6 @@ const Home = () => {
         path: string
     }
 
-    const [vehicleType, setVehicleType] = useState<'car' | 'bike' | 'commercial'>('car');
 
     // products navigations images url
     const products: navProps[] = [
@@ -59,43 +59,39 @@ const Home = () => {
             path: 'loan'
         }]
 
-    // get the background moving layer car bike commercial
-    const Layer = () => {
-        const getLayer = (img: string) => {
-            return <Box
-                sx={{
-                    position: "absolute",
-                    width: "100%",
-                    zIndex: -1,
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                }}>
-                <Box style={{ background: "linear-gradient(180deg, #fff, rgba(60, 177, 249, 0.55) 100%)", height: "100vh" }}>
-                    <img alt="bg-layout"
-                        src={img}
-                        style={{
-                            position: "absolute",
-                            width: "100%",
-                            right: 0,
-                            left: 0,
-                            bottom: 0,
-                        }}
-                    />
-                </Box>
-            </Box>
-        }
-        switch (vehicleType) {
-            case 'car':
-                return getLayer(carMoving);
-            case 'bike':
-                return getLayer(bikeMoving)
-            case 'commercial':
-                return getLayer(truckMoving)
-            default:
-                return getLayer(carMoving)
-        }
-    }
+
+
+
+    const images = [
+        {
+            label: 'San Francisco – Oakland Bay Bridge, United States',
+            imgPath:
+                'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+        },
+        {
+            label: 'Bird',
+            imgPath:
+                'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+        },
+        {
+            label: 'Bali, Indonesia',
+            imgPath:
+                'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
+        },
+        {
+            label: 'Goč, Serbia',
+            imgPath:
+                'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+        },
+    ];
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
 
     return <Box sx={{ height: "100vh" }}>
         {/* <Layer /> */}
@@ -137,12 +133,13 @@ const Home = () => {
                                         hassle free</Typography>
                                 </ListItemText>
                             </ListItem>
-
                         </Box>
                         <Box>
                             <Card elevation={0}>
-                                <CardMedia height={200} component={'img'} image="https://static.pbcdn.in/cdn/images/home/health-web-desktop.png" alt='card1' />
+                                {/* <CardMedia height={200} component={'img'} image="https://static.pbcdn.in/cdn/images/home/health-web-desktop.png" alt='card1' /> */}
+                                <CardMedia height={200} component={'img'} image="https://static.pbcdn.in/cdn/images/home/term_crore_desktop.png?v=10" />
                             </Card>
+
                         </Box>
                     </Stack>
 

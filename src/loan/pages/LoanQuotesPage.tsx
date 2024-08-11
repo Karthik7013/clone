@@ -131,8 +131,14 @@ const LoanQuotesPage = () => {
                     </Toolbar>
 
 
+                    <Toolbar sx={{ position: 'sticky', top: 0, left: 0, backgroundColor: 'background.default', zIndex: 99, }}>
+                        <Typography variant="subtitle2">
+                            Showing 10 Results
+                        </Typography>
+                    </Toolbar>
 
                     <Container maxWidth='lg' sx={{ py: { xs: 1, md: 3 } }}>
+
                         <Grid container columns={18} spacing={2}>
                             <Grid item xs={18}>
                                 <Grid container rowGap={3}>

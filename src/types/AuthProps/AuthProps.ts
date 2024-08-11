@@ -10,25 +10,49 @@ type authProps = {
     alert: alertProps,
     isLogin: boolean,
     token: string | null,
-    profile: null | profileProps
+    profile: null | customerProfileProps | pospProfileProps | employeeProfileProps
 }
 
 
-type profileProps = {
-    joinDate: string,
-    access?: string[],
-    type: 'employee' | 'customer' | 'posp' | undefined,
-    role?: 'ceo' | 'hr' | 'accountant' | 'telecallers' | 'agent' | undefined,
+
+// new_
+type customerProfileProps = {
+    type: 'customer',
     firstname: string,
     lastname: string,
     dob: string,
     gender: 'Male' | 'Female',
-    empId?: string,
-    custId?: string,
-    pospId?: string,
+    custId: string,
     sideProps: navProps[],
     menuProps: navProps[],
-    department?: 'backend' | 'sales' | 'operation'
 }
 
-export type { authProps, profileProps, navProps }
+type pospProfileProps = {
+    joinDate: string,
+    firstname: string,
+    lastname: string,
+    dob: string,
+    gender: 'Male' | 'Female',
+    pospId: string,
+    sideProps: navProps[],
+    menuProps: navProps[],
+    exam: boolean,
+    type: 'posp'
+}
+
+type employeeProfileProps = {
+    joinDate: string,
+    access: string[],
+    type: 'employee' | 'customer' | 'posp' | undefined,
+    role: 'ceo' | 'hr' | 'accountant' | 'telecallers' | 'agent' | undefined,
+    firstname: string,
+    lastname: string,
+    dob: string,
+    gender: 'Male' | 'Female',
+    empId: string,
+    sideProps: navProps[],
+    menuProps: navProps[],
+    department: 'backend' | 'sales' | 'operation' | 'hiring',
+}
+
+export type { authProps, navProps, customerProfileProps, pospProfileProps, employeeProfileProps }

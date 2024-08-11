@@ -23,11 +23,14 @@ import EmployeeChild from "./crm/employee/routes/EmployeeChild";
 import getCustomerRoutes from "./crm/customer/routes/CustomerChilds";
 import getPospRoutes from "./crm/posp/routes/pospChilds";
 import VehicleHome from "./vehicle/pages/VehicleHome";
+import ChatBot from "./Framework/components/ChatBot";
+import { customerProfileProps, employeeProfileProps, pospProfileProps } from "./types/AuthProps/AuthProps";
 
-type allRouterProps = {
-    type: 'employee' | 'customer' | 'posp' | undefined,
-    role: 'ceo' | 'hr' | 'accountant' | 'telecallers' | undefined,
-}
+
+
+type allRouterProps = customerProfileProps | null | pospProfileProps | employeeProfileProps
+
+
 
 export const allRouter = (props: allRouterProps) => {
     let commonRoutes = [
@@ -37,6 +40,7 @@ export const allRouter = (props: allRouterProps) => {
                 <Header />
                 <Toolbar />
                 <Outlet />
+                <ChatBot />
                 <Footer />
             </>,
             children: [
@@ -138,7 +142,7 @@ export const allRouter = (props: allRouterProps) => {
                         {
                             path: 'car',
                             element: <VehicleHome />,
-                            
+
                         },
                         {
                             path: 'bike',
@@ -182,20 +186,21 @@ export const allRouter = (props: allRouterProps) => {
         children: [...getCustomerRoutes()]
     })
 
-    const pospRoutes = () => ({
+    const pospRoutes = (props: boolean) => ({
         path: 'posp/dashboard',
         element: <CrmLayout />,
-        children: [...getPospRoutes()]
+        children: [...getPospRoutes(props)]
     })
-
-    if (props.type === 'employee') {
-        commonRoutes.push(employeeRoutes(props.role))
-    }
-    if (props.type === 'customer') {
-        commonRoutes.push(customerRoutes())
-    }
-    if (props.type === 'posp') {
-        commonRoutes.push(pospRoutes())
+    if (props) {
+        if (props.type === 'employee') {
+            commonRoutes.push(employeeRoutes(props.role))
+        }
+        if (props.type === 'customer') {
+            commonRoutes.push(customerRoutes())
+        }
+        if (props.type === 'posp') {
+            commonRoutes.push(pospRoutes(props.exam))
+        }
     }
 
     return createBrowserRouter(commonRoutes);

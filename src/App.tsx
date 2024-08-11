@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet, RouterProvider } from 'react-router-dom'
 import Footer from './Framework/components/Footer'
-import { Avatar, CssBaseline, Fab, ThemeProvider, Toolbar } from '@mui/material'
+import { Avatar, Box, Card, CardActions, CardContent, Chip, CssBaseline, Divider, Fab, IconButton, ListItemIcon, Menu, MenuItem, Stack, TextField, ThemeProvider, Toolbar, Tooltip, Typography } from '@mui/material'
 import Header from './Framework/components/Header';
 import theme from './theme/theme';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,19 +24,16 @@ const App = () => {
     const alert = useSelector((state: RootProps) => state.auth.alert);
     const handleClose = () => dispatch(closeAlert());
     const role = useSelector((state: RootProps) => state.auth.profile?.role);
-
-
+    const profile = useSelector((state: RootProps) => state.auth.profile);
 
 
     return (
         <ThemeProvider theme={theme({ dark, borderRadius, fontFamily })}>
             <CssBaseline />
             <AlertBox alert={alert} onClose={handleClose} />
-            <RouterProvider router={allRouter({ type, role })}></RouterProvider>
+            <RouterProvider router={allRouter(profile)}></RouterProvider>
             <CustomizePallete />
-            <ChatBot />
-
-        </ThemeProvider>
+        </ThemeProvider >
     )
 }
 

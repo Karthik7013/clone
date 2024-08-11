@@ -1,20 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
 import { serverLogin } from "../../service/api";
 import { createBrowserHistory, History } from 'history';
-import { authProps, profileProps } from "../../types/AuthProps/AuthProps";
+import { authProps, customerProfileProps, employeeProfileProps, pospProfileProps } from "../../types/AuthProps/AuthProps";
 
 export const history: History = createBrowserHistory();
-const ceoProfile: profileProps = {
-    joinDate: '26-11-1999',
-    access: ['admin'],
-    role: 'ceo', // ceo hr accountant callers
-    type: 'employee', // employee customer posp
+
+
+
+const newCeoProfile: employeeProfileProps = {
+    access: [''],
+    department: 'backend',
+    dob: '23-09-2022',
+    empId: 'EMP4834789398',
     firstname: 'Karthik',
     lastname: 'Tumala',
-    dob: '26-11-1999',
     gender: 'Male',
-    empId: '1234',
+    joinDate: '29-09-2023',
     sideProps: [
         {
             title: "Analytics",
@@ -79,18 +80,21 @@ const ceoProfile: profileProps = {
             path: '/',
             title: 'My Account'
         }
-    ]
+    ],
+    role: 'ceo',
+    type: 'employee'
 }
-const hrProfile: profileProps = {
-    joinDate: '26-11-1999',
-    access: ['hr'],
-    role: 'hr', // ceo hr accountant callers
-    type: 'employee', // employee customer posp
-    firstname: 'Agarwal',
-    lastname: 'Kajal',
-    dob: '26-11-1999',
+
+const newHrProfile: employeeProfileProps = {
+    access: [''],
+    department: 'hiring',
+    dob: '11-02-1999',
+    empId: 'EMP84983478979',
+    firstname: 'Mia',
+    lastname: 'Khalifa',
     gender: 'Female',
-    empId: '1235',
+    joinDate: '23-09-2023',
+    menuProps: [],
     sideProps: [
         {
             title: "Employee Management",
@@ -103,17 +107,16 @@ const hrProfile: profileProps = {
             icon: "checklist_rtl",
         }
     ],
-    menuProps: []
+    role: 'hr',
+    type: 'employee'
 }
-
-const customerProfile: profileProps = {
+const newCustomerProfile: customerProfileProps = {
+    custId: 'CUST789294837370',
+    dob: '26-11-1999',
+    firstname: 'karthik',
+    lastname: 'tumala',
     type: 'customer',
-    dob: '12-06-1999',
-    firstname: 'John',
     gender: 'Male',
-    joinDate: '12-04-1999',
-    lastname: 'Doe',
-    custId: '1234',
     sideProps: [
         {
             title: "Dashboard",
@@ -146,19 +149,52 @@ const customerProfile: profileProps = {
             icon: "call_quality",
         }
     ],
-    menuProps: []
+    menuProps: [
+        {
+            icon: 'home',
+            path: '/',
+            title: 'Home'
+        }
+    ]
 }
-
-const pospProfile: profileProps = {
-    empId: '005434333',
-    type: 'posp',
-    dob: '12-06-1999',
-    firstname: 'Posp Dummy',
+const newPospProfilePending: pospProfileProps = {
+    dob: '27-09-1999',
+    exam: false,
+    firstname: 'Ravi',
+    lastname: 'Yar',
     gender: 'Male',
-    joinDate: '12-04-1999',
-    lastname: 'Goe',
-    custId: '1234',
-    role: 'agent',
+    joinDate: '03-09-1997',
+    menuProps: [],
+    pospId: 'POSP3452928094',
+    sideProps: [
+        {
+            title: "Examination",
+            path: "/posp/dashboard/",
+            icon: "checklist_rtl",
+        },
+        {
+            title: "Study Material",
+            path: "/posp/dashboard/study-material",
+            icon: "menu_book",
+        },
+
+        {
+            title: "Help-line",
+            path: "/posp/dashboard/help",
+            icon: "help",
+        }
+    ],
+    type: 'posp'
+}
+const newPospProfile: pospProfileProps = {
+    dob: '27-09-1999',
+    exam: true,
+    firstname: 'Ravi',
+    lastname: 'Yar',
+    gender: 'Male',
+    joinDate: '03-09-1997',
+    menuProps: [],
+    pospId: 'POSP3452928094',
     sideProps: [
         {
             title: "Home",
@@ -196,8 +232,7 @@ const pospProfile: profileProps = {
             icon: "help",
         }
     ],
-    menuProps: [],
-    access: ['posp']
+    type: 'posp'
 }
 
 const initialState: authProps = {
@@ -258,14 +293,22 @@ const authSlice = createSlice({
                 state.isLogin = true;
                 state.token = action.payload.data
 
-                // state.profile = hrProfile
-                state.profile = ceoProfile
+
+                // state.profile = newHrProfile
+                state.profile = newCeoProfile
                 window.location.href = '/employee/dashboard';
 
-                // state.profile = customerProfile;
+
+                // customer========
+                // state.profile = newCustomerProfile;
                 // window.location.href = '/customer/dashboard';
 
-                // state.profile = pospProfile;
+                // posp pending======
+                // state.profile = newPospProfilePending;
+                // window.location.href = '/posp/dashboard';
+
+                // posp success======
+                // state.profile = newPospProfile;
                 // window.location.href = '/posp/dashboard';
             })
     }

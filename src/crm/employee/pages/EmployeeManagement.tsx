@@ -129,6 +129,13 @@ const EmployeeManagement = () => {
             <MessageBox type='warning' >
                 Access Denied
             </MessageBox>
+            <MessageBox type='success'>
+                Updated Successfully
+            </MessageBox>
+            <MessageBox type='error' >
+                No Records Found
+            </MessageBox>
+
             <Grid container mt={2}>
                 <Grid item xs={12} sx={{ maxWidth: '100dvw', overflowX: 'scroll' }}>
                     <Box sx={{ height: 460 }}>

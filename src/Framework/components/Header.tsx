@@ -7,7 +7,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { Avatar, CardMedia, Stack, Switch } from '@mui/material';
+import { Avatar, Card, CardContent, CardMedia, Stack, Switch } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -29,6 +29,9 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
+import ProductPannel from './ProductPannel';
 const Header: React.FC = () => {
 
     const dispatch = useDispatch()
@@ -115,30 +118,8 @@ const Header: React.FC = () => {
                             open={Boolean(anchorElProducts)}
                             onClose={handleCloseProductMenu}
                         >
-                            <MenuItem onClick={handleCloseProductMenu}>
-                                <Stack direction={'row'} gap={1}>
-                                    <AccountCircleIcon fontSize='small' />
-                                    <Typography textAlign="center">Car Insurance</Typography>
-                                </Stack>
-                            </MenuItem>
-                            <MenuItem onClick={handleCloseProductMenu}>
-                                <Stack direction={'row'} gap={1}>
-                                    <ManageAccountsIcon fontSize='small' />
-                                    <Typography textAlign="center">Loan Insurance</Typography>
-                                </Stack>
-                            </MenuItem>
-                            <MenuItem onClick={handleCloseProductMenu}>
-                                <Stack direction={'row'} gap={1}>
-                                    <LeaderboardIcon fontSize='small' />
-                                    <Typography textAlign="center">Travel Insurance</Typography>
-                                </Stack>
-                            </MenuItem>
-                            <MenuItem onClick={handleCloseProductMenu} >
-                                <Stack direction={'row'} gap={1}>
-                                    <LogoutRoundedIcon fontSize='small' />
-                                    <Typography textAlign="center">Health Insurance</Typography>
-                                </Stack>
-                            </MenuItem>
+                            <ProductPannel />
+
                         </Menu>
                         <Tooltip
                             title={<>
@@ -154,7 +135,7 @@ const Header: React.FC = () => {
                         </Button>
                     </Box>
                     <Box sx={{ flexGrow: { xs: 1, md: 0 }, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                        <Switch size='small' checked={dark} color='info' onChange={toggleMode} />
+                        <IconButton sx={{ mr: 2 }} onClick={toggleMode} color='inherit'>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
                         {islogin ? <>
                             <Tooltip title="Logout">
                                 <CustomButton onClick={() => dispatch(handleLogout())} startIcon={<LogoutRoundedIcon />} sx={{ color: 'white' }}>
