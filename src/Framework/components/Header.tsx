@@ -33,7 +33,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import ProductPannel from './ProductPannel';
 const Header: React.FC = () => {
-
+    console.log('Header...')
     const dispatch = useDispatch()
     const dark = useSelector((state: RootProps) => state.ui.dark);
     const [anchorElProducts, setAnchorElProducts] = useState(null);

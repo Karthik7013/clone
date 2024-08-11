@@ -137,8 +137,11 @@ const EmployeeManagement = () => {
             </MessageBox>
 
             <Grid container mt={2}>
-                <Grid item xs={12} sx={{ maxWidth: '100dvw', overflowX: 'scroll' }}>
-                    <Box sx={{ height: 460 }}>
+                <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    <MessageBox type='warning'>
+                        Access Denied
+                    </MessageBox>
+                    <Box sx={{ height: 500, width: '100%' }}>
                         <DataGrid
                             sx={{ '--DataGrid-overlayHeight': '300px' }}
                             slots={{

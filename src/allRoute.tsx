@@ -1,7 +1,7 @@
 import React from "react";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import Header from "./Framework/components/Header";
-import { Container, Toolbar } from "@mui/material";
+import { Toolbar } from "@mui/material";
 import Footer from "./Framework/components/Footer";
 import Home from "./Home";
 import LoanLandingPage from "./loan/pages/LoanLandingPage";
@@ -22,10 +22,8 @@ import CrmLayout from "./crm/layout/CrmLayout";
 import EmployeeChild from "./crm/employee/routes/EmployeeChild";
 import getCustomerRoutes from "./crm/customer/routes/CustomerChilds";
 import getPospRoutes from "./crm/posp/routes/pospChilds";
-import VehicleHome from "./vehicle/pages/VehicleHome";
-import ChatBot from "./Framework/components/ChatBot";
-import { customerProfileProps, employeeProfileProps, pospProfileProps } from "./types/AuthProps/AuthProps";
 
+const VehicleHome = React.lazy(() => import("./vehicle/pages/VehicleHome"))
 
 
 type allRouterProps = customerProfileProps | null | pospProfileProps | employeeProfileProps
@@ -40,7 +38,7 @@ export const allRouter = (props: allRouterProps) => {
                 <Header />
                 <Toolbar />
                 <Outlet />
-                <ChatBot />
+                {/* <ChatBot /> */}
                 <Footer />
             </>,
             children: [
