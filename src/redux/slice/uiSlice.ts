@@ -9,6 +9,7 @@ const initialState: uiProps = {
     borderRadius: 32,
     fontFamily: 'Poppins'
 }
+console.log(initialState)
 
 const uiSlice = createSlice({
     name: 'ui',

@@ -164,7 +164,6 @@ const CrmLayout = () => {
                         }}
                     >
                         <SideBar items={profile.sideProps} />
-
                     </Drawer>
                     <Drawer
                         variant="permanent"

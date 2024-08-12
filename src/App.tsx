@@ -18,6 +18,7 @@ const App = () => {
     console.log('app render...');
     const dispatch = useDispatch();
     const dark = useSelector((state: RootProps) => state.ui.dark);
+    console.log(dark)
     const borderRadius = useSelector((state: RootProps) => state.ui.borderRadius);
     const fontFamily = useSelector((state: RootProps) => state.ui.fontFamily);
     const type = useSelector((state: RootProps) => state.auth.profile?.type);

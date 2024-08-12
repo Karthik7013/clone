@@ -294,9 +294,9 @@ const authSlice = createSlice({
                 state.token = action.payload.data
 
 
-                state.profile = newHrProfile
+                // state.profile = newHrProfile
                 // state.profile = newCeoProfile
-                window.location.href = '/employee/dashboard';
+                // window.location.href = '/employee/dashboard';
 
 
                 // customer========
@@ -308,8 +308,8 @@ const authSlice = createSlice({
                 // window.location.href = '/posp/dashboard';
 
                 // posp success======
-                // state.profile = newPospProfile;
-                // window.location.href = '/posp/dashboard';
+                state.profile = newPospProfile;
+                window.location.href = '/posp/dashboard';
             })
     }
 })

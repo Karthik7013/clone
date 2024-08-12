@@ -35,12 +35,8 @@ const ProductPannel = () => {
                 <Grid item xs={12} md={4}><Category /></Grid>
                 <Grid item xs={12} md={4}><Category /></Grid>
                 <Grid item xs={12} md={4}><Category /></Grid>
-                <Grid item xs={12} md={4}><Category /></Grid>
-
             </Grid>
-            <Typography>My Products</Typography>
         </CardContent>
-
     )
 }
 

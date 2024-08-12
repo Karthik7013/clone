@@ -2,21 +2,22 @@ import { Avatar, Box, Divider, Icon, List, ListItem, ListItemButton, ListItemIco
 import { Link } from 'react-router-dom';
 import { navProps } from '../../types/AuthProps/AuthProps';
 import React from 'react';
-// type navProps = {
-//     title: string,
-//     path: string,
-//     icon: string
-// }
+import { useSelector } from 'react-redux';
+import { RootProps } from '../../types/RootProps';
+
 
 type props = {
     items: navProps[]
 }
 
 const SideDrawer = (props: props) => {
+    const type = useSelector((state: RootProps) => state.auth.profile?.type);
     const items = props.items;
     return (<Box>
         <Toolbar>
-            <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} /><Typography variant="body1">Namelix</Typography>
+            <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
+            <Typography href={`/${type}/dashboard`} component={'a'} variant="body1">
+                Namelix</Typography>
         </Toolbar>
         <Divider />
         {/* <Toolbar /> */}
