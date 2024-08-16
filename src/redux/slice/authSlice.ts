@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { serverLogin } from "../../service/api";
 import { createBrowserHistory, History } from 'history';
 import { authProps, customerProfileProps, employeeProfileProps, pospProfileProps } from "../../types/AuthProps/AuthProps";
+import { RootProps } from "../../types/RootProps";
+import { useNavigate } from "react-router-dom";
 
 export const history: History = createBrowserHistory();
 
@@ -248,10 +250,23 @@ const initialState: authProps = {
 }
 
 // login user
-export const loginUser = createAsyncThunk('login/user', async (payload: { username: string, password: string }) => {
-    const res = await serverLogin.post('/user/login', { ...payload });
+export const loginUser = createAsyncThunk('login/user', async (payload: { phno: string }) => {
+    const res = await serverLogin.post('/customer/verify', { ...payload });
     return { status: res.status, data: res.data }
 });
+
+// get Profile 
+export const getProfile = createAsyncThunk('profile/user', async (payload: {}, { getState }) => {
+    const state: RootProps = getState();
+    console.log(state)
+    const token = state.auth.token;
+    const headers = {
+        Authorization: `Bearer ${token}`,
+    };
+    const res = await serverLogin.post('/customer/profile', {}, { headers });
+    console.log(res, 'res')
+    return { status: res.status, data: res.data }
+})
 
 const authSlice = createSlice({
     name: "auth/user",
@@ -283,7 +298,6 @@ const authSlice = createSlice({
                 }
             })
             .addCase(loginUser.fulfilled, (state, action) => {
-                console.log(action, 'success action')
                 state.loading = false
                 state.alert = {
                     type: 'success',
@@ -292,25 +306,26 @@ const authSlice = createSlice({
                 }
                 state.isLogin = true;
                 state.token = action.payload.data
-
-
-                // state.profile = newHrProfile
-                // state.profile = newCeoProfile
-                // window.location.href = '/employee/dashboard';
-
-
-                // customer========
-                // state.profile = newCustomerProfile;
-                // window.location.href = '/customer/dashboard';
-
-                // posp pending======
-                // state.profile = newPospProfilePending;
-                // window.location.href = '/posp/dashboard';
-
-                // posp success======
-                state.profile = newPospProfile;
-                window.location.href = '/posp/dashboard';
-            })
+                window.location.href = '/dashboard';
+            });
+        builder.addCase(getProfile.pending, (state) => {
+            state.loading = true;
+        }).addCase(getProfile.rejected, (state, action) => {
+            state.loading = false;
+            state.alert = {
+                type: 'error',
+                message: 'failed to get profile',
+                state: true
+            }
+        }).addCase(getProfile.fulfilled, (state, action) => {
+            state.loading = false
+            state.alert = {
+                type: 'success',
+                message: 'login success',
+                state: true
+            }
+            state.isLogin = true;
+        })
     }
 })
 

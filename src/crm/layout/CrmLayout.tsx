@@ -1,12 +1,12 @@
-import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
-import React from "react";
+import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, CircularProgress, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
+import React, { useEffect } from "react";
 import { Logout, NotesRounded } from '@mui/icons-material';
 import SideBar from "../common/SideDrawer";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootProps } from "../../types/RootProps";
 import { toggleTheme } from "../../redux/slice/uiSlice";
-import { handleLogout } from "../../redux/slice/authSlice";
+import { getProfile, handleLogout } from "../../redux/slice/authSlice";
 import PageNotFound from "../../Framework/components/PageNotFound";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -18,7 +18,7 @@ const CrmLayout = () => {
     console.log(links)
 
     const dispatch = useDispatch()
-    const profile = useSelector((state: RootProps) => state.auth.profile);
+    let profile = useSelector((state: RootProps) => state.auth.profile);
     console.log(profile?.menuProps)
     const type = useSelector((state: RootProps) => state.auth.profile?.type);
     const dark = useSelector((state: RootProps) => state.ui.dark);
@@ -53,7 +53,58 @@ const CrmLayout = () => {
     const handleOnclick = () => dispatch(handleLogout()) // logout 
     const handleTheme = () => dispatch(toggleTheme()); //toggle theme
 
+    // profile = {
+    //     custId: 'CUST789294837370',
+    //     dob: '26-11-1999',
+    //     firstname: 'karthik',
+    //     lastname: 'tumala',
+    //     type: 'customer',
+    //     gender: 'Male',
+    //     sideProps: [
+    //         {
+    //             title: "Dashboard",
+    //             path: "/dashboard",
+    //             icon: "space_dashboard",
+    //         },
+    //         {
+    //             title: "My Policies",
+    //             path: "/dashboard/policies",
+    //             icon: "description",
+    //         },
+    //         {
+    //             title: "Policy Claims",
+    //             path: "/dashboard/claims",
+    //             icon: "policy",
+    //         },
+    //         {
+    //             title: "Register Claims",
+    //             path: "/dashboard/register-claims",
+    //             icon: "edit_note",
+    //         },
+    //         {
+    //             title: "Settings",
+    //             path: "/dashboard/settings",
+    //             icon: "settings",
+    //         },
+    //         {
+    //             title: "Helpline",
+    //             path: "/dashboard/help",
+    //             icon: "call_quality",
+    //         }
+    //     ],
+    //     menuProps: [
+    //         {
+    //             icon: 'home',
+    //             path: '/',
+    //             title: 'Home'
+    //         }
+    //     ]
+    // }
 
+
+    useEffect(() => {
+        dispatch(getProfile({}));
+    }, [dispatch])
 
 
     return (
@@ -127,7 +178,7 @@ const CrmLayout = () => {
                                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
                                 {
-                                    profile.menuProps.map((menuItems) => <MenuItem onClick={handleClose}>
+                                    profile.menuProps.map((menuItems, key) => <MenuItem onClick={handleClose} key={key}>
                                         <ListItemIcon>
                                             <Icon fontSize="small">{menuItems.icon}</Icon>
                                         </ListItemIcon>
@@ -200,7 +251,7 @@ const CrmLayout = () => {
                     </CardContent>
                 </Box>
             </Box> :
-                <PageNotFound />}
+                <LinearProgress />}
         </Box>
     )
 }

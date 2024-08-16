@@ -36,7 +36,7 @@ const App = () => {
                 <RouterProvider router={allRouter(profile)}></RouterProvider>
             </React.Suspense>
             <CustomizePallete />
-            <ChatBot />
+            {/* <ChatBot /> */}
         </ThemeProvider>
     )
 }

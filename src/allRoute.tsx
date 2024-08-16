@@ -23,13 +23,11 @@ import EmployeeChild from "./crm/employee/routes/EmployeeChild";
 import getCustomerRoutes from "./crm/customer/routes/CustomerChilds";
 import getPospRoutes from "./crm/posp/routes/pospChilds";
 import ChatBot from "./Framework/components/ChatBot";
-
+import { customerProfileProps, employeeProfileProps, pospProfileProps } from "./types/AuthProps/AuthProps";
 const VehicleHome = React.lazy(() => import("./vehicle/pages/VehicleHome"))
 
 
 type allRouterProps = customerProfileProps | null | pospProfileProps | employeeProfileProps
-
-
 
 export const allRouter = (props: allRouterProps) => {
     let commonRoutes = [
@@ -152,7 +150,8 @@ export const allRouter = (props: allRouterProps) => {
                             element: <VehicleHome />
                         }
                     ]
-                }
+                },
+
             ]
         },
         {
@@ -171,6 +170,13 @@ export const allRouter = (props: allRouterProps) => {
             path: '*',
             element: <PageNotFound />
         },
+        {
+            path: 'dashboard',
+            element: <CrmLayout />,
+            children: [
+                ...getCustomerRoutes()
+            ]
+        }
     ]
 
     const employeeRoutes = (role: string) => ({
@@ -179,28 +185,26 @@ export const allRouter = (props: allRouterProps) => {
         children: [...EmployeeChild(role)]
     })
 
-    const customerRoutes = () => ({
-        path: 'customer/dashboard',
-        element: <CrmLayout />,
-        children: [...getCustomerRoutes()]
-    })
+    // const customerRoutes = () => (
+    //     [...getCustomerRoutes()]
+    // )
 
     const pospRoutes = (props: boolean) => ({
         path: 'posp/dashboard',
         element: <CrmLayout />,
         children: [...getPospRoutes(props)]
     })
-    if (props) {
-        if (props.type === 'employee') {
-            commonRoutes.push(employeeRoutes(props.role))
-        }
-        if (props.type === 'customer') {
-            commonRoutes.push(customerRoutes())
-        }
-        if (props.type === 'posp') {
-            commonRoutes.push(pospRoutes(props.exam))
-        }
-    }
+    // if (props) {
+    //     if (props.type === 'employee') {
+    //         commonRoutes.push(employeeRoutes(props.role))
+    //     }
+    //     if (props.type === 'customer') {
+    //         commonRoutes.push(customerRoutes())
+    //     }
+    //     if (props.type === 'posp') {
+    //         commonRoutes.push(pospRoutes(props.exam))
+    //     }
+    // }
 
     return createBrowserRouter(commonRoutes);
 }
