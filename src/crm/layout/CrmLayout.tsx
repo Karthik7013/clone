@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, CircularProgress, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
+import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, CircularProgress, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Skeleton, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
 import React, { useEffect } from "react";
 import { Logout, NotesRounded } from '@mui/icons-material';
 import SideBar from "../common/SideDrawer";
@@ -15,12 +15,9 @@ const drawerWidth = 240;
 const CrmLayout = () => {
     const location = useLocation();
     const links = location.pathname.split('/').slice(2);
-    console.log(links)
-
+    console.log(links, 'hellow')
     const dispatch = useDispatch()
     let profile = useSelector((state: RootProps) => state.auth.profile);
-    console.log(profile)
-    // const type = useSelector((state: RootProps) => state.auth.profile?.type);
     const dark = useSelector((state: RootProps) => state.ui.dark);
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -53,53 +50,7 @@ const CrmLayout = () => {
     const handleOnclick = () => dispatch(handleLogout()) // logout 
     const handleTheme = () => dispatch(toggleTheme()); //toggle theme
 
-    // profile = {
-    //     custId: 'CUST789294837370',
-    //     dob: '26-11-1999',
-    //     firstname: 'karthik',
-    //     lastname: 'tumala',
-    //     type: 'customer',
-    //     gender: 'Male',
-    //     sideProps: [
-    //         {
-    //             title: "Dashboard",
-    //             path: "/dashboard",
-    //             icon: "space_dashboard",
-    //         },
-    //         {
-    //             title: "My Policies",
-    //             path: "/dashboard/policies",
-    //             icon: "description",
-    //         },
-    //         {
-    //             title: "Policy Claims",
-    //             path: "/dashboard/claims",
-    //             icon: "policy",
-    //         },
-    //         {
-    //             title: "Register Claims",
-    //             path: "/dashboard/register-claims",
-    //             icon: "edit_note",
-    //         },
-    //         {
-    //             title: "Settings",
-    //             path: "/dashboard/settings",
-    //             icon: "settings",
-    //         },
-    //         {
-    //             title: "Helpline",
-    //             path: "/dashboard/help",
-    //             icon: "call_quality",
-    //         }
-    //     ],
-    //     menuProps: [
-    //         {
-    //             icon: 'home',
-    //             path: '/',
-    //             title: 'Home'
-    //         }
-    //     ]
-    // }
+
 
 
     useEffect(() => {
@@ -109,7 +60,7 @@ const CrmLayout = () => {
 
     return (
         <Box>
-            {profile ? <Box sx={{ display: 'flex' }}>
+            {<Box sx={{ display: 'flex' }}>
                 <AppBar
                     position="fixed"
                     sx={{
@@ -127,9 +78,15 @@ const CrmLayout = () => {
                         >
                             <NotesRounded />
                         </IconButton>
-                        <Typography variant="body2" noWrap component="div">
-                            Hellow {profile?.firstname} !
-                        </Typography>
+                        {
+                            profile ? <>
+                                <Typography variant="body2" noWrap component="div">
+                                    Hellow {profile.firstname} !
+                                </Typography>
+                            </> : <>
+                                <Skeleton width={120} height={40}></Skeleton>
+                            </>
+                        }
                         <Box flex={1} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <TextField sx={{ display: { xs: 'none', md: 'block' }, maxWidth: 400, margin: 'auto' }} fullWidth variant="outlined" size="small"
                                 placeholder="Search"
@@ -140,59 +97,65 @@ const CrmLayout = () => {
                         </Box>
                         <Stack direction="row" alignItems='center' gap={2}>
                             <Stack direction={'row'} sx={{ display: { xs: 'none', md: 'block' } }}>
-
-
                                 <IconButton sx={{ mr: 2 }} onClick={handleTheme} color='inherit'>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
-
-
                             </Stack>
-
-                            <Tooltip
-                                sx={{ maxWidth: '100%' }}
-                                title=""
-                            >
-                                <IconButton
-                                    onClick={handleClick}
-                                    size="small"
-                                    sx={{ ml: 2 }}
-                                    aria-controls={open ? 'account-menu' : undefined}
-                                    aria-haspopup="true"
-                                    aria-expanded={open ? 'true' : undefined}
-                                >
-                                    <Avatar
-                                        src={'https://img.freepik.com/free-photo/3d-illustration-young-business-man-with-funny-expression-his-face_1142-55156.jpg'}
-                                        sx={{ width: 38, height: 38 }}
+                            {
+                                profile ? <>
+                                    <Tooltip
+                                        sx={{ maxWidth: '100%' }}
+                                        title=""
                                     >
-                                        {profile?.firstname[0]}
-                                    </Avatar>
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                anchorEl={anchorEl}
-                                id="account-menu"
-                                open={open}
-                                onClose={handleClose}
-                                onClick={handleClose}
-                                variant="selectedMenu"
-                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                            >
-                                {
-                                    profile.menuProps.map((menuItems, key) => <MenuItem onClick={handleClose} key={key}>
+                                        <IconButton
+                                            onClick={handleClick}
+                                            size="small"
+                                            sx={{ ml: 2 }}
+                                            aria-controls={open ? 'account-menu' : undefined}
+                                            aria-haspopup="true"
+                                            aria-expanded={open ? 'true' : undefined}
+                                        >
+                                            <Avatar
+                                                src={'https://img.freepik.com/free-photo/3d-illustration-young-business-man-with-funny-expression-his-face_1142-55156.jpg'}
+                                                sx={{ width: 38, height: 38 }}
+                                            >
+                                                {profile.firstname[0]}
+                                            </Avatar>
+
+                                        </IconButton>
+
+                                    </Tooltip>
+                                </> : <>
+                                    <Skeleton sx={{ borderRadius: 999 }} variant="circular" width={42} height={42}></Skeleton>
+                                </>
+                            }
+                            {
+                                profile &&
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    id="account-menu"
+                                    open={open}
+                                    onClose={handleClose}
+                                    onClick={handleClose}
+                                    variant="selectedMenu"
+                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                >
+                                    {
+                                        profile.menuProps.map((menuItems, key) => <MenuItem onClick={handleClose} key={key}>
+                                            <ListItemIcon>
+                                                <Icon fontSize="small">{menuItems.icon}</Icon>
+                                            </ListItemIcon>
+                                            <Typography component='a' href={menuItems.path}>{menuItems.title}</Typography>
+                                        </MenuItem>)
+                                    }
+                                    <Divider />
+                                    <MenuItem onClick={handleOnclick}>
                                         <ListItemIcon>
-                                            <Icon fontSize="small">{menuItems.icon}</Icon>
+                                            <Logout fontSize="small" />
                                         </ListItemIcon>
-                                        <Typography component='a' href={menuItems.path}>{menuItems.title}</Typography>
-                                    </MenuItem>)
-                                }
-                                <Divider />
-                                <MenuItem onClick={handleOnclick}>
-                                    <ListItemIcon>
-                                        <Logout fontSize="small" />
-                                    </ListItemIcon>
-                                    <Typography component='a' href="/">Logout</Typography>
-                                </MenuItem>
-                            </Menu>
+                                        <Typography component='a' href="/">Logout</Typography>
+                                    </MenuItem>
+                                </Menu>
+                            }
                         </Stack>
                     </Toolbar>
                 </AppBar>
@@ -214,7 +177,7 @@ const CrmLayout = () => {
                             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                         }}
                     >
-                        <SideBar items={profile.sideProps} />
+                        <SideBar items={profile?.sideProps} />
                     </Drawer>
                     <Drawer
                         variant="permanent"
@@ -224,7 +187,7 @@ const CrmLayout = () => {
                         }}
                         open
                     >
-                        <SideBar items={profile.sideProps} />
+                        <SideBar items={profile?.sideProps} />
                     </Drawer>
                 </Box>
                 <Box
@@ -238,7 +201,7 @@ const CrmLayout = () => {
                                 if (links.length - 1 === index) {
                                     return <Typography variant="body1">{e}</Typography>
                                 }
-                                return <Link color="inherit" to="/employee/dashboard">
+                                return <Link color="inherit" to="/dashboard">
                                     {e}
                                 </Link>
                             })}
@@ -250,8 +213,7 @@ const CrmLayout = () => {
                         <Outlet />
                     </CardContent>
                 </Box>
-            </Box> :
-                <LinearProgress />}
+            </Box>}
         </Box>
     )
 }

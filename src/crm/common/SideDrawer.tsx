@@ -1,14 +1,13 @@
-import { Avatar, Box, Divider, Icon, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Divider, Icon, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Skeleton, Stack, Toolbar, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { navProps } from '../../types/AuthProps/AuthProps';
 import React from 'react';
 
 type props = {
-    items: navProps[]
+    items: navProps[] | undefined
 }
 
 const SideDrawer = (props: props) => {
-    const items = props.items;
     return (<Box>
         <Toolbar>
             <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
@@ -16,20 +15,33 @@ const SideDrawer = (props: props) => {
                 Namelix</Typography>
         </Toolbar>
         <Divider />
-        {/* <Toolbar /> */}
         <List component={Stack} divider={<Divider />}>
-            {items.map((item, index: number) => (
-                <Link to={item.path} key={index}>
-                    <ListItem key={index} disablePadding>
+            {props.items ? <>
+                {props.items.map((item, index: number) => (
+                    <Link to={item.path} key={index}>
+                        <ListItem key={index} disablePadding>
+                            <ListItemButton disableRipple>
+                                <ListItemIcon>
+                                    <Icon>{item.icon}</Icon>
+                                </ListItemIcon>
+                                <ListItemText primary={item.title} />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                ))}
+            </> :
+                <>
+                    {[1, 2, 3, 4, 5, 6].map((number: number) => <ListItem key={number} disablePadding>
                         <ListItemButton disableRipple>
                             <ListItemIcon>
-                                <Icon>{item.icon}</Icon>
+                                <Skeleton width={25} height={40} />
                             </ListItemIcon>
-                            <ListItemText primary={item.title} />
+                            <ListItemText primary={<Skeleton width={100} />} />
                         </ListItemButton>
-                    </ListItem>
-                </Link>
-            ))}
+                    </ListItem>)}
+                </>
+            }
+
         </List>
 
     </Box>

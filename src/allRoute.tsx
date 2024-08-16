@@ -30,6 +30,19 @@ const VehicleHome = React.lazy(() => import("./vehicle/pages/VehicleHome"))
 type allRouterProps = customerProfileProps | null | pospProfileProps | employeeProfileProps
 
 export const allRouter = (props: allRouterProps) => {
+    const getRoleBaseRoutes = () => {
+        console.log(props)
+        switch (props?.type) {
+            case 'customer':
+                return getCustomerRoutes()
+            case 'employee':
+                return EmployeeChild('ceo')
+            case 'posp':
+                return getPospRoutes(props?.exam)
+            default:
+                return [];
+        }
+    }
     let commonRoutes = [
         {
             path: "/",
@@ -174,9 +187,7 @@ export const allRouter = (props: allRouterProps) => {
             path: 'dashboard',
             element: <CrmLayout />,
             children: [
-                // ...getCustomerRoutes(),
-                // ...getPospRoutes(false)
-                // ...EmployeeChild('ceo')
+                ...getRoleBaseRoutes()
             ]
         }
     ]

@@ -251,7 +251,7 @@ const initialState: authProps = {
 
 // login user
 export const loginUser = createAsyncThunk('login/user', async (payload: { phno: string }) => {
-    const res = await serverLogin.post('/customer/verify', { ...payload });
+    const res = await serverLogin.post('/posp/verify', { ...payload });
     return { status: res.status, data: res.data }
 });
 
@@ -264,7 +264,7 @@ export const getProfile = createAsyncThunk('profile/user', async (payload: {}, {
     const headers = {
         Authorization: `Bearer ${token}`,
     };
-    const res = await serverLogin.post('/customer/profile', {}, { headers });
+    const res = await serverLogin.post('/posp/profile', {}, { headers });
     console.log(res, 'res')
     return { status: res.status, data: res.data }
 })

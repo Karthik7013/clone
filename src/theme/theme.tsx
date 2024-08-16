@@ -81,6 +81,13 @@ const theme = (customStyles: customStylesProps) => {
                         color: dark ? '#fff' : '#040D12',
                     }
                 }
+            },
+            MuiSkeleton: {
+                styleOverrides: {
+                    root: {
+                        borderRadius
+                    }
+                }
             }
         },
     })
