@@ -174,37 +174,12 @@ export const allRouter = (props: allRouterProps) => {
             path: 'dashboard',
             element: <CrmLayout />,
             children: [
-                ...getCustomerRoutes()
+                // ...getCustomerRoutes(),
+                // ...getPospRoutes(false)
+                // ...EmployeeChild('ceo')
             ]
         }
     ]
-
-    const employeeRoutes = (role: string) => ({
-        path: 'employee/dashboard',
-        element: <CrmLayout />,
-        children: [...EmployeeChild(role)]
-    })
-
-    // const customerRoutes = () => (
-    //     [...getCustomerRoutes()]
-    // )
-
-    const pospRoutes = (props: boolean) => ({
-        path: 'posp/dashboard',
-        element: <CrmLayout />,
-        children: [...getPospRoutes(props)]
-    })
-    // if (props) {
-    //     if (props.type === 'employee') {
-    //         commonRoutes.push(employeeRoutes(props.role))
-    //     }
-    //     if (props.type === 'customer') {
-    //         commonRoutes.push(customerRoutes())
-    //     }
-    //     if (props.type === 'posp') {
-    //         commonRoutes.push(pospRoutes(props.exam))
-    //     }
-    // }
 
     return createBrowserRouter(commonRoutes);
 }

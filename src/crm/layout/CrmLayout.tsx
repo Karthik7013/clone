@@ -19,8 +19,8 @@ const CrmLayout = () => {
 
     const dispatch = useDispatch()
     let profile = useSelector((state: RootProps) => state.auth.profile);
-    console.log(profile?.menuProps)
-    const type = useSelector((state: RootProps) => state.auth.profile?.type);
+    console.log(profile)
+    // const type = useSelector((state: RootProps) => state.auth.profile?.type);
     const dark = useSelector((state: RootProps) => state.ui.dark);
 
     const [mobileOpen, setMobileOpen] = React.useState(false);

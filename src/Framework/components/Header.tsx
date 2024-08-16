@@ -7,7 +7,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { Avatar, Card, CardContent, CardMedia, Stack, Switch } from '@mui/material';
+import { Avatar, Card, CardContent, CardMedia, Stack, Switch, TextField } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -79,9 +79,7 @@ const Header: React.FC = () => {
                             alt="Paella"
                         />
                     </Box>
-                    <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
-                        <MenuIcon />
-                    </Box>
+
                     <Typography
                         variant="h5"
                         noWrap
@@ -135,7 +133,9 @@ const Header: React.FC = () => {
                         </Button>
                     </Box>
                     <Box sx={{ flexGrow: { xs: 1, md: 0 }, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+
                         <IconButton sx={{ mr: 2 }} onClick={toggleMode} color='inherit'>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
+
                         {islogin ? <>
                             <Tooltip title="Logout">
                                 <CustomButton onClick={() => dispatch(handleLogout())} startIcon={<LogoutRoundedIcon />} sx={{ color: 'white' }}>
@@ -174,7 +174,7 @@ const Header: React.FC = () => {
                             onClose={handleCloseSignInMenu}
                         >{
                                 islogin ? <>
-                                    <MenuItem onClick={() => navigate(`/${profile?.type}/dashboard`)}>
+                                    <MenuItem onClick={() => navigate(`/dashboard`)}>
                                         <Stack direction={'row'} gap={1} >
                                             <SpaceDashboardIcon fontSize='small' />
                                             <Typography textAlign="center" >Dashboard</Typography>

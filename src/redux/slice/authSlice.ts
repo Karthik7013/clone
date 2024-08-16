@@ -259,7 +259,8 @@ export const loginUser = createAsyncThunk('login/user', async (payload: { phno: 
 export const getProfile = createAsyncThunk('profile/user', async (payload: {}, { getState }) => {
     const state: RootProps = getState();
     console.log(state)
-    const token = state.auth.token;
+    const token = state.auth.token?.token;
+
     const headers = {
         Authorization: `Bearer ${token}`,
     };
@@ -325,6 +326,7 @@ const authSlice = createSlice({
                 state: true
             }
             state.isLogin = true;
+            state.profile = action.payload.data
         })
     }
 })
