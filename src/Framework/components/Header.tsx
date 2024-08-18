@@ -65,6 +65,7 @@ const Header: React.FC = () => {
     const islogin = useSelector((state: RootProps) => state.auth.isLogin);
     console.log(islogin);
     const profile = useSelector((state: RootProps) => state.auth.profile);
+    console.log(profile)
 
 
     return (
@@ -143,7 +144,7 @@ const Header: React.FC = () => {
                                 </CustomButton>
                             </Tooltip>
 
-                            <Tooltip title={<Typography variant="body1">Role : {profile?.role}</Typography>}>
+                            <Tooltip title={<Typography variant="body1">Role : {profile?.type}</Typography>}>
                                 <IconButton
                                     onClick={handleOpenSignInMenu}
                                 >
@@ -210,4 +211,4 @@ const Header: React.FC = () => {
     )
 }
 
-export default Header
+export default React.memo(Header);

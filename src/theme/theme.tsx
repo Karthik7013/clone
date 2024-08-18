@@ -35,8 +35,6 @@ const token = (dark: boolean) => ({
 
 const theme = (customStyles: customStylesProps) => {
     const { dark, borderRadius, fontFamily } = customStyles;
-    const colors = token(!dark);
-    console.log(colors)
     return createTheme({
         palette: {
             mode: dark ? 'dark' : 'light',
@@ -88,7 +86,15 @@ const theme = (customStyles: customStylesProps) => {
                         borderRadius
                     }
                 }
+            },
+            MuiCard: {
+                styleOverrides: {
+                    root: {
+                        boxShadow: "rgba(0, 0, 0, 0.16) 0px 5px 16px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px"
+                    }
+                }
             }
+
         },
     })
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import chat_bot from "../../assets/chat_bot.png";
-import { Avatar, Badge, Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Divider, Fab, IconButton, ListItem, ListItemIcon, ListItemText, Menu, Stack, TextField, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, CardActions, CardContent, Chip, Divider, Fab, IconButton, ListItem, ListItemIcon, ListItemText, Menu, Skeleton, Stack, TextField } from '@mui/material';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 const ChatBot = () => {
@@ -63,8 +63,20 @@ const ChatBot = () => {
                                 <Avatar src={chat_bot} sx={{ width: '32px', height: '32px' }} /><Chip size='small' label='Hi👋🏻 How can i Help you ?'></Chip>
                             </Stack>
                         })}
-
-
+                        <Stack direction={'row'} gap={1} alignItems={'center'}>
+                            <Skeleton variant='circular' width={'40px'} height={'32px'} />
+                            <Box width={'100%'}>
+                                <Skeleton width={'70%'} height={'1rem'} />
+                                <Skeleton width={'50%'} height={'1rem'} />
+                            </Box>
+                        </Stack>
+                        <Stack direction={'row'} gap={1} alignItems={'flex-end'}>
+                            <Box width={'100%'}>
+                                <Skeleton width={'70%'} height={'1rem'} />
+                                <Skeleton width={'50%'} height={'1rem'} />
+                            </Box>
+                            <Skeleton variant='circular' width={'40px'} height={'32px'} />
+                        </Stack>
                     </CardContent>
                     <Divider />
                     <CardActions>

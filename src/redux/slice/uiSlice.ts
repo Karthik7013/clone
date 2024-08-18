@@ -9,7 +9,6 @@ const initialState: uiProps = {
     borderRadius: 32,
     fontFamily: 'Poppins'
 }
-console.log(initialState)
 
 const uiSlice = createSlice({
     name: 'ui',
@@ -28,5 +27,5 @@ const uiSlice = createSlice({
     }
 })
 
-export const { toggleTheme, changeBorderRadius,changeFontFamily } = uiSlice.actions
+export const { toggleTheme, changeBorderRadius, changeFontFamily } = uiSlice.actions
 export default uiSlice.reducer

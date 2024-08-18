@@ -11,7 +11,7 @@ const SideDrawer = (props: props) => {
     return (<Box>
         <Toolbar>
             <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
-            <Typography href={'/'} component={'a'} variant="body1">
+            <Typography href={'/dashboard'} component={'a'} variant="body1">
                 Namelix</Typography>
         </Toolbar>
         <Divider />

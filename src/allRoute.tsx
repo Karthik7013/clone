@@ -24,14 +24,16 @@ import getCustomerRoutes from "./crm/customer/routes/CustomerChilds";
 import getPospRoutes from "./crm/posp/routes/pospChilds";
 import ChatBot from "./Framework/components/ChatBot";
 import { customerProfileProps, employeeProfileProps, pospProfileProps } from "./types/AuthProps/AuthProps";
+import { RootProps } from "./types/RootProps";
+import { useSelector } from "react-redux";
 const VehicleHome = React.lazy(() => import("./vehicle/pages/VehicleHome"))
 
 
 type allRouterProps = customerProfileProps | null | pospProfileProps | employeeProfileProps
 
 export const allRouter = (props: allRouterProps) => {
+    const isLoggedIn = useSelector((state: RootProps) => state.auth.isLogin);
     const getRoleBaseRoutes = () => {
-        console.log(props)
         switch (props?.type) {
             case 'customer':
                 return getCustomerRoutes()
