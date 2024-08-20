@@ -7,7 +7,8 @@ const getPreference = () => localStorage.getItem('dark') || 'light'
 const initialState: uiProps = {
     dark: getPreference() === 'dark' ? true : false,
     borderRadius: 32,
-    fontFamily: 'Poppins'
+    fontFamily: 'Poppins',
+    enableCookie:true
 }
 
 const uiSlice = createSlice({

@@ -1,7 +1,7 @@
 import React from "react";
-import { Avatar, Box, Card, CardContent, CardMedia, Container, Fab, Grid, ListItem, ListItemIcon, ListItemText, Stack, Typography } from "@mui/material";
+import { Avatar, Badge, Box, Button, Card, CardContent, CardMedia, Chip, Container, Fab, Grid, ListItem, ListItemIcon, ListItemText, Paper, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 // nav - img
 import loanLogo from "./assets/navAssets/Loan.svg";
 import healthLogo from "./assets/navAssets/Health.svg";
@@ -11,8 +11,8 @@ import commercialLogo from "./assets/navAssets/commercial.svg"
 import bikeLogo from "./assets/navAssets/Bike.svg";
 import giftBox from './assets/spark.svg';
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
-
-
+import CookieCard from "./Framework/components/CookieCard"
+import { RootProps } from "./types/RootProps";
 const Home = () => {
     console.log('home renders')
     type navProps = {
@@ -20,6 +20,7 @@ const Home = () => {
         name: string,
         path: string
     }
+    const cookiePrompt = useSelector((state: RootProps) => state.ui.enableCookie)
 
 
     // products navigations images url
@@ -91,7 +92,6 @@ const Home = () => {
                                     <CardMedia sx={{ width: 16, height: 16 }} component={'img'} image={giftBox} alt="" /></ListItemIcon>
                                 <ListItemText>
                                     <Typography variant="body1">
-
                                         Quick, easy &
                                         hassle free</Typography>
                                 </ListItemText>
@@ -121,14 +121,12 @@ const Home = () => {
                 }
                 <Grid item xs={12}>
                     <Box minWidth={'100%'} display={'flex'} justifyContent={'center'}>
-                        <Fab size="small" variant="extended">
-                            <GridViewRoundedIcon sx={{ mr: 1, fontSize: '1rem' }} />
-                            View More...
-                        </Fab>
+                        <Chip clickable variant="outlined" icon={<GridViewRoundedIcon sx={{ mr: 1 }} />} label="View More..." size="small" />
                     </Box>
                 </Grid>
             </Grid>
         </Container>
+        {cookiePrompt && <CookieCard />}
     </Box>
 }
 export default Home;

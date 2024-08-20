@@ -8,7 +8,8 @@ type alertProps =
 type uiProps = {
     dark: boolean,
     borderRadius:number,
-    fontFamily:string
+    fontFamily:string,
+    enableCookie:boolean
 }
 
 export type { uiProps,alertProps }

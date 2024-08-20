@@ -268,7 +268,7 @@ const LoanQuotesPage = () => {
                 </Stack>
             </Stack>
 
-            {false && <Paper
+            {true && <Paper
                 role="dialog"
                 aria-modal="false"
                 aria-label="Cookie banner"
