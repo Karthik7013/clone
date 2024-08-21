@@ -22,7 +22,7 @@ const CookieCard = () => {
                 </ListItem>
             </CardContent>
             <Divider sx={{ mb: 1 }} />
-            <CardContent sx={{py:0}}>
+            <CardContent sx={{ py: 0 }}>
 
 
 

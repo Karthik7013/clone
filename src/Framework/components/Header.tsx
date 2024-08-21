@@ -7,7 +7,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { Avatar, Card, CardContent, CardMedia, Stack, Switch, TextField } from '@mui/material';
+import { Avatar, Card, CardContent, CardMedia, ListItemIcon, ListItemText, Stack, Switch, TextField } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -176,10 +176,12 @@ const Header: React.FC = () => {
                         >{
                                 islogin ? <>
                                     <MenuItem onClick={() => navigate(`/dashboard`)}>
-                                        <Stack direction={'row'} gap={1} >
+                                        <ListItemIcon>
                                             <SpaceDashboardIcon fontSize='small' />
+                                        </ListItemIcon>
+                                        <ListItemText>
                                             <Typography textAlign="center" >Dashboard</Typography>
-                                        </Stack>
+                                        </ListItemText>
                                     </MenuItem>
                                 </> :
                                     <>

@@ -20,6 +20,7 @@ type props = {
 }
 
 const AlertBox = ({ alert, onClose }: props) => {
+    console.log('alert rendered')
     const dispatch = useDispatch();
     const handleClose = () => {
         dispatch(onClose())
@@ -67,4 +68,4 @@ const AlertBox = ({ alert, onClose }: props) => {
     )
 }
 
-export default AlertBox
+export default (AlertBox);

@@ -4,14 +4,9 @@ import { Link } from 'react-router-dom';
 import FacebookIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/X';
-import { KeyboardArrowRight } from '@mui/icons-material';
 
 const Footer = () => {
-    const logoStyle = {
-        width: '140px',
-        height: 'auto',
-    };
-
+    console.log('footer')
     function Copyright() {
         return (
             <Typography variant="body2" color="text.secondary" mt={1}>
@@ -218,4 +213,4 @@ const Footer = () => {
     )
 }
 
-export default Footer
+export default React.memo(Footer);
