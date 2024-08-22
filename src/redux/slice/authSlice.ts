@@ -255,7 +255,7 @@ export const loginUser = createAsyncThunk('login/user', async (payload: { phno: 
     return { status: res.status, data: res.data }
 });
 
-// get Profile 
+// get Profile
 export const getProfile = createAsyncThunk('profile/user', async (payload: {}, { getState }) => {
     const state: RootProps = getState();
     console.log(state)
@@ -265,7 +265,6 @@ export const getProfile = createAsyncThunk('profile/user', async (payload: {}, {
         Authorization: `Bearer ${token}`,
     };
     const res = await serverLogin.post('/employee/profile', {}, { headers });
-    console.log(res, 'res')
     return { status: res.status, data: res.data }
 })
 

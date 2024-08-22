@@ -1,14 +1,20 @@
 import React from 'react'
-import { RouterProvider } from 'react-router-dom'
-import { CssBaseline, Fab, LinearProgress, ThemeProvider, Toolbar, Typography } from '@mui/material'
-import theme from './theme/theme';
+import { RouterProvider } from 'react-router-dom';
+
+//============ MUI IMPORTS ==============>
+import { CssBaseline, LinearProgress } from '@mui/material';
+
+//============ REDUX IMPORTS ==============>
 import { useDispatch, useSelector } from 'react-redux';
-import { RootProps } from './types/RootProps';
 import { closeAlert } from './redux/slice/authSlice';
+
+//============ PROP TYPES IMPORTS ==============>
+import { RootProps } from './types/RootProps';
+
+//============ PROJECT IMPORTS ==============>
 import AlertBox from './Framework/components/AlertBox';
 import { allRouter } from "./allRoute"
 import CustomizePallete from './Framework/components/CustomizePallete';
-import ChatBot from './Framework/components/ChatBot';
 import CustomThemeProvider from './theme/CustomThemeProvider';
 
 const App = () => {
@@ -21,17 +27,22 @@ const App = () => {
     const handleClose = () => dispatch(closeAlert());
     const profile = useSelector((state: RootProps) => state.auth.profile);
 
+    const themeProps = {
+        dark,
+        fontFamily,
+        borderRadius,
+        size: 44
+    }
+
     return (
-        <CustomThemeProvider dark={dark} fontFamily={fontFamily} borderRadius={borderRadius}>
+        <CustomThemeProvider {...themeProps}>
             <CssBaseline />
-            <AlertBox alert={alert} onClose={handleClose} />
+            {/* <AlertBox alert={alert} onClose={handleClose} /> */}
             <React.Suspense fallback={<LinearProgress />}>
                 <RouterProvider router={allRouter(profile)} />
             </React.Suspense>
             <CustomizePallete />
-            <ChatBot />
         </CustomThemeProvider>
-
     )
 }
 

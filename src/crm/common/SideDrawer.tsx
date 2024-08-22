@@ -43,6 +43,8 @@ const SideDrawer = (props: props) => {
             }
 
         </List>
+        <Divider />
+        <Typography color='text.secondary' variant='subtitle2' textAlign='center' mt={1}>Version v.1</Typography>
 
     </Box>
     )

@@ -32,10 +32,18 @@ import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownR
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import ProductPannel from './ProductPannel';
-const Header: React.FC = () => {
+import { customerProfileProps, employeeProfileProps, pospProfileProps } from '../../types/AuthProps/AuthProps';
+
+
+type headerProps = {
+    dark: boolean,
+    islogin: boolean,
+    profile: customerProfileProps | employeeProfileProps | pospProfileProps | null
+}
+const Header = (props: headerProps) => {
     console.log('Header...')
-    const dispatch = useDispatch()
-    const dark = useSelector((state: RootProps) => state.ui.dark);
+    const dispatch = useDispatch();
+    const { dark, islogin, profile } = props;
     const [anchorElProducts, setAnchorElProducts] = useState(null);
     const [anchorElSignIn, setAnchorElSignIn] = useState(null);
     const navigate = useNavigate();
@@ -62,10 +70,7 @@ const Header: React.FC = () => {
     }
     const handleOnclick = () => dispatch(handleLogout()) // logout 
 
-    const islogin = useSelector((state: RootProps) => state.auth.isLogin);
-    console.log(islogin);
-    const profile = useSelector((state: RootProps) => state.auth.profile);
-    console.log(profile)
+
 
 
     return (
@@ -134,7 +139,6 @@ const Header: React.FC = () => {
                         </Button>
                     </Box>
                     <Box sx={{ flexGrow: { xs: 1, md: 0 }, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-
                         <IconButton sx={{ mr: 2 }} onClick={toggleMode} color='inherit'>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
 
                         {islogin ? <>

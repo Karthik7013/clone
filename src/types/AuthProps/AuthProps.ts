@@ -13,8 +13,6 @@ type authProps = {
     profile: null | customerProfileProps | pospProfileProps | employeeProfileProps
 }
 
-
-
 // new_
 type customerProfileProps = {
     type: 'customer',
@@ -25,6 +23,7 @@ type customerProfileProps = {
     custId: string,
     sideProps: navProps[],
     menuProps: navProps[],
+    location: string
 }
 
 type pospProfileProps = {
@@ -37,7 +36,8 @@ type pospProfileProps = {
     sideProps: navProps[],
     menuProps: navProps[],
     exam: boolean,
-    type: 'posp'
+    type: 'posp',
+    location: string
 }
 
 type employeeProfileProps = {
@@ -53,6 +53,7 @@ type employeeProfileProps = {
     sideProps: navProps[],
     menuProps: navProps[],
     department: 'backend' | 'sales' | 'operation' | 'hiring',
+    location: string
 }
 
 export type { authProps, navProps, customerProfileProps, pospProfileProps, employeeProfileProps }

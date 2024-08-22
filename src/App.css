@@ -1,3 +1,26 @@
 a{
     color: #fff!important;
 }
+
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-5deg); /* Rotate left */
+    }
+    50% {
+        transform: rotate(5deg); /* Rotate right */
+    }
+    75% {
+        transform: rotate(-5deg); /* Rotate left */
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.icon-shake {
+    display: inline-block; /* Make sure the element can be transformed */
+    animation: shake 0.5s ease-in-out !important;
+}

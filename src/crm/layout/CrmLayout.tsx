@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Skeleton, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
+import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Chip, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Skeleton, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
 import React, { useEffect } from "react";
 import { Logout, NotesRounded } from '@mui/icons-material';
 import SideBar from "../common/SideDrawer";
@@ -11,6 +11,7 @@ import PageNotFound from "../../Framework/components/PageNotFound";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 const drawerWidth = 240;
 const CrmLayout = () => {
     const location = useLocation();
@@ -48,7 +49,8 @@ const CrmLayout = () => {
     };
 
     const handleOnclick = () => dispatch(handleLogout()) // logout 
-    const handleTheme = () => dispatch(toggleTheme()); //toggle theme
+    const handleTheme = () => dispatch(toggleTheme()); //toggle theme;
+    const userLocation = useSelector((state: RootProps) => state.auth.profile?.location);
 
 
 
@@ -95,6 +97,9 @@ const CrmLayout = () => {
                             ></TextField>
                         </Box>
                         <Stack direction="row" alignItems='center' gap={2}>
+                            <Chip color="primary" size="small" icon={<LocationOnRoundedIcon sx={{ color: 'inherit' }} />} label="Banglore" />
+
+
                             <Stack direction={'row'} sx={{ display: { xs: 'none', md: 'block' } }}>
                                 <IconButton sx={{ mr: 2 }} onClick={handleTheme} color='inherit'>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
                             </Stack>
@@ -120,7 +125,6 @@ const CrmLayout = () => {
                                             </Avatar>
 
                                         </IconButton>
-
                                     </Tooltip>
                                 </> : <>
                                     <Skeleton sx={{ borderRadius: 999 }} variant="circular" width={42} height={42}></Skeleton>

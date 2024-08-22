@@ -1,5 +1,9 @@
 import React from "react";
-import { Avatar, Badge, Box, Button, Card, CardContent, CardMedia, Chip, Container, Fab, Grid, ListItem, ListItemIcon, ListItemText, Paper, Stack, Typography } from "@mui/material";
+
+
+//============ MUI IMPORTS ==============>
+import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Container, Fab, Grid, keyframes, ListItem, ListItemIcon, ListItemText, Stack, styled, Typography } from "@mui/material";
+import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 // nav - img
@@ -58,44 +62,71 @@ const Home = () => {
 
 
 
-    return <Box sx={{ height: "100vh" }}>
+
+    const rotate = keyframes`
+        0% {
+          transform: rotate(0deg);
+          scale:0.9
+        }
+        50% {
+          transform: rotate(20deg);
+          scale:1.05
+        }
+        100%{
+        transform:rotate(0deg);
+              scale:0.9
+        }
+      `;
+
+    const ShakeIcon = styled(CallRoundedIcon)(({ theme }) => ({
+        animation: `${rotate} 1s linear infinite`,
+    }));
+
+
+
+    return <Box>
         <Container maxWidth='lg'>
             <Grid container spacing={2} mt={1} flexGrow={1}>
-                <Grid item xs={12}>
+                <Grid item xs={12} mb={5}>
                     <Stack direction={'row'} justifyContent={'space-between'}>
                         <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                             <Typography variant="h4">Lets Find Your</Typography>
                             <Typography variant="h4" fontWeight={600}>Best Insurance Plan</Typography>
-                            <Stack direction={'row'} gap={2} >
-                                <ListItem>
+                            <Stack direction={'row'} gap={1} mt={2}>
+                                <ListItem disablePadding>
                                     <ListItemIcon sx={{ minWidth: 24 }}>
                                         <CardMedia sx={{ width: 16, height: 16 }} component={'img'} image={giftBox} alt="" /></ListItemIcon>
                                     <ListItemText>
-                                        <Typography variant="body1">
+                                        <Typography variant="body2">
 
                                             Quick, easy &
                                             hassle free</Typography>
                                     </ListItemText>
                                 </ListItem>
-                                <ListItem>
+                                <ListItem disablePadding>
                                     <ListItemIcon sx={{ minWidth: 24 }}>
                                         <CardMedia sx={{ width: 16, height: 16 }} component={'img'} image={giftBox} alt="" />
                                     </ListItemIcon>
                                     <ListItemText>
-                                        <Typography variant="body1">
-                                            80+ Insurer Partners Support</Typography>
+                                        <Typography variant="body2">
+                                            80+ Insurer Partners</Typography>
                                     </ListItemText>
                                 </ListItem>
                             </Stack>
-                            <ListItem>
+                            <ListItem disablePadding sx={{ mt: 2 }}>
                                 <ListItemIcon sx={{ minWidth: 24 }}>
                                     <CardMedia sx={{ width: 16, height: 16 }} component={'img'} image={giftBox} alt="" /></ListItemIcon>
                                 <ListItemText>
-                                    <Typography variant="body1">
-                                        Quick, easy &
-                                        hassle free</Typography>
+                                    <Typography variant="body2">
+                                        3X Faster quotes</Typography>
                                 </ListItemText>
                             </ListItem>
+                            <Stack direction='row' gap={2} mt={2}>
+                                <Button variant="contained" endIcon={<ShakeIcon>
+                                    <CallRoundedIcon />
+                                </ShakeIcon>}>Get Started</Button>
+                                <Button variant="outlined">Free Quotes</Button>
+                            </Stack>
                         </Box>
                         <Box>
                             <Card elevation={0}>
@@ -103,6 +134,7 @@ const Home = () => {
                             </Card>
                         </Box>
                     </Stack>
+
                 </Grid>
 
                 {
@@ -121,12 +153,13 @@ const Home = () => {
                 }
                 <Grid item xs={12}>
                     <Box minWidth={'100%'} display={'flex'} justifyContent={'center'}>
-                        <Chip clickable variant="outlined" icon={<GridViewRoundedIcon sx={{ mr: 1 }} />} label="View More..." size="small" />
+                        <Chip variant="outlined" label="Explore more" size="small" />
                     </Box>
                 </Grid>
             </Grid>
+
         </Container>
-        {cookiePrompt && <CookieCard />}
+        {!cookiePrompt && <CookieCard />}
     </Box>
 }
 export default Home;

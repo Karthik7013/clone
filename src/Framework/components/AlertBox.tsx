@@ -61,11 +61,10 @@ const AlertBox = ({ alert, onClose }: props) => {
             autoHideDuration={3000}
             onClose={handleClose}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-
         >
             <CustomAlert variant='outlined' icon={AlertIcon(alert.type)} severity={alert.type}>{alert.message}</CustomAlert>
         </Snackbar>
     )
 }
 
-export default (AlertBox);
+export default React.memo(AlertBox);
