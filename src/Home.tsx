@@ -141,12 +141,16 @@ const Home = () => {
                     products.map((nav: navProps, _: number) => {
                         return <Grid key={_} item xs={4} sm={3} md={3} lg={2}>
                             <Link to={nav.path}>
-                                <CardContent component={Card}>
-                                    <Stack alignItems={'center'}>
-                                        <Avatar src={nav.imgUrl} sx={{ width: "28px", height: "28px", objectFit: 'cover' }} variant="square" />
-                                        <Typography className="addition-service-card-title">{nav.name}</Typography>
-                                    </Stack>
-                                </CardContent>
+                                <CardActionArea>
+                                    <CardContent component={Card}>
+
+                                        <Stack alignItems={'center'}>
+                                            <Avatar src={nav.imgUrl} sx={{ width: "28px", height: "28px", objectFit: 'cover' }} variant="square" />
+                                            <Typography className="addition-service-card-title">{nav.name}</Typography>
+                                        </Stack>
+
+                                    </CardContent>
+                                </CardActionArea>
                             </Link>
                         </Grid>
                     })
@@ -159,7 +163,7 @@ const Home = () => {
             </Grid>
 
         </Container>
-        {!cookiePrompt && <CookieCard />}
+        {cookiePrompt && <CookieCard />}
     </Box>
 }
 export default Home;

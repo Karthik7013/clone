@@ -1,4 +1,5 @@
 import { alpha, createTheme, useTheme } from "@mui/material";
+import { DataGridProps } from "@mui/x-data-grid"
 
 type customStylesProps = {
     dark: boolean,
@@ -34,6 +35,7 @@ const token = (dark: boolean) => ({
 })
 
 const theme = (customStyles: customStylesProps) => {
+    const theme = useTheme()
     const { dark, borderRadius, fontFamily } = customStyles;
     return createTheme({
         palette: {
@@ -93,9 +95,27 @@ const theme = (customStyles: customStylesProps) => {
                         boxShadow: "rgba(0, 0, 0, 0.16) 0px 5px 16px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px"
                     }
                 }
-            }
+            },
+            MuiDataGrid: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: borderRadius,
+                        overflow: 'hidden'
+                    },
+                    columnHeaders: {
+                        backgroundColor: theme.palette.primary.main, // Header background color
+                        // color: '#ffffff', // Header text color
+                    },
+                    row: {
 
-        },
+                        '&:hover': {
+                            backgroundColor: theme.palette.primary.light, // Row hover color
+                        },
+                    },
+                },
+
+            },
+        }
     })
 
 }

@@ -178,7 +178,7 @@ const Header = (props: headerProps) => {
                             open={Boolean(anchorElSignIn)}
                             onClose={handleCloseSignInMenu}
                         >{
-                                islogin ? <>
+                                islogin ? <Box>
                                     <MenuItem onClick={() => navigate(`/dashboard`)}>
                                         <ListItemIcon>
                                             <SpaceDashboardIcon fontSize='small' />
@@ -187,8 +187,8 @@ const Header = (props: headerProps) => {
                                             <Typography textAlign="center" >Dashboard</Typography>
                                         </ListItemText>
                                     </MenuItem>
-                                </> :
-                                    <>
+                                </Box> :
+                                    <Box>
                                         <MenuItem onClick={() => navigate('/signin')}>
                                             <Stack direction={'row'} gap={1} >
                                                 <AccountCircleRoundedIcon fontSize='small' />
@@ -207,7 +207,7 @@ const Header = (props: headerProps) => {
                                                 <Typography textAlign="center">Admin</Typography>
                                             </Stack>
                                         </MenuItem>
-                                    </>
+                                    </Box>
                             }
                         </Menu>
                     </Box>
