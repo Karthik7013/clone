@@ -1,8 +1,11 @@
-import { Avatar, Box, Divider, Icon, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Skeleton, Stack, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Chip, Divider, Icon, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, Toolbar, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { Link as MuiLink } from "@mui/material";
 import { navProps } from '../../types/AuthProps/AuthProps';
 import React from 'react';
+import theme from '../../theme/theme';
 
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 type props = {
     items: navProps[] | undefined
 }
@@ -10,24 +13,37 @@ type props = {
 const SideDrawer = (props: props) => {
     return (<Box>
         <Toolbar>
-            <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
-            <Typography href={'/dashboard'} component={'a'} variant="body1">
-                Namelix</Typography>
+
+
+            <ListItem disablePadding>
+                <ListItemIcon>
+                    <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
+                </ListItemIcon>
+                <ListItemText primary={<MuiLink component={Link} to="/">
+                    <Typography color="text.primary">Namelix</Typography>
+                </MuiLink>} />
+
+
+            </ListItem>
+
         </Toolbar>
-        <Divider />
-        <List component={Stack} divider={<Divider />}>
+
+
+
+        <List component={Stack} divider={<Divider />} sx={{ px: 1 }}>
             {props.items ? <>
                 {props.items.map((item, index: number) => (
-                    <Link to={item.path} key={index}>
+                    <MuiLink component={Link} to={item.path} key={index}>
                         <ListItem key={index} disablePadding>
                             <ListItemButton disableRipple>
                                 <ListItemIcon>
                                     <Icon>{item.icon}</Icon>
                                 </ListItemIcon>
                                 <ListItemText primary={item.title} />
+                                {index === 1 && <ListItemSecondaryAction><Chip color='warning' label="+3" size='small' /></ListItemSecondaryAction>}
                             </ListItemButton>
                         </ListItem>
-                    </Link>
+                    </MuiLink>
                 ))}
             </> :
                 <>
@@ -43,8 +59,7 @@ const SideDrawer = (props: props) => {
             }
 
         </List>
-        <Divider />
-        <Typography color='text.secondary' variant='subtitle2' textAlign='center' mt={1}>Version v.1</Typography>
+        <Typography flexWrap='wrap' color='text.secondary' variant='subtitle2' textAlign='center' mt={1}><Chip icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small'></Chip></Typography>
 
     </Box>
     )

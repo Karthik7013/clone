@@ -7,6 +7,7 @@ import { keyframes } from '@emotion/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootProps } from '../../types/RootProps';
 import { changeBorderRadius, changeFontFamily } from '../../redux/slice/uiSlice';
+import theme from '../../theme/theme';
 const CustomizePallete = () => {
     const dispatch = useDispatch();
     const borderRadius = useSelector((state: RootProps) => state.ui.borderRadius);
@@ -104,7 +105,7 @@ const CustomizePallete = () => {
             <StyledIconButton onClick={toggleDrawer(!open)} disableTouchRipple disableFocusRipple size='small'>
                 <SettingsRoundedIcon fontSize='small' />
             </StyledIconButton>
-            <Drawer anchor={'right'} open={open} variant='temporary' onClose={toggleDrawer(true)}>
+            <Drawer anchor={'left'} open={open} variant='temporary' onClose={toggleDrawer(true)}>
                 {DrawerList}
             </Drawer>
         </Box>

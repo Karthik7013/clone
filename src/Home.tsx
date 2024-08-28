@@ -3,6 +3,7 @@ import React from "react";
 
 //============ MUI IMPORTS ==============>
 import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Container, Fab, Grid, keyframes, ListItem, ListItemIcon, ListItemText, Stack, styled, Typography } from "@mui/material";
+import { Link as MuiLink } from "@mui/material";
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -140,7 +141,7 @@ const Home = () => {
                 {
                     products.map((nav: navProps, _: number) => {
                         return <Grid key={_} item xs={4} sm={3} md={3} lg={2}>
-                            <Link to={nav.path}>
+                            <MuiLink component={Link} to={nav.path}>
                                 <CardActionArea>
                                     <CardContent component={Card}>
 
@@ -151,7 +152,7 @@ const Home = () => {
 
                                     </CardContent>
                                 </CardActionArea>
-                            </Link>
+                            </MuiLink>
                         </Grid>
                     })
                 }

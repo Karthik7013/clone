@@ -13,7 +13,7 @@ const LoanLandingPage = () => {
                 OTP
             </Button>
             <OtpModal open={open} setOpen={setOpen} />
-            <iframe style={{ width: '100dvw', height: '100dvh' }} src="https://main.d315p1596xx1q3.amplifyapp.com/loan/" frameborder="0"></iframe>
+
         </Box>
     )
 }

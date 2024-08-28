@@ -12,11 +12,11 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import theme from "../../theme/theme";
 const drawerWidth = 240;
 const CrmLayout = () => {
     const location = useLocation();
     const links = location.pathname.split('/').slice(2);
-    console.log(links, 'hellow')
     const dispatch = useDispatch()
     let profile = useSelector((state: RootProps) => state.auth.profile);
     const dark = useSelector((state: RootProps) => state.ui.dark);
@@ -61,7 +61,7 @@ const CrmLayout = () => {
 
     return (
         <Box>
-            {<Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex' }}>
                 <AppBar
                     position="fixed"
                     sx={{
@@ -79,6 +79,16 @@ const CrmLayout = () => {
                         >
                             <NotesRounded />
                         </IconButton>
+                        <Box>
+                            <IconButton
+                                color="inherit"
+                                onClick={handleDrawerToggle}
+                                sx={{ mr: 2, display: { xs: 'none', md: 'block' } }}
+                            >
+                                <NotesRounded fontSize="small" />
+                            </IconButton>
+                        </Box>
+
                         {
                             profile ? <>
                                 <Typography variant="body2" noWrap component="div">
@@ -186,7 +196,7 @@ const CrmLayout = () => {
                         variant="permanent"
                         sx={{
                             display: { xs: 'none', md: 'block' },
-                            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, border: 'none' },
                         }}
                         open
                     >
@@ -216,7 +226,7 @@ const CrmLayout = () => {
                         <Outlet />
                     </CardContent>
                 </Box>
-            </Box>}
+            </Box>
         </Box>
     )
 }

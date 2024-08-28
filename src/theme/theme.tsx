@@ -107,7 +107,6 @@ const theme = (customStyles: customStylesProps) => {
                         // color: '#ffffff', // Header text color
                     },
                     row: {
-
                         '&:hover': {
                             backgroundColor: theme.palette.primary.light, // Row hover color
                         },
@@ -115,6 +114,42 @@ const theme = (customStyles: customStylesProps) => {
                 },
 
             },
+            MuiDrawer: {
+                styleOverrides: {
+
+                }
+            },
+            MuiListItemIcon: {
+                styleOverrides: {
+                    root: {
+                        minWidth: '24px',
+                        marginRight: '0.9rem'
+                    }
+                }
+            },
+
+            MuiListItemButton: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: theme.shape.borderRadius,
+                        "&:hover": theme.palette.primary.main,
+                        color: theme.palette.text.secondary,
+                        textDecoration: 'none',
+                        marginBottom: 3,
+                        "&:active": {
+                            backgroundColor: theme.palette.primary.main
+                        }
+                    }
+                }
+            },
+            MuiLink: {
+                styleOverrides: {
+                    root: {
+                        textDecoration: "none",
+                        color: theme.palette.text.primary
+                    }
+                }
+            }
         }
     })
 

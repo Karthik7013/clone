@@ -198,13 +198,13 @@ const Header = (props: headerProps) => {
                                         <MenuItem onClick={() => navigate('/signin')}>
                                             <Stack direction={'row'} gap={1}>
                                                 <AssignmentIndIcon fontSize='small' />
-                                                <Typography textAlign="center">posp</Typography>
+                                                <Typography textAlign="center">Agent</Typography>
                                             </Stack>
                                         </MenuItem>
                                         <MenuItem onClick={() => navigate('/employee/login')}>
                                             <Stack direction={'row'} gap={1}>
                                                 <AdminPanelSettingsIcon fontSize='small' />
-                                                <Typography textAlign="center">Admin</Typography>
+                                                <Typography textAlign="center">Employee</Typography>
                                             </Stack>
                                         </MenuItem>
                                     </Box>
