@@ -34,7 +34,7 @@ export const getProfile = createAsyncThunk('profile/user', async (payload: {}, {
     const headers = {
         Authorization: `Bearer ${token}`,
     };
-    const res = await serverLogin.post('/customer/profile', {}, { headers });
+    const res = await serverLogin.post('/employee/profile', {}, { headers });
     return { status: res.status, data: res.data }
 })
 

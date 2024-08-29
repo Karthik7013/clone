@@ -1,5 +1,5 @@
 import { Avatar, Box, Chip, Divider, Icon, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, Toolbar, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Link as MuiLink } from "@mui/material";
 import { navProps } from '../../types/AuthProps/AuthProps';
 import React from 'react';
@@ -11,6 +11,8 @@ type props = {
 }
 
 const SideDrawer = (props: props) => {
+    const { pathname } = useLocation();
+
     return (<Box>
         <Toolbar>
 
@@ -32,19 +34,24 @@ const SideDrawer = (props: props) => {
 
         <List component={Stack} divider={<Divider />} sx={{ px: 1 }}>
             {props.items ? <>
-                {props.items.map((item, index: number) => (
-                    <MuiLink component={Link} to={item.path} key={index}>
-                        <ListItem key={index} disablePadding>
-                            <ListItemButton disableRipple>
-                                <ListItemIcon>
-                                    <Icon>{item.icon}</Icon>
-                                </ListItemIcon>
-                                <ListItemText primary={item.title} />
-                                {index === 1 && <ListItemSecondaryAction><Chip color='warning' label="+3" size='small' /></ListItemSecondaryAction>}
-                            </ListItemButton>
-                        </ListItem>
-                    </MuiLink>
-                ))}
+                {props.items.map((item, index: number) => {
+                    console.log(item.path)
+                    console.log(pathname.split('/'))
+                    return (
+                        <MuiLink component={Link} to={item.path} key={index}>
+                            <ListItem key={index} disablePadding>
+                                <ListItemButton
+                                    disableRipple>
+                                    <ListItemIcon>
+                                        <Icon>{item.icon}</Icon>
+                                    </ListItemIcon>
+                                    <ListItemText primary={<Typography variant='body2' noWrap>{item.title}</Typography>} />
+                                    {index === 1 && <ListItemSecondaryAction><Chip color='warning' label="+3" size='small' /></ListItemSecondaryAction>}
+                                </ListItemButton>
+                            </ListItem>
+                        </MuiLink>
+                    )
+                })}
             </> :
                 <>
                     {[1, 2, 3, 4, 5, 6].map((number: number) => <ListItem key={number} disablePadding>

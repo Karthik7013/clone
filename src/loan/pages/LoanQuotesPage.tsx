@@ -104,7 +104,13 @@ const LoanQuotesPage = () => {
         <Box>
             <Stack direction='row'>
                 <Box sx={{ borderRight: '1px solid #0000001f' }}>
-                    <Drawer variant='temporary' onClose={() => setIsMobile(false)} open={isMobile}>
+                    <Drawer
+                        sx={{
+                            '& .MuiDrawer-paper': {
+                                borderRight: 'none'
+                            },
+                        }}
+                        variant='temporary' onClose={() => setIsMobile(false)} open={isMobile}>
                         {NavItems}
                     </Drawer>
                     <Box sx={{ display: { xs: 'none', md: 'block' }, minHeight: 'calc(100dvh - 65px)', overflowY: 'scroll', ...scrollBarStyles }}>
@@ -113,28 +119,25 @@ const LoanQuotesPage = () => {
                 </Box>
 
                 <Box flex={1} sx={{ height: 'calc(100dvh - 65px)', overflowY: 'scroll', ...scrollBarHidden }}>
+                    <Toolbar sx={{ position: 'sticky', top: 0, left: 0, backgroundColor: 'background.default', zIndex: 99, }}>
+                        <Typography variant="subtitle2">
+                            Showing 10 Results
+                        </Typography>
 
-                    <Toolbar sx={{ justifyContent: 'space-between', display: { md: 'none' }, backgroundColor: '#edf7ff61', position: "sticky" }}>
-                        <Typography variant='body2'>Showing 10 search results</Typography>
+
                         <Button
                             size='small'
                             variant='outlined'
                             startIcon={<FilterAltIcon fontSize='small' />}
 
+
                             aria-label="open drawer"
 
                             onClick={() => { setIsMobile((prev) => !prev) }}
-                            sx={{ borderRadius: 999, fontSize: '0.5em' }}
+                            sx={{ borderRadius: 999, fontSize: '0.5em', display: { md: 'none' } }}
                         >
                             <Typography variant='subtitle2'>Filter</Typography>
                         </Button>
-                    </Toolbar>
-
-
-                    <Toolbar sx={{ position: 'sticky', top: 0, left: 0, backgroundColor: 'background.default', zIndex: 99, }}>
-                        <Typography variant="subtitle2">
-                            Showing 10 Results
-                        </Typography>
                     </Toolbar>
 
                     <Container maxWidth='lg' sx={{ py: { xs: 1, md: 3 } }}>

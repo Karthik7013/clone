@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Chip, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Skeleton, Stack, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
+import { alpha, AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Chip, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Skeleton, Stack, styled, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
 import React, { useEffect } from "react";
 import { Logout, NotesRounded } from '@mui/icons-material';
 import SideBar from "../common/SideDrawer";
@@ -14,10 +14,11 @@ import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import theme from "../../theme/theme";
 const drawerWidth = 240;
+import { AppDispatch } from "../../redux/store";
 const CrmLayout = () => {
     const location = useLocation();
     const links = location.pathname.split('/').slice(2);
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
     let profile = useSelector((state: RootProps) => state.auth.profile);
     const dark = useSelector((state: RootProps) => state.ui.dark);
 
@@ -53,18 +54,27 @@ const CrmLayout = () => {
     const userLocation = useSelector((state: RootProps) => state.auth.profile?.location);
 
 
-
-
     useEffect(() => {
         dispatch(getProfile({}));
-    }, [dispatch])
+    }, [dispatch]);
+
+    const StyledCardContent = styled(CardContent)(({ theme }) => ({
+        padding: theme.spacing(2),
+
+        borderRadius: theme.shape.borderRadius,
+        overflowY: 'auto',
+    }));
+
 
     return (
         <Box>
             <Box sx={{ display: 'flex' }}>
                 <AppBar
+
                     position="fixed"
                     sx={{
+
+                        boxShadow: 'none',
                         width: { md: `calc(100% - ${drawerWidth}px)` },
                         ml: { md: `${drawerWidth}px` }
                     }}
@@ -208,7 +218,7 @@ const CrmLayout = () => {
                     sx={{ flexGrow: 1, width: { md: `calc(100% - ${drawerWidth}px)` } }}
                 >
                     <Toolbar />
-                    <Toolbar>
+                    {/* <Toolbar>
                         <Breadcrumbs aria-label="breadcrumb">
                             {links.map((e, index) => {
                                 if (links.length - 1 === index) {
@@ -219,12 +229,12 @@ const CrmLayout = () => {
                                 </Link>
                             })}
                         </Breadcrumbs>
-                    </Toolbar>
-                    <Divider />
-                    <LinearProgress />
-                    <CardContent>
+                    </Toolbar> */}
+                    {/* <Divider /> */}
+                    {/* <LinearProgress /> */}
+                    <StyledCardContent >
                         <Outlet />
-                    </CardContent>
+                    </StyledCardContent>
                 </Box>
             </Box>
         </Box>

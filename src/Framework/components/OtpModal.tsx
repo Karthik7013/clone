@@ -61,8 +61,8 @@ const OtpModal = (props: otpModalProps) => {
                         </Stack>
                     </DialogContent>
                 </Grid>
-                <Grid item xs={false} lg={6} >
-                    <Box padding={3} position={'relative'}>
+                <Grid item xs={false} lg={6} display={{ xs: 'none', md: 'block' }}>
+                    <Box padding={4} position={'relative'}>
                         <CardMedia height={'100%'} width={'100%'} component={'img'} image={otpBanner} alt="banner" />
                         <IconButton onClick={handleClose} size='small' sx={{ position: 'absolute', right: 10, top: 10 }}>
                             <CloseRoundedIcon />

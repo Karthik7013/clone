@@ -1,5 +1,6 @@
 import { alpha, createTheme, useTheme } from "@mui/material";
 import { DataGridProps } from "@mui/x-data-grid"
+import '@mui/x-data-grid';
 
 type customStylesProps = {
     dark: boolean,
@@ -22,6 +23,15 @@ declare module '@mui/material/styles' {
             orange?: string;
         };
     }
+}
+
+
+declare module '@mui/material/styles' {
+  interface Components {
+    MuiDataGrid?: {
+      styleOverrides?: any;
+    };
+  }
 }
 
 const token = (dark: boolean) => ({
@@ -116,7 +126,7 @@ const theme = (customStyles: customStylesProps) => {
             },
             MuiDrawer: {
                 styleOverrides: {
-
+                 
                 }
             },
             MuiListItemIcon: {
@@ -131,7 +141,7 @@ const theme = (customStyles: customStylesProps) => {
             MuiListItemButton: {
                 styleOverrides: {
                     root: {
-                        borderRadius: theme.shape.borderRadius,
+                        borderRadius: borderRadius,
                         "&:hover": theme.palette.primary.main,
                         color: theme.palette.text.secondary,
                         textDecoration: 'none',
