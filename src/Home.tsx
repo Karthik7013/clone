@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useState } from "react";
 
 //============ MUI IMPORTS ==============>
 import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Container, Fab, Grid, keyframes, ListItem, ListItemIcon, ListItemText, Stack, styled, Typography } from "@mui/material";
@@ -7,7 +6,8 @@ import { Link as MuiLink } from "@mui/material";
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-// nav - img
+
+//============ SVG IMPORTS ==============>
 import loanLogo from "./assets/navAssets/Loan.svg";
 import healthLogo from "./assets/navAssets/Health.svg";
 import carLogo from "./assets/navAssets/car.svg";
@@ -15,9 +15,11 @@ import travelLogo from "./assets/navAssets/plane.svg";
 import commercialLogo from "./assets/navAssets/commercial.svg"
 import bikeLogo from "./assets/navAssets/Bike.svg";
 import giftBox from './assets/spark.svg';
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
+
+
 import CookieCard from "./Framework/components/CookieCard"
 import { RootProps } from "./types/RootProps";
+
 const Home = () => {
     console.log('home renders')
     type navProps = {
@@ -25,7 +27,7 @@ const Home = () => {
         name: string,
         path: string
     }
-    const cookiePrompt = useSelector((state: RootProps) => state.ui.enableCookie)
+    const cookiePrompt = useSelector((state: RootProps) => state.ui.cookieConsent)
 
 
     // products navigations images url
@@ -99,7 +101,6 @@ const Home = () => {
                                         <CardMedia sx={{ width: 16, height: 16 }} component={'img'} image={giftBox} alt="" /></ListItemIcon>
                                     <ListItemText>
                                         <Typography variant="body2">
-
                                             Quick, easy &
                                             hassle free</Typography>
                                     </ListItemText>
@@ -162,8 +163,8 @@ const Home = () => {
                     </Box>
                 </Grid>
             </Grid>
-
         </Container>
+
         {cookiePrompt && <CookieCard />}
     </Box>
 }

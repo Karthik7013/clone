@@ -149,6 +149,9 @@ const LoanQuotesPage = () => {
                                     <MessageBox type="info">
                                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero eius ea veniam consectetur cumque non vero illo numquam? Earum quod aut corporis repellendus, error a quis commodi at sunt excepturi ipsum neque, voluptate id iure. Sapiente asperiores atque dicta, unde quo eos
                                     </MessageBox>
+                                    <MessageBox type="error">
+                                        We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
+                                    </MessageBox>
 
 
                                     {/* quote cards */}
@@ -305,7 +308,7 @@ const LoanQuotesPage = () => {
                             }}
                         >
 
-                            {[1, 2, 3].map((product) => {
+                            {[1, 2, 3, 4].map((product) => {
                                 return <Button sx={{ p: 0 }}>
                                     <Card>
                                         <CardMedia
@@ -331,7 +334,7 @@ const LoanQuotesPage = () => {
                                 alignSelf: { xs: 'flex-end', sm: 'center' },
                             }}
                         >
-                            <Button >Clear
+                            <Button>Clear
                             </Button>
                             <Badge badgeContent={3} color='primary'>
 

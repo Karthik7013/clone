@@ -6,17 +6,16 @@ import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import { keyframes } from '@emotion/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootProps } from '../../types/RootProps';
-import { changeBorderRadius, changeFontFamily } from '../../redux/slice/uiSlice';
-import theme from '../../theme/theme';
-const CustomizePallete = () => {
-    const dispatch = useDispatch();
-    const borderRadius = useSelector((state: RootProps) => state.ui.borderRadius);
-    const fontFamily = useSelector((state: RootProps) => state.ui.fontFamily);
+import { changeBorderRadius, changeFontFamily, handlePallete } from '../../redux/slice/uiSlice';
+import { AppDispatch } from '../../redux/store';
 
-    const [open, setOpen] = React.useState(false);
-
-    const toggleDrawer = (newOpen) => () => {
-        setOpen(newOpen);
+const CustomizePallete = ({ customize, isOpen }) => {
+    console.log('customizePallete render')
+    const dispatch: AppDispatch = useDispatch();
+    const { borderRadius, fontFamily } = customize;
+    
+    const toggleDrawer = () => {
+        dispatch(handlePallete())
     };
     const rotate = keyframes`
     0% {
@@ -37,9 +36,7 @@ const CustomizePallete = () => {
         right: 0,
         top: '10%',
     }));
-    const handleDrawer = () => {
 
-    }
 
     function valuetext(value) {
         return `${value}px`;
@@ -56,7 +53,7 @@ const CustomizePallete = () => {
 
 
     const DrawerList = (
-        <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+        <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer}>
             <Toolbar>
                 <Typography>Customization</Typography>
             </Toolbar>
@@ -67,7 +64,6 @@ const CustomizePallete = () => {
                         <Typography variant='body2'>Border Radius : {borderRadius}px</Typography>
                     </ListItemText>
                 </ListItem>
-
                 <ListItem>
                     <Slider
                         onChange={handleBorderRadius}
@@ -93,23 +89,21 @@ const CustomizePallete = () => {
                         <FormControlLabel value="Poppins" control={<Radio />} label="Poppins" />
                         <FormControlLabel value="Montserrat" control={<Radio />} label="Montserrat" />
                     </RadioGroup>
-
                 </ListItem>
                 <Divider />
             </List>
-
         </Box>
     );
     return (
         <Box>
-            <StyledIconButton onClick={toggleDrawer(!open)} disableTouchRipple disableFocusRipple size='small'>
+            <StyledIconButton onClick={toggleDrawer} disableTouchRipple disableFocusRipple size='small'>
                 <SettingsRoundedIcon fontSize='small' />
             </StyledIconButton>
-            <Drawer anchor={'left'} open={open} variant='temporary' onClose={toggleDrawer(true)}>
+            <Drawer anchor={'left'} open={isOpen} variant='temporary' onClose={toggleDrawer}>
                 {DrawerList}
             </Drawer>
         </Box>
     )
 }
 
-export default CustomizePallete
+export default React.memo(CustomizePallete);

@@ -1,7 +1,6 @@
 import React from "react";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 
-
 //============ MUI IMPORTS ==============>
 import { Toolbar } from "@mui/material";
 
@@ -10,20 +9,25 @@ import Header from "./Framework/components/Header";
 import Home from "./Home";
 import Footer from "./Framework/components/Footer";
 
+//============ VEHICLE COMPONENTS IMPORTS ==============>
 import VehicleHome from "./vehicle/pages/VehicleHome";
 
+//============ LOAN COMPONENTS IMPORTS ==============>
 import LoanLandingPage from "./loan/pages/LoanLandingPage";
 import CompareQuotes from "./Framework/components/CompareQuotes";
 import LoanQuotesPage from "./loan/pages/LoanQuotesPage";
 import LoanPaymentPage from "./loan/pages/LoanPaymentPage";
 
+//============ TRAVEL COMPONENTS IMPORTS ==============>
 import TravelHome from "./travel/pages/TravelHome";
 import TravelPayment from "./travel/pages/TravelPayment";
 
+//============ HEALTH COMPONENTS IMPORTS ==============>
 import HealthHome from "./health/pages/HealthHome";
 import HealthProposal from "./health/pages/HealthProposal";
 import HealthPayment from "./health/pages/HealthPayment";
 
+//============ DASHBOARD COMPONENTS IMPORTS ==============>
 import Register from "./crm/common/Register";
 import EmployeeLogin from "./crm/employee/pages/EmployeeLogin";
 import Login from "./crm/common/Login";
@@ -34,7 +38,6 @@ import CrmLayout from "./crm/layout/CrmLayout";
 import EmployeeChild from "./crm/employee/routes/EmployeeChild";
 import getCustomerRoutes from "./crm/customer/routes/CustomerChilds";
 import getPospRoutes from "./crm/posp/routes/pospChilds";
-
 import ChatBot from "./Framework/components/ChatBot";
 
 //============ PRO TYPES IMPORTS ==============>
@@ -42,7 +45,7 @@ import { customerProfileProps, employeeProfileProps, pospProfileProps } from "./
 import { RootProps } from "./types/RootProps";
 type allRouterProps = customerProfileProps | null | pospProfileProps | employeeProfileProps
 
-//============ PRO TYPES IMPORTS ==============>
+//============ REDUX IMPORTS ==============>
 import { useSelector } from "react-redux";
 
 
@@ -216,7 +219,6 @@ export const allRouter = (props: allRouterProps) => {
             ]
         }
     ]
-
     return createBrowserRouter(commonRoutes);
 }
 

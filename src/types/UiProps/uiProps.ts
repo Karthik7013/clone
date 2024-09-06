@@ -7,9 +7,10 @@ type alertProps =
 
 type uiProps = {
     dark: boolean,
-    borderRadius:number,
-    fontFamily:string,
-    enableCookie:boolean
+    borderRadius: number,
+    fontFamily: string,
+    cookieConsent: boolean,
+    customizePalleteOpen: boolean
 }
 
-export type { uiProps,alertProps }
+export type { uiProps, alertProps }

@@ -6,9 +6,10 @@ const getPreference = () => localStorage.getItem('dark') || 'light'
 
 const initialState: uiProps = {
     dark: getPreference() === 'dark' ? true : false,
-    borderRadius: 32,
+    borderRadius: 16,
     fontFamily: 'Poppins',
-    enableCookie:true
+    customizePalleteOpen: false,
+    cookieConsent: false
 }
 
 const uiSlice = createSlice({
@@ -24,9 +25,15 @@ const uiSlice = createSlice({
         },
         changeFontFamily: (state, action) => {
             state.fontFamily = action.payload;
+        },
+        handleCookieConsent: (state, action) => {
+            state.cookieConsent = action.payload
+        },
+        handlePallete: (state) => {
+            state.customizePalleteOpen = !state.customizePalleteOpen
         }
     }
 })
 
-export const { toggleTheme, changeBorderRadius, changeFontFamily } = uiSlice.actions
+export const { toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete } = uiSlice.actions
 export default uiSlice.reducer
