@@ -1,18 +1,36 @@
 import React from "react"
-import AccessManagement from "../pages/AccessManagement"
-import AdminService from "../pages/AdminService"
-import BussinessAnalytics from "../pages/BussinessAnalytics"
-import EmployeeManagement from "../pages/EmployeeManagement"
-import EmployeeProfile from "../pages/EmployeeProfile"
-import ProductsSale from "../pages/ProductsSale"
-import RevenueService from "../pages/RevenueService"
-import SalesService from "../pages/SalesService"
-import Settings from "../pages/Settings"
-import IncomeService from "../pages/IcomeService"
-import PageNotFound from "../../../Framework/components/PageNotFound"
+const AccessManagement = React.lazy(() => import("../pages/AccessManagement"));
+const AdminService = React.lazy(() => import("../pages/AdminService"));
+const BussinessAnalytics = React.lazy(() => import("../pages/BussinessAnalytics"));
+const EmployeeManagement = React.lazy(() => import("../pages/EmployeeManagement"));
+const EmployeeProfile = React.lazy(() => import("../pages/EmployeeProfile"));
+const ProductsSale = React.lazy(() => import("../pages/ProductsSale"));
+const RevenueService = React.lazy(() => import("../pages/RevenueService"));
+const SalesService = React.lazy(() => import("../pages/SalesService"));
+const Settings = React.lazy(() => import("../pages/Settings"));
+const IncomeService = React.lazy(() => import("../pages/IcomeService"));
+const PageNotFound = React.lazy(() => import("../../../Framework/components/PageNotFound"));
 
-const getEmployeeRoutes = (role: string) => {
-    switch (role) {
+const componentFor = {
+    'analytics': <BussinessAnalytics />,
+    'service': <AdminService />,
+    'revenue': <RevenueService />,
+    'sales': <SalesService />,
+    'income': <IncomeService />,
+    'employee-management': <EmployeeManagement />,
+    'products': <ProductsSale />,
+    'settings': <Settings />,
+    'profile': <EmployeeProfile />,
+    'access-management': <AccessManagement />
+}
+const getEmployeeRoutes = (profile) => {
+    const employeeSideNav = profile.sideProps.map((navItem, _) => {
+        return { path: _ ? navItem.path : '', element: componentFor[navItem.path], index: !_ }
+    })
+    return [...employeeSideNav, { path: '*', element: <PageNotFound /> }];
+    const employeSideNav = profile.sideProps;
+    console.log(employeSideNav, 'see here')
+    switch (profile.role) {
         case 'ceo':
             return [
                 {

@@ -55,6 +55,7 @@ export const allRouter = (props: allRouterProps) => {
     const islogin = useSelector((state: RootProps) => state.auth.isLogin);
     const dark = useSelector((state: RootProps) => state.ui.dark);
     const profile = useSelector((state: RootProps) => state.auth.profile);
+
     const headerProps = {
         islogin,
         dark,
@@ -63,11 +64,11 @@ export const allRouter = (props: allRouterProps) => {
     const getRoleBaseRoutes = () => {
         switch (props?.type) {
             case 'customer':
-                return getCustomerRoutes()
+                return getCustomerRoutes(profile)
             case 'employee':
-                return EmployeeChild('ceo')
+                return EmployeeChild(profile)
             case 'posp':
-                return getPospRoutes(props?.exam)
+                return getPospRoutes(profile)
             default:
                 return [];
         }

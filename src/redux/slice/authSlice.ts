@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { serverLogin } from "../../service/api";
+import { pospService, serverLogin } from "../../service/api";
 import { createBrowserHistory, History } from 'history';
 import { authProps, customerProfileProps, employeeProfileProps, pospProfileProps } from "../../types/AuthProps/AuthProps";
 import { RootProps } from "../../types/RootProps";
@@ -21,7 +21,23 @@ const initialState: authProps = {
 
 // login user
 export const loginUser = createAsyncThunk('login/user', async (payload: { phno: string }) => {
-    const res = await serverLogin.post('/posp/verify', { ...payload });
+    // const type: string = "posp";
+    // switch (type) {
+    //     case 'posp':
+
+    //         break;
+    //     case 'customer':
+
+    //         break;
+    //     case 'employee':
+
+    //         break;
+
+    //     default:
+    //         break;
+    // }
+
+    const res = await serverLogin.post('/verify', { ...payload });
     return { status: res.status, data: res.data }
 });
 
@@ -34,7 +50,7 @@ export const getProfile = createAsyncThunk('profile/user', async (payload: {}, {
     const headers = {
         Authorization: `Bearer ${token}`,
     };
-    const res = await serverLogin.post('/employee/profile', {}, { headers });
+    const res = await serverLogin.post('/profile', {}, { headers });
     return { status: res.status, data: res.data }
 })
 
@@ -76,7 +92,6 @@ const authSlice = createSlice({
                 }
                 state.isLogin = true;
                 state.token = action.payload.data
-                window.location.href = '/dashboard';
             });
         builder.addCase(getProfile.pending, (state) => {
             state.loading = true;

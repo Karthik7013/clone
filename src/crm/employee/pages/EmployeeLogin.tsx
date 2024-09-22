@@ -1,5 +1,5 @@
 import { Box, Card, CardMedia, CircularProgress, Stack, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import * as React from 'react';
 
 import Button from '@mui/material/Button';
@@ -11,7 +11,8 @@ import { RootProps } from '../../../types/RootProps';
 import { loginUser } from '../../../redux/slice/authSlice';
 // import LoadingModal from '../../../Framework/components/LoadingModal';
 import loginPanel from "/login-panel.svg"
-import logo from "/logo.jpg"
+import logo from "/logo.jpg";
+import { AppDispatch } from '../../../redux/store';
 
 
 function Copyright(props: any) {
@@ -27,16 +28,23 @@ function Copyright(props: any) {
     );
 }
 
+
 const EmployeeLogin = () => {
-    const dispatch = useDispatch();
+    const navigate = useNavigate()
+    const dispatch: AppDispatch = useDispatch();
     const isLoading = useSelector((state: RootProps) => state.auth.loading);
+    const isLogin = useSelector((state: RootProps) => state.auth.isLogin);
+
+
+    React.useEffect(() => {
+        if (isLogin) navigate('/dashboard')
+    }, [isLogin])
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // const data = { email: "mani123@gmail.com", password: "1234" }
         const data = { phno: "7013140693" }
         dispatch(loginUser(data));
-
     }
     return (
         <Box>

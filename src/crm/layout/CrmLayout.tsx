@@ -1,5 +1,5 @@
 import { alpha, AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Chip, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Skeleton, Stack, styled, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Logout, NotesRounded } from '@mui/icons-material';
 import SideBar from "../common/SideDrawer";
 import { Link, Outlet, useLocation } from "react-router-dom";
@@ -60,9 +60,9 @@ const CrmLayout = () => {
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
         padding: theme.spacing(2),
-
-        borderRadius: theme.shape.borderRadius,
+        borderRadius: theme.shape.borderRadius * 2,
         overflowY: 'auto',
+        height: 'calc( 100dvh - 65px)'
     }));
 
 
@@ -70,10 +70,9 @@ const CrmLayout = () => {
         <Box>
             <Box sx={{ display: 'flex' }}>
                 <AppBar
-
-                    position="fixed"
                     sx={{
-
+                        background: 'none',
+                        color: 'inherit',
                         boxShadow: 'none',
                         width: { md: `calc(100% - ${drawerWidth}px)` },
                         ml: { md: `${drawerWidth}px` }
@@ -89,15 +88,6 @@ const CrmLayout = () => {
                         >
                             <NotesRounded />
                         </IconButton>
-                        <Box>
-                            <IconButton
-                                color="inherit"
-                                onClick={handleDrawerToggle}
-                                sx={{ mr: 2, display: { xs: 'none', md: 'block' } }}
-                            >
-                                <NotesRounded fontSize="small" />
-                            </IconButton>
-                        </Box>
 
                         {
                             profile ? <>
@@ -108,20 +98,16 @@ const CrmLayout = () => {
                                 <Skeleton width={120} height={40}></Skeleton>
                             </>
                         }
-                        <Box flex={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <TextField sx={{ display: { xs: 'none', md: 'block' }, maxWidth: 400, margin: 'auto' }} fullWidth variant="outlined" size="small"
-                                placeholder="Search"
-                                InputProps={{
-                                    endAdornment: <InputAdornment position="start"><SearchRoundedIcon /></InputAdornment>,
-                                }}
-                            ></TextField>
-                        </Box>
+                        <Box flex={1} sx={{ display: 'flex', justifyContent: 'center' }} />
+
                         <Stack direction="row" alignItems='center' gap={2}>
                             <Chip color="primary" size="small" icon={<LocationOnRoundedIcon sx={{ color: 'inherit' }} />} label="Banglore" />
 
 
                             <Stack direction={'row'} sx={{ display: { xs: 'none', md: 'block' } }}>
-                                <IconButton sx={{ mr: 2 }} onClick={handleTheme} color='inherit'>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
+                                <Tooltip title={dark ? "light" : "dark"}>
+                                    <IconButton color="default" sx={{ mr: 2 }} onClick={handleTheme}>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
+                                </Tooltip>
                             </Stack>
                             {
                                 profile ? <>
@@ -218,23 +204,12 @@ const CrmLayout = () => {
                     sx={{ flexGrow: 1, width: { md: `calc(100% - ${drawerWidth}px)` } }}
                 >
                     <Toolbar />
-                    {/* <Toolbar>
-                        <Breadcrumbs aria-label="breadcrumb">
-                            {links.map((e, index) => {
-                                if (links.length - 1 === index) {
-                                    return <Typography variant="body1">{e}</Typography>
-                                }
-                                return <Link color="inherit" to="/dashboard">
-                                    {e}
-                                </Link>
-                            })}
-                        </Breadcrumbs>
-                    </Toolbar> */}
-                    {/* <Divider /> */}
-                    {/* <LinearProgress /> */}
-                    <StyledCardContent >
-                        <Outlet />
+                    <StyledCardContent>
+                        <Suspense fallback={<LinearProgress />}>
+                            <Outlet />
+                        </Suspense>
                     </StyledCardContent>
+
                 </Box>
             </Box>
         </Box>

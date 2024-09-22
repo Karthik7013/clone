@@ -1,36 +1,26 @@
-import React from "react";
-import MyPolicies from "../pages/MyPolicies";
+import React, { lazy, Suspense } from 'react';
 
-import MyClaims from "../pages/MyClaims";
-import RegisterClaims from "../pages/RegisterClaims";
-import Settings from "../pages/Settings";
-import HelpLine from "../pages/HelpLine";
-import Home from "../pages/Home";
+const MyPolicies = lazy(() => import("../pages/MyPolicies"));
+const MyClaims = lazy(() => import("../pages/MyClaims"));
+const RegisterClaims = lazy(() => import("../pages/RegisterClaims"));
+const Settings = lazy(() => import("../pages/Settings"));
+const HelpLine = lazy(() => import("../pages/HelpLine"));
+const Home = lazy(() => import("../pages/Home"));
+const PageNotFound = lazy(() => import("../../../Framework/components/PageNotFound"));
 
-const getCustomerRoutes = () => ([
-    {
-        index: true,
-        element: <Home />
-    },
-    {
-        path: 'policies',
-        element: <MyPolicies />
-    },
-    {
-        path: 'claims',
-        element: <MyClaims />
-    },
-    {
-        path: 'register-claims',
-        element: <RegisterClaims />
-    },
-    {
-        path: 'settings',
-        element: <Settings />
-    },
-    {
-        path: 'help',
-        element: <HelpLine />
-    }
-])
+const componentFor = {
+    'home': <Home />,
+    'policies': <MyPolicies />,
+    'claims': <MyClaims />,
+    'register-claims': <RegisterClaims />,
+    'settings': <Settings />,
+    'help': <HelpLine />
+}
+
+const getCustomerRoutes = (profile) => {
+    const customerSideNav = profile.sideProps.map((navItem, _) => {
+        return { path: _ ? navItem.path : '', element: componentFor[navItem.path], index: !_ }
+    })
+    return [...customerSideNav, { path: '*', element: <PageNotFound /> }];
+}
 export default getCustomerRoutes;

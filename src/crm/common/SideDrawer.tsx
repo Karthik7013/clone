@@ -15,8 +15,6 @@ const SideDrawer = (props: props) => {
 
     return (<Box>
         <Toolbar>
-
-
             <ListItem disablePadding>
                 <ListItemIcon>
                     <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
@@ -24,21 +22,13 @@ const SideDrawer = (props: props) => {
                 <ListItemText primary={<MuiLink component={Link} to="/">
                     <Typography color="text.primary">Namelix</Typography>
                 </MuiLink>} />
-
-
             </ListItem>
-
         </Toolbar>
-
-
-
         <List component={Stack} divider={<Divider />} sx={{ px: 1 }}>
             {props.items ? <>
                 {props.items.map((item, index: number) => {
-                    console.log(item.path)
-                    console.log(pathname.split('/'))
                     return (
-                        <MuiLink component={Link} to={item.path} key={index}>
+                        <MuiLink component={Link} to={index ? item.path : '/dashboard'} key={index}>
                             <ListItem key={index} disablePadding>
                                 <ListItemButton
                                     disableRipple>
@@ -64,7 +54,6 @@ const SideDrawer = (props: props) => {
                     </ListItem>)}
                 </>
             }
-
         </List>
         <Typography flexWrap='wrap' color='text.secondary' variant='subtitle2' textAlign='center' mt={1}><Chip icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small'></Chip></Typography>
 
