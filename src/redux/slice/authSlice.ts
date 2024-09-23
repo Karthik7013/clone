@@ -21,22 +21,6 @@ const initialState: authProps = {
 
 // login user
 export const loginUser = createAsyncThunk('login/user', async (payload: { phno: string }) => {
-    // const type: string = "posp";
-    // switch (type) {
-    //     case 'posp':
-
-    //         break;
-    //     case 'customer':
-
-    //         break;
-    //     case 'employee':
-
-    //         break;
-
-    //     default:
-    //         break;
-    // }
-
     const res = await serverLogin.post('/verify', { ...payload });
     return { status: res.status, data: res.data }
 });
@@ -95,23 +79,25 @@ const authSlice = createSlice({
             });
         builder.addCase(getProfile.pending, (state) => {
             state.loading = true;
-        }).addCase(getProfile.rejected, (state, action) => {
-            state.loading = false;
-            state.alert = {
-                type: 'error',
-                message: 'failed to get profile',
-                state: true
-            }
-        }).addCase(getProfile.fulfilled, (state, action) => {
-            state.loading = false
-            state.alert = {
-                type: 'success',
-                message: 'login success',
-                state: true
-            }
-            state.isLogin = true;
-            state.profile = action.payload.data
         })
+            .addCase(getProfile.rejected, (state, action) => {
+                state.loading = false;
+                state.alert = {
+                    type: 'error',
+                    message: 'failed to get profile',
+                    state: true
+                }
+            })
+            .addCase(getProfile.fulfilled, (state, action) => {
+                state.loading = false
+                state.alert = {
+                    type: 'success',
+                    message: 'login success',
+                    state: true
+                }
+                state.isLogin = true;
+                state.profile = action.payload.data
+            })
     }
 })
 
