@@ -1,4 +1,4 @@
-import { alpha, AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Chip, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Skeleton, Stack, styled, Switch, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
+import { alpha, AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Chip, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItemIcon, Menu, MenuItem, Skeleton, Stack, styled, Switch, TextField, Toolbar, Tooltip, Typography, useTheme } from "@mui/material"
 import React, { Suspense, useEffect } from "react";
 import { Logout, NotesRounded } from '@mui/icons-material';
 import SideBar from "../common/SideDrawer";
@@ -12,10 +12,11 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
-import theme from "../../theme/theme";
+// import theme from "../../theme/theme";
 const drawerWidth = 240;
 import { AppDispatch } from "../../redux/store";
 const CrmLayout = () => {
+    const theme = useTheme()
     const location = useLocation();
     const links = location.pathname.split('/').slice(2);
     const dispatch: AppDispatch = useDispatch()
@@ -60,14 +61,16 @@ const CrmLayout = () => {
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
         padding: theme.spacing(2),
-        borderRadius: theme.shape.borderRadius * 2,
+        borderRadius: theme.shape.borderRadius*2,
         overflowY: 'auto',
-        height: 'calc( 100dvh - 65px)'
+        height: 'calc( 100dvh - 130px)',
+        width: 'calc(100% - 65px)',
+        backgroundColor: alpha(theme.palette.divider, 0.05)
     }));
 
 
     return (
-        <Box>
+        <Box sx={{}}>
             <Box sx={{ display: 'flex' }}>
                 <AppBar
                     sx={{
@@ -91,7 +94,7 @@ const CrmLayout = () => {
 
                         {
                             profile ? <>
-                                <Typography variant="body2" noWrap component="div">
+                                <Typography variant="h6" color='text.secondary'>
                                     Hellow {profile.firstname} !
                                 </Typography>
                             </> : <>
@@ -183,7 +186,10 @@ const CrmLayout = () => {
                         }}
                         sx={{
                             display: { xs: 'block', md: 'none' },
-                            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                            '& .MuiDrawer-paper': {
+                                boxSizing: 'border-box',
+                                width: drawerWidth
+                            },
                         }}
                     >
                         <SideBar items={profile?.sideProps} />

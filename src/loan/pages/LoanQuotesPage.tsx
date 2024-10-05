@@ -56,7 +56,7 @@ const LoanQuotesPage = () => {
                     <TextField size="small" label='Sum Insure' />
                 </ListItem>
                 <ListItem>
-                    <Slider />
+                    <Slider aria-label="sum-insure-ratio" step={10} marks />
                 </ListItem>
                 <ListItem>
                     <TextField size="small" />
@@ -141,15 +141,19 @@ const LoanQuotesPage = () => {
                     </Toolbar>
 
                     <Container maxWidth='lg' sx={{ py: { xs: 1, md: 3 } }}>
-
                         <Grid container columns={18} spacing={2}>
                             <Grid item xs={18}>
                                 <Grid container rowGap={3}>
-
-                                    <MessageBox type="info">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero eius ea veniam consectetur cumque non vero illo numquam? Earum quod aut corporis repellendus, error a quis commodi at sunt excepturi ipsum neque, voluptate id iure. Sapiente asperiores atque dicta, unde quo eos
+                                    <MessageBox type="warning">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero eius ea veniam consectetur cumque non vero illo numquam? Earum quod aut corporis repellendus, error a quis commodi at sunt excepturi ipsum neque.
                                     </MessageBox>
                                     <MessageBox type="error">
+                                        We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
+                                    </MessageBox>
+                                    <MessageBox type="info">
+                                        We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
+                                    </MessageBox>
+                                    <MessageBox type="success">
                                         We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
                                     </MessageBox>
 
@@ -274,7 +278,7 @@ const LoanQuotesPage = () => {
                 </Stack>
             </Stack>
 
-            {true && <Paper
+            {!true && <Paper
                 role="dialog"
                 aria-modal="false"
                 aria-label="Cookie banner"

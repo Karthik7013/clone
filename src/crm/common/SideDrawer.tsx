@@ -3,17 +3,18 @@ import { Link, useLocation } from 'react-router-dom';
 import { Link as MuiLink } from "@mui/material";
 import { navProps } from '../../types/AuthProps/AuthProps';
 import React from 'react';
-import theme from '../../theme/theme';
 
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+import { useTheme } from '@mui/material';
 type props = {
     items: navProps[] | undefined
 }
 
 const SideDrawer = (props: props) => {
+    const theme = useTheme()
     const { pathname } = useLocation();
 
-    return (<Box>
+    return (<Box sx={{ height: '100%' }}>
         <Toolbar>
             <ListItem disablePadding>
                 <ListItemIcon>
@@ -28,6 +29,7 @@ const SideDrawer = (props: props) => {
             {props.items ? <>
                 {props.items.map((item, index: number) => {
                     return (
+
                         <MuiLink component={Link} to={index ? item.path : '/dashboard'} key={index}>
                             <ListItem key={index} disablePadding>
                                 <ListItemButton
@@ -40,6 +42,7 @@ const SideDrawer = (props: props) => {
                                 </ListItemButton>
                             </ListItem>
                         </MuiLink>
+
                     )
                 })}
             </> :
@@ -55,7 +58,16 @@ const SideDrawer = (props: props) => {
                 </>
             }
         </List>
-        <Typography flexWrap='wrap' color='text.secondary' variant='subtitle2' textAlign='center' mt={1}><Chip icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small'></Chip></Typography>
+        <Divider />
+
+        <Box sx={{
+            bgcolor: theme.palette.background.paper, paddingBottom: theme.spacing(1)
+        }}>
+
+            <Typography flexWrap='wrap' color='text.secondary' variant='subtitle2' textAlign='center' mt={1}>
+                <Chip icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small' />
+            </Typography>
+        </Box>
 
     </Box>
     )
