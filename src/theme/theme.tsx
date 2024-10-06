@@ -27,11 +27,11 @@ declare module '@mui/material/styles' {
 
 
 declare module '@mui/material/styles' {
-  interface Components {
-    MuiDataGrid?: {
-      styleOverrides?: any;
-    };
-  }
+    interface Components {
+        MuiDataGrid?: {
+            styleOverrides?: any;
+        };
+    }
 }
 
 const token = (dark: boolean) => ({
@@ -110,15 +110,16 @@ const theme = (customStyles: customStylesProps) => {
                 styleOverrides: {
                     root: {
                         borderRadius: borderRadius,
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        // backgroundColor: theme.palette.background.default
                     },
-                    columnHeaders: {
-                        backgroundColor: theme.palette.primary.main, // Header background color
-                        // color: '#ffffff', // Header text color
+                    columnHeader: {
+                        // backgroundColor: theme.palette.primary.light,
+
                     },
                     row: {
                         '&:hover': {
-                            backgroundColor: theme.palette.primary.light, // Row hover color
+                            backgroundColor: alpha(theme.palette.primary.dark, 0.2), // Row hover color
                         },
                     },
                 },
@@ -126,7 +127,7 @@ const theme = (customStyles: customStylesProps) => {
             },
             MuiDrawer: {
                 styleOverrides: {
-                 
+
                 }
             },
             MuiListItemIcon: {

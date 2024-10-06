@@ -61,10 +61,10 @@ const CrmLayout = () => {
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
         padding: theme.spacing(2),
-        borderRadius: theme.shape.borderRadius*2,
+        borderRadius: theme.shape.borderRadius * 2,
         overflowY: 'auto',
-        height: 'calc( 100dvh - 130px)',
-        width: 'calc(100% - 65px)',
+        height: 'calc( 100dvh - 65px)',
+        // width: 'calc(100% - 65px)',
         backgroundColor: alpha(theme.palette.divider, 0.05)
     }));
 
