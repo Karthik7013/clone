@@ -15,7 +15,7 @@ const initialState: authProps = {
         state: false
     },
     isLogin: false,
-    token: null,
+    token: sessionStorage.getItem('access-token') || null,
     profile: null
 }
 
@@ -26,11 +26,9 @@ export const loginUser = createAsyncThunk('login/user', async (payload: { phno: 
 });
 
 // get Profile
-export const getProfile = createAsyncThunk('profile/user', async (payload: {}, { getState }) => {
-    const state: RootProps = getState();
-    console.log(state)
-    const token = state.auth.token?.token;
+export const getProfile = createAsyncThunk('profile/user', async (payload: {},) => {
 
+    const token = sessionStorage.getItem('access-token');
     const headers = {
         Authorization: `Bearer ${token}`,
     };
@@ -45,7 +43,8 @@ const authSlice = createSlice({
         handleLogout: (state) => {
             state.isLogin = false
             state.token = null
-            state.profile = null
+            state.profile = null;
+            sessionStorage.removeItem('access-token');
         },
         closeAlert: (state) => {
             state.alert = {
@@ -75,7 +74,9 @@ const authSlice = createSlice({
                     state: true
                 }
                 state.isLogin = true;
-                state.token = action.payload.data
+                console.log(action.payload.data, 'see here idea')
+                state.token = action.payload.data;
+                sessionStorage.setItem('access-token', action.payload.data.token)
             });
         builder.addCase(getProfile.pending, (state) => {
             state.loading = true;

@@ -1,6 +1,4 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
-import sessionStorage from 'redux-persist/lib/storage/session';
 
 // reducers
 import uiReducer from "./slice/uiSlice";
@@ -10,10 +8,7 @@ import travelReducer from './slice/travelSlice';
 import healthReducer from './slice/healthSlice';
 import vehicleReducer from "./slice/vehicleSlice";
 import dashboardReducer from "./slice/dashboardSlice";
-const persistConfig = {
-  key: 'root',
-  storage: sessionStorage
-};
+
 
 const combinedReducers = combineReducers({
   ui: uiReducer,
@@ -25,16 +20,9 @@ const combinedReducers = combineReducers({
   dashboard: dashboardReducer
 });
 
-const persistedReducer = persistReducer(persistConfig, combinedReducers);
+
 export const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    })
+  reducer: combinedReducers
 })
 
 export type AppDispatch = typeof store.dispatch;
-export const persistor = persistStore(store);
