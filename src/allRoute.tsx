@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 
 //============ MUI IMPORTS ==============>
 import { Toolbar } from "@mui/material";
@@ -214,7 +214,7 @@ export const allRouter = (props: allRouterProps) => {
         },
         {
             path: 'dashboard',
-            element: <CrmLayout />,
+            element: islogin ? <CrmLayout /> : <Navigate to="/" />,
             children: [
                 ...getRoleBaseRoutes()
             ]

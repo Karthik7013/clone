@@ -65,7 +65,7 @@ const CrmLayout = () => {
         overflowY: 'auto',
         height: 'calc( 100dvh - 65px)',
         // width: 'calc(100% - 65px)',
-        backgroundColor: alpha(theme.palette.divider, 0.05)
+        backgroundColor: alpha(theme.palette.divider, 0.03)
     }));
 
 
