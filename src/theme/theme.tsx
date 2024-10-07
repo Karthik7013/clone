@@ -57,9 +57,6 @@ const theme = (customStyles: customStylesProps) => {
             primary: {
                 main: '#23a8fa',
                 contrastText: '#fff'
-            },
-            custom: {
-                blue: '#23a8fa'
             }
         },
         shape: {
@@ -73,9 +70,10 @@ const theme = (customStyles: customStylesProps) => {
                 styleOverrides: {
                     root: {
                         '&.Mui-expanded': {
-                            margin: 0
+                            margin: 0,
                         }
-                    }
+                    },
+
                 }
             },
             MuiAppBar: {

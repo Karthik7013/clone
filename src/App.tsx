@@ -6,7 +6,7 @@ import { CssBaseline, LinearProgress } from '@mui/material';
 
 //============ REDUX IMPORTS ==============>
 import { useDispatch, useSelector } from 'react-redux';
-import { closeAlert } from './redux/slice/authSlice';
+import { closeAlert, getProfile } from './redux/slice/authSlice';
 
 //============ PROP TYPES IMPORTS ==============>
 import { RootProps } from './types/RootProps';
@@ -20,7 +20,6 @@ import { handleCookieConsent } from './redux/slice/uiSlice';
 import { AppDispatch } from './redux/store';
 
 const App = () => {
-    console.log('app render...');
     const customizePalleteOpen = useSelector((state: RootProps) => state.ui.customizePalleteOpen)
     const dispatch: AppDispatch = useDispatch();
     const dark = useSelector((state: RootProps) => state.ui.dark);
@@ -29,11 +28,8 @@ const App = () => {
     const alert = useSelector((state: RootProps) => state.auth.alert);
     const handleClose = () => dispatch(closeAlert());
     const profile = useSelector((state: RootProps) => state.auth.profile);
+    const access_token = sessionStorage.getItem('access-token');
 
-    const customize = {
-        borderRadius,
-        fontFamily
-    }
 
 
     useEffect(() => {
@@ -43,11 +39,22 @@ const App = () => {
         }
     }, []);
 
+
+    useEffect(() => {
+        if (access_token) {
+            dispatch(getProfile({}));
+        }
+    }, [])
+
     const themeProps = {
         dark,
         fontFamily,
         borderRadius,
         size: 44
+    }
+    const customize = {
+        borderRadius,
+        fontFamily
     }
 
     return (
