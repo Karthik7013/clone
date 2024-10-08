@@ -55,14 +55,14 @@ export const allRouter = (props: allRouterProps) => {
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
     const dark = useSelector((state: RootState) => state.ui.dark);
     const profile = useSelector((state: RootState) => state.auth.profile);
-    const isLoading = useSelector((state:RootState)=> state.auth.loading)
+    const isLoading = useSelector((state: RootState) => state.auth.loading)
 
     const headerProps = {
         islogin,
         dark,
         profile
     }
-    console.log(headerProps,'headerprops')
+    console.log(headerProps, 'headerprops')
     const getRoleBaseRoutes = () => {
         switch (props?.type) {
             case 'customer':
@@ -221,9 +221,9 @@ export const allRouter = (props: allRouterProps) => {
         },
         {
             path: 'dashboard',
-            element: islogin ? <CrmLayout /> : (isLoading ? <LinearProgress />:<PageNotFound />),
+            element: islogin ? <CrmLayout /> : (isLoading ? <LinearProgress /> : <PageNotFound />),
             children: [
-                // ...getRoleBaseRoutes()
+                ...getRoleBaseRoutes()
             ]
         },
         {

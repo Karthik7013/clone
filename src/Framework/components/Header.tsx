@@ -148,11 +148,13 @@ const Header = (props: headerProps) => {
                                 </CustomButton>
                             </Tooltip>
 
-                            <Tooltip title={<Typography variant="body1">Role : {profile?.type}</Typography>}>
+                            <Tooltip title={<Typography variant="caption">{profile?.email}</Typography>}>
                                 <IconButton
+                                    sx={{ ml: 2 }}
+                                    size='small'
                                     onClick={handleOpenSignInMenu}
                                 >
-                                    <Avatar sx={{ width: 38, height: 38 }}>{profile?.first_name[0]}</Avatar>
+                                    <Avatar sx={{ width: 36, height: 36, color: 'inherit' }}>{profile?.first_name[0]}</Avatar>
                                 </IconButton>
                             </Tooltip>
                         </> :

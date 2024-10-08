@@ -96,7 +96,8 @@ const CrmLayout = () => {
                     disableTouchRipple
                     aria-label="open drawer"
                     edge="start"
-                    onClick={handleDrawerToggle}
+                    // onClick={handleDrawerToggle}
+                    onClick={() => { }}
                     sx={{ mr: 2, borderRadius: '8px' }}
                 >
                     <NotesRounded />
@@ -114,7 +115,7 @@ const CrmLayout = () => {
                 <Box flex={1} sx={{ display: 'flex', justifyContent: 'center' }} />
 
                 <Stack direction="row" alignItems='center' gap={2}>
-                    <Chip color="primary" size="small" icon={<LocationOnRoundedIcon sx={{ color: 'inherit' }} />} label="Banglore" />
+                    <Chip color="primary" size="small" icon={<LocationOnRoundedIcon sx={{ color: 'inherit' }} />} label={profile?.city} />
 
 
                     <Stack direction={'row'} sx={{ display: { xs: 'none', md: 'block' } }}>
@@ -137,8 +138,7 @@ const CrmLayout = () => {
                                     aria-expanded={open ? 'true' : undefined}
                                 >
                                     <Avatar
-                                        src={'https://img.freepik.com/free-photo/3d-illustration-young-business-man-with-funny-expression-his-face_1142-55156.jpg'}
-                                        sx={{ width: 38, height: 38 }}
+                                        sx={{ width: 36, height: 36 }}
                                     >
                                         {profile?.first_name[0]}
                                     </Avatar>
@@ -152,7 +152,7 @@ const CrmLayout = () => {
                     {
                         profile &&
                         <Menu
-                        
+
                             anchorEl={anchorEl}
                             id="account-menu"
                             open={open}
@@ -183,11 +183,31 @@ const CrmLayout = () => {
             </Toolbar>
         </AppBar>
         <Stack direction='row'>
+            <Drawer
+                variant="temporary"
+                open={mobileOpen}
+                onTransitionEnd={handleDrawerTransitionEnd}
+                onClose={handleDrawerClose}
+                ModalProps={{
+                    keepMounted: true,
+                }}
+                sx={{
+                    // display: { xs: 'block', md: 'none' },
+                    // '& .MuiDrawer-paper': {
+                    //     boxSizing: 'border-box',
+                    width: drawerWidth
+                    // },
+                }}
+            >
+                <SideBar items={profile?.sideProps} />
+            </Drawer>
             <Box width={drawerWidth} sx={{ display: { xs: 'none', md: 'block' } }}>
                 <SideBar items={profile?.sideProps} />
             </Box>
             <StyledCardContent>
-
+                <Suspense fallback={<LinearProgress />}>
+                    <Outlet />
+                </Suspense>
             </StyledCardContent>
         </Stack>
 
@@ -230,7 +250,7 @@ const CrmLayout = () => {
                         <Box flex={1} sx={{ display: 'flex', justifyContent: 'center' }} />
 
                         <Stack direction="row" alignItems='center' gap={2}>
-                            <Chip color="primary" size="small" icon={<LocationOnRoundedIcon sx={{ color: 'inherit' }} />} label="Banglore" />
+                            <Chip color="primary" size="small" icon={<LocationOnRoundedIcon sx={{ color: 'inherit' }} />} label={profile?.city} />
 
 
                             <Stack direction={'row'} sx={{ display: { xs: 'none', md: 'block' } }}>

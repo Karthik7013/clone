@@ -158,6 +158,17 @@ const theme = (customStyles: customStylesProps) => {
                         color: theme.palette.text.primary
                     }
                 }
+            },
+            MuiMenu: {
+                styleOverrides: {
+                    root: {
+                        '.MuiList-root': {
+                            // padding: '10px',
+                            border: `1px solid ${alpha(theme.palette.background.default, 0.1)}`,
+                            borderRadius: theme.shape.borderRadius * 2
+                        }
+                    }
+                }
             }
         }
     })

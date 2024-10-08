@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { RouterProvider } from 'react-router-dom';
 
 //============ MUI IMPORTS ==============>
@@ -28,7 +28,10 @@ const App = () => {
     const profile = useSelector((state: RootState) => state.auth.profile);
     const access_token = sessionStorage.getItem('access-token');
 
+    const alert = useSelector((state: RootState) => state.auth.alert);
 
+
+    const handleCloseAlert = () => dispatch(closeAlert());
 
     useEffect(() => {
         const cookieConsentState = document.cookie.split('; ').find(row => row.startsWith('cookie-accept'));
@@ -59,11 +62,11 @@ const App = () => {
     return (
         <CustomThemeProvider {...themeProps}>
             <CssBaseline />
-
             <React.Suspense fallback={<LinearProgress />}>
                 <RouterProvider router={allRouter(profile)} />
             </React.Suspense>
             <CustomizePallete isOpen={customizePalleteOpen} customize={customize} />
+            <AlertBox alert={alert} onClose={handleCloseAlert} />
         </CustomThemeProvider>
     )
 }

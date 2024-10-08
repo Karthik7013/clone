@@ -49,7 +49,6 @@ const authSlice = createSlice({
     reducers: {
         handleLogout: (state) => {
             state.isLogin = false
-            state.token = null
             state.profile = null;
             sessionStorage.removeItem('access-token');
         },
@@ -75,11 +74,6 @@ const authSlice = createSlice({
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false
-                state.alert = {
-                    type: 'success',
-                    message: 'login success',
-                    state: true
-                }
                 state.isLogin = true;
                 sessionStorage.setItem('access-token', action.payload.data.data.accessToken);
             });
@@ -95,12 +89,23 @@ const authSlice = createSlice({
                 }
             })
             .addCase(getProfile.fulfilled, (state, action) => {
-                state.loading = false
-                state.alert = {
-                    type: 'success',
-                    message: 'login success',
-                    state: true
+                state.loading = false;
+                if (getSessionToken('prev_login')) {
+                    // console.log('first time entered')
+                    state.alert = {
+                        type: 'success',
+                        message: 'Welcom Back',
+                        state: true
+                    }
+                } else {
+                    state.alert = {
+                        type: 'success',
+                        message: 'Login Success',
+                        state: true
+                    }
+                    sessionStorage.setItem('prev_login', 'true')
                 }
+
                 state.isLogin = true;
                 state.profile = action.payload.data
             })

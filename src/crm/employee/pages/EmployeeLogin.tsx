@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootProps } from '../../../types/RootProps';
-import { loginUser } from '../../../redux/slice/authSlice';
+import { closeAlert, loginUser } from '../../../redux/slice/authSlice';
 // import LoadingModal from '../../../Framework/components/LoadingModal';
 import loginPanel from "/login-panel.svg"
 import logo from "/logo.jpg";
@@ -35,7 +35,6 @@ const EmployeeLogin = () => {
     const dispatch: AppDispatch = useDispatch();
     const isLoading = useSelector((state: RootProps) => state.auth.loading);
     const isLogin = useSelector((state: RootProps) => state.auth.isLogin);
-    // const alert = useSelector((state:RootState)=> state)
 
     React.useEffect(() => {
         if (isLogin) navigate('/dashboard')
@@ -44,13 +43,13 @@ const EmployeeLogin = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // const data = { email: "mani123@gmail.com", password: "1234" }
-        const data = { phone: 9876543210 }
+        const data = { phone: 9876543225 }
         dispatch(loginUser(data));
     }
     return (
         <Box>
 
-{/* <AlertBox alert={} onClose={} /> */}
+            {/* <AlertBox alert={alert} onClose={handleCloseAlert} /> */}
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <Grid
                     item

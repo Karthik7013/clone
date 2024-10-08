@@ -15,6 +15,14 @@ const SideDrawer = (props: props) => {
     const { pathname } = useLocation();
 
     return (<Box sx={{ height: '100%' }}>
+        <Toolbar sx={{ display: { xs: 'block', md: 'none' } }}>
+            <ListItem component={Link} to="/" disablePadding sx={{ width: 240 - 10, display: { xs: 'none', md: 'flex' } }}>
+                <ListItemIcon>
+                    <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
+                </ListItemIcon>
+                <ListItemText primary={
+                    <Typography color="text.primary">Namelix</Typography>} />
+            </ListItem></Toolbar>
         <List component={Stack} divider={<Divider />} sx={{ px: 1 }}>
             {props.items ? <>
                 {props.items.map((item, index: number) => {
@@ -50,7 +58,7 @@ const SideDrawer = (props: props) => {
         </List>
 
         <Box sx={{
-            bgcolor: theme.palette.background.paper, paddingBottom: theme.spacing(1)
+            paddingBottom: theme.spacing(1)
         }}>
 
             <Typography flexWrap='wrap' color='text.secondary' variant='subtitle2' textAlign='center' mt={1}>
