@@ -15,16 +15,6 @@ const SideDrawer = (props: props) => {
     const { pathname } = useLocation();
 
     return (<Box sx={{ height: '100%' }}>
-        <Toolbar>
-            <ListItem disablePadding>
-                <ListItemIcon>
-                    <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
-                </ListItemIcon>
-                <ListItemText primary={<MuiLink component={Link} to="/">
-                    <Typography color="text.primary">Namelix</Typography>
-                </MuiLink>} />
-            </ListItem>
-        </Toolbar>
         <List component={Stack} divider={<Divider />} sx={{ px: 1 }}>
             {props.items ? <>
                 {props.items.map((item, index: number) => {
@@ -58,7 +48,6 @@ const SideDrawer = (props: props) => {
                 </>
             }
         </List>
-        <Divider />
 
         <Box sx={{
             bgcolor: theme.palette.background.paper, paddingBottom: theme.spacing(1)

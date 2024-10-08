@@ -9,7 +9,6 @@ type authProps = {
     loading: boolean,
     alert: alertProps,
     isLogin: boolean,
-    token: string | null,
     profile: null | customerProfileProps | pospProfileProps | employeeProfileProps
 }
 

@@ -1,12 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { pospService, serverLogin } from "../../service/api";
+import { EmployeeService, pospService, serverLogin } from "../../service/api";
 import { createBrowserHistory, History } from 'history';
 import { authProps, customerProfileProps, employeeProfileProps, pospProfileProps } from "../../types/AuthProps/AuthProps";
-import { RootProps } from "../../types/RootProps";
-import { useNavigate } from "react-router-dom";
 
 export const history: History = createBrowserHistory();
-
+import { getSessionToken } from "../../utils/utils"
 const initialState: authProps = {
     loading: false,
     alert: {
@@ -15,25 +13,34 @@ const initialState: authProps = {
         state: false
     },
     isLogin: false,
-    token: sessionStorage.getItem('access-token') || null,
     profile: null
 }
 
-// login user
-export const loginUser = createAsyncThunk('login/user', async (payload: { phno: string }) => {
-    const res = await serverLogin.post('/verify', { ...payload });
-    return { status: res.status, data: res.data }
-});
+// login employee
+export const loginUser = createAsyncThunk('login/user', async (payload: { phone: number }, { rejectWithValue }) => {
+    try {
+        const res = await EmployeeService.post('/verify', { ...payload });
+        console.log(res.data, 'res through toolkit');
+        return { status: res.status, data: res.data };
+    } catch (error) {
+        return rejectWithValue({ status: error.response.status, message: error.response.data });
+    }
+}
+);
+
 
 // get Profile
-export const getProfile = createAsyncThunk('profile/user', async (payload: {},) => {
-
-    const token = sessionStorage.getItem('access-token');
-    const headers = {
-        Authorization: `Bearer ${token}`,
-    };
-    const res = await serverLogin.post('/profile', {}, { headers });
-    return { status: res.status, data: res.data }
+export const getProfile = createAsyncThunk('profile/user', async (payload: {}, { rejectWithValue }) => {
+    try {
+        const token = getSessionToken('access-token');
+        const headers = {
+            "authorization": `Bearer ${token}`,
+        };
+        const res = await EmployeeService.get('/profile', { headers });
+        return { status: res.status, data: res.data.data }
+    } catch (error) {
+        return rejectWithValue({ status: error.response.status, message: error.response.data });
+    }
 })
 
 const authSlice = createSlice({
@@ -74,9 +81,7 @@ const authSlice = createSlice({
                     state: true
                 }
                 state.isLogin = true;
-                console.log(action.payload.data, 'see here idea')
-                state.token = action.payload.data;
-                sessionStorage.setItem('access-token', action.payload.data.token)
+                sessionStorage.setItem('access-token', action.payload.data.data.accessToken);
             });
         builder.addCase(getProfile.pending, (state) => {
             state.loading = true;

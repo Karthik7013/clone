@@ -20,6 +20,8 @@ import giftBox from './assets/spark.svg';
 import CookieCard from "./Framework/components/CookieCard"
 import { RootProps } from "./types/RootProps";
 
+import { RootState } from "./redux/store";
+
 const Home = () => {
     console.log('home renders')
     type navProps = {
@@ -27,7 +29,7 @@ const Home = () => {
         name: string,
         path: string
     }
-    const cookiePrompt = useSelector((state: RootProps) => state.ui.cookieConsent)
+    const cookiePrompt = useSelector((state: RootState) => state.ui.cookieConsent)
 
 
     // products navigations images url

@@ -38,10 +38,10 @@ import { customerProfileProps, employeeProfileProps, pospProfileProps } from '..
 type headerProps = {
     dark: boolean,
     islogin: boolean,
-    profile: customerProfileProps | employeeProfileProps | pospProfileProps | null
+    profile: any | null
 }
 const Header = (props: headerProps) => {
-    console.log('Header...')
+    console.log(props.profile, 'header profile')
     const dispatch = useDispatch();
     const { dark, islogin, profile } = props;
     const [anchorElProducts, setAnchorElProducts] = useState(null);
@@ -143,7 +143,7 @@ const Header = (props: headerProps) => {
 
                         {islogin ? <>
                             <Tooltip title="Logout">
-                                <CustomButton onClick={() => dispatch(handleLogout())} startIcon={<LogoutRoundedIcon />} sx={{ color: 'white' }}>
+                                <CustomButton variant='outlined' size='small' onClick={() => dispatch(handleLogout())} startIcon={<LogoutRoundedIcon />} sx={{ color: 'white' }}>
                                     Logout
                                 </CustomButton>
                             </Tooltip>
@@ -152,7 +152,7 @@ const Header = (props: headerProps) => {
                                 <IconButton
                                     onClick={handleOpenSignInMenu}
                                 >
-                                    <Avatar src={'https://img.freepik.com/free-photo/3d-illustration-young-business-man-with-funny-expression-his-face_1142-55156.jpg'} sx={{ width: 38, height: 38 }}>{profile?.firstname[0]}</Avatar>
+                                    <Avatar sx={{ width: 38, height: 38 }}>{profile?.first_name[0]}</Avatar>
                                 </IconButton>
                             </Tooltip>
                         </> :

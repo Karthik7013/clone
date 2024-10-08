@@ -12,7 +12,8 @@ import { loginUser } from '../../../redux/slice/authSlice';
 // import LoadingModal from '../../../Framework/components/LoadingModal';
 import loginPanel from "/login-panel.svg"
 import logo from "/logo.jpg";
-import { AppDispatch } from '../../../redux/store';
+import { AppDispatch, RootState } from '../../../redux/store';
+import AlertBox from '../../../Framework/components/AlertBox';
 
 
 function Copyright(props: any) {
@@ -34,7 +35,7 @@ const EmployeeLogin = () => {
     const dispatch: AppDispatch = useDispatch();
     const isLoading = useSelector((state: RootProps) => state.auth.loading);
     const isLogin = useSelector((state: RootProps) => state.auth.isLogin);
-
+    // const alert = useSelector((state:RootState)=> state)
 
     React.useEffect(() => {
         if (isLogin) navigate('/dashboard')
@@ -43,13 +44,13 @@ const EmployeeLogin = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // const data = { email: "mani123@gmail.com", password: "1234" }
-        const data = { phno: "9999999999" }
+        const data = { phone: 9876543210 }
         dispatch(loginUser(data));
     }
     return (
         <Box>
 
-
+{/* <AlertBox alert={} onClose={} /> */}
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <Grid
                     item

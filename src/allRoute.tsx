@@ -2,7 +2,7 @@ import React from "react";
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 
 //============ MUI IMPORTS ==============>
-import { Toolbar } from "@mui/material";
+import { LinearProgress, Toolbar } from "@mui/material";
 
 //============ PROJECT IMPORTS ==============>
 import Header from "./Framework/components/Header";
@@ -47,20 +47,22 @@ type allRouterProps = customerProfileProps | null | pospProfileProps | employeeP
 
 //============ REDUX IMPORTS ==============>
 import { useSelector } from "react-redux";
-
+import { RootState } from "./redux/store";
 
 
 
 export const allRouter = (props: allRouterProps) => {
-    const islogin = useSelector((state: RootProps) => state.auth.isLogin);
-    const dark = useSelector((state: RootProps) => state.ui.dark);
-    const profile = useSelector((state: RootProps) => state.auth.profile);
+    const islogin = useSelector((state: RootState) => state.auth.isLogin);
+    const dark = useSelector((state: RootState) => state.ui.dark);
+    const profile = useSelector((state: RootState) => state.auth.profile);
+    const isLoading = useSelector((state:RootState)=> state.auth.loading)
 
     const headerProps = {
         islogin,
         dark,
         profile
     }
+    console.log(headerProps,'headerprops')
     const getRoleBaseRoutes = () => {
         switch (props?.type) {
             case 'customer':
@@ -103,7 +105,8 @@ export const allRouter = (props: allRouterProps) => {
                                 {
                                     index: true,
                                     element: <LoanQuotesPage />
-                                }, {
+                                },
+                                {
                                     path: 'compare/:id',
                                     element: <CompareQuotes />
                                 }
@@ -197,11 +200,19 @@ export const allRouter = (props: allRouterProps) => {
             ]
         },
         {
-            path: 'signin',
+            path: 'customer/signin',
             element: <Login />
         },
         {
-            path: 'signup',
+            path: 'customer/signup',
+            element: <Register />
+        },
+        {
+            path: 'agent/signin',
+            element: <Login />
+        },
+        {
+            path: 'agent/signup',
             element: <Register />
         },
         {
@@ -209,16 +220,16 @@ export const allRouter = (props: allRouterProps) => {
             element: <EmployeeLogin />
         },
         {
+            path: 'dashboard',
+            element: islogin ? <CrmLayout /> : (isLoading ? <LinearProgress />:<PageNotFound />),
+            children: [
+                // ...getRoleBaseRoutes()
+            ]
+        },
+        {
             path: '*',
             element: <PageNotFound />
         },
-        {
-            path: 'dashboard',
-            element: islogin ? <CrmLayout /> : <Navigate to="/" />,
-            children: [
-                ...getRoleBaseRoutes()
-            ]
-        }
     ]
     return createBrowserRouter(commonRoutes);
 }

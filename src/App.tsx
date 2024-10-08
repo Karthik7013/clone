@@ -17,17 +17,15 @@ import { allRouter } from "./allRoute"
 import CustomizePallete from './Framework/components/CustomizePallete';
 import CustomThemeProvider from './theme/CustomThemeProvider';
 import { handleCookieConsent } from './redux/slice/uiSlice';
-import { AppDispatch } from './redux/store';
+import { AppDispatch, RootState } from './redux/store';
 
 const App = () => {
-    const customizePalleteOpen = useSelector((state: RootProps) => state.ui.customizePalleteOpen)
+    const customizePalleteOpen = useSelector((state: RootState) => state.ui.customizePalleteOpen)
     const dispatch: AppDispatch = useDispatch();
-    const dark = useSelector((state: RootProps) => state.ui.dark);
-    const borderRadius = useSelector((state: RootProps) => state.ui.borderRadius);
-    const fontFamily = useSelector((state: RootProps) => state.ui.fontFamily);
-    const alert = useSelector((state: RootProps) => state.auth.alert);
-    const handleClose = () => dispatch(closeAlert());
-    const profile = useSelector((state: RootProps) => state.auth.profile);
+    const dark = useSelector((state: RootState) => state.ui.dark);
+    const borderRadius = useSelector((state: RootState) => state.ui.borderRadius);
+    const fontFamily = useSelector((state: RootState) => state.ui.fontFamily);
+    const profile = useSelector((state: RootState) => state.auth.profile);
     const access_token = sessionStorage.getItem('access-token');
 
 
@@ -42,6 +40,7 @@ const App = () => {
 
     useEffect(() => {
         if (access_token) {
+            console.log('re login')
             dispatch(getProfile({}));
         }
     }, [])
@@ -60,7 +59,7 @@ const App = () => {
     return (
         <CustomThemeProvider {...themeProps}>
             <CssBaseline />
-            {/* <AlertBox alert={alert} onClose={handleClose} /> */}
+
             <React.Suspense fallback={<LinearProgress />}>
                 <RouterProvider router={allRouter(profile)} />
             </React.Suspense>
