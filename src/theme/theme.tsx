@@ -159,17 +159,18 @@ const theme = (customStyles: customStylesProps) => {
                     }
                 }
             },
-            MuiMenu: {
-                styleOverrides: {
-                    root: {
-                        '.MuiList-root': {
-                            // padding: '10px',
-                            border: `1px solid ${alpha(theme.palette.background.default, 0.1)}`,
-                            borderRadius: theme.shape.borderRadius * 2
-                        }
-                    }
-                }
-            }
+            // MuiMenu: {
+            //     styleOverrides: {
+            //         root: {
+            //             '.MuiList-root': {
+            //                 border: `1px solid ${alpha(theme.palette.background.default, 0.1)}`,
+            //                 borderRadius: theme.shape.borderRadius * 2,
+            //                 backgroundColor: alpha(theme.palette.primary.main,0.4),
+            //                 color:theme.palette.primary.contrastText
+            //             }
+            //         }
+            //     }
+            // }
         }
     })
 

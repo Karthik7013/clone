@@ -66,7 +66,7 @@ const App = () => {
                 <RouterProvider router={allRouter(profile)} />
             </React.Suspense>
             <CustomizePallete isOpen={customizePalleteOpen} customize={customize} />
-            <AlertBox alert={alert} onClose={handleCloseAlert} />
+            {/* <AlertBox alert={alert} onClose={handleCloseAlert} /> */}
         </CustomThemeProvider>
     )
 }

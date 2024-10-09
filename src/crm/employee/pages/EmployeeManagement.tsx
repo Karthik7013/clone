@@ -1,5 +1,5 @@
 import { Delete, Edit, GroupAddRounded } from '@mui/icons-material';
-import { Box, Button, Checkbox, Chip, Divider, Grid, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, styled, Toolbar, Typography } from '@mui/material'
+import { Avatar, Box, Button, Checkbox, Chip, Divider, Grid, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, styled, Toolbar, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { DataGrid, GridColDef, GridRowsProp, GridToolbarContainer } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
@@ -36,7 +36,7 @@ const EmployeeManagement = () => {
         { field: 'col1', headerName: 'Employee ID', width: 150 },
         {
             field: 'col2', headerName: 'Employee Name', width: 150,
-            renderCell: (params) => <Link to={`/employee/dashboard/profile/${params.row.col1}`}>{params.value}</Link>
+            renderCell: (params) => <Stack gap={2} alignItems={'center'} direction='row'><Avatar >{params.value[0]}</Avatar><Link to={`profile/${params.row.col1}`}>{params.value}</Link></Stack>
         },
         { field: 'col3', headerName: 'Department', width: 150 },
         { field: 'col4', headerName: 'Access', width: 150 },
@@ -126,22 +126,14 @@ const EmployeeManagement = () => {
 
     return (
         <Box>
-            <MessageBox type='warning' >
-                Access Denied
-            </MessageBox>
-            <MessageBox type='success'>
-                Updated Successfully
-            </MessageBox>
-            <MessageBox type='error' >
-                No Records Found
-            </MessageBox>
+ 
 
-            <Grid container mt={2}>
-                <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <MessageBox type='warning'>
-                        Access Denied
+            <Grid container>
+                <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column'}}>
+                    <MessageBox type='success'>
+                        Records Updated
                     </MessageBox>
-                    <Box sx={{ height: 500, width: '100%' }}>
+                    <Box sx={{ height: 470,mt:1}}>
                         <DataGrid
                             sx={{ '--DataGrid-overlayHeight': '300px' }}
                             slots={{

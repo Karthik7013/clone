@@ -143,7 +143,7 @@ const Header = (props: headerProps) => {
 
                         {islogin ? <>
                             <Tooltip title="Logout">
-                                <CustomButton variant='outlined' size='small' onClick={() => dispatch(handleLogout())} startIcon={<LogoutRoundedIcon />} sx={{ color: 'white' }}>
+                                <CustomButton variant='outlined' size='small' onClick={handleOnclick} startIcon={<LogoutRoundedIcon />} sx={{ color: 'white' }}>
                                     Logout
                                 </CustomButton>
                             </Tooltip>
@@ -191,13 +191,13 @@ const Header = (props: headerProps) => {
                                     </MenuItem>
                                 </Box> :
                                     <Box>
-                                        <MenuItem onClick={() => navigate('/signin')}>
+                                        <MenuItem onClick={() => navigate('/customer/signin')}>
                                             <Stack direction={'row'} gap={1} >
                                                 <AccountCircleRoundedIcon fontSize='small' />
                                                 <Typography textAlign="center" >cusotmer</Typography>
                                             </Stack>
                                         </MenuItem>
-                                        <MenuItem onClick={() => navigate('/signin')}>
+                                        <MenuItem onClick={() => navigate('/agent/signin')}>
                                             <Stack direction={'row'} gap={1}>
                                                 <AssignmentIndIcon fontSize='small' />
                                                 <Typography textAlign="center">Agent</Typography>

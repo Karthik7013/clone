@@ -48,8 +48,19 @@ type allRouterProps = customerProfileProps | null | pospProfileProps | employeeP
 //============ REDUX IMPORTS ==============>
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-
-
+import BussinessAnalytics from "./crm/employee/pages/BussinessAnalytics";
+import AdminService from "./crm/employee/pages/AdminService";
+import RevenueService from "./crm/employee/pages/RevenueService";
+import SalesService from "./crm/employee/pages/SalesService";
+import EmployeeManagement from "./crm/employee/pages/EmployeeManagement";
+import ProductsSale from "./crm/employee/pages/ProductsSale";
+import EmployeeProfile from "./crm/employee/pages/EmployeeProfile";
+import AccessManagement from "./crm/employee/pages/AccessManagement";
+import IncomeService from "./crm/employee/pages/IcomeService";
+import Settings from "./crm/employee/pages/Settings";
+import CustomerSettings from "./crm/customer/pages/Settings";
+import CustomerManagement from "./crm/employee/pages/CustomerManagement";
+import AgentManagement from "./crm/employee/pages/AgentManagement";
 
 export const allRouter = (props: allRouterProps) => {
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
@@ -75,6 +86,21 @@ export const allRouter = (props: allRouterProps) => {
                 return [];
         }
     }
+
+    const componentFor = {
+        'analytics': <BussinessAnalytics />,
+        'service': <AdminService />,
+        'revenue': <RevenueService />,
+        'sales': <SalesService />,
+        'income': <IncomeService />,
+        'employee-management': <EmployeeManagement />,
+        'products': <ProductsSale />,
+        'settings': <Settings />,
+        'profile': <EmployeeProfile />,
+        'access-management': <AccessManagement />
+    }
+
+
     let commonRoutes = [
         {
             path: "/",
@@ -223,7 +249,74 @@ export const allRouter = (props: allRouterProps) => {
             path: 'dashboard',
             element: islogin ? <CrmLayout /> : (isLoading ? <LinearProgress /> : <PageNotFound />),
             children: [
-                ...getRoleBaseRoutes()
+                {
+                    path: '/dashboard',
+                    element: <BussinessAnalytics />
+                },
+                {
+                    path: 'employee-management',
+                    element: <Outlet />,
+                    children: [
+                        {
+                            path: 'profile/:id',
+                            element: <EmployeeProfile />
+                        },
+                        {
+                            index: true,
+                            element: <EmployeeManagement />
+                        }
+                    ]
+                },
+                {
+                    path: 'agent-management',
+                    element: <Outlet />,
+                    children: [
+                        {
+                            path: 'profile/:id',
+                            element: <EmployeeProfile />
+                        },
+                        {
+                            index: true,
+                            element: <AgentManagement />
+                        }
+                    ]
+                },
+                {
+                    path: 'customer-management',
+                    element: <Outlet />,
+                    children: [
+                        {
+                            path: 'profile/:id',
+                            element: <CustomerSettings />
+                        },
+                        {
+                            index: true,
+                            element: <CustomerManagement />
+                        }
+                    ]
+                },
+                {
+                    path: 'settings',
+                    element: <Settings />
+                },
+                {
+                    path: 'income',
+                    element: <IncomeService />
+                },
+                {
+                    path: 'access-management',
+                    element: <AccessManagement />
+                },
+                {
+                    path: 'profile',
+                    element: <EmployeeProfile />
+                },
+                {
+                    path: 'products',
+                    element: <ProductsSale />
+                },
+
+                // ...getRoleBaseRoutes()
             ]
         },
         {

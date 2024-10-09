@@ -70,7 +70,7 @@ const CrmLayout = () => {
         height: 'calc( 100dvh - 65px)',
         // height: 'calc( 100dvh - 130px)',
         // width: 'calc(100% - 65px)',
-        // backgroundColor: alpha(theme.palette.divider, 0.02),
+        backgroundColor: alpha(theme.palette.divider, 0.02),
         border: `1px solid ${alpha(theme.palette.divider, 0.05)}`,
         backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.divider, 0.02) : theme.palette.common.white,
     }));
@@ -195,13 +195,14 @@ const CrmLayout = () => {
                     // display: { xs: 'block', md: 'none' },
                     // '& .MuiDrawer-paper': {
                     //     boxSizing: 'border-box',
-                    width: drawerWidth
+                    width: drawerWidth,
+
                     // },
                 }}
             >
                 <SideBar items={profile?.sideProps} />
             </Drawer>
-            <Box width={drawerWidth} sx={{ display: { xs: 'none', md: 'block' } }}>
+            <Box minWidth={drawerWidth} maxWidth={drawerWidth} sx={{ display: { xs: 'none', md: 'block' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
                 <SideBar items={profile?.sideProps} />
             </Box>
             <StyledCardContent>

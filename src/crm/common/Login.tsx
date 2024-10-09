@@ -1,5 +1,5 @@
-import { Box, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Box, CircularProgress, Typography } from '@mui/material'
+import { Link, useNavigate } from 'react-router-dom'
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -15,7 +15,10 @@ import Container from '@mui/material/Container';
 
 import LoginAvatar from "../../assets/user-profile.svg";
 import AgentAvatar from '../../assets/agent-svgrepo-com.svg';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
+import { loginCustomer } from '../../redux/slice/authSlice';
+import { useForm } from "react-hook-form";
 function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -29,13 +32,31 @@ function Copyright(props: any) {
 }
 
 const Login = () => {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+    const navigate = useNavigate()
+    const dispatch: AppDispatch = useDispatch();
+    const isLoading = useSelector((state: RootState) => state.auth.loading);
+    const isLogin = useSelector((state: RootState) => state.auth.isLogin);
+
+    React.useEffect(() => {
+        if (isLogin) navigate('/dashboard')
+    }, [isLogin])
+
+
+
+
+
+
+
+
+    const onSubmit = (data) => {
+        const { phone } = data;
+        console.log({ phone })
+        dispatch(loginCustomer({ phone }))
     };
     return (
         <Box>
@@ -57,8 +78,56 @@ const Login = () => {
                     <Typography component="h1" textAlign='center' variant="h5">
                         Sign in <br />  Customer/Posp
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+
+
+
+
+
+
+                    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
                         <TextField
+                            label="Phone Number"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            {...register('phone', {
+                                required: 'Phone number is required',
+                                pattern: {
+                                    value: /^\d{10}$/,
+                                    message: 'Phone number must be 10 digits',
+                                },
+                            })}
+                            inputMode='numeric'
+                            error={!!errors.phone}
+                        // helperText={errors.phoneNumber ? errors.phoneNumber.message : ''}
+                        />
+                        <TextField
+                            label="Password"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            type="password"
+                            {...register('password', { required: 'Password is required' })}
+                            error={!!errors.password}
+                        // helperText={errors.password ? errors.password.message : ''}
+                        />
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" />}
+                            label="Remember me"
+                        />
+                        <Button
+                            disabled={isLoading}
+                            type='submit'
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            {isLoading ? <CircularProgress size={24} /> : "Login"}
+                        </Button>
+
+                    </Box>
+
+                    {/*     <TextField
                             margin="normal"
                             required
                             fullWidth
@@ -83,12 +152,13 @@ const Login = () => {
                             label="Remember me"
                         />
                         <Button
-                            type="submit"
+                            disabled={isLoading}
+                            type='submit'
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign In
+                            {isLoading ? <CircularProgress size={24} /> : "Login"}
                         </Button>
                         <Link to="/">posp/customer dashboard</Link>
                         <Grid container>
@@ -103,7 +173,8 @@ const Login = () => {
                                 </Link>
                             </Grid>
                         </Grid>
-                    </Box>
+                   */}
+
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
