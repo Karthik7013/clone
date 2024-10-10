@@ -124,10 +124,16 @@ const authSlice = createSlice({
                     message: 'invalid username/password',
                     state: true
                 }
+
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false
                 state.isLogin = true;
+                state.alert = {
+                    message: 'Login Success',
+                    state: true,
+                    type: 'success'
+                }
                 sessionStorage.setItem('access-token', action.payload.data.data.accessToken);
                 sessionStorage.setItem('login-type', 'employee');
             });
@@ -174,10 +180,16 @@ const authSlice = createSlice({
                     message: 'invalid username/password',
                     state: true
                 }
+                sessionStorage.removeItem('access-token')
             })
             .addCase(loginCustomer.fulfilled, (state, action) => {
                 state.loading = false
                 state.isLogin = true;
+                state.alert = {
+                    message: 'Login Success',
+                    state: true,
+                    type: 'success'
+                }
                 sessionStorage.setItem('access-token', action.payload.data.data.accessToken);
                 sessionStorage.setItem('login-type', 'customer');
             });
@@ -195,7 +207,6 @@ const authSlice = createSlice({
             .addCase(getCustomerProfile.fulfilled, (state, action) => {
                 state.loading = false;
                 if (getSessionToken('prev_login')) {
-                    // console.log('first time entered')
                     state.alert = {
                         type: 'success',
                         message: 'Welcom Back',

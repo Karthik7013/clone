@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Slide, SlideProps, Snackbar } from '@mui/material'
+import { Alert, Button, Slide, SlideProps, Snackbar, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { useDispatch } from 'react-redux';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import { alpha, styled } from '@mui/material/styles';
@@ -20,23 +20,24 @@ type props = {
 }
 
 const AlertBox = ({ alert, onClose }: props) => {
-    console.log('alert rendered')
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.up('md'));
     const dispatch = useDispatch();
     const handleClose = () => {
         dispatch(onClose())
     }
 
     function SlideTransition(props: SlideProps) {
-        return <Slide {...props} direction="up" />;
+        return <Slide {...props} direction="left" />;
     }
 
     const CustomAlert = styled(Alert)(({ theme }) => ({
-        borderRadius: '0.4rem',
+        borderRadius: theme.shape.borderRadius,
         boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
-        backgroundColor: alert.type && alpha(theme.palette[alert.type].main, 0.05),
-        borderWidth: '1px',
+        backgroundColor: alert.type && alpha(theme.palette[alert.type].main, 0.1),
         borderLeft: '4px solid',
-        borderLeftColor: alert.type && theme.palette[alert.type].main
+        borderLeftColor: alert.type && theme.palette[alert.type].main,
+        fontWeight: 'bolder',
     }));
 
     const AlertIcon = (type: 'info' | 'error' | 'warning' | 'success' | undefined) => {
@@ -58,11 +59,14 @@ const AlertBox = ({ alert, onClose }: props) => {
     return (
         <Snackbar open={alert.state}
             TransitionComponent={SlideTransition}
-            autoHideDuration={3000}
+            autoHideDuration={4000}
             onClose={handleClose}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            anchorOrigin={{ vertical: 'bottom', horizontal: isMobile ? 'right' : 'center' }}
         >
-            <CustomAlert variant='outlined' icon={AlertIcon(alert.type)} severity={alert.type}>{alert.message}</CustomAlert>
+            <CustomAlert variant='outlined' icon={AlertIcon(alert.type)} severity={alert.type}>
+                <Typography variant='caption'>{alert.message}</Typography>
+
+            </CustomAlert>
         </Snackbar>
     )
 }

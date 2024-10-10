@@ -148,19 +148,53 @@ const SideDrawer = (props: props) => {
                     </ListItemButton>
                 </ListItem>
             </MuiLink>
+            <Divider />
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
             <>
-                    {[1].map((number: number) => <ListItem key={number} disablePadding>
-                        <ListItemButton disableRipple>
-                            <ListItemIcon>
-                                <Skeleton width={25} height={40} />
-                            </ListItemIcon>
-                            <ListItemText primary={<Skeleton width={100} />} />
-                        </ListItemButton>
-                    </ListItem>)}
-                </>
+                {[1].map((number: number) => <ListItem key={number} disablePadding>
+                    <ListItemButton disableRipple>
+                        <ListItemIcon>
+                            <Skeleton width={25} height={40} />
+                        </ListItemIcon>
+                        <ListItemText primary={<Skeleton width={100} />} />
+                    </ListItemButton>
+                </ListItem>)}
+            </>
         </List>
         <Box sx={{
-            pb:theme.spacing(2)
+            pb: theme.spacing(2)
         }}>
             <Typography flexWrap='wrap' color='text.secondary' variant='subtitle2' textAlign='center' mt={1}>
                 <Chip icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small' />

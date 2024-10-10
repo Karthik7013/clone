@@ -30,7 +30,8 @@ import HealthPayment from "./health/pages/HealthPayment";
 //============ DASHBOARD COMPONENTS IMPORTS ==============>
 import Register from "./crm/common/Register";
 import EmployeeLogin from "./crm/employee/pages/EmployeeLogin";
-import Login from "./crm/common/Login";
+import CustomerLogin from "./crm/customer/pages/Login";
+import AgentLogin from "./crm/posp/pages/Login"
 
 import PageNotFound from "./Framework/components/PageNotFound";
 
@@ -75,6 +76,78 @@ export const allRouter = (props: allRouterProps) => {
     }
     console.log(headerProps, 'headerprops')
     const getRoleBaseRoutes = () => {
+        const employeeFullAccessRoutes = [
+            {
+                path: '/dashboard',
+                element: <BussinessAnalytics />
+            },
+            {
+                path: 'employee-management',
+                element: <Outlet />,
+                children: [
+                    {
+                        path: 'profile/:id',
+                        element: <EmployeeProfile />
+                    },
+                    {
+                        index: true,
+                        element: <EmployeeManagement />
+                    }
+                ]
+            },
+            {
+                path: 'agent-management',
+                element: <Outlet />,
+                children: [
+                    {
+                        path: 'profile/:id',
+                        element: <EmployeeProfile />
+                    },
+                    {
+                        index: true,
+                        element: <AgentManagement />
+                    }
+                ]
+            },
+            {
+                path: 'customer-management',
+                element: <Outlet />,
+                children: [
+                    {
+                        path: 'profile/:id',
+                        element: <CustomerSettings />
+                    },
+                    {
+                        index: true,
+                        element: <CustomerManagement />
+                    }
+                ]
+            },
+            {
+                path: 'settings',
+                element: <Settings />
+            },
+            {
+                path: 'income',
+                element: <IncomeService />
+            },
+            {
+                path: 'access-management',
+                element: <AccessManagement />
+            },
+            {
+                path: 'profile',
+                element: <EmployeeProfile />
+            },
+            {
+                path: 'products',
+                element: <ProductsSale />
+            }
+        ]
+        const customerAccessRoutes = [
+
+        ]
+        return customerAccessRoutes;
         switch (props?.type) {
             case 'customer':
                 return getCustomerRoutes(profile)
@@ -227,7 +300,7 @@ export const allRouter = (props: allRouterProps) => {
         },
         {
             path: 'customer/signin',
-            element: <Login />
+            element: <CustomerLogin />
         },
         {
             path: 'customer/signup',
@@ -235,7 +308,7 @@ export const allRouter = (props: allRouterProps) => {
         },
         {
             path: 'agent/signin',
-            element: <Login />
+            element: <AgentLogin />
         },
         {
             path: 'agent/signup',
@@ -248,76 +321,7 @@ export const allRouter = (props: allRouterProps) => {
         {
             path: 'dashboard',
             element: islogin ? <CrmLayout /> : (isLoading ? <LinearProgress /> : <PageNotFound />),
-            children: [
-                {
-                    path: '/dashboard',
-                    element: <BussinessAnalytics />
-                },
-                {
-                    path: 'employee-management',
-                    element: <Outlet />,
-                    children: [
-                        {
-                            path: 'profile/:id',
-                            element: <EmployeeProfile />
-                        },
-                        {
-                            index: true,
-                            element: <EmployeeManagement />
-                        }
-                    ]
-                },
-                {
-                    path: 'agent-management',
-                    element: <Outlet />,
-                    children: [
-                        {
-                            path: 'profile/:id',
-                            element: <EmployeeProfile />
-                        },
-                        {
-                            index: true,
-                            element: <AgentManagement />
-                        }
-                    ]
-                },
-                {
-                    path: 'customer-management',
-                    element: <Outlet />,
-                    children: [
-                        {
-                            path: 'profile/:id',
-                            element: <CustomerSettings />
-                        },
-                        {
-                            index: true,
-                            element: <CustomerManagement />
-                        }
-                    ]
-                },
-                {
-                    path: 'settings',
-                    element: <Settings />
-                },
-                {
-                    path: 'income',
-                    element: <IncomeService />
-                },
-                {
-                    path: 'access-management',
-                    element: <AccessManagement />
-                },
-                {
-                    path: 'profile',
-                    element: <EmployeeProfile />
-                },
-                {
-                    path: 'products',
-                    element: <ProductsSale />
-                },
-
-                // ...getRoleBaseRoutes()
-            ]
+            children: [...getRoleBaseRoutes()]
         },
         {
             path: '*',
