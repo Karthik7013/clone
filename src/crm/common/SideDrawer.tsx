@@ -156,7 +156,40 @@ const SideDrawer = (props: props) => {
                         <ListItemIcon>
                             <Icon fontSize='small'>settings</Icon>
                         </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Dashboard'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'My Policies'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Register Claim'}</Typography>} />
                     </ListItemButton>
                 </ListItem>
             </MuiLink>
@@ -178,7 +211,74 @@ const SideDrawer = (props: props) => {
                         <ListItemIcon>
                             <Icon fontSize='small'>settings</Icon>
                         </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Help'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <Divider />
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Overview'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Bookings'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Add Policy'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Helpline'}</Typography>} />
                     </ListItemButton>
                 </ListItem>
             </MuiLink>
