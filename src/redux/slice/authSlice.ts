@@ -16,7 +16,7 @@ const initialState: authProps = {
         message: '',
         state: false
     },
-    isLogin: role && accessToken ? true:false,
+    isLogin: role && accessToken ? true : false,
     profile: null,
     role: role
 }
@@ -55,7 +55,7 @@ export const loginCustomer = createAsyncThunk('login/customer', async (payload: 
         const res = await axios.post('http://localhost:8000/api/v1/auth/customer/verify', payload);
         return { status: res.status, data: res.data };
     } catch (error) {
-        if (error.message === 'Network Error') return rejectWithValue({ message: "Our servers are currently unavailable. Please try again later." });
+        if (error.message === 'Network Error') return rejectWithValue({ message: "Oops! Something went wrong" });
         return rejectWithValue({ status: error.response.status, message: error.response.data.message });
     }
 }
@@ -199,7 +199,6 @@ const authSlice = createSlice({
                     type: 'success'
                 }
                 state.role = action.payload.data.data.user.role
-                // sessionStorage.setItem('access-token', action.payload.data.data.user);
                 sessionStorage.setItem('access-token', action.payload.data.data.accessToken);
                 sessionStorage.setItem('role', action.payload.data.data.user.role);
             });

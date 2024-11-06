@@ -64,6 +64,7 @@ import CustomerManagement from "./crm/employee/pages/CustomerManagement";
 import AgentManagement from "./crm/employee/pages/AgentManagement";
 
 import { CustomerHome, HelpLine, MyClaims, MyPolicies, RegisterClaims } from "./crm/customer/routes/CustomerChilds";
+import ProtectedRoutes from "./ProtectedRoute";
 
 export const allRouter = (props: allRouterProps) => {
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
@@ -223,7 +224,9 @@ export const allRouter = (props: allRouterProps) => {
                     , children: [
                         {
                             path: '/customer/dashboard',
-                            element: <CustomerHome />
+                            element: <ProtectedRoutes role="customer" requiredPermission={1000}>
+                                <CustomerHome />
+                            </ProtectedRoutes>
                         },
                         {
                             path: 'policies',

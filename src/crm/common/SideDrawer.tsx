@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Link as MuiLink } from "@mui/material";
 import { navProps } from '../../types/AuthProps/AuthProps';
 import React from 'react';
-
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import { useTheme } from '@mui/material';
 type props = {
@@ -118,11 +118,17 @@ const SideDrawer = (props: props) => {
             </MuiLink> */}
             <ListItem>
                 <TextField
-                    label="With normal TextField"
-                    id="standard-start-adornment"
-                    sx={{ m: 1, width: '25ch' }}
-         
-                    variant="standard"
+
+                    variant="outlined"
+                    fullWidth
+                    placeholder='Search'
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchRoundedIcon />
+                            </InputAdornment>
+                        ),
+                    }}
                 />
             </ListItem>
 
@@ -137,7 +143,7 @@ const SideDrawer = (props: props) => {
                     </ListItemButton>
                 </ListItem>
             </MuiLink>
-            <MuiLink component={Link} to={'/'}>
+            <MuiLink component={Link} to={'policies'}>
                 <ListItem disablePadding>
                     <ListItemButton
                         disableRipple>
@@ -148,7 +154,7 @@ const SideDrawer = (props: props) => {
                     </ListItemButton>
                 </ListItem>
             </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
+            <MuiLink component={Link} to={'claims'}>
                 <ListItem disablePadding>
                     <ListItemButton
                         disableRipple>
@@ -159,7 +165,7 @@ const SideDrawer = (props: props) => {
                     </ListItemButton>
                 </ListItem>
             </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
+            <MuiLink component={Link} to={'register'}>
                 <ListItem disablePadding>
                     <ListItemButton
                         disableRipple>
@@ -181,7 +187,7 @@ const SideDrawer = (props: props) => {
                     </ListItemButton>
                 </ListItem>
             </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
+            <MuiLink component={Link} to={'helpline'}>
                 <ListItem disablePadding>
                     <ListItemButton
                         disableRipple>

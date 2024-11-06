@@ -10,7 +10,7 @@ type authProps = {
     alert: alertProps,
     isLogin: boolean,
     profile: null | customerProfileProps | pospProfileProps | employeeProfileProps,
-    role:null | 'customer' | 'employee' | 'agent'
+    role: null | 'customer' | 'employee' | 'agent'
 }
 
 // new_
@@ -23,6 +23,7 @@ type customerProfileProps = {
     custId: string,
     sideProps: navProps[],
     menuProps: navProps[],
+    permissions: number[]
     location: string
 }
 

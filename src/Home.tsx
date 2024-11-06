@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
 //============ MUI IMPORTS ==============>
-import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Container, Fab, Grid, keyframes, ListItem, ListItemIcon, ListItemText, Stack, styled, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Container, Divider, Fab, Grid, IconButton, keyframes, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Stack, styled, Typography } from "@mui/material";
 import { Link as MuiLink } from "@mui/material";
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 //============ SVG IMPORTS ==============>
 import loanLogo from "./assets/navAssets/Loan.svg";
 import healthLogo from "./assets/navAssets/Health.svg";
@@ -163,6 +164,81 @@ const Home = () => {
                     <Box minWidth={'100%'} display={'flex'} justifyContent={'center'}>
                         <Chip variant="outlined" label="Explore more" size="small" />
                     </Box>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <List sx={{ width: '100%', bgcolor: 'background.paper' }} subheader={
+                        <Typography variant="subtitle2" justifyItems='center'>Continue Policy Purchase</Typography>
+                    }>
+                        <ListItem alignItems="flex-start" secondaryAction={
+                            <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
+                        }>
+                            <ListItemAvatar>
+                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary="General Life Insurance"
+                                secondary={
+                                    <React.Fragment>
+                                        <Typography
+                                            component="span"
+                                            variant="body2"
+                                            sx={{ color: 'text.primary', display: 'inline' }}
+                                        >
+                                            Application ID:
+                                        </Typography>
+                                        {"AP012454GH4FJDJ04"}
+                                    </React.Fragment>
+                                }
+                            />
+                        </ListItem>
+                        <Divider variant="inset" component="li" />
+                        <ListItem alignItems="flex-start" secondaryAction={
+                            <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
+                        }>
+                            <ListItemAvatar>
+                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary="General Life Insurance"
+                                secondary={
+                                    <React.Fragment>
+                                        <Typography
+                                            component="span"
+                                            variant="body2"
+                                            sx={{ color: 'text.primary', display: 'inline' }}
+                                        >
+                                            Application ID:
+                                        </Typography>
+                                        {"AP012454GH4FJDJ04"}
+                                    </React.Fragment>
+                                }
+                            />
+                        </ListItem>
+                        <Divider variant="inset" component="li" />
+                        <ListItem alignItems="flex-start" secondaryAction={
+                            <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
+                        }>
+                            <ListItemAvatar>
+                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary="General Life Insurance"
+                                secondary={
+                                    <React.Fragment>
+                                        <Typography
+                                            component="span"
+                                            variant="body2"
+                                            sx={{ color: 'text.primary', display: 'inline' }}
+                                        >
+                                            Application ID:
+                                        </Typography>
+                                        {"AP012454GH4FJDJ04"}
+                                    </React.Fragment>
+                                }
+                            />
+                        </ListItem>
+                    </List>
                 </Grid>
             </Grid>
         </Container>
