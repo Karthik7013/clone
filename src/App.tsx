@@ -65,7 +65,7 @@ const App = () => {
             <React.Suspense fallback={<LinearProgress />}>
                 <RouterProvider router={allRouter(profile)} />
             </React.Suspense>
-            <CustomizePallete isOpen={customizePalleteOpen} customize={customize} />
+            {/* <CustomizePallete isOpen={customizePalleteOpen} customize={customize} /> */}
             {/* <AlertBox alert={alert} onClose={handleCloseAlert} /> */}
         </CustomThemeProvider>
     )

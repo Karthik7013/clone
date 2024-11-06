@@ -63,115 +63,22 @@ import CustomerSettings from "./crm/customer/pages/Settings";
 import CustomerManagement from "./crm/employee/pages/CustomerManagement";
 import AgentManagement from "./crm/employee/pages/AgentManagement";
 
+import { CustomerHome, HelpLine, MyClaims, MyPolicies, RegisterClaims } from "./crm/customer/routes/CustomerChilds";
+
 export const allRouter = (props: allRouterProps) => {
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
     const dark = useSelector((state: RootState) => state.ui.dark);
     const profile = useSelector((state: RootState) => state.auth.profile);
-    const isLoading = useSelector((state: RootState) => state.auth.loading)
+    const isLoading = useSelector((state: RootState) => state.auth.loading);
+    const role = useSelector((state: RootState) => state.auth.role);
 
     const headerProps = {
         islogin,
         dark,
         profile
     }
-    console.log(headerProps, 'headerprops')
-    const getRoleBaseRoutes = () => {
-        const employeeFullAccessRoutes = [
-            {
-                path: '/dashboard',
-                element: <BussinessAnalytics />
-            },
-            {
-                path: 'employee-management',
-                element: <Outlet />,
-                children: [
-                    {
-                        path: 'profile/:id',
-                        element: <EmployeeProfile />
-                    },
-                    {
-                        index: true,
-                        element: <EmployeeManagement />
-                    }
-                ]
-            },
-            {
-                path: 'agent-management',
-                element: <Outlet />,
-                children: [
-                    {
-                        path: 'profile/:id',
-                        element: <EmployeeProfile />
-                    },
-                    {
-                        index: true,
-                        element: <AgentManagement />
-                    }
-                ]
-            },
-            {
-                path: 'customer-management',
-                element: <Outlet />,
-                children: [
-                    {
-                        path: 'profile/:id',
-                        element: <CustomerSettings />
-                    },
-                    {
-                        index: true,
-                        element: <CustomerManagement />
-                    }
-                ]
-            },
-            {
-                path: 'settings',
-                element: <Settings />
-            },
-            {
-                path: 'income',
-                element: <IncomeService />
-            },
-            {
-                path: 'access-management',
-                element: <AccessManagement />
-            },
-            {
-                path: 'profile',
-                element: <EmployeeProfile />
-            },
-            {
-                path: 'products',
-                element: <ProductsSale />
-            }
-        ]
-        const customerAccessRoutes = [
 
-        ]
-        return customerAccessRoutes;
-        switch (props?.type) {
-            case 'customer':
-                return getCustomerRoutes(profile)
-            case 'employee':
-                return EmployeeChild(profile)
-            case 'posp':
-                return getPospRoutes(profile)
-            default:
-                return [];
-        }
-    }
 
-    const componentFor = {
-        'analytics': <BussinessAnalytics />,
-        'service': <AdminService />,
-        'revenue': <RevenueService />,
-        'sales': <SalesService />,
-        'income': <IncomeService />,
-        'employee-management': <EmployeeManagement />,
-        'products': <ProductsSale />,
-        'settings': <Settings />,
-        'profile': <EmployeeProfile />,
-        'access-management': <AccessManagement />
-    }
 
 
     let commonRoutes = [
@@ -296,32 +203,66 @@ export const allRouter = (props: allRouterProps) => {
                         }
                     ]
                 },
+            ],
+        },
+        {
+            path: 'customer',
+            element: <Outlet />,
+            children: [
+                {
+                    path: '/customer',
+                    element: <Navigate to={(islogin && role === 'customer') ? 'dashboard' : 'signin'} />
+                },
+                {
+                    path: 'signin',
+                    element: (islogin && role === 'customer') ? <Navigate to='/customer/dashboard' /> : <CustomerLogin />
+                },
+                {
+                    path: 'dashboard',
+                    element: (islogin && role === 'customer') ? <CrmLayout /> : <Navigate to='/customer/signin' />
+                    , children: [
+                        {
+                            path: '/customer/dashboard',
+                            element: <CustomerHome />
+                        },
+                        {
+                            path: 'policies',
+                            element: <MyPolicies />
+                        },
+                        {
+                            path: 'claims',
+                            element: <MyClaims />
+                        },
+                        {
+                            path: 'register',
+                            element: <RegisterClaims />
+                        },
+                        {
+                            path: 'settings',
+                            element: <Settings />
+                        },
+                        {
+                            path: 'helpLine',
+                            element: <HelpLine />
+                        },
+                        {
+                            path: '*',
+                            element: <PageNotFound />
+                        }
+                    ]
+
+                }
             ]
         },
         {
-            path: 'customer/signin',
-            element: <CustomerLogin />
-        },
-        {
-            path: 'customer/signup',
-            element: <Register />
-        },
-        {
-            path: 'agent/signin',
-            element: <AgentLogin />
-        },
-        {
-            path: 'agent/signup',
-            element: <Register />
-        },
-        {
-            path: 'employee/login',
-            element: <EmployeeLogin />
-        },
-        {
-            path: 'dashboard',
-            element: islogin ? <CrmLayout /> : (isLoading ? <LinearProgress /> : <PageNotFound />),
-            children: [...getRoleBaseRoutes()]
+            path: 'agent',
+            element: <Outlet />,
+            children: [
+                {
+                    path: '/agent',
+                    element: (islogin && role === 'agent') ? <>agent DASHBOARD</> : <>login</>
+                }
+            ]
         },
         {
             path: '*',

@@ -9,7 +9,8 @@ type authProps = {
     loading: boolean,
     alert: alertProps,
     isLogin: boolean,
-    profile: null | customerProfileProps | pospProfileProps | employeeProfileProps
+    profile: null | customerProfileProps | pospProfileProps | employeeProfileProps,
+    role:null | 'customer' | 'employee' | 'agent'
 }
 
 // new_

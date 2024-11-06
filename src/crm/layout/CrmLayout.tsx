@@ -65,14 +65,30 @@ const CrmLayout = () => {
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
         padding: theme.spacing(2),
         borderRadius: theme.shape.borderRadius * 2,
-        overflowY: 'auto',
         flexGrow: 1,
         height: 'calc( 100dvh - 65px)',
-        // height: 'calc( 100dvh - 130px)',
-        // width: 'calc(100% - 65px)',
-        backgroundColor: alpha(theme.palette.divider, 0.02),
         border: `1px solid ${alpha(theme.palette.divider, 0.05)}`,
         backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.divider, 0.02) : theme.palette.common.white,
+
+        overflow: 'hidden',
+        '&:hover': {
+            overflowY: 'auto',
+            transition: 'all .1s linear'
+        },
+        '&::-webkit-scrollbar': {
+            width: '0.7em',
+        },
+        '&::-webkit-scrollbar-thumb': {
+            backgroundColor: theme.palette.primary.dark,
+            borderRadius: theme.shape.borderRadius / 2,
+        },
+        '&::-webkit-scrollbar-track': {
+            backgroundColor: theme.palette.primary.light,
+            borderRadius: theme.shape.borderRadius / 2
+        },
+
+
+
     }));
 
     return <Box>
@@ -196,7 +212,6 @@ const CrmLayout = () => {
                     // '& .MuiDrawer-paper': {
                     //     boxSizing: 'border-box',
                     width: drawerWidth,
-
                     // },
                 }}
             >

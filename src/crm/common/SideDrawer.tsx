@@ -1,4 +1,4 @@
-import { Avatar, Box, Chip, Divider, Icon, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Chip, Divider, Icon, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import { Link as MuiLink } from "@mui/material";
 import { navProps } from '../../types/AuthProps/AuthProps';
@@ -14,6 +14,7 @@ const SideDrawer = (props: props) => {
     const theme = useTheme()
     console.log(theme.mixins.toolbar.minHeight);
     const { pathname } = useLocation();
+    console.log(pathname, 'pathname')
 
     return (<Box>
         <Toolbar sx={{ display: { xs: 'block', md: 'none' } }}>
@@ -26,40 +27,7 @@ const SideDrawer = (props: props) => {
             </ListItem>
         </Toolbar>
         <List component={Stack} sx={{ px: 1 }}>
-            {/* {props.items ? <>
-                {props.items.map((item, index: number) => {
-                    return (
-
-                        <MuiLink component={Link} to={index ? item.path : '/dashboard'} key={index}>
-                            <ListItem key={index} disablePadding>
-                                <ListItemButton
-                                    disableRipple>
-                                    <ListItemIcon>
-                                        <Icon>{item.icon}</Icon>
-                                    </ListItemIcon>
-                                    <ListItemText primary={<Typography variant='body2' noWrap>{item.title}</Typography>} />
-                                    {index === 1 && <ListItemSecondaryAction><Chip color='warning' label="+3" size='small' /></ListItemSecondaryAction>}
-                                </ListItemButton>
-                            </ListItem>
-                        </MuiLink>
-
-                    )
-                })}
-            </> :
-                <>
-                    {[1, 2, 3, 4, 5, 6].map((number: number) => <ListItem key={number} disablePadding>
-                        <ListItemButton disableRipple>
-                            <ListItemIcon>
-                                <Skeleton width={25} height={40} />
-                            </ListItemIcon>
-                            <ListItemText primary={<Skeleton width={100} />} />
-                        </ListItemButton>
-                    </ListItem>)}
-                </>
-            } */}
-
-
-            <MuiLink component={Link} to={'/dashboard'}>
+            {/* <MuiLink component={Link} to={'/dashboard'}>
                 <ListItem disablePadding>
                     <ListItemButton
                         disableRipple>
@@ -147,25 +115,34 @@ const SideDrawer = (props: props) => {
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
                     </ListItemButton>
                 </ListItem>
-            </MuiLink>
-            <Divider />
-            <MuiLink component={Link} to={'settings'}>
+            </MuiLink> */}
+            <ListItem>
+                <TextField
+                    label="With normal TextField"
+                    id="standard-start-adornment"
+                    sx={{ m: 1, width: '25ch' }}
+         
+                    variant="standard"
+                />
+            </ListItem>
+
+            <MuiLink component={Link} to={''}>
                 <ListItem disablePadding>
                     <ListItemButton
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
+                            <Icon fontSize='small'>dashboard</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Dashboard'}</Typography>} />
                     </ListItemButton>
                 </ListItem>
             </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
+            <MuiLink component={Link} to={'/'}>
                 <ListItem disablePadding>
                     <ListItemButton
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
+                            <Icon fontSize='small'>receipt_long</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'My Policies'}</Typography>} />
                     </ListItemButton>
@@ -176,7 +153,7 @@ const SideDrawer = (props: props) => {
                     <ListItemButton
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
+                            <Icon fontSize='small'>verified_user</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
                     </ListItemButton>
@@ -187,7 +164,7 @@ const SideDrawer = (props: props) => {
                     <ListItemButton
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
+                            <Icon fontSize='small'>assignment_add</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Register Claim'}</Typography>} />
                     </ListItemButton>
@@ -209,14 +186,14 @@ const SideDrawer = (props: props) => {
                     <ListItemButton
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
+                            <Icon fontSize='small'>support</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Help'}</Typography>} />
                     </ListItemButton>
                 </ListItem>
             </MuiLink>
             <Divider />
-            <MuiLink component={Link} to={'settings'}>
+            {/* <MuiLink component={Link} to={'settings'}>
                 <ListItem disablePadding>
                     <ListItemButton
                         disableRipple>
@@ -281,7 +258,7 @@ const SideDrawer = (props: props) => {
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Helpline'}</Typography>} />
                     </ListItemButton>
                 </ListItem>
-            </MuiLink>
+            </MuiLink> */}
             <>
                 {[1].map((number: number) => <ListItem key={number} disablePadding>
                     <ListItemButton disableRipple>

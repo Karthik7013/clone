@@ -10,7 +10,7 @@ import { changeBorderRadius, changeFontFamily, handlePallete } from '../../redux
 import { AppDispatch } from '../../redux/store';
 
 const CustomizePallete = ({ customize, isOpen }) => {
-    console.log('customizePallete render')
+    // console.log('customizePallete render')
     const dispatch: AppDispatch = useDispatch();
     const { borderRadius, fontFamily } = customize;
     

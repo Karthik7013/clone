@@ -41,14 +41,8 @@ const Login = () => {
     const alert = useSelector((state: RootState) => state.auth.alert);
     const closeAlertHandle = () => dispatch(closeAlert());
 
-    React.useEffect(() => {
-        if (isLogin) navigate('/dashboard')
-    }, [isLogin])
-
-
-    const onSubmit = (data) => {
+    const onSubmit = (data:{phone:number}) => {
         const { phone } = data;
-        console.log({ phone })
         dispatch(loginCustomer({ phone }))
     };
     return (
