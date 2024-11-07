@@ -174,10 +174,19 @@ const Home = () => {
                             <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
                         }>
                             <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                                <CardMedia
+                                    component="img"
+                                    sx={{ borderRadius: '0.4em', mr: 2, width: { xs: 40, md: 60 } }}
+                                    image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
+                                />
                             </ListItemAvatar>
-                            <ListItemText
-                                primary="General Life Insurance"
+                            <ListItemText primary={
+                                <>
+                                <Typography variant="body2" component='span' mr={2}>Gowri Shankar</Typography>
+                                <Chip size="small" color="primary" variant="outlined" label="General Life Insurance"></Chip>
+                                
+                                </>
+                            }
                                 secondary={
                                     <React.Fragment>
                                         <Typography
@@ -189,7 +198,7 @@ const Home = () => {
                                         </Typography>
                                         {"AP012454GH4FJDJ04"}
                                     </React.Fragment>
-                                }
+                            }
                             />
                         </ListItem>
                         <Divider variant="inset" component="li" />
@@ -197,7 +206,11 @@ const Home = () => {
                             <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
                         }>
                             <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                                <CardMedia
+                                    component="img"
+                                    sx={{ borderRadius: '0.4em', mr: 2, width: { xs: 40, md: 60 } }}
+                                    image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
+                                />
                             </ListItemAvatar>
                             <ListItemText
                                 primary="General Life Insurance"
@@ -208,9 +221,9 @@ const Home = () => {
                                             variant="body2"
                                             sx={{ color: 'text.primary', display: 'inline' }}
                                         >
-                                            Application ID:
+                                            Application ID: {"AP012454GH4FJDJ04"}
                                         </Typography>
-                                        {"AP012454GH4FJDJ04"}
+                                        
                                     </React.Fragment>
                                 }
                             />
@@ -220,7 +233,11 @@ const Home = () => {
                             <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
                         }>
                             <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                                <CardMedia
+                                    component="img"
+                                    sx={{ borderRadius: '0.4em', mr: 2, width: { xs: 40, md: 60 } }}
+                                    image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
+                                />
                             </ListItemAvatar>
                             <ListItemText
                                 primary="General Life Insurance"

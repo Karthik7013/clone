@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from '@mui/material'
+import { alpha, Box, CircularProgress, Typography } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -15,6 +15,8 @@ import { AppDispatch, RootState } from '../../../redux/store';
 import { closeAlert, loginCustomer } from '../../../redux/slice/authSlice';
 import { useForm } from "react-hook-form";
 import AlertBox from '../../../Framework/components/AlertBox';
+import theme from '../../../theme/theme';
+import { useTheme, useThemeProps } from '@mui/material';
 
 function Copyright(props: any) {
     return (
@@ -40,15 +42,13 @@ const Login = () => {
     const isLogin = useSelector((state: RootState) => state.auth.isLogin);
     const alert = useSelector((state: RootState) => state.auth.alert);
     const closeAlertHandle = () => dispatch(closeAlert());
-
-    const onSubmit = (data:{phone:number}) => {
+    const theme = useTheme()
+    const onSubmit = (data: { phone: number }) => {
         const { phone } = data;
         dispatch(loginCustomer({ phone }))
     };
     return (
         <Box>
-
-
             <AlertBox alert={alert} onClose={closeAlertHandle} />
             <Container component="main" maxWidth="xs">
                 <Box
@@ -86,7 +86,7 @@ const Login = () => {
                             })}
                             inputMode='numeric'
                             error={!!errors.phone}
-                        // helperText={errors.phoneNumber ? errors.phoneNumber.message : ''}
+                            helperText={errors.phone ? errors.phone.message : ''}
                         />
                         <TextField
                             label="Password"
@@ -96,7 +96,7 @@ const Login = () => {
                             type="password"
                             {...register('password', { required: 'Password is required' })}
                             error={!!errors.password}
-                        // helperText={errors.password ? errors.password.message : ''}
+                            helperText={errors.password ? errors.password.message : ''}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}

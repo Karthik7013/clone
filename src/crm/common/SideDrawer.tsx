@@ -118,7 +118,7 @@ const SideDrawer = (props: props) => {
             </MuiLink> */}
             <ListItem>
                 <TextField
-
+                    size='small'
                     variant="outlined"
                     fullWidth
                     placeholder='Search'
