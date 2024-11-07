@@ -9,12 +9,11 @@ type prop = {
     requiredPermission: number
 }
 const ProtectedRoutes = (props: prop) => {
-    console.log(props.role === 'customer')
     const role = useSelector((state: RootState) => state.auth.role);
-    let permissions = useSelector((state: RootState) => state.auth.profile?.sideProps);
-    const newpermissions = [1000, 1001, 1002, 1003, 1004]
-    const hasPermission = newpermissions.includes(props.requiredPermission);
-    return (props.role === role && hasPermission) ? props.children : <MessageBox type="warning">
+    let permissions = useSelector((state: RootState) => state.auth.authData?.permissions);
+    permissions = []
+    const hasPermission = permissions.includes(props.requiredPermission);
+    return !(props.role === role && hasPermission) ? props.children : <MessageBox type="warning">
         Access Denied for this role or insufficient permissions
     </MessageBox>
 }

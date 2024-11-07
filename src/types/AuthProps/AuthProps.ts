@@ -9,7 +9,8 @@ type authProps = {
     loading: boolean,
     alert: alertProps,
     isLogin: boolean,
-    profile: null | customerProfileProps | pospProfileProps | employeeProfileProps,
+    authData: any
+    // profile: null | customerProfileProps | pospProfileProps | employeeProfileProps,
     role: null | 'customer' | 'employee' | 'agent'
 }
 
@@ -23,8 +24,7 @@ type customerProfileProps = {
     custId: string,
     sideProps: navProps[],
     menuProps: navProps[],
-    permissions: number[]
-    location: string
+    location: string,
 }
 
 type pospProfileProps = {

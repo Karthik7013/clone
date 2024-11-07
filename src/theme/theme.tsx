@@ -159,6 +159,18 @@ const theme = (customStyles: customStylesProps) => {
                     }
                 }
             },
+            MuiChip: {
+                styleOverrides: {
+                    root: {
+                        // Default background (transparent if no color is selected)
+                        // backgroundColor: 'transparent',  // Default transparent background
+
+
+                        // Adjust opacity based on the theme palette color
+
+                    },
+                }
+            }
             // MuiMenu: {
             //     styleOverrides: {
             //         root: {

@@ -17,8 +17,8 @@ const initialState: authProps = {
         state: false
     },
     isLogin: role && accessToken ? true : false,
-    profile: null,
-    role: role
+    authData: null,
+    role: role,
 }
 
 
@@ -107,7 +107,7 @@ const authSlice = createSlice({
     reducers: {
         handleLogout: (state) => {
             state.isLogin = false
-            state.profile = null;
+            state.authData = null;
             sessionStorage.removeItem('access-token');
             sessionStorage.removeItem('role');
         },
@@ -192,12 +192,13 @@ const authSlice = createSlice({
             .addCase(loginCustomer.fulfilled, (state, action) => {
                 state.loading = false
                 state.isLogin = true;
-                console.log(JSON.stringify(action.payload.data.data))
+                console.log(action.payload.data.data.user)
                 state.alert = {
                     message: 'Login Success',
                     state: true,
                     type: 'success'
                 }
+                state.authData = action.payload.data.data.user
                 state.role = action.payload.data.data.user.role
                 sessionStorage.setItem('access-token', action.payload.data.data.accessToken);
                 sessionStorage.setItem('role', action.payload.data.data.user.role);

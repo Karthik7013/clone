@@ -59,11 +59,11 @@ import EmployeeProfile from "./crm/employee/pages/EmployeeProfile";
 import AccessManagement from "./crm/employee/pages/AccessManagement";
 import IncomeService from "./crm/employee/pages/IcomeService";
 import Settings from "./crm/employee/pages/Settings";
-import CustomerSettings from "./crm/customer/pages/Settings";
+// import CustomerSettings from "./crm/customer/pages/Settings";
 import CustomerManagement from "./crm/employee/pages/CustomerManagement";
 import AgentManagement from "./crm/employee/pages/AgentManagement";
 
-import { CustomerHome, HelpLine, MyClaims, MyPolicies, RegisterClaims } from "./crm/customer/routes/CustomerChilds";
+import { CustomerHome, HelpLine, MyClaims, MyPolicies, RegisterClaims, Settings as CustomerSettings } from "./crm/customer/routes/CustomerChilds";
 import ProtectedRoutes from "./ProtectedRoute";
 
 export const allRouter = (props: allRouterProps) => {
@@ -230,23 +230,37 @@ export const allRouter = (props: allRouterProps) => {
                         },
                         {
                             path: 'policies',
-                            element: <MyPolicies />
+                            element:
+                                <ProtectedRoutes role="customer" requiredPermission={1001}>
+                                    <MyPolicies /></ProtectedRoutes>
                         },
                         {
                             path: 'claims',
-                            element: <MyClaims />
+                            element:
+                                <ProtectedRoutes role="customer" requiredPermission={1002}>
+                                    <MyClaims />
+                                </ProtectedRoutes>
+
                         },
                         {
                             path: 'register',
-                            element: <RegisterClaims />
+                            element: <ProtectedRoutes role="customer" requiredPermission={1003}>
+                                <RegisterClaims />
+                            </ProtectedRoutes>
                         },
                         {
                             path: 'settings',
-                            element: <Settings />
+                            element:
+                                <ProtectedRoutes role="customer" requiredPermission={1004}>
+                                    <CustomerSettings />
+                                </ProtectedRoutes>
                         },
                         {
                             path: 'helpLine',
-                            element: <HelpLine />
+                            element:
+                                <ProtectedRoutes role="customer" requiredPermission={1005}>
+                                    <HelpLine />
+                                </ProtectedRoutes>
                         },
                         {
                             path: '*',

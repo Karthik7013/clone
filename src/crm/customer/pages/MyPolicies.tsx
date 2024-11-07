@@ -1,6 +1,7 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Checkbox } from '@mui/material';
+import { Box, Checkbox, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 const MyPolicies = () => {
   const columns = [
     { field: 'PolicyID', headerName: 'Policy ID', width: 150 },
@@ -81,15 +82,21 @@ const MyPolicies = () => {
   ]
 
   return (
-    <div style={{ height: 550, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10, 20, 50]}
-        getRowId={(row) => row.PolicyID} // Use PolicyID as the unique identifier
-      />
-    </div>
+    <Box mt={3}>
+      <Typography gutterBottom variant='h4'>My Policies</Typography>
+      <Typography color='text.secondary' gutterBottom variant='subtitle1'>Quick answers to questions to you may have. Can't find what you're looking for? Check out our <Link to="#">full documentation</Link></Typography>
+
+      <div style={{ height: 550, width: '100%' }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={10}
+          rowsPerPageOptions={[10, 20, 50]}
+          getRowId={(row) => row.PolicyID} // Use PolicyID as the unique identifier
+        />
+      </div>
+    </Box>
+
   )
 }
 

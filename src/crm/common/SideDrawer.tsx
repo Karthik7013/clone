@@ -1,4 +1,4 @@
-import { Avatar, Box, Chip, Divider, Icon, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
+import { Avatar, Badge, Box, Chip, Divider, Icon, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import { Link as MuiLink } from "@mui/material";
 import { navProps } from '../../types/AuthProps/AuthProps';
@@ -116,7 +116,7 @@ const SideDrawer = (props: props) => {
                     </ListItemButton>
                 </ListItem>
             </MuiLink> */}
-            <ListItem>
+            <ListItem disablePadding sx={{ mb: 1 }}>
                 <TextField
                     size='small'
                     variant="outlined"
@@ -133,7 +133,11 @@ const SideDrawer = (props: props) => {
             </ListItem>
 
             <MuiLink component={Link} to={''}>
-                <ListItem disablePadding>
+                <ListItem disablePadding
+                    secondaryAction={
+                        <Chip variant='outlined' label="new" size="small" color="primary" />
+                    }
+                >
                     <ListItemButton
                         disableRipple>
                         <ListItemIcon>
@@ -187,15 +191,23 @@ const SideDrawer = (props: props) => {
                     </ListItemButton>
                 </ListItem>
             </MuiLink>
+
             <MuiLink component={Link} to={'helpline'}>
-                <ListItem disablePadding>
+                <ListItem disablePadding
+                    secondaryAction={
+                        <Chip label="new" size="small" color="success" />
+                    }
+                >
+
                     <ListItemButton
                         disableRipple>
                         <ListItemIcon>
                             <Icon fontSize='small'>support</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Help'}</Typography>} />
+
                     </ListItemButton>
+
                 </ListItem>
             </MuiLink>
             <Divider />
