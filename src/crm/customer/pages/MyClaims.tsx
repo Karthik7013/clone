@@ -6,7 +6,7 @@ const MyClaims = () => {
   return (
     <Box mt={3}>
       <Typography gutterBottom variant='h4'>My Claims</Typography>
-      <Typography color='text.secondary' gutterBottom variant='subtitle1'>Quick answers to questions to you may have. Can't find what you're looking for? Check out our <Link to="#">full documentation</Link></Typography>
+      <Typography color='text.secondary' gutterBottom variant='caption'>Quick answers to questions to you may have. Can't find what you're looking for? Check out our <Link to="#">full documentation</Link></Typography>
 
 
     </Box>

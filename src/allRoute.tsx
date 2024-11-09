@@ -37,7 +37,7 @@ import PageNotFound from "./Framework/components/PageNotFound";
 
 import CrmLayout from "./crm/layout/CrmLayout";
 import EmployeeChild from "./crm/employee/routes/EmployeeChild";
-import getCustomerRoutes from "./crm/customer/routes/CustomerChilds";
+// import getCustomerRoutes from "./crm/customer/routes/CustomerChilds";
 import getPospRoutes from "./crm/posp/routes/pospChilds";
 import ChatBot from "./Framework/components/ChatBot";
 
@@ -65,6 +65,7 @@ import AgentManagement from "./crm/employee/pages/AgentManagement";
 
 import { CustomerHome, HelpLine, MyClaims, MyPolicies, RegisterClaims, Settings as CustomerSettings } from "./crm/customer/routes/CustomerChilds";
 import ProtectedRoutes from "./ProtectedRoute";
+import MessageBox from "./Framework/components/MessageBox";
 
 export const allRouter = (props: allRouterProps) => {
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
@@ -231,8 +232,12 @@ export const allRouter = (props: allRouterProps) => {
                         {
                             path: 'policies',
                             element:
-                                <ProtectedRoutes role="customer" requiredPermission={1001}>
-                                    <MyPolicies /></ProtectedRoutes>
+                                <ProtectedRoutes
+                                    role="customer"
+                                    requiredPermission={1001}
+                                >
+                                    <MyPolicies />
+                                </ProtectedRoutes>
                         },
                         {
                             path: 'claims',

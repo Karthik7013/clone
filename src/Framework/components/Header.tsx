@@ -154,7 +154,7 @@ const Header = (props: headerProps) => {
                                     size='small'
                                     onClick={handleOpenSignInMenu}
                                 >
-                                    <Avatar sx={{ width: 36, height: 36, color: 'inherit' }}>{profile?.first_name[0]}</Avatar>
+                                    <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: 36, height: 36, color: 'inherit' }}>{profile?.first_name[0]}</Avatar>
                                 </IconButton>
                             </Tooltip>
                         </> :

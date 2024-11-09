@@ -26,7 +26,7 @@ const Settings = () => {
         </List>
 
         <ButtonGroup fullWidth variant="text">
-          <Button>Info</Button>
+          <Button variant="contained">Info</Button>
           <Button>Logs</Button>
           <Button>Referals</Button>
           <Button>Wallete</Button>

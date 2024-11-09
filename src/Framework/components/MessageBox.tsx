@@ -6,7 +6,8 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 type messageBoxProps = {
     type: 'error' | 'info' | 'success' | 'warning',
-    children: React.ReactNode
+    children?: React.ReactNode,
+    message?:string
 }
 
 const MessageBox = (props: messageBoxProps) => {
@@ -26,6 +27,7 @@ const MessageBox = (props: messageBoxProps) => {
     return (
         <StyledAlert iconMapping={iconMapping} variant='outlined' severity={props.type}>
             {props.children}
+            {props.message}
         </StyledAlert>
     )
 }

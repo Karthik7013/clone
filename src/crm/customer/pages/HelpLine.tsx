@@ -1,7 +1,7 @@
-import { Avatar, Badge, Box, Chip, Divider, Grid, ListItem, ListItemAvatar, ListItemText, Paper, Stack, Typography } from '@mui/material'
+import { Avatar, Badge, Box, Button, Chip, Divider, Grid, InputAdornment, ListItem, ListItemAvatar, ListItemText, Paper, Stack, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import SendRoundedIcon from '@mui/icons-material/SendRounded';
 const HelpLine = () => {
   return (
     <Box mt={3}>
@@ -14,11 +14,11 @@ const HelpLine = () => {
               <Avatar variant='rounded' alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
             </ListItemAvatar>
             <ListItemText
-              primary={<Typography variant='h6'>Is there any free trail available?</Typography>}
+              primary={<Typography variant='subtitle2'>Is there any free trail available?</Typography>}
               secondary={
-                <React.Fragment>
+                <Typography variant='caption' color='text.secondary'>
                   {"Yes, You can try us for free for 30 days. if you want we'll provide you with a free 30 minutes onboarding call to get you up and running."}
-                </React.Fragment>
+                </Typography>
               }
             />
           </ListItem>
@@ -75,6 +75,25 @@ const HelpLine = () => {
         </Badge>
         <Typography gutterBottom variant='h6' align='center'>Still have Questions?</Typography>
         <Typography color='text.secondary' variant='body2' align='center'>Can't find the answer your looking for? Please chat to our friendly team</Typography>
+        <Box mt={2}>
+          <TextField
+            label="Search"
+            variant="outlined"
+            fullWidth
+            InputProps={{
+              // startAdornment: (
+              //   <InputAdornment position="start">
+              //     <Search />
+              //   </InputAdornment>
+              // ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Button variant='contained' endIcon={<SendRoundedIcon />}>Send</Button>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
       </Stack>
 
     </Box>

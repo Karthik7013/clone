@@ -59,7 +59,7 @@ const CrmLayout = () => {
     // const handleCloseAlert = () => dispatch(closeAlert());
 
     useEffect(() => {
-        dispatch(getProfile({}));
+        // dispatch(getProfile({}));
     }, [dispatch]);
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
