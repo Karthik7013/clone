@@ -112,8 +112,8 @@ const theme = (customStyles: customStylesProps) => {
                         // backgroundColor: theme.palette.background.default
                     },
                     columnHeader: {
-                        // backgroundColor: theme.palette.primary.light,
-
+                        backgroundColor: theme.palette.primary.light,
+                        color: theme.palette.background.default
                     },
                     row: {
                         '&:hover': {
@@ -136,7 +136,6 @@ const theme = (customStyles: customStylesProps) => {
                     }
                 }
             },
-
             MuiListItemButton: {
                 styleOverrides: {
                     root: {
@@ -170,7 +169,8 @@ const theme = (customStyles: customStylesProps) => {
 
                     },
                 }
-            }
+            },
+
             // MuiMenu: {
             //     styleOverrides: {
             //         root: {

@@ -69,7 +69,6 @@ export const getCustomerProfile = createAsyncThunk('profile/customer', async (pa
             "authorization": `Bearer ${token}`,
         };
         const res = await axios.get('http://localhost:8000/api/v1/auth/customer/profile', { headers });
-        console.log(res.data, 'profile data')
         return { status: res.status, data: res.data.data }
     } catch (error) {
         return rejectWithValue({ status: error.response.status, message: error.response.data });

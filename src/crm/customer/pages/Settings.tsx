@@ -3,8 +3,12 @@ import React from "react";
 import CakeRoundedIcon from '@mui/icons-material/CakeRounded';
 import LocalPoliceRoundedIcon from '@mui/icons-material/LocalPoliceRounded';
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 const Settings = () => {
+  const authData = useSelector((state: RootState) => state.auth.authData);
+
   return (
 
     <Box mt={3}>
@@ -24,9 +28,13 @@ const Settings = () => {
 
               </Avatar>
             </ListItemIcon>
-            <ListItemText primary={<Typography variant="h6">Karthik Tumala <Chip label="Premium" size="small" color="warning" variant="outlined" icon={<LocalPoliceRoundedIcon fontSize="small" />}></Chip></Typography>} secondary={
-              " Jan 9, 2014"
-            } />
+            <ListItemText
+              primary={<Typography variant="h6">{authData.firstname} {authData.lastname} ({authData.customer_id}) <Chip label="Premium" size="small" color="warning" variant="outlined" icon={<LocalPoliceRoundedIcon fontSize="small" />}></Chip></Typography>}
+              secondary={
+                <>
+                  {(authData.created_at).split('T')[0]}
+                </>
+              } />
           </ListItem>
         </List>
 
@@ -51,11 +59,11 @@ const Settings = () => {
                 <Divider variant="fullWidth" />
                 <Grid container rowSpacing={2} mt={1}>
                   <Grid item xs={12} md={4}>Age : 26 years</Grid>
-                  <Grid item xs={12} md={4}>Gender: Male</Grid>
+                  <Grid item xs={12} md={4}>Gender: {authData.gender}</Grid>
                   <Grid item xs={12} md={4}>Status: <Chip color="success" size="small" label="active"></Chip></Grid>
-                  <Grid item xs={12} md={6}>Email : karthiktumala143@gmail.com</Grid>
+                  <Grid item xs={12} md={6}>Email : {authData.email}</Grid>
                   <Grid item md={2} />
-                  <Grid item xs={12} md={4}>Mobile Number : +91 7013140693</Grid>
+                  <Grid item xs={12} md={4}>Mobile Number : +91 {authData.phone}</Grid>
                 </Grid>
               </CardContent>
 

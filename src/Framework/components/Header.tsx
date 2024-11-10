@@ -181,7 +181,7 @@ const Header = (props: headerProps) => {
                             onClose={handleCloseSignInMenu}
                         >{
                                 islogin ? <Box>
-                                    <MenuItem onClick={() => navigate(`/dashboard`)}>
+                                    <MenuItem onClick={() => navigate(`/customer/`)}>
                                         <ListItemIcon>
                                             <SpaceDashboardIcon fontSize='small' />
                                         </ListItemIcon>

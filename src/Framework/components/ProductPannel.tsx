@@ -89,12 +89,12 @@ const ProductPannel = () => {
             dense
             sx={{ width: '100dvw' }}
             subheader={
-                <Typography variant='caption'>
+                <Typography variant='subtitle2'>
                     {group?.category}
                 </Typography>
             }
         >
-            {group?.products.map((each) => <ListItem>
+            {group?.products.map((each, _) => <ListItem key={_}>
                 <ListItemIcon><CircleRoundedIcon sx={{ fontSize: '0.5em' }} /></ListItemIcon>
                 <ListItemText primary={<Link variant='caption' component="a" href='#'>{each.name}</Link>} />
             </ListItem>)}
@@ -106,8 +106,8 @@ const ProductPannel = () => {
             <Typography variant='h6' gutterBottom>Insurance Products</Typography>
             <Divider />
             <Grid container mt={1}>
-                {product.dropdown.map((group) => {
-                    return <Grid item xs={12} md={4}><Category group={group} /></Grid>
+                {product.dropdown.map((group, _) => {
+                    return <Grid key={_} item xs={12} md={4}><Category group={group} /></Grid>
                 })}
 
             </Grid>

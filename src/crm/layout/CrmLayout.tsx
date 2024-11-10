@@ -18,7 +18,6 @@ const drawerWidth = 240;
 import { AppDispatch, RootState } from "../../redux/store";
 import AlertBox from "../../Framework/components/AlertBox";
 const CrmLayout = () => {
-    console.log(useSelector((stat: RootProps) => stat))
     let loading = useSelector((state: RootProps) => state.auth.loading);
     const theme = useTheme()
     const location = useLocation();
@@ -61,7 +60,6 @@ const CrmLayout = () => {
 
     useEffect(() => {
         dispatch(getCustomerProfile({}));
-
     }, [dispatch]);
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
@@ -150,9 +148,10 @@ const CrmLayout = () => {
                                     aria-expanded={open ? 'true' : undefined}
                                 >
                                     <Avatar
+                                        src="https://avatar.iran.liara.run/public"
                                         sx={{ width: 36, height: 36 }}
                                     >
-                                        {profile?.firstname[0]}
+
                                     </Avatar>
 
                                 </IconButton>
