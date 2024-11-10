@@ -1,4 +1,4 @@
-import { alpha, AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Chip, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, styled, Switch, TextField, Toolbar, Tooltip, Typography, useTheme } from "@mui/material"
+import { alpha, AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Chip, CircularProgress, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, styled, Switch, TextField, Toolbar, Tooltip, Typography, useTheme } from "@mui/material"
 import React, { Suspense, useEffect } from "react";
 import { Logout, NotesRounded } from '@mui/icons-material';
 import SideBar from "../common/SideDrawer";
@@ -6,7 +6,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootProps } from "../../types/RootProps";
 import { toggleTheme } from "../../redux/slice/uiSlice";
-import { closeAlert, getProfile, handleLogout } from "../../redux/slice/authSlice";
+import { closeAlert, getCustomerProfile, getProfile, handleLogout } from "../../redux/slice/authSlice";
 import PageNotFound from "../../Framework/components/PageNotFound";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -18,13 +18,14 @@ const drawerWidth = 240;
 import { AppDispatch, RootState } from "../../redux/store";
 import AlertBox from "../../Framework/components/AlertBox";
 const CrmLayout = () => {
+    console.log(useSelector((stat: RootProps) => stat))
+    let loading = useSelector((state: RootProps) => state.auth.loading);
     const theme = useTheme()
     const location = useLocation();
     const links = location.pathname.split('/').slice(2);
     const dispatch: AppDispatch = useDispatch()
-    let profile: any = useSelector((state: RootProps) => state.auth.profile);
+    let profile = useSelector((state: RootProps) => state.auth.authData);
     const dark = useSelector((state: RootProps) => state.ui.dark);
-
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [isClosing, setIsClosing] = React.useState(false);
 
@@ -54,12 +55,13 @@ const CrmLayout = () => {
 
     const handleOnclick = () => dispatch(handleLogout()) // logout 
     const handleTheme = () => dispatch(toggleTheme()); //toggle theme;
-    const userLocation = useSelector((state: RootProps) => state.auth.profile?.location);
+    const userLocation = useSelector((state: RootProps) => state.auth.authData?.city);
     // const alert = useSelector((state: RootState) => state.auth.alert);
     // const handleCloseAlert = () => dispatch(closeAlert());
 
     useEffect(() => {
-        // dispatch(getProfile({}));
+        dispatch(getCustomerProfile({}));
+
     }, [dispatch]);
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
@@ -70,11 +72,7 @@ const CrmLayout = () => {
         border: `1px solid ${alpha(theme.palette.divider, 0.05)}`,
         backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.divider, 0.02) : theme.palette.common.white,
 
-        overflow: 'hidden',
-        '&:hover': {
-            overflowY: 'auto',
-            transition: 'all .1s linear'
-        },
+        overflow: 'auto',
         '&::-webkit-scrollbar': {
             width: '0.7em',
         },
@@ -122,7 +120,7 @@ const CrmLayout = () => {
                 {
                     profile ? <>
                         <Typography variant="body1" color='text.secondary'>
-                            Hellow {profile.first_name} !
+                            Hellow {profile.firstname} !
                         </Typography>
                     </> : <>
                         <Skeleton width={120} height={40}></Skeleton>
@@ -132,8 +130,6 @@ const CrmLayout = () => {
 
                 <Stack direction="row" alignItems='center' gap={2}>
                     <Chip color="primary" size="small" icon={<LocationOnRoundedIcon sx={{ color: 'inherit' }} />} label={profile?.city} />
-
-
                     <Stack direction={'row'} sx={{ display: { xs: 'none', md: 'block' } }}>
                         <Tooltip title={dark ? "light" : "dark"}>
                             <IconButton color="default" sx={{ mr: 2 }} onClick={handleTheme}>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
@@ -156,7 +152,7 @@ const CrmLayout = () => {
                                     <Avatar
                                         sx={{ width: 36, height: 36 }}
                                     >
-                                        {profile?.first_name[0]}
+                                        {profile?.firstname[0]}
                                     </Avatar>
 
                                 </IconButton>
@@ -384,4 +380,4 @@ const CrmLayout = () => {
     )
 }
 
-export default CrmLayout
+export default React.memo(CrmLayout);

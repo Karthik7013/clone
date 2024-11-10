@@ -51,11 +51,12 @@ export const getProfile = createAsyncThunk('profile/user', async (payload: {}, {
 // =============== | CUSTOMER ACTIONS | ==============>
 export const loginCustomer = createAsyncThunk('login/customer', async (payload: { phone: number }, { rejectWithValue }) => {
     try {
-        // const res = await CustomerService.post('/verify', { ...payload });
         const res = await axios.post('http://localhost:8000/api/v1/auth/customer/verify', payload);
         return { status: res.status, data: res.data };
     } catch (error) {
-        if (error.message === 'Network Error') return rejectWithValue({ message: "Oops! Something went wrong" });
+        if (error.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
         return rejectWithValue({ status: error.response.status, message: error.response.data.message });
     }
 }
@@ -67,7 +68,8 @@ export const getCustomerProfile = createAsyncThunk('profile/customer', async (pa
         const headers = {
             "authorization": `Bearer ${token}`,
         };
-        const res = await CustomerService.get('/profile', { headers });
+        const res = await axios.get('http://localhost:8000/api/v1/auth/customer/profile', { headers });
+        console.log(res.data, 'profile data')
         return { status: res.status, data: res.data.data }
     } catch (error) {
         return rejectWithValue({ status: error.response.status, message: error.response.data });
@@ -192,16 +194,15 @@ const authSlice = createSlice({
             .addCase(loginCustomer.fulfilled, (state, action) => {
                 state.loading = false
                 state.isLogin = true;
-                console.log(action.payload.data.data.user)
+                console.log(action.payload.data.data.role)
                 state.alert = {
                     message: 'Login Success',
                     state: true,
                     type: 'success'
                 }
-                state.authData = action.payload.data.data.user
-                state.role = action.payload.data.data.user.role
+                state.role = action.payload.data.data.role
                 sessionStorage.setItem('access-token', action.payload.data.data.accessToken);
-                sessionStorage.setItem('role', action.payload.data.data.user.role);
+                sessionStorage.setItem('role', action.payload.data.data.role);
             });
         builder.addCase(getCustomerProfile.pending, (state) => {
             state.loading = true;
@@ -230,9 +231,8 @@ const authSlice = createSlice({
                     }
                     sessionStorage.setItem('prev_login', 'true')
                 }
-
                 state.isLogin = true;
-                state.profile = action.payload.data
+                state.authData = action.payload.data
             })
     }
 })

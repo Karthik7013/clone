@@ -8,14 +8,19 @@ const Settings = () => {
   return (
 
     <Box mt={3}>
-      <Typography gutterBottom variant='h4'>Settings</Typography>
-      <Typography color='text.secondary' gutterBottom variant='subtitle1'>Quick answers to questions to you may have. Can't find what you're looking for? Check out our <Link to="#">full documentation</Link></Typography>
 
+      <ListItem
+        disableGutters
+      >
+        <ListItemText
+          primary={<Typography gutterBottom variant='h4'>Settings</Typography>}
+        />
+      </ListItem>
       <Box>
         <List>
           <ListItem disablePadding sx={{ gap: 2 }}>
             <ListItemIcon>
-              <Avatar src="https://mui.com/static/images/avatar/2.jpg" sx={{ width: '2.75em', height: '2.75em' }}>
+              <Avatar src="https://avatar.iran.liara.run/public" sx={{ width: '2.75em', height: '2.75em' }}>
 
               </Avatar>
             </ListItemIcon>

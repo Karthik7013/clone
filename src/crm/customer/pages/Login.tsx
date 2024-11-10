@@ -43,6 +43,7 @@ const Login = () => {
     const alert = useSelector((state: RootState) => state.auth.alert);
     const closeAlertHandle = () => dispatch(closeAlert());
     const theme = useTheme()
+
     const onSubmit = (data: { phone: number }) => {
         const { phone } = data;
         dispatch(loginCustomer({ phone }))

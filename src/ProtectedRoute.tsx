@@ -3,6 +3,7 @@ import { RootState } from "./redux/store"
 import { ReactNode } from "react"
 import React from "react"
 import MessageBox from "./Framework/components/MessageBox"
+import { LinearProgress } from "@mui/material"
 type prop = {
     children: ReactNode,
     role: 'customer' | 'agent' | 'employee',
@@ -10,15 +11,22 @@ type prop = {
     fallback?: ReactNode
 }
 const ProtectedRoutes = (props: prop) => {
+    const loading = useSelector((state: RootState) => state.auth.loading);
     const role = useSelector((state: RootState) => state.auth.role);
     let permissions = useSelector((state: RootState) => state.auth.authData?.permissions) || [];
-    console.log(permissions, 'permissions')
-    permissions = []
     const hasPermission = permissions.includes(props.requiredPermission);
-    if (!(props.role === role && hasPermission)) {
+
+    if ((props.role === role && hasPermission)) {
         return <>{props.children}</>;
     } else {
-        return <>{props.fallback || <MessageBox type="warning" message="You do not have the required permissions." />}</>;
+        if (loading) {
+            return <LinearProgress />
+        } else {
+            return <>
+                {props.fallback || <MessageBox type="warning" message="You do not have the required permissions." />}
+            </>;
+        }
+
     }
 }
 

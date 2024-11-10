@@ -6,6 +6,7 @@ import React from 'react';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import { useTheme } from '@mui/material';
+import KeyboardCommandKeyRoundedIcon from '@mui/icons-material/KeyboardCommandKeyRounded';
 type props = {
     items: navProps[] | undefined
 }
@@ -128,6 +129,11 @@ const SideDrawer = (props: props) => {
                                 <SearchRoundedIcon />
                             </InputAdornment>
                         ),
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <KeyboardCommandKeyRoundedIcon fontSize='inherit' />
+                            </InputAdornment>
+                        )
                     }}
                 />
             </ListItem>
@@ -295,7 +301,7 @@ const SideDrawer = (props: props) => {
                 <Chip icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small' />
             </Typography>
         </Box>
-    </Box>
+    </Box >
     )
 }
 

@@ -66,6 +66,7 @@ import AgentManagement from "./crm/employee/pages/AgentManagement";
 import { CustomerHome, HelpLine, MyClaims, MyPolicies, RegisterClaims, Settings as CustomerSettings } from "./crm/customer/routes/CustomerChilds";
 import ProtectedRoutes from "./ProtectedRoute";
 import MessageBox from "./Framework/components/MessageBox";
+import ProductSummary from "./Framework/components/ProductSummary";
 
 export const allRouter = (props: allRouterProps) => {
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
@@ -206,6 +207,10 @@ export const allRouter = (props: allRouterProps) => {
                     ]
                 },
             ],
+        },
+        {
+            path: 'summary',
+            element: <ProductSummary />
         },
         {
             path: 'customer',

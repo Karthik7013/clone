@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Modal, Typography } from '@mui/material'
-
+import React from 'react';
 const LoadingModal = () => {
     const style = {
         position: 'absolute',

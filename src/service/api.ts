@@ -39,22 +39,22 @@ export const EmployeeService = axios.create({
 
 
 
-axios.interceptors.response.use(
-  response => response,
-  async error => {
-      const originalRequest = error.config;
-      if (error.response.status === 401 && !originalRequest._retry) {
-          originalRequest._retry = true;
-          try {
-              // Attempt to refresh the token
-              await axios.post('/refresh-token');
-              // Retry the original request after refreshing the token
-              return axios(originalRequest);
-          } catch (refreshError) {
-              // If refresh fails, redirect to login or show an error
-              return Promise.reject(refreshError);
-          }
-      }
-      return Promise.reject(error);
-  }
-);
+// axios.interceptors.response.use(
+//   response => response,
+//   async error => {
+//       const originalRequest = error.config;
+//       if (error.response.status === 401 && !originalRequest._retry) {
+//           originalRequest._retry = true;
+//           try {
+//               // Attempt to refresh the token
+//               await axios.post('/refresh-token');
+//               // Retry the original request after refreshing the token
+//               return axios(originalRequest);
+//           } catch (refreshError) {
+//               // If refresh fails, redirect to login or show an error
+//               return Promise.reject(refreshError);
+//           }
+//       }
+//       return Promise.reject(error);
+//   }
+// );
