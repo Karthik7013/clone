@@ -15,10 +15,11 @@ export const serverLogin = axios.create({
 
 export const CustomerService = axios.create({
   // baseURL: deployURL,
-  baseURL: 'http://localhost:8000/api/v1/auth/employee',
+  baseURL: 'http://localhost:8000/api/v1/auth/customer',
   headers: {
     'Content-Type': 'application/json',
-  }
+  },
+  withCredentials: true
 })
 
 export const AgentService = axios.create({

@@ -3,12 +3,10 @@ import { AgentService, CustomerService, EmployeeService } from "../../service/ap
 import { createBrowserHistory, History } from 'history';
 import { authProps } from "../../types/AuthProps/AuthProps";
 
-const role = getSessionToken('role');
-const accessToken = getSessionToken('access-token')
 
+const role = getSessionToken('role');
 export const history: History = createBrowserHistory();
 import { getSessionToken } from "../../utils/utils"
-import axios from "axios";
 const initialState: authProps = {
     loading: false,
     alert: {
@@ -16,7 +14,7 @@ const initialState: authProps = {
         message: '',
         state: false
     },
-    isLogin: role && accessToken ? true : false,
+    isLogin: role ? true : false,
     authData: null,
     role: role,
 }
@@ -40,18 +38,17 @@ export const getProfile = createAsyncThunk('profile/user', async (payload: {}, {
         const headers = {
             "authorization": `Bearer ${token}`,
         };
-        const res = await EmployeeService.get('/profile', { headers });
-        return { status: res.status, data: res.data.data }
+        // const res = await EmployeeService.get('/profile', { headers });
+        // return { status: res.status, data: res.data.data }
     } catch (error) {
         return rejectWithValue({ status: error.response.status, message: error.response.data });
     }
 })
 
-
 // =============== | CUSTOMER ACTIONS | ==============>
 export const loginCustomer = createAsyncThunk('login/customer', async (payload: { phone: number }, { rejectWithValue }) => {
     try {
-        const res = await axios.post('http://localhost:8000/api/v1/auth/customer/verify', payload);
+        const res = await CustomerService.post('/verify', payload);
         return { status: res.status, data: res.data };
     } catch (error) {
         if (error.message === 'Network Error') {
@@ -64,17 +61,21 @@ export const loginCustomer = createAsyncThunk('login/customer', async (payload: 
 
 export const getCustomerProfile = createAsyncThunk('profile/customer', async (payload: {}, { rejectWithValue }) => {
     try {
-        const token = getSessionToken('access-token');
-        const headers = {
-            "authorization": `Bearer ${token}`,
-        };
-        const res = await axios.get('http://localhost:8000/api/v1/auth/customer/profile', { headers });
+        const res = await CustomerService.get(`/profile`);
         return { status: res.status, data: res.data.data }
     } catch (error) {
         return rejectWithValue({ status: error.response.status, message: error.response.data });
     }
 })
 
+export const logoutCustomer = createAsyncThunk('logout/customer', async (payload: {}, { rejectWithValue }) => {
+    try {
+        const res = await CustomerService.post(`/signOut`);
+        return { status: res.status, data: res.data.data }
+    } catch (error) {
+        return rejectWithValue({ status: error.response.status, message: error.response.data });
+    }
+})
 
 // =============== | AGENT ACTIONS | ==============>
 export const loginAgent = createAsyncThunk('login/user', async (payload: { phone: number }, { rejectWithValue }) => {
@@ -106,12 +107,6 @@ const authSlice = createSlice({
     name: "auth/user",
     initialState,
     reducers: {
-        handleLogout: (state) => {
-            state.isLogin = false
-            state.authData = null;
-            sessionStorage.removeItem('access-token');
-            sessionStorage.removeItem('role');
-        },
         closeAlert: (state) => {
             state.alert = {
                 type: undefined,
@@ -177,6 +172,12 @@ const authSlice = createSlice({
                 state.isLogin = true;
                 state.profile = action.payload.data
             })
+
+
+
+
+
+
         // customer
         builder.addCase(loginCustomer.pending, (state) => {
             state.loading = true;
@@ -200,7 +201,6 @@ const authSlice = createSlice({
                     type: 'success'
                 }
                 state.role = action.payload.data.data.role
-                sessionStorage.setItem('access-token', action.payload.data.data.accessToken);
                 sessionStorage.setItem('role', action.payload.data.data.role);
             });
         builder.addCase(getCustomerProfile.pending, (state) => {
@@ -233,8 +233,20 @@ const authSlice = createSlice({
                 state.isLogin = true;
                 state.authData = action.payload.data
             })
+        builder.addCase(logoutCustomer.pending, (state) => {
+            state.loading = true
+        })
+            .addCase(logoutCustomer.rejected, (state, action) => {
+                state.loading = false
+            })
+            .addCase(logoutCustomer.fulfilled, (state, action) => {
+                state.loading = false;
+                state.isLogin = false;
+                state.role = null
+                sessionStorage.removeItem('role')
+            })
     }
 })
 
-export const { handleLogout, closeAlert } = authSlice.actions;
+export const { closeAlert } = authSlice.actions;
 export default authSlice.reducer;

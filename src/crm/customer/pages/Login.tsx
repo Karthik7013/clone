@@ -50,7 +50,7 @@ const Login = () => {
     };
     return (
         <Box>
-            <AlertBox alert={alert} onClose={closeAlertHandle} />
+            {/* <AlertBox alert={alert} onClose={closeAlertHandle} /> */}
             <Container component="main" maxWidth="xs">
                 <Box
                     sx={{

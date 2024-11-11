@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 //============ MUI IMPORTS ==============>
-import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Container, Divider, Fab, Grid, IconButton, keyframes, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Stack, styled, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Container, Divider, Fab, Grid, IconButton, keyframes, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Paper, Stack, styled, Typography } from "@mui/material";
 import { Link as MuiLink } from "@mui/material";
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import { Link } from "react-router-dom";
@@ -168,7 +168,7 @@ const Home = () => {
 
                 <Grid item xs={12}>
                     <List sx={{ width: '100%', bgcolor: 'background.paper' }} subheader={
-                        <Typography variant="subtitle2" justifyItems='center'>Continue Policy Purchase</Typography>
+                        <Typography variant="subtitle2" justifyItems='center' >Continue Policy Purchase</Typography>
                     }>
                         <ListItem alignItems="flex-start" secondaryAction={
                             <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
@@ -182,9 +182,9 @@ const Home = () => {
                             </ListItemAvatar>
                             <ListItemText primary={
                                 <>
-                                <Typography variant="body2" component='span' mr={2}>Gowri Shankar</Typography>
-                                <Chip size="small" color="primary" variant="outlined" label="General Life Insurance"></Chip>
-                                
+                                    <Typography variant="body2" component='span' mr={2}>Gowri Shankar</Typography>
+                                    <Chip size="small" color="primary" variant="outlined" label="General Life Insurance"></Chip>
+
                                 </>
                             }
                                 secondary={
@@ -198,7 +198,7 @@ const Home = () => {
                                         </Typography>
                                         {"AP012454GH4FJDJ04"}
                                     </React.Fragment>
-                            }
+                                }
                             />
                         </ListItem>
                         <Divider variant="inset" component="li" />
@@ -223,7 +223,7 @@ const Home = () => {
                                         >
                                             Application ID: {"AP012454GH4FJDJ04"}
                                         </Typography>
-                                        
+
                                     </React.Fragment>
                                 }
                             />
@@ -256,6 +256,21 @@ const Home = () => {
                             />
                         </ListItem>
                     </List>
+                </Grid>
+                <Grid item xs={12}>
+
+                    <Typography component='h1' textAlign='center' variant="h4">More than 25+ Insurance Providers</Typography>
+                    <Typography textAlign='center' gutterBottom variant="subtitle1" color='text.secondary'>Providing You with the Best Insurance Solutions from a Diverse Network of Trusted Providers.</Typography>
+                    <Stack flexWrap='wrap' direction='row' gap={4} justifyContent='space-evenly' mt={4}>
+
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 7, 8, 9, 10, 11, 12, 13].map((e, _) => <CardMedia
+                            key={_}
+                            component="img"
+
+                            sx={{ width: { xs: 80, md: 120 } }}
+                            image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
+                        />)}
+                    </Stack>
                 </Grid>
             </Grid>
         </Container>

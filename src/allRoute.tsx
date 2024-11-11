@@ -71,9 +71,9 @@ import ProductSummary from "./Framework/components/ProductSummary";
 export const allRouter = (props: allRouterProps) => {
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
     const dark = useSelector((state: RootState) => state.ui.dark);
-    const profile = useSelector((state: RootState) => state.auth.profile);
+    const profile = useSelector((state: RootState) => state.auth.authData);
     const isLoading = useSelector((state: RootState) => state.auth.loading);
-    const role = useSelector((state: RootState) => state.auth.role);
+    let role = useSelector((state: RootState) => state.auth.role);
 
     const headerProps = {
         islogin,

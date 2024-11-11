@@ -20,7 +20,6 @@ import { useNavigate } from 'react-router-dom';
 import { toggleTheme } from '../../redux/slice/uiSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootProps } from '../../types/RootProps';
-import { handleLogout } from '../../redux/slice/authSlice';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import CustomButton from '../ui-components/CustomButton';
 import CustomAppBar from '../ui-components/CustomAppBar';
@@ -33,6 +32,8 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import ProductPannel from './ProductPannel';
 import { customerProfileProps, employeeProfileProps, pospProfileProps } from '../../types/AuthProps/AuthProps';
+import { logoutCustomer } from '../../redux/slice/authSlice';
+import { AppDispatch } from '../../redux/store';
 
 
 type headerProps = {
@@ -42,7 +43,7 @@ type headerProps = {
 }
 const Header = (props: headerProps) => {
     console.log(props.profile, 'header profile')
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
     const { dark, islogin, profile } = props;
     const [anchorElProducts, setAnchorElProducts] = useState(null);
     const [anchorElSignIn, setAnchorElSignIn] = useState(null);
@@ -68,7 +69,7 @@ const Header = (props: headerProps) => {
     const toggleMode = () => {
         dispatch(toggleTheme())
     }
-    const handleOnclick = () => dispatch(handleLogout()) // logout 
+    const handleOnclick = () => dispatch(logoutCustomer({})) // logout 
 
 
 
@@ -154,7 +155,7 @@ const Header = (props: headerProps) => {
                                     size='small'
                                     onClick={handleOpenSignInMenu}
                                 >
-                                    <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: 36, height: 36, color: 'inherit' }}>{profile?.first_name[0]}</Avatar>
+                                    <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: 36, height: 36, color: 'inherit' }}>{profile?.firstname[0]}</Avatar>
                                 </IconButton>
                             </Tooltip>
                         </> :
