@@ -176,7 +176,7 @@ const Home = () => {
           <Card>
             <CardContent>
               <ListItem
-                disableGutters
+                // disableGutters
                 disablePadding
                 secondaryAction={
                   <IconButton><FileUploadRoundedIcon /></IconButton>
@@ -188,7 +188,6 @@ const Home = () => {
 
                 />
               </ListItem>
-
               <TableContainer>
                 <Table aria-label="simple table">
                   <TableHead>

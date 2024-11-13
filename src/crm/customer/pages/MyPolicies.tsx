@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from '@mui/x-data-grid';
 import { Box, Button, Checkbox, Chip, ListItem, ListItemText, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ProtectedRoutes from '../../../ProtectedRoute';
@@ -238,18 +238,22 @@ const MyPolicies = () => {
     },
     // You can continue this pattern for the remaining 10 records.
   ];
+  const CustomToolbar = ()=>{
+    return <GridToolbarContainer>
+      <Stack direction='row' sx={{width:'100%'}} p={1}>
+        <Box flexGrow={1}/>
+        <GridToolbarFilterButton />
+        <GridToolbarDensitySelector/>
+      <GridToolbarExport />
+      </Stack>
+
+    </GridToolbarContainer>
+  }
 
   return (
     <Box mt={3}>
       <ListItem
         disableGutters
-        secondaryAction={
-          <Stack direction='row' gap={1}>
-            <Button size='small' variant='outlined' startIcon={<FilterListRoundedIcon />}>Filter</Button>
-            <Button size='small' variant='outlined' startIcon={<FileUploadRoundedIcon />}>Export</Button>
-          </Stack>
-
-        }
       >
         <ListItemText
           primary={<Typography gutterBottom variant='h4'>Policies</Typography>}
@@ -259,6 +263,9 @@ const MyPolicies = () => {
 
       <div style={{ height: 550, width: '100%' }}>
         <DataGrid
+          slots={{
+            toolbar:CustomToolbar
+          }}
           rows={rows}
           columns={columns}
           checkboxSelection

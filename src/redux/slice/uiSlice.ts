@@ -9,7 +9,8 @@ const initialState: uiProps = {
     borderRadius: 8,
     fontFamily: 'Poppins',
     customizePalleteOpen: false,
-    cookieConsent: false
+    cookieConsent: false,
+    customerEditProfile:false
 }
 
 const uiSlice = createSlice({
@@ -31,9 +32,12 @@ const uiSlice = createSlice({
         },
         handlePallete: (state) => {
             state.customizePalleteOpen = !state.customizePalleteOpen
+        },
+        handleEditProfile :(state)=>{
+            state.customerEditProfile = !state.customerEditProfile
         }
     }
 })
 
-export const { toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete } = uiSlice.actions
+export const { handleEditProfile,toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete } = uiSlice.actions
 export default uiSlice.reducer

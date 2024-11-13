@@ -1,4 +1,4 @@
-import { alpha, Box, CircularProgress, Typography } from '@mui/material'
+import {  Box, CircularProgress, Typography } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -8,16 +8,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 import Container from '@mui/material/Container';
-import LoginAvatar from "../../../assets/user-profile.svg";
 import AgentAvatar from '../../../assets/agent-svgrepo-com.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/store';
 import { closeAlert, loginCustomer } from '../../../redux/slice/authSlice';
 import { useForm } from "react-hook-form";
 import AlertBox from '../../../Framework/components/AlertBox';
-import theme from '../../../theme/theme';
-import { useTheme, useThemeProps } from '@mui/material';
-
+import { useTheme } from '@mui/material';
 function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -50,6 +47,7 @@ const Login = () => {
     };
     return (
         <Box>
+
             <AlertBox alert={alert} onClose={closeAlertHandle} />
             <Container component="main" maxWidth="xs">
                 <Box

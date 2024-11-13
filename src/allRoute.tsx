@@ -2,7 +2,7 @@ import React from "react";
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 
 //============ MUI IMPORTS ==============>
-import { LinearProgress, Toolbar } from "@mui/material";
+import {  Toolbar } from "@mui/material";
 
 //============ PROJECT IMPORTS ==============>
 import Header from "./Framework/components/Header";
@@ -28,51 +28,27 @@ import HealthProposal from "./health/pages/HealthProposal";
 import HealthPayment from "./health/pages/HealthPayment";
 
 //============ DASHBOARD COMPONENTS IMPORTS ==============>
-import Register from "./crm/common/Register";
-import EmployeeLogin from "./crm/employee/pages/EmployeeLogin";
+
 import CustomerLogin from "./crm/customer/pages/Login";
-import AgentLogin from "./crm/posp/pages/Login"
-
 import PageNotFound from "./Framework/components/PageNotFound";
-
 import CrmLayout from "./crm/layout/CrmLayout";
-import EmployeeChild from "./crm/employee/routes/EmployeeChild";
-// import getCustomerRoutes from "./crm/customer/routes/CustomerChilds";
-import getPospRoutes from "./crm/posp/routes/pospChilds";
 import ChatBot from "./Framework/components/ChatBot";
 
 //============ PRO TYPES IMPORTS ==============>
-import { customerProfileProps, employeeProfileProps, pospProfileProps } from "./types/AuthProps/AuthProps";
-import { RootProps } from "./types/RootProps";
-type allRouterProps = customerProfileProps | null | pospProfileProps | employeeProfileProps
+
 
 //============ REDUX IMPORTS ==============>
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-import BussinessAnalytics from "./crm/employee/pages/BussinessAnalytics";
-import AdminService from "./crm/employee/pages/AdminService";
-import RevenueService from "./crm/employee/pages/RevenueService";
-import SalesService from "./crm/employee/pages/SalesService";
-import EmployeeManagement from "./crm/employee/pages/EmployeeManagement";
-import ProductsSale from "./crm/employee/pages/ProductsSale";
-import EmployeeProfile from "./crm/employee/pages/EmployeeProfile";
-import AccessManagement from "./crm/employee/pages/AccessManagement";
-import IncomeService from "./crm/employee/pages/IcomeService";
-import Settings from "./crm/employee/pages/Settings";
-// import CustomerSettings from "./crm/customer/pages/Settings";
-import CustomerManagement from "./crm/employee/pages/CustomerManagement";
-import AgentManagement from "./crm/employee/pages/AgentManagement";
 
 import { CustomerHome, HelpLine, MyClaims, MyPolicies, RegisterClaims, Settings as CustomerSettings } from "./crm/customer/routes/CustomerChilds";
 import ProtectedRoutes from "./ProtectedRoute";
-import MessageBox from "./Framework/components/MessageBox";
 import ProductSummary from "./Framework/components/ProductSummary";
 
-export const allRouter = (props: allRouterProps) => {
+export const allRouter = () => {
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
     const dark = useSelector((state: RootState) => state.ui.dark);
     const profile = useSelector((state: RootState) => state.auth.authData);
-    const isLoading = useSelector((state: RootState) => state.auth.loading);
     let role = useSelector((state: RootState) => state.auth.role);
 
     const headerProps = {
@@ -80,9 +56,6 @@ export const allRouter = (props: allRouterProps) => {
         dark,
         profile
     }
-
-
-
 
     let commonRoutes = [
         {
@@ -250,7 +223,6 @@ export const allRouter = (props: allRouterProps) => {
                                 <ProtectedRoutes role="customer" requiredPermission={1002}>
                                     <MyClaims />
                                 </ProtectedRoutes>
-
                         },
                         {
                             path: 'register',

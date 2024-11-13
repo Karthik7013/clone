@@ -10,7 +10,8 @@ type uiProps = {
     borderRadius: number,
     fontFamily: string,
     cookieConsent: boolean,
-    customizePalleteOpen: boolean
+    customizePalleteOpen: boolean,
+    customerEditProfile:boolean
 }
 
 export type { uiProps, alertProps }

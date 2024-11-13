@@ -116,6 +116,7 @@ const authSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+
         // employee
         builder.addCase(loginUser.pending, (state) => {
             state.loading = true;
@@ -173,11 +174,6 @@ const authSlice = createSlice({
                 state.profile = action.payload.data
             })
 
-
-
-
-
-
         // customer
         builder.addCase(loginCustomer.pending, (state) => {
             state.loading = true;
@@ -189,12 +185,10 @@ const authSlice = createSlice({
                     message: action.payload.message,
                     state: true
                 }
-                sessionStorage.removeItem('access-token')
             })
             .addCase(loginCustomer.fulfilled, (state, action) => {
                 state.loading = false
                 state.isLogin = true;
-                console.log(action.payload.data.data.role)
                 state.alert = {
                     message: 'Login Success',
                     state: true,
@@ -242,8 +236,12 @@ const authSlice = createSlice({
             .addCase(logoutCustomer.fulfilled, (state, action) => {
                 state.loading = false;
                 state.isLogin = false;
-                state.role = null
-                sessionStorage.removeItem('role')
+                state.role = null;
+                state.alert = {
+                    message: 'Logout Success',
+                    state: true,
+                    type: 'error'
+                }
             })
     }
 })

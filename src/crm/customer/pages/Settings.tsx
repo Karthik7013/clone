@@ -1,14 +1,17 @@
-import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardContent, CardMedia, Chip, Divider, Grid, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Typography } from "@mui/material"
+import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardContent, CardMedia, Chip, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, ListSubheader, Switch, Typography } from "@mui/material"
 import React from "react";
 import CakeRoundedIcon from '@mui/icons-material/CakeRounded';
 import LocalPoliceRoundedIcon from '@mui/icons-material/LocalPoliceRounded';
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/store";
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import EditProfile from "../components/EditProfile";
+import { handleEditProfile } from "../../../redux/slice/uiSlice";
 const Settings = () => {
   const authData = useSelector((state: RootState) => state.auth.authData);
-
+  const dispatch: AppDispatch = useDispatch();
+  const handleClose = () => dispatch(handleEditProfile());
   return (
 
     <Box mt={3}>
@@ -22,14 +25,13 @@ const Settings = () => {
       </ListItem>
       <Box>
         <List>
-          <ListItem disablePadding sx={{ gap: 2 }}>
+          <ListItem disablePadding sx={{ gap: 2 }} secondaryAction={<IconButton onClick={handleClose} ><EditRoundedIcon /></IconButton>}>
             <ListItemIcon>
               <Avatar src="https://avatar.iran.liara.run/public" sx={{ width: '2.75em', height: '2.75em' }}>
-
               </Avatar>
             </ListItemIcon>
             <ListItemText
-              primary={<Typography variant="h6">{authData.firstname} {authData.lastname} ({authData.customer_id}) <Chip label="Premium" size="small" color="warning" variant="outlined" icon={<LocalPoliceRoundedIcon fontSize="small" />}></Chip></Typography>}
+              primary={<Typography variant="h6">{authData.firstname} {authData.lastname} ({authData.customer_id}) <Chip clickable size="small" label="Premium" color="warning" variant="outlined" icon={<LocalPoliceRoundedIcon fontSize="small" />}></Chip></Typography>}
               secondary={
                 <>
                   {(authData.created_at).split('T')[0]}
@@ -37,6 +39,7 @@ const Settings = () => {
               } />
           </ListItem>
         </List>
+        <EditProfile />
 
         <ButtonGroup fullWidth variant="text">
           <Button variant="contained">Info</Button>
@@ -51,7 +54,6 @@ const Settings = () => {
         <Grid container columnSpacing={2} rowSpacing={2} mt={1}>
           <Grid item xs={12} md={8}>
             <Card>
-
               <CardContent>
                 <Typography gutterBottom variant="h6" component="div">
                   Personal Information
@@ -82,6 +84,47 @@ const Settings = () => {
                 </Typography>
               </CardContent>
 
+            </Card>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Card>
+              <List
+                subheader={
+                  <ListSubheader component="div" id="nested-list-subheader">
+                    Notifications
+                  </ListSubheader>
+                }
+              >
+                <Divider />
+                <ListItem
+                  secondaryAction={
+                    <Switch size="small" />
+                  }
+                >
+                  <ListItemText
+                    primary={<Typography variant="subtitle2">Whatsapp Notifications</Typography>}
+                  />
+                </ListItem>
+                <ListItem
+                  secondaryAction={
+                    <Switch size="small" />
+                  }
+                >
+                  <ListItemText
+                    primary={<Typography variant="subtitle2">Email Notifications</Typography>}
+                  />
+                </ListItem>
+                <ListItem
+                  secondaryAction={
+                    <Switch size="small" />
+                  }
+                >
+                  <ListItemText
+                    primary={<Typography variant="subtitle2">Message Notifications</Typography>}
+                  />
+                </ListItem>
+              </List>
             </Card>
           </Grid>
         </Grid>

@@ -1,25 +1,19 @@
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { Avatar, Card, CardContent, CardMedia, ListItemIcon, ListItemText, Stack, Switch, TextField } from '@mui/material';
+import { Avatar, Card, CardMedia, ListItemIcon, ListItemText, Stack, } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import LogoutRoundedIcon from '@mui/icons-material/Logout';
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toggleTheme } from '../../redux/slice/uiSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootProps } from '../../types/RootProps';
+import { useDispatch } from 'react-redux';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import CustomButton from '../ui-components/CustomButton';
 import CustomAppBar from '../ui-components/CustomAppBar';
@@ -31,7 +25,6 @@ import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownR
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import ProductPannel from './ProductPannel';
-import { customerProfileProps, employeeProfileProps, pospProfileProps } from '../../types/AuthProps/AuthProps';
 import { logoutCustomer } from '../../redux/slice/authSlice';
 import { AppDispatch } from '../../redux/store';
 

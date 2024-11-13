@@ -55,7 +55,6 @@ const AlertBox = ({ alert, onClose }: props) => {
         }
     }
 
-
     return (
         <Snackbar open={alert.state}
             TransitionComponent={SlideTransition}
@@ -65,7 +64,6 @@ const AlertBox = ({ alert, onClose }: props) => {
         >
             <CustomAlert variant='outlined' icon={AlertIcon(alert.type)} severity={alert.type}>
                 <Typography variant='caption'>{alert.message}</Typography>
-
             </CustomAlert>
         </Snackbar>
     )
