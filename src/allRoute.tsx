@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 
 //============ MUI IMPORTS ==============>
-import {  Toolbar } from "@mui/material";
+import { Toolbar } from "@mui/material";
 
 //============ PROJECT IMPORTS ==============>
 import Header from "./Framework/components/Header";
@@ -39,29 +39,28 @@ import ChatBot from "./Framework/components/ChatBot";
 
 //============ REDUX IMPORTS ==============>
 import { useSelector } from "react-redux";
-import { RootState } from "./redux/store";
+import { AppDispatch, RootState } from "./redux/store";
 
 import { CustomerHome, HelpLine, MyClaims, MyPolicies, RegisterClaims, Settings as CustomerSettings } from "./crm/customer/routes/CustomerChilds";
 import ProtectedRoutes from "./ProtectedRoute";
 import ProductSummary from "./Framework/components/ProductSummary";
+import { useDispatch } from "react-redux";
+import { handlePallete, increaseCounter, toggleTheme } from "./redux/slice/uiSlice";
 
 export const allRouter = () => {
+    const dispatch: AppDispatch = useDispatch();
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
     const dark = useSelector((state: RootState) => state.ui.dark);
     const profile = useSelector((state: RootState) => state.auth.authData);
-    let role = useSelector((state: RootState) => state.auth.role);
+    const role = useSelector((state: RootState) => state.auth.role);
 
-    const headerProps = {
-        islogin,
-        dark,
-        profile
-    }
+    const handleDrawer = useCallback(() => dispatch(increaseCounter()), [dispatch])
 
     let commonRoutes = [
         {
             path: "/",
             element: <>
-                <Header {...headerProps} />
+                <Header {...{ islogin, dark, profile }} />
                 <Toolbar />
                 <Outlet />
                 <ChatBot />

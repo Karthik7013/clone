@@ -16,14 +16,15 @@ import travelLogo from "./assets/navAssets/plane.svg";
 import commercialLogo from "./assets/navAssets/commercial.svg"
 import bikeLogo from "./assets/navAssets/Bike.svg";
 import giftBox from './assets/spark.svg';
-
+import productsImg from "../src/assets/all-partner-logo.avif"
 
 import CookieCard from "./Framework/components/CookieCard"
-import { RootProps } from "./types/RootProps";
-
 import { RootState } from "./redux/store";
+import { useTheme } from "@mui/material";
+import ProviderLogo from "./Framework/components/ProviderLogo";
 
 const Home = () => {
+    const theme = useTheme()
     console.log('home renders')
     type navProps = {
         imgUrl: string,
@@ -262,14 +263,7 @@ const Home = () => {
                     <Typography component='h1' textAlign='center' variant="h4">More than 25+ Insurance Providers</Typography>
                     <Typography textAlign='center' gutterBottom variant="subtitle1" color='text.secondary'>Providing You with the Best Insurance Solutions from a Diverse Network of Trusted Providers.</Typography>
                     <Stack flexWrap='wrap' direction='row' gap={4} justifyContent='space-evenly' mt={4}>
-
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 7, 8, 9, 10, 11, 12, 13].map((e, _) => <CardMedia
-                            key={_}
-                            component="img"
-
-                            sx={{ width: { xs: 80, md: 120 } }}
-                            image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
-                        />)}
+                        <ProviderLogo name="Reliance" grayScale={true} />
                     </Stack>
                 </Grid>
             </Grid>

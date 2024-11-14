@@ -10,7 +10,8 @@ const initialState: uiProps = {
     fontFamily: 'Poppins',
     customizePalleteOpen: false,
     cookieConsent: false,
-    customerEditProfile:false
+    customerEditProfile: false,
+    counter: 0
 }
 
 const uiSlice = createSlice({
@@ -33,11 +34,14 @@ const uiSlice = createSlice({
         handlePallete: (state) => {
             state.customizePalleteOpen = !state.customizePalleteOpen
         },
-        handleEditProfile :(state)=>{
+        handleEditProfile: (state) => {
             state.customerEditProfile = !state.customerEditProfile
+        },
+        increaseCounter: (state) => {
+            state.counter = state.counter + 1
         }
     }
 })
 
-export const { handleEditProfile,toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete } = uiSlice.actions
+export const { increaseCounter,handleEditProfile, toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete } = uiSlice.actions
 export default uiSlice.reducer

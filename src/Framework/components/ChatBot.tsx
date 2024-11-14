@@ -4,7 +4,7 @@ import { Avatar, Box, CardActions, CardContent, Chip, Divider, Fab, IconButton, 
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 const ChatBot = () => {
-
+    console.log('chatbot rendered')
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -92,4 +92,4 @@ const ChatBot = () => {
     )
 }
 
-export default ChatBot
+export default React.memo(ChatBot)

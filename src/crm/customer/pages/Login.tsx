@@ -1,4 +1,4 @@
-import {  Box, CircularProgress, Typography } from '@mui/material'
+import { Box, CircularProgress, Typography } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -20,8 +20,9 @@ function Copyright(props: any) {
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
             <Link color="inherit" to="/">
-                Your Website
+                NameLix 360° Insurance
             </Link>
+            {" "}
             {new Date().getFullYear()}
         </Typography>
     );
