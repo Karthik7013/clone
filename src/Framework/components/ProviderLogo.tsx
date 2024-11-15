@@ -15,7 +15,7 @@ const ProviderLogo = (props: ProviderLogoProps) => {
     return (
         <Card sx={{
             overflow: 'hidden',
-            border: `0.5px solid ${theme.palette.divider}`,
+
             position: 'relative',
             width: '120px',
             height: '70px'

@@ -178,11 +178,11 @@ export const allRouter = () => {
                         }
                     ]
                 },
+                {
+                    path:'summary',
+                    element:<ProductSummary />
+                }
             ],
-        },
-        {
-            path: 'summary',
-            element: <ProductSummary />
         },
         {
             path: 'customer',

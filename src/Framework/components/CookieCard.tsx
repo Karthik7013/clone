@@ -7,9 +7,7 @@ import { useDispatch } from 'react-redux';
 import { handleCookieConsent } from '../../redux/slice/uiSlice';
 const CookieCard = () => {
     const dispatch: AppDispatch = useDispatch();
-
-
-    const cookieAcceptHandle = (cookieAccept) => {
+    const cookieAcceptHandle = (cookieAccept:boolean) => {
         if (cookieAccept) {
             document.cookie = `cookie-accept=${true}; path=/; max-age=${60 * 60 * 24 * 365}`
         } else {
@@ -24,39 +22,34 @@ const CookieCard = () => {
                 maxWidth: 650,
                 position: 'fixed',
                 right: 80,
-                bottom: 10
+                bottom: 10,
+                zIndex:99999,
             }}
         >
-            <CardContent component={Stack}>
-                <ListItem disablePadding>
-                    <CookieRoundedIcon sx={{ mr: 1 }} />
+                <ListItem >
+                    <CookieRoundedIcon fontSize='large' color='warning' sx={{ mr: 1 }} />
                     <ListItemText>
-                        <Typography variant="h6" >Privacy Preference Center</Typography>
+                        <Typography variant="body1" >Privacy Preference Center</Typography>
                     </ListItemText>
                 </ListItem>
-            </CardContent>
+        
 
             <CardContent sx={{ py: 0 }}>
-
-
-
-
-                <Typography variant="body2">
+                <Typography variant="caption" color="text.secondary">
                     We use Cookies for login,checkout and stats.
                 </Typography>
-                <Typography variant="body2">
+                <Typography variant="caption" color="text.secondary">
                     Learn more in our <Link to='#'>privacy settings</Link>
                 </Typography>
                 <Stack
-                    mt={1}
                     direction={'row'}
                     justifyContent={"space-between"}
                 >
-                    <Box flex={1}></Box>
+                    <Box flex={1}/>
                     <Box>
-                        <Button sx={{ mr: 1 }} onClick={() => cookieAcceptHandle(false)}>Reject
+                        <Button variant='outlined' color='error' sx={{ mr: 1 }} onClick={() => cookieAcceptHandle(false)}>Reject
                         </Button>
-                        <Button variant="contained" onClick={() => cookieAcceptHandle(true)}>Accept
+                        <Button variant="outlined" onClick={() => cookieAcceptHandle(true)}>Accept
                         </Button>
                     </Box>
                 </Stack>

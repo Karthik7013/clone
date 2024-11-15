@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Button, Chip, Divider, Grid, InputAdornment, ListItem, ListItemAvatar, ListItemText, Paper, Stack, TextField, Typography } from '@mui/material'
+import { Avatar, Badge, Box, Button, Card, Chip, Divider, Grid, InputAdornment, ListItem, ListItemAvatar, ListItemText, Paper, Stack, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
@@ -86,26 +86,28 @@ const HelpLine = () => {
     <Box mt={3}>
       <Typography gutterBottom variant='h4'>Frequently Asked Questions</Typography>
       <Typography gutterBottom variant='caption'>Quick answers to questions to you may have. Can't find what you're looking for? Check out our <Link to="#">full documentation</Link></Typography>
-      <Grid container my={3} component={Paper}>
-        {que_ans.map((que, _) => <Grid key={_} item xs={12} md={6}>
-          <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-              <Avatar variant='rounded' alt="Remy Sharp" src="https://avatar.iran.liara.run/public" />
-            </ListItemAvatar>
-            <ListItemText
-              primary={<Typography variant='subtitle2'>{que.que}</Typography>}
-              secondary={
-                <Typography variant='caption' color='text.secondary'>
-                  {que.ans}
-                </Typography>
-              }
-            />
-          </ListItem>
-        </Grid>)}
+      <Card>
+        <Grid container my={3}>
+          {que_ans.map((que, _) => <Grid key={_} item xs={12} md={6}>
+            <ListItem alignItems="flex-start">
+              <ListItemAvatar>
+                <Avatar variant='rounded' alt="Remy Sharp" src="https://avatar.iran.liara.run/public" />
+              </ListItemAvatar>
+              <ListItemText
+                primary={<Typography variant='subtitle2'>{que.que}</Typography>}
+                secondary={
+                  <Typography variant='caption' color='text.secondary'>
+                    {que.ans}
+                  </Typography>
+                }
+              />
+            </ListItem>
+          </Grid>)}
 
 
 
-      </Grid>
+        </Grid>
+      </Card>
       <Stack alignItems="center" mt={4}>
         <Badge badgeContent={<Chip size="small" color="primary" label="?" />}>
           <Avatar sx={{ mb: 2 }} />

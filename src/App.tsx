@@ -17,6 +17,7 @@ import { handleCookieConsent } from './redux/slice/uiSlice';
 import { AppDispatch, RootState } from './redux/store';
 
 const App = () => {
+ 
     console.log('apprenders')
     const customizePalleteOpen = useSelector((state: RootState) => state.ui.customizePalleteOpen)
     const dispatch: AppDispatch = useDispatch();

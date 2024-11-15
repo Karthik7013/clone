@@ -1,5 +1,4 @@
 import { alpha, createTheme, useTheme } from "@mui/material";
-import { DataGridProps } from "@mui/x-data-grid"
 import '@mui/x-data-grid';
 
 type customStylesProps = {
@@ -39,7 +38,10 @@ const token = (dark: boolean) => ({
         primary: {
             100: '#23a8fa'
         }
-    } : {
+    } :
+    
+    
+    {
 
     })
 })
@@ -100,10 +102,13 @@ const theme = (customStyles: customStylesProps) => {
             MuiCard: {
                 styleOverrides: {
                     root: {
-                        boxShadow: "rgba(0, 0, 0, 0.16) 0px 5px 16px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px"
+                        border:`1px solid ${dark ? '#ffffff21': theme.palette.divider}`,
+                        boxShadow: 'none'
                     }
                 }
-            },
+            }
+            ,
+
             MuiDataGrid: {
                 styleOverrides: {
                     root: {

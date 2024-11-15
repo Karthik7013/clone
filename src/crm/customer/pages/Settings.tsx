@@ -68,7 +68,6 @@ const Settings = () => {
                   <Grid item xs={12} md={4}>Mobile Number : +91 {authData.phone}</Grid>
                 </Grid>
               </CardContent>
-
             </Card>
           </Grid>
           <Grid item xs={12} md={4}>
