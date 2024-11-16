@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AgentService, CustomerService, EmployeeService } from "../../service/api";
+import { AgentService, authService, CustomerService, EmployeeService } from "../../service/api";
 import { createBrowserHistory, History } from 'history';
 import { authProps } from "../../types/AuthProps/AuthProps";
 
@@ -48,7 +48,7 @@ export const getProfile = createAsyncThunk('profile/user', async (payload: {}, {
 // =============== | CUSTOMER ACTIONS | ==============>
 export const loginCustomer = createAsyncThunk('login/customer', async (payload: { phone: number }, { rejectWithValue }) => {
     try {
-        const res = await CustomerService.post('/verify', payload);
+        const res = await authService.post('/customer/verify', payload);
         return { status: res.status, data: res.data };
     } catch (error) {
         if (error.message === 'Network Error') {

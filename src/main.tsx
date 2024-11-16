@@ -12,9 +12,9 @@ import ErrorBoundary from './Framework/components/ErrorBoundary.tsx';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <Provider store={store}>
-    <ErrorBoundary >
+  <ErrorBoundary >
+ <Provider store={store}>
       <App />
-    </ErrorBoundary>
   </Provider>
+  </ErrorBoundary>
 )
