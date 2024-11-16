@@ -25,7 +25,6 @@ import ProviderLogo from "./Framework/components/ProviderLogo";
 
 const Home = () => {
     const theme = useTheme()
-    console.log(first)
     console.log('home renders')
     type navProps = {
         imgUrl: string,

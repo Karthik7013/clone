@@ -9,6 +9,7 @@ import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded';
 import ReactApexChart from 'react-apexcharts';
 const Home = () => {
+  console.log("customer home renders")
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const profileStats = [
@@ -147,7 +148,7 @@ const Home = () => {
                 }
               >
                 <ListItemAvatar>
-                  <Avatar sx={{ bgcolor: theme.palette.primary.light }}>
+                  <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
                     <Icon fontSize='small' color='inherit'>
                       flash_on
                     </Icon>
@@ -251,4 +252,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default React.memo(Home)

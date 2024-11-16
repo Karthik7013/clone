@@ -15,9 +15,8 @@ import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import { Link as MuiLink } from "@mui/material"
 // import theme from "../../theme/theme";
 const drawerWidth = 240;
-import { AppDispatch, RootState } from "../../redux/store";
+import { AppDispatch } from "../../redux/store";
 import AlertBox from "../../Framework/components/AlertBox";
-import { getCustomerPolicies } from "../../redux/slice/dashboardSlice";
 const CrmLayout = () => {
     let loading = useSelector((state: RootProps) => state.auth.loading);
     const theme = useTheme();
@@ -60,7 +59,6 @@ const CrmLayout = () => {
 
     useEffect(() => {
         dispatch(getCustomerProfile({}));
-        // dispatch(getCustomerPolicies());
     }, [dispatch]);
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
@@ -69,7 +67,7 @@ const CrmLayout = () => {
         flexGrow: 1,
         height: 'calc( 100dvh - 65px)',
         border: `1px solid ${alpha(theme.palette.divider, 0.05)}`,
-        backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.divider, 0.02) : theme.palette.common.white,
+        backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.dark, 0.05) : alpha(theme.palette.divider, 0.05),
 
         overflow: 'auto',
         '&::-webkit-scrollbar': {
@@ -194,12 +192,7 @@ const CrmLayout = () => {
         <Stack direction='row'>
             <Drawer
                 variant="temporary"
-                open={mobileOpen}
-                onTransitionEnd={handleDrawerTransitionEnd}
                 onClose={handleDrawerClose}
-                ModalProps={{
-                    keepMounted: true,
-                }}
                 sx={{
                     // display: { xs: 'block', md: 'none' },
                     // '& .MuiDrawer-paper': {
@@ -208,10 +201,10 @@ const CrmLayout = () => {
                     // },
                 }}
             >
-                <SideBar items={profile?.sideProps} />
+                <SideBar />
             </Drawer>
             <Box minWidth={drawerWidth} maxWidth={drawerWidth} sx={{ display: { xs: 'none', md: 'block' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
-                <SideBar items={profile?.sideProps} />
+                <SideBar />
             </Box>
             <StyledCardContent>
                 <Suspense fallback={<LinearProgress />}>

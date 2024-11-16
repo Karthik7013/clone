@@ -1,19 +1,15 @@
 import { Avatar, Badge, Box, Chip, Divider, Icon, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import { Link as MuiLink } from "@mui/material";
-import { navProps } from '../../types/AuthProps/AuthProps';
 import React from 'react';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import { useTheme } from '@mui/material';
 import KeyboardCommandKeyRoundedIcon from '@mui/icons-material/KeyboardCommandKeyRounded';
-type props = {
-    items: navProps[] | undefined
-}
 
-const SideDrawer = (props: props) => {
+
+const SideDrawer = () => {
     const theme = useTheme()
-    console.log(theme.mixins.toolbar.minHeight);
     const { pathname } = useLocation();
     console.log(pathname, 'pathname')
 
@@ -138,21 +134,23 @@ const SideDrawer = (props: props) => {
                 />
             </ListItem>
 
-            <MuiLink component={Link} to={''}>
-                <ListItem disablePadding
-                    secondaryAction={
-                        <Chip variant='outlined' label="new" size="small" color="primary" />
-                    }
-                >
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>dashboard</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Dashboard'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
+
+            <ListItem disablePadding
+                secondaryAction={
+                    <Chip variant='outlined' label="new" size="small" color="primary" />
+                }
+            >
+                <ListItemButton
+                    href='/dashboard'
+                    LinkComponent={Link}
+                    disableRipple>
+                    <ListItemIcon>
+                        <Icon fontSize='small'>dashboard</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={<Typography variant='body2' noWrap>{'Dashboard'}</Typography>} />
+                </ListItemButton>
+            </ListItem>
+
             <MuiLink component={Link} to={'policies'}>
                 <ListItem disablePadding>
                     <ListItemButton
@@ -283,16 +281,6 @@ const SideDrawer = (props: props) => {
                     </ListItemButton>
                 </ListItem>
             </MuiLink> */}
-            <>
-                {[1].map((number: number) => <ListItem key={number} disablePadding>
-                    <ListItemButton disableRipple>
-                        <ListItemIcon>
-                            <Skeleton width={25} height={40} />
-                        </ListItemIcon>
-                        <ListItemText primary={<Skeleton width={100} />} />
-                    </ListItemButton>
-                </ListItem>)}
-            </>
         </List>
         <Box sx={{
             pb: theme.spacing(2)

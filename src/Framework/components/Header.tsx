@@ -13,7 +13,7 @@ import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toggleTheme } from '../../redux/slice/uiSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import CustomButton from '../ui-components/CustomButton';
 import CustomAppBar from '../ui-components/CustomAppBar';
@@ -26,18 +26,15 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import ProductPannel from './ProductPannel';
 import { logoutCustomer } from '../../redux/slice/authSlice';
-import { AppDispatch } from '../../redux/store';
+import { AppDispatch, RootState } from '../../redux/store';
 
+const Header = () => {
+    console.log('header renders');
+    const dark = useSelector((state: RootState) => state.ui.dark);
+    const islogin = useSelector((state: RootState) => state.auth.isLogin);
+    const profile = useSelector((state: RootState) => state.auth.authData);
 
-type headerProps = {
-    dark: boolean,
-    islogin: boolean,
-    profile: any | null
-}
-const Header = (props: headerProps) => {
-    console.log(props.profile, 'header profile')
     const dispatch: AppDispatch = useDispatch();
-    const { dark, islogin, profile } = props;
     const [anchorElProducts, setAnchorElProducts] = useState(null);
     const [anchorElSignIn, setAnchorElSignIn] = useState(null);
     const navigate = useNavigate();
@@ -62,10 +59,8 @@ const Header = (props: headerProps) => {
     const toggleMode = () => {
         dispatch(toggleTheme())
     }
+
     const handleOnclick = () => dispatch(logoutCustomer({})) // logout 
-
-
-
 
     return (
         <CustomAppBar>

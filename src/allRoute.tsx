@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React from "react";
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 
 //============ MUI IMPORTS ==============>
@@ -10,7 +10,7 @@ import Home from "./Home";
 import Footer from "./Framework/components/Footer";
 
 //============ VEHICLE COMPONENTS IMPORTS ==============>
-import VehicleHome from "./vehicle/pages/VehicleHome";
+import { VehicleHome } from './vehicle/pages/index'
 
 //============ LOAN COMPONENTS IMPORTS ==============>
 import LoanLandingPage from "./loan/pages/LoanLandingPage";
@@ -34,33 +34,25 @@ import PageNotFound from "./Framework/components/PageNotFound";
 import CrmLayout from "./crm/layout/CrmLayout";
 import ChatBot from "./Framework/components/ChatBot";
 
-//============ PRO TYPES IMPORTS ==============>
-
-
 //============ REDUX IMPORTS ==============>
 import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./redux/store";
+import { RootState } from "./redux/store";
 
 import { CustomerHome, HelpLine, MyClaims, MyPolicies, RegisterClaims, Settings as CustomerSettings } from "./crm/customer/routes/CustomerChilds";
+
 import ProtectedRoutes from "./ProtectedRoute";
 import ProductSummary from "./Framework/components/ProductSummary";
-import { useDispatch } from "react-redux";
-import { handlePallete, increaseCounter, toggleTheme } from "./redux/slice/uiSlice";
+
 
 export const allRouter = () => {
-    const dispatch: AppDispatch = useDispatch();
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
-    const dark = useSelector((state: RootState) => state.ui.dark);
-    const profile = useSelector((state: RootState) => state.auth.authData);
     const role = useSelector((state: RootState) => state.auth.role);
-
-    const handleDrawer = useCallback(() => dispatch(increaseCounter()), [dispatch])
 
     let commonRoutes = [
         {
             path: "/",
             element: <>
-                <Header {...{ islogin, dark, profile }} />
+                <Header />
                 <Toolbar />
                 <Outlet />
                 <ChatBot />
@@ -179,8 +171,8 @@ export const allRouter = () => {
                     ]
                 },
                 {
-                    path:'summary',
-                    element:<ProductSummary />
+                    path: 'summary',
+                    element: <ProductSummary />
                 }
             ],
         },
@@ -213,7 +205,7 @@ export const allRouter = () => {
                                     role="customer"
                                     requiredPermission={1001}
                                 >
-                                    <MyPolicies policies={policies} />
+                                    <MyPolicies policies={[]} />
                                 </ProtectedRoutes>
                         },
                         {

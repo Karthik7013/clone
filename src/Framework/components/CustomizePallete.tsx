@@ -1,19 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ColorLensRoundedIcon from '@mui/icons-material/ColorLensRounded';
 import { Box, Divider, Drawer, FormControlLabel, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Radio, RadioGroup, Slider, Toolbar, Typography } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import { keyframes } from '@emotion/react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootProps } from '../../types/RootProps';
-import { changeBorderRadius, changeFontFamily, handlePallete } from '../../redux/slice/uiSlice';
-import { AppDispatch } from '../../redux/store';
+import { changeBorderRadius, changeFontFamily, handlePallete, toggleTheme } from '../../redux/slice/uiSlice';
+import { AppDispatch, RootState } from '../../redux/store';
 
-const CustomizePallete = ({ customize, isOpen }) => {
-    // console.log('customizePallete render')
+const CustomizePallete = () => {
+    console.log('customizePallete render')
+    const isOpen = useSelector((state: RootState) => state.ui.customizePalleteOpen);
+    const borderRadius = useSelector((state: RootState) => state.ui.borderRadius)
+    const fontFamily = useSelector((state: RootState) => state.ui.fontFamily)
+    const dark = useSelector((state: RootState) => state.ui.dark);
     const dispatch: AppDispatch = useDispatch();
-    const { borderRadius, fontFamily } = customize;
-    
+
     const toggleDrawer = () => {
         dispatch(handlePallete())
     };
@@ -50,10 +52,13 @@ const CustomizePallete = ({ customize, isOpen }) => {
         dispatch(changeFontFamily(value))
     }
 
+    const handleMode = (event: any) => {
+        dispatch(toggleTheme())
+    }
 
 
     const DrawerList = (
-        <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer}>
+        <Box sx={{ width: 250 }} role="" onClick={toggleDrawer}>
             <Toolbar>
                 <Typography>Customization</Typography>
             </Toolbar>
@@ -91,6 +96,20 @@ const CustomizePallete = ({ customize, isOpen }) => {
                     </RadioGroup>
                 </ListItem>
                 <Divider />
+                <ListItem>
+                    <RadioGroup
+                        value={dark}
+                        onChange={handleMode}
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="row-radio-buttons-group"
+                    >
+                        <FormControlLabel value={true} control={<Radio />} label="Dark" />
+                        <FormControlLabel value={false} control={<Radio />} label="Light" />
+                    </RadioGroup>
+                </ListItem>
+                <Divider />
+
             </List>
         </Box>
     );
@@ -99,7 +118,7 @@ const CustomizePallete = ({ customize, isOpen }) => {
             <StyledIconButton onClick={toggleDrawer} disableTouchRipple disableFocusRipple size='small'>
                 <SettingsRoundedIcon fontSize='small' />
             </StyledIconButton>
-            <Drawer anchor={'left'} open={isOpen} variant='temporary' onClose={toggleDrawer}>
+            <Drawer anchor={'left'} open={isOpen} onClose={toggleDrawer}>
                 {DrawerList}
             </Drawer>
         </Box>

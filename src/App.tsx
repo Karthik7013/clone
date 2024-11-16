@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { RouterProvider } from 'react-router-dom';
 
 //============ MUI IMPORTS ==============>
@@ -17,9 +17,8 @@ import { handleCookieConsent } from './redux/slice/uiSlice';
 import { AppDispatch, RootState } from './redux/store';
 
 const App = () => {
- 
-    console.log('apprenders')
-    const customizePalleteOpen = useSelector((state: RootState) => state.ui.customizePalleteOpen)
+    console.log('app renders')
+
     const dispatch: AppDispatch = useDispatch();
     const dark = useSelector((state: RootState) => state.ui.dark);
     const borderRadius = useSelector((state: RootState) => state.ui.borderRadius);
@@ -32,24 +31,17 @@ const App = () => {
         }
     }, []);
 
-    const themeProps = {
-        dark,
-        fontFamily,
-        borderRadius,
-        size: 44
-    }
-    const customize = {
-        borderRadius,
-        fontFamily
-    }
+
+
+
 
     return (
-        <CustomThemeProvider {...themeProps}>
+        <CustomThemeProvider>
             <CssBaseline />
             <React.Suspense fallback={<LinearProgress />}>
                 <RouterProvider router={allRouter()} />
             </React.Suspense>
-            <CustomizePallete isOpen={customizePalleteOpen} customize={customize} />
+            <CustomizePallete />
         </CustomThemeProvider>
     )
 }
