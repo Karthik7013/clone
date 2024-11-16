@@ -39,11 +39,11 @@ const token = (dark: boolean) => ({
             100: '#23a8fa'
         }
     } :
-    
-    
-    {
 
-    })
+
+        {
+
+        })
 })
 
 const theme = (customStyles: customStylesProps) => {
@@ -102,7 +102,7 @@ const theme = (customStyles: customStylesProps) => {
             MuiCard: {
                 styleOverrides: {
                     root: {
-                        border:`1px solid ${dark ? '#ffffff21': theme.palette.divider}`,
+                        border: `1px solid ${dark ? '#ffffff21' : theme.palette.divider}`,
                         boxShadow: 'none'
                     }
                 }
@@ -166,16 +166,33 @@ const theme = (customStyles: customStylesProps) => {
             MuiChip: {
                 styleOverrides: {
                     root: {
-                        // Default background (transparent if no color is selected)
-                        // backgroundColor: 'transparent',  // Default transparent background
-
-
-                        // Adjust opacity based on the theme palette color
-
                     },
                 }
             },
+            MuiList: {
+                styleOverrides: {
+                    root: {
+                        '&.MuiMenu-list': { padding: '5px' }
+                    }
+                }
+            },
+            MuiMenuItem: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: theme.shape.borderRadius
+                    }
+                }
+            },
+            MuiPaper: {
+                styleOverrides: {
+                    root: {
 
+                    },
+                    rounded: {
+                        borderRadius: theme.shape.borderRadius * 2
+                    }
+                }
+            },
             // MuiMenu: {
             //     styleOverrides: {
             //         root: {

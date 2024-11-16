@@ -15,7 +15,6 @@ const ProviderLogo = (props: ProviderLogoProps) => {
     return (
         <Card sx={{
             overflow: 'hidden',
-
             position: 'relative',
             width: '120px',
             height: '70px'
@@ -24,9 +23,9 @@ const ProviderLogo = (props: ProviderLogoProps) => {
                 component="img"
                 sx={{
                     position: 'absolute',
-                    top: 38,
-                    transform: "scale(9)",
-                    left: 54,
+                    top: 42,
+                    transform: "scale(10)",
+                    left: 60,
                     filter: props.grayScale && "grayscale(100%)",
                     '&:hover': {
                         filter: 'grayscale(0%)',
