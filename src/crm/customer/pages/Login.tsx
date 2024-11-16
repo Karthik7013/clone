@@ -113,55 +113,6 @@ const Login = () => {
                         </Button>
 
                     </Box>
-
-                    {/*     <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
-                        <Button
-                            disabled={isLoading}
-                            type='submit'
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            {isLoading ? <CircularProgress size={24} /> : "Login"}
-                        </Button>
-                        <Link to="/">posp/customer dashboard</Link>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link to="#">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link to="/signup">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
-                   */}
-
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>

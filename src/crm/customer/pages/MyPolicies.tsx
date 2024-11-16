@@ -6,11 +6,30 @@ import ProtectedRoutes from '../../../ProtectedRoute';
 import MessageBox from '../../../Framework/components/MessageBox';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootProps } from '../../../types/RootProps';
+import { AppDispatch } from '../../../redux/store';
+import { getCustomerPolicies } from '../../../redux/slice/dashboardSlice';
 
-const MyPolicies = () => {
+
+
+type myPoliciesProps = {
+  policies: []
+}
+const MyPolicies = (props: myPoliciesProps) => {
+  const dispatch: AppDispatch = useDispatch();
+  const { policies } = props;
+  console.log(props.policies, 'getting')
+
+
+
+  // useEffect(() => {
+  //   dispatch(getCustomerPolicies())
+  // }, [dispatch])
+
   const columns = [
     { field: 'application_id', headerName: 'Application ID', width: 150 },
-    { field: 'policy_id', headerName: 'Policy ID', width: 150 },
+    { field: 'policy_number', headerName: 'Policy ID', width: 150 },
     { field: 'policy_type', headerName: 'Policy Type', width: 150 },
     { field: 'start_date', headerName: 'Start Date', width: 150 },
     { field: 'end_date', headerName: 'End Date', width: 150 },
@@ -18,9 +37,7 @@ const MyPolicies = () => {
     { field: 'coverage_amount', headerName: 'Coverage Amount', width: 180 },
     { field: 'insured_name', headerName: 'Insured Name', width: 200 },
     { field: 'insured_company', headerName: 'Insured Company', width: 200 },
-    { field: 'beneficiary_name', headerName: 'Beneficiary Name', width: 200 },
-    { field: 'coverage_details', headerName: 'Coverage Details', width: 250 },
-
+    // { field: 'coverage_amount', headerName: 'Coverage Amount', width: 250 },
     {
       field: 'status',
       headerName: 'Status',
@@ -255,6 +272,7 @@ const MyPolicies = () => {
       <ListItem
         disableGutters
       >
+
         <ListItemText
           primary={<Typography gutterBottom variant='h4'>Policies</Typography>}
         />
@@ -267,8 +285,15 @@ const MyPolicies = () => {
             toolbar:CustomToolbar
           }}
           rows={rows}
+          loading={!policies ? true : false}
+          rows={policies}
           columns={columns}
           checkboxSelection
+          slots={
+            {
+              toolbar: CustomToolbar
+            }
+          }
           // pageSize={10}
           // rowsPerPageOptions={[10, 20, 50]}
           getRowId={(row) => row.application_id} // Use PolicyID as the unique identifier
@@ -277,8 +302,7 @@ const MyPolicies = () => {
 
 
     </Box>
-
   )
 }
 
-export default MyPolicies
+export default React.memo(MyPolicies)

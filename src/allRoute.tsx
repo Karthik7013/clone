@@ -213,7 +213,7 @@ export const allRouter = () => {
                                     role="customer"
                                     requiredPermission={1001}
                                 >
-                                    <MyPolicies />
+                                    <MyPolicies policies={policies} />
                                 </ProtectedRoutes>
                         },
                         {

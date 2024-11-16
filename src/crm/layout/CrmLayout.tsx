@@ -17,9 +17,10 @@ import { Link as MuiLink } from "@mui/material"
 const drawerWidth = 240;
 import { AppDispatch, RootState } from "../../redux/store";
 import AlertBox from "../../Framework/components/AlertBox";
+import { getCustomerPolicies } from "../../redux/slice/dashboardSlice";
 const CrmLayout = () => {
     let loading = useSelector((state: RootProps) => state.auth.loading);
-    const theme = useTheme()
+    const theme = useTheme();
     const location = useLocation();
     const links = location.pathname.split('/').slice(2);
     const dispatch: AppDispatch = useDispatch()
@@ -59,6 +60,7 @@ const CrmLayout = () => {
 
     useEffect(() => {
         dispatch(getCustomerProfile({}));
+        // dispatch(getCustomerPolicies());
     }, [dispatch]);
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
@@ -81,9 +83,6 @@ const CrmLayout = () => {
             backgroundColor: theme.palette.primary.light,
             borderRadius: theme.shape.borderRadius / 2
         },
-
-
-
     }));
 
     return <Box>
