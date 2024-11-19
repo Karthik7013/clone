@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AgentService, authService, CustomerService, EmployeeService } from "../../service/api";
+import { AgentService, authService, CustomerResources, CustomerService, EmployeeService } from "../../service/api";
 import { createBrowserHistory, History } from 'history';
 import { authProps } from "../../types/AuthProps/AuthProps";
 
@@ -61,7 +61,7 @@ export const loginCustomer = createAsyncThunk('login/customer', async (payload: 
 
 export const getCustomerProfile = createAsyncThunk('profile/customer', async (payload: {}, { rejectWithValue }) => {
     try {
-        const res = await CustomerService.get(`/profile`);
+        const res = await CustomerResources.get(`/profile`);
         return { status: res.status, data: res.data.data }
     } catch (error) {
         return rejectWithValue({ status: error.response.status, message: error.response.data });

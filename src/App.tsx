@@ -18,22 +18,13 @@ import { AppDispatch, RootState } from './redux/store';
 
 const App = () => {
     console.log('app renders')
-
     const dispatch: AppDispatch = useDispatch();
-    const dark = useSelector((state: RootState) => state.ui.dark);
-    const borderRadius = useSelector((state: RootState) => state.ui.borderRadius);
-    const fontFamily = useSelector((state: RootState) => state.ui.fontFamily);
-
     useEffect(() => {
         const cookieConsentState = document.cookie.split('; ').find(row => row.startsWith('cookie-accept'));
         if (!cookieConsentState) {
             dispatch(handleCookieConsent(true))
         }
     }, []);
-
-
-
-
 
     return (
         <CustomThemeProvider>

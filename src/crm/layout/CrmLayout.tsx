@@ -67,7 +67,7 @@ const CrmLayout = () => {
         flexGrow: 1,
         height: 'calc( 100dvh - 65px)',
         border: `1px solid ${alpha(theme.palette.divider, 0.05)}`,
-        backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.dark, 0.05) : alpha(theme.palette.divider, 0.05),
+        backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.dark, 0.05) : alpha(theme.palette.primary.main, 0.02),
 
         overflow: 'auto',
         '&::-webkit-scrollbar': {

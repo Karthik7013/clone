@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 //============ MUI IMPORTS ==============>
 import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Container, Divider, Fab, Grid, IconButton, keyframes, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Paper, Stack, styled, Typography } from "@mui/material";
@@ -7,7 +7,6 @@ import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 //============ SVG IMPORTS ==============>
 import loanLogo from "./assets/navAssets/Loan.svg";
 import healthLogo from "./assets/navAssets/Health.svg";
@@ -16,15 +15,12 @@ import travelLogo from "./assets/navAssets/plane.svg";
 import commercialLogo from "./assets/navAssets/commercial.svg"
 import bikeLogo from "./assets/navAssets/Bike.svg";
 import giftBox from './assets/spark.svg';
-import productsImg from "../src/assets/all-partner-logo.avif"
 
 import CookieCard from "./Framework/components/CookieCard"
 import { RootState } from "./redux/store";
-import { useTheme } from "@mui/material";
 import ProviderLogo from "./Framework/components/ProviderLogo";
 
 const Home = () => {
-    const theme = useTheme()
     console.log('home renders')
     type navProps = {
         imgUrl: string,
