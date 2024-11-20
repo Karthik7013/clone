@@ -42,12 +42,13 @@ import { CustomerHome, HelpLine, MyClaims, MyPolicies, RegisterClaims, Settings 
 
 import ProtectedRoutes from "./ProtectedRoute";
 import ProductSummary from "./Framework/components/ProductSummary";
+import SideDrawer from "./crm/common/SideDrawer";
+import MessageBox from "./Framework/components/MessageBox";
 
 
 export const allRouter = () => {
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
     const role = useSelector((state: RootState) => state.auth.role);
-
     let commonRoutes = [
         {
             path: "/",
@@ -190,11 +191,13 @@ export const allRouter = () => {
                 },
                 {
                     path: 'dashboard',
-                    element: (islogin && role === 'customer') ? <CrmLayout /> : <Navigate to='/customer/signin' />
+                    element: (islogin && role === 'customer') ? <CrmLayout sideBar={<SideDrawer />} /> : <Navigate to='/customer/signin' />
                     , children: [
                         {
                             path: '/customer/dashboard',
-                            element: <ProtectedRoutes role="customer" requiredPermission={1000}>
+                            element: <ProtectedRoutes role="customer"
+                                fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                                requiredPermission={1000}>
                                 <CustomerHome />
                             </ProtectedRoutes>
                         },
@@ -204,6 +207,7 @@ export const allRouter = () => {
                                 <ProtectedRoutes
                                     role="customer"
                                     requiredPermission={1001}
+                                    fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
                                 >
                                     <MyPolicies policies={[]} />
                                 </ProtectedRoutes>
@@ -211,27 +215,35 @@ export const allRouter = () => {
                         {
                             path: 'claims',
                             element:
-                                <ProtectedRoutes role="customer" requiredPermission={1002}>
+                                <ProtectedRoutes role="customer"
+                                    fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                                    requiredPermission={1002}>
                                     <MyClaims />
                                 </ProtectedRoutes>
                         },
                         {
                             path: 'register',
-                            element: <ProtectedRoutes role="customer" requiredPermission={1003}>
+                            element: <ProtectedRoutes role="customer"
+                                fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                                requiredPermission={1003}>
                                 <RegisterClaims />
                             </ProtectedRoutes>
                         },
                         {
                             path: 'settings',
                             element:
-                                <ProtectedRoutes role="customer" requiredPermission={1004}>
+                                <ProtectedRoutes role="customer"
+                                    fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                                    requiredPermission={1004}>
                                     <CustomerSettings />
                                 </ProtectedRoutes>
                         },
                         {
                             path: 'helpLine',
                             element:
-                                <ProtectedRoutes role="customer" requiredPermission={1005}>
+                                <ProtectedRoutes role="customer" requiredPermission={1005}
+                                    fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                                >
                                     <HelpLine />
                                 </ProtectedRoutes>
                         },

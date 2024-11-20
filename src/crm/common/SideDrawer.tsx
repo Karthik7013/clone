@@ -6,6 +6,7 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import { useTheme } from '@mui/material';
 import KeyboardCommandKeyRoundedIcon from '@mui/icons-material/KeyboardCommandKeyRounded';
+import ProtectedRoutes from '../../ProtectedRoute';
 
 
 const SideDrawer = () => {
@@ -24,7 +25,199 @@ const SideDrawer = () => {
             </ListItem>
         </Toolbar>
         <List component={Stack} sx={{ px: 1 }}>
-            {/* <MuiLink component={Link} to={'/dashboard'}>
+            <ListItem disablePadding sx={{ mb: 1 }}>
+                <TextField
+                    size='small'
+                    variant="outlined"
+                    fullWidth
+                    placeholder='Search'
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchRoundedIcon />
+                            </InputAdornment>
+                        ),
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <KeyboardCommandKeyRoundedIcon fontSize='inherit' />
+                            </InputAdornment>
+                        )
+                    }}
+                />
+            </ListItem>
+            <ProtectedRoutes role='customer' requiredPermission={1000}>
+                <MuiLink component={Link} to=''>
+                    <ListItem disablePadding
+                        secondaryAction={
+                            <Chip variant='outlined' label="new" size="small" color="primary" />
+                        }
+                    >
+                        <ListItemButton
+                            href='/dashboard'
+                            LinkComponent={Link}
+                            disableRipple>
+                            <ListItemIcon>
+                                <Icon fontSize='small'>dashboard</Icon>
+                            </ListItemIcon>
+                            <ListItemText primary={<Typography variant='body2' noWrap>{'Dashboard'}</Typography>} />
+                        </ListItemButton>
+                    </ListItem>
+                </MuiLink>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='customer' requiredPermission={1001}>
+                <MuiLink component={Link} to={'policies'}>
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            disableRipple>
+                            <ListItemIcon>
+                                <Icon fontSize='small'>receipt_long</Icon>
+                            </ListItemIcon>
+                            <ListItemText primary={<Typography variant='body2' noWrap>{'My Policies'}</Typography>} />
+                        </ListItemButton>
+                    </ListItem>
+                </MuiLink>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='customer' requiredPermission={1002}>
+                <MuiLink component={Link} to={'claims'}>
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            disableRipple>
+                            <ListItemIcon>
+                                <Icon fontSize='small'>verified_user</Icon>
+                            </ListItemIcon>
+                            <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
+                        </ListItemButton>
+                    </ListItem>
+                </MuiLink>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='customer' requiredPermission={1003}>
+                <MuiLink component={Link} to={'register'}>
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            disableRipple>
+                            <ListItemIcon>
+                                <Icon fontSize='small'>assignment_add</Icon>
+                            </ListItemIcon>
+                            <ListItemText primary={<Typography variant='body2' noWrap>{'Register Claim'}</Typography>} />
+                        </ListItemButton>
+                    </ListItem>
+                </MuiLink>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='customer' requiredPermission={1004}>
+                <MuiLink component={Link} to={'settings'}>
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            disableRipple>
+                            <ListItemIcon>
+                                <Icon fontSize='small'>settings</Icon>
+                            </ListItemIcon>
+                            <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                        </ListItemButton>
+                    </ListItem>
+                </MuiLink>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='customer' requiredPermission={1005}>
+                <MuiLink component={Link} to={'helpline'}>
+                    <ListItem disablePadding
+                        secondaryAction={
+                            <Chip label="new" size="small" color="success" />
+                        }
+                    >
+
+                        <ListItemButton
+                            disableRipple>
+                            <ListItemIcon>
+                                <Icon fontSize='small'>support</Icon>
+                            </ListItemIcon>
+                            <ListItemText primary={<Typography variant='body2' noWrap>{'Help'}</Typography>} />
+
+                        </ListItemButton>
+
+                    </ListItem>
+                </MuiLink>
+            </ProtectedRoutes>
+            <Divider />
+        </List>
+        <Box sx={{
+            pb: theme.spacing(2)
+        }}>
+            <Typography flexWrap='wrap' color='text.secondary' variant='subtitle2' textAlign='center' mt={1}>
+                <Chip icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small' />
+            </Typography>
+        </Box>
+    </Box >
+    )
+}
+
+// posp
+{/* <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Overview'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Bookings'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Add Policy'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink>
+            <MuiLink component={Link} to={'settings'}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Helpline'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </MuiLink> */}
+// employee
+{/* <MuiLink component={Link} to={'/dashboard'}>
                 <ListItem disablePadding>
                     <ListItemButton
                         disableRipple>
@@ -113,185 +306,6 @@ const SideDrawer = () => {
                     </ListItemButton>
                 </ListItem>
             </MuiLink> */}
-            <ListItem disablePadding sx={{ mb: 1 }}>
-                <TextField
-                    size='small'
-                    variant="outlined"
-                    fullWidth
-                    placeholder='Search'
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchRoundedIcon />
-                            </InputAdornment>
-                        ),
-                        endAdornment: (
-                            <InputAdornment position='end'>
-                                <KeyboardCommandKeyRoundedIcon fontSize='inherit' />
-                            </InputAdornment>
-                        )
-                    }}
-                />
-            </ListItem>
-
-
-            <ListItem disablePadding
-                secondaryAction={
-                    <Chip variant='outlined' label="new" size="small" color="primary" />
-                }
-            >
-                <ListItemButton
-                    href='/dashboard'
-                    LinkComponent={Link}
-                    disableRipple>
-                    <ListItemIcon>
-                        <Icon fontSize='small'>dashboard</Icon>
-                    </ListItemIcon>
-                    <ListItemText primary={<Typography variant='body2' noWrap>{'Dashboard'}</Typography>} />
-                </ListItemButton>
-            </ListItem>
-
-            <MuiLink component={Link} to={'policies'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>receipt_long</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'My Policies'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'claims'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>verified_user</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'register'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>assignment_add</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Register Claim'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-
-            <MuiLink component={Link} to={'helpline'}>
-                <ListItem disablePadding
-                    secondaryAction={
-                        <Chip label="new" size="small" color="success" />
-                    }
-                >
-
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>support</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Help'}</Typography>} />
-
-                    </ListItemButton>
-
-                </ListItem>
-            </MuiLink>
-            <Divider />
-            {/* <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Overview'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Bookings'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Add Policy'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Helpline'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink> */}
-        </List>
-        <Box sx={{
-            pb: theme.spacing(2)
-        }}>
-            <Typography flexWrap='wrap' color='text.secondary' variant='subtitle2' textAlign='center' mt={1}>
-                <Chip icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small' />
-            </Typography>
-        </Box>
-    </Box >
-    )
-}
 
 
 

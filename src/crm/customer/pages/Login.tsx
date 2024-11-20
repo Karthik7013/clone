@@ -6,7 +6,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-
 import Container from '@mui/material/Container';
 import AgentAvatar from '../../../assets/agent-svgrepo-com.svg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,7 +13,6 @@ import { AppDispatch, RootState } from '../../../redux/store';
 import { closeAlert, loginCustomer } from '../../../redux/slice/authSlice';
 import { useForm } from "react-hook-form";
 import AlertBox from '../../../Framework/components/AlertBox';
-import { useTheme } from '@mui/material';
 function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -34,21 +32,18 @@ const Login = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const navigate = useNavigate()
     const dispatch: AppDispatch = useDispatch();
     const isLoading = useSelector((state: RootState) => state.auth.loading);
-    const isLogin = useSelector((state: RootState) => state.auth.isLogin);
     const alert = useSelector((state: RootState) => state.auth.alert);
     const closeAlertHandle = () => dispatch(closeAlert());
-    const theme = useTheme()
 
     const onSubmit = (data: { phone: number }) => {
         const { phone } = data;
         dispatch(loginCustomer({ phone }))
     };
+
     return (
         <Box>
-
             <AlertBox alert={alert} onClose={closeAlertHandle} />
             <Container component="main" maxWidth="xs">
                 <Box

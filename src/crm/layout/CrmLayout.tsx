@@ -1,46 +1,40 @@
-import { alpha, AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Chip, CircularProgress, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, styled, Switch, TextField, Toolbar, Tooltip, Typography, useTheme } from "@mui/material"
+import { alpha, AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Chip, CircularProgress, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, styled, Toolbar, Tooltip, Typography, useTheme } from "@mui/material"
 import React, { Suspense, useEffect } from "react";
 import { Logout, NotesRounded } from '@mui/icons-material';
-import SideBar from "../common/SideDrawer";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootProps } from "../../types/RootProps";
 import { toggleTheme } from "../../redux/slice/uiSlice";
 import { closeAlert, getCustomerProfile, getProfile, logoutCustomer } from "../../redux/slice/authSlice";
-import PageNotFound from "../../Framework/components/PageNotFound";
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+// import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
+import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
-import { Link as MuiLink } from "@mui/material"
+
 // import theme from "../../theme/theme";
 const drawerWidth = 240;
 import { AppDispatch } from "../../redux/store";
 import AlertBox from "../../Framework/components/AlertBox";
-const CrmLayout = () => {
-    let loading = useSelector((state: RootProps) => state.auth.loading);
-    const theme = useTheme();
-    const location = useLocation();
-    const links = location.pathname.split('/').slice(2);
+
+
+type crmLayoutPropType = {
+    sideBar: React.ReactNode
+}
+const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
+    // const location = useLocation();
+    // const links = location.pathname.split('/').slice(2);
     const dispatch: AppDispatch = useDispatch()
     let profile = useSelector((state: RootProps) => state.auth.authData);
     const dark = useSelector((state: RootProps) => state.ui.dark);
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [isClosing, setIsClosing] = React.useState(false);
 
     const handleDrawerClose = () => {
-        setIsClosing(true);
         setMobileOpen(false);
     };
 
-    const handleDrawerTransitionEnd = () => {
-        setIsClosing(false);
-    };
-
     const handleDrawerToggle = () => {
-        if (!isClosing) {
-            setMobileOpen(!mobileOpen);
-        }
+        setMobileOpen(!mobileOpen);
     };
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -104,8 +98,8 @@ const CrmLayout = () => {
                     disableTouchRipple
                     aria-label="open drawer"
                     edge="start"
-                    // onClick={handleDrawerToggle}
-                    onClick={() => { }}
+                    onClick={handleDrawerToggle}
+                    // onClick={() => { }}
                     sx={{ mr: 2, borderRadius: '8px' }}
                 >
                     <NotesRounded />
@@ -147,9 +141,7 @@ const CrmLayout = () => {
                                         src="https://avatar.iran.liara.run/public"
                                         sx={{ width: 36, height: 36 }}
                                     >
-
                                     </Avatar>
-
                                 </IconButton>
                             </Tooltip>
                         </> : <>
@@ -169,14 +161,7 @@ const CrmLayout = () => {
                             transformOrigin={{ horizontal: 'right', vertical: 'center' }}
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
-                            {/* 
-                                        profile?.menuProps.map((menuItems, key) => <MenuItem onClick={handleClose} key={key}>
-                                            <ListItemIcon>
-                                                <Icon fontSize="small">{menuItems.icon}</Icon>
-                                            </ListItemIcon>
-                                            <Typography component='a' href={menuItems.path}>{menuItems.title}</Typography>
-                                        </MenuItem>)
-                                    } */}
+
                             <Divider />
                             <MenuItem onClick={handleOnclick}>
                                 <ListItemIcon>
@@ -191,20 +176,17 @@ const CrmLayout = () => {
         </AppBar>
         <Stack direction='row'>
             <Drawer
+                open={mobileOpen}
                 variant="temporary"
                 onClose={handleDrawerClose}
                 sx={{
-                    // display: { xs: 'block', md: 'none' },
-                    // '& .MuiDrawer-paper': {
-                    //     boxSizing: 'border-box',
                     width: drawerWidth,
-                    // },
                 }}
             >
-                <SideBar />
+                {crmLayoutProps.sideBar}
             </Drawer>
             <Box minWidth={drawerWidth} maxWidth={drawerWidth} sx={{ display: { xs: 'none', md: 'block' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
-                <SideBar />
+                {crmLayoutProps.sideBar}
             </Box>
             <StyledCardContent>
                 <Suspense fallback={<LinearProgress />}>

@@ -2,9 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AgentService, authService, CustomerResources, CustomerService, EmployeeService } from "../../service/api";
 import { createBrowserHistory, History } from 'history';
 import { authProps } from "../../types/AuthProps/AuthProps";
-
+import Cookies from 'js-cookie';
 
 const role = getSessionToken('role');
+const accessToken1 = Cookies.get('accessToken');
+const refreshToken1 = Cookies.get('refreshToken');
+console.log(refreshToken1, 'see');
+
 export const history: History = createBrowserHistory();
 import { getSessionToken } from "../../utils/utils"
 const initialState: authProps = {
@@ -242,6 +246,7 @@ const authSlice = createSlice({
                     state: true,
                     type: 'error'
                 }
+                sessionStorage.removeItem('role')
             })
     }
 })

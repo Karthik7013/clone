@@ -23,7 +23,7 @@ const ProtectedRoutes = (props: prop) => {
             return <LinearProgress />
         } else {
             return <>
-                {props.fallback || <MessageBox type="warning" message="You do not have the required permissions." />}
+                {props.fallback}
             </>;
         }
 
