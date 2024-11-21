@@ -22,8 +22,10 @@ type crmLayoutPropType = {
     sideBar: React.ReactNode
 }
 const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
-    // const location = useLocation();
-    // const links = location.pathname.split('/').slice(2);
+    const location = useLocation();
+    const links = location.pathname.split('/').slice(2);
+    console.log(links,'links');
+    
     const dispatch: AppDispatch = useDispatch()
     let profile = useSelector((state: RootProps) => state.auth.authData);
     const dark = useSelector((state: RootProps) => state.ui.dark);
@@ -99,7 +101,6 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                     aria-label="open drawer"
                     edge="start"
                     onClick={handleDrawerToggle}
-                    // onClick={() => { }}
                     sx={{ mr: 2, borderRadius: '8px' }}
                 >
                     <NotesRounded />

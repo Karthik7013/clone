@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardContent, CardMedia, Chip, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, ListSubheader, Switch, Typography } from "@mui/material"
+import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, ListSubheader, Switch, TextField, Typography } from "@mui/material"
 import React from "react";
 import CakeRoundedIcon from '@mui/icons-material/CakeRounded';
 import LocalPoliceRoundedIcon from '@mui/icons-material/LocalPoliceRounded';
@@ -88,6 +88,25 @@ const Settings = () => {
 
           <Grid item xs={12}>
             <Card>
+
+              <List
+                subheader={
+                  <ListSubheader component="div">
+                    Contact Details
+                  </ListSubheader>
+                }
+              >
+                <Divider />
+      
+              </List>
+              <Divider />
+              <CardActions>
+                <Button variant="contained" size="small">Save</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item xs={12}>
+            <Card>
               <List
                 subheader={
                   <ListSubheader component="div" id="nested-list-subheader">
@@ -127,12 +146,6 @@ const Settings = () => {
             </Card>
           </Grid>
         </Grid>
-
-
-
-
-
-
       </Box >
     </Box>
   )

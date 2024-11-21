@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, CardActionArea, CardActions, CardContent, Chip, Divider, Grid, Icon, IconButton, ListItem, ListItemAvatar, ListItemText, Menu, MenuItem, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, ThemedProps, Typography } from '@mui/material'
+import { Avatar, Box, Button, Card, CardActionArea, CardActions, CardContent, Chip, Divider, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, ListSubheader, Menu, MenuItem, Paper, Stack, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, ThemedProps, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { DeleteOutline, MoreHorizOutlined, Forward5 } from '@mui/icons-material';
@@ -218,11 +218,26 @@ const Home = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-
-
             </CardContent>
           </Card>
         </Grid>
+
+        <Grid item xs={12}>
+          <Card>
+            <List
+              subheader={
+                <ListSubheader component="div" id="nested-list-subheader">
+                  Recent Activity
+                </ListSubheader>
+              }
+            >
+              <Divider />
+        
+            </List>
+          </Card>
+        </Grid>
+
+
         <Grid item xs={12} md={5}>
           <Card>
             <CardContent>
@@ -245,7 +260,8 @@ const Home = () => {
                 <ReactApexChart options={chartOptions} series={seriesChat} type="donut" />
               </div>
 
-            </CardContent></Card>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
     </Box>

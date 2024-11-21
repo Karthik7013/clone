@@ -2,12 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AgentService, authService, CustomerResources, CustomerService, EmployeeService } from "../../service/api";
 import { createBrowserHistory, History } from 'history';
 import { authProps } from "../../types/AuthProps/AuthProps";
-import Cookies from 'js-cookie';
+
 
 const role = getSessionToken('role');
-const accessToken1 = Cookies.get('accessToken');
-const refreshToken1 = Cookies.get('refreshToken');
-console.log(refreshToken1, 'see');
 
 export const history: History = createBrowserHistory();
 import { getSessionToken } from "../../utils/utils"
@@ -207,10 +204,13 @@ const authSlice = createSlice({
             .addCase(getCustomerProfile.rejected, (state, action) => {
                 state.loading = false;
                 state.alert = {
-                    type: 'error',
-                    message: 'failed to get profile',
+                    type: 'warning',
+                    message: 'Session has Expire Re login',
                     state: true
                 }
+                state.isLogin = false;
+                state.authData = null;
+                sessionStorage.removeItem('role');
             })
             .addCase(getCustomerProfile.fulfilled, (state, action) => {
                 state.loading = false;
