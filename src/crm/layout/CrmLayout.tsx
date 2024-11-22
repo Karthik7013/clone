@@ -1,31 +1,24 @@
-import { alpha, AppBar, Avatar, Badge, Box, Breadcrumbs, Card, CardContent, Chip, CircularProgress, Divider, Drawer, Icon, IconButton, InputAdornment, LinearProgress, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, styled, Toolbar, Tooltip, Typography, useTheme } from "@mui/material"
+import { alpha, AppBar, Avatar, Box, CardContent, Chip, Divider, Drawer, IconButton, LinearProgress, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, styled, Toolbar, Tooltip, Typography } from "@mui/material"
 import React, { Suspense, useEffect } from "react";
 import { Logout, NotesRounded } from '@mui/icons-material';
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootProps } from "../../types/RootProps";
 import { toggleTheme } from "../../redux/slice/uiSlice";
-import { closeAlert, getCustomerProfile, getProfile, logoutCustomer } from "../../redux/slice/authSlice";
-// import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
-import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
+import { getCustomerProfile, logoutCustomer } from "../../redux/slice/authSlice";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
-
-// import theme from "../../theme/theme";
 const drawerWidth = 240;
 import { AppDispatch } from "../../redux/store";
-import AlertBox from "../../Framework/components/AlertBox";
 
 
 type crmLayoutPropType = {
     sideBar: React.ReactNode
 }
 const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
-    const location = useLocation();
-    const links = location.pathname.split('/').slice(2);
-    console.log(links,'links');
-    
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
     const dispatch: AppDispatch = useDispatch()
     let profile = useSelector((state: RootProps) => state.auth.authData);
     const dark = useSelector((state: RootProps) => state.ui.dark);
@@ -39,8 +32,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
         setMobileOpen(!mobileOpen);
     };
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
+
     const handleClick = (event: any) => {
         setAnchorEl(event.currentTarget);
     };
@@ -50,8 +42,6 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
 
     const handleOnclick = () => dispatch(logoutCustomer({})) // logout 
     const handleTheme = () => dispatch(toggleTheme()); //toggle theme;
-    // const alert = useSelector((state: RootState) => state.auth.alert);
-    // const handleCloseAlert = () => dispatch(closeAlert());
 
     useEffect(() => {
         dispatch(getCustomerProfile({}));
@@ -100,7 +90,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                     disableTouchRipple
                     aria-label="open drawer"
                     edge="start"
-                    onClick={handleDrawerToggle}
+                    // onClick={handleDrawerToggle}
                     sx={{ mr: 2, borderRadius: '8px' }}
                 >
                     <NotesRounded />
@@ -134,9 +124,6 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                                     onClick={handleClick}
                                     size="small"
                                     sx={{ ml: 2 }}
-                                    aria-controls={open ? 'account-menu' : undefined}
-                                    aria-haspopup="true"
-                                    aria-expanded={open ? 'true' : undefined}
                                 >
                                     <Avatar
                                         src="https://avatar.iran.liara.run/public"

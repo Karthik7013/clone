@@ -109,14 +109,13 @@ const Home = () => {
     console.log('renderedchart');
     return (
       <Box>
-        <Card>
-          <CardContent>
-            <div id="chart">
-              <ApexCharts options={options} series={series} type="bar" height={350} />
-            </div>
-          </CardContent>
-        </Card>
-      </Box>
+
+        <div id="chart">
+          <ApexCharts options={options} series={series} type="bar" height={350} />
+        </div>
+
+
+      </Box >
     );
   });
 
@@ -170,99 +169,56 @@ const Home = () => {
             }
           </Stack>
         </Grid>
+
+
+
         <Grid item xs={12} md={7}>
-          <StatusBarGraph />
-        </Grid>
-        <Grid item xs={12} md={7}>
-          <Card>
-            <CardContent>
-              <ListItem
-                // disableGutters
-                disablePadding
-                secondaryAction={
-                  <IconButton><FileUploadRoundedIcon /></IconButton>
-                }
-              >
-
-                <ListItemText
-                  primary="Recent Activity"
-
-                />
-              </ListItem>
-              <TableContainer>
-                <Table aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Dessert (100g serving)</TableCell>
-                      <TableCell align="right">Calories</TableCell>
-                      <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                      <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                      <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => (
-                      <TableRow
-                        key={row.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      >
-                        <TableCell component="th" scope="row">
-                          {row.name}
-                        </TableCell>
-                        <TableCell align="right">{row.calories}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.carbs}</TableCell>
-                        <TableCell align="right">{row.protein}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12}>
           <Card>
             <List
               subheader={
-                <ListSubheader component="div" id="nested-list-subheader">
-                  Recent Activity
+                <ListSubheader component="div">
+                  Montly Renewals
                 </ListSubheader>
               }
             >
               <Divider />
-        
+              <StatusBarGraph />
             </List>
           </Card>
         </Grid>
 
 
+        <Grid item xs={12} md={7}>
+          <Card>
+            <List
+              subheader={
+                <ListSubheader component="div">
+                  Policy Queue
+                </ListSubheader>
+              }
+            >
+              <Divider />
+
+            </List>
+          </Card>
+        </Grid>
         <Grid item xs={12} md={5}>
           <Card>
-            <CardContent>
-              <ListItem
-                disableGutters
-                disablePadding
-                secondaryAction={
-                  <IconButton><FileUploadRoundedIcon /></IconButton>
-                }
-              >
-
-                <ListItemText
-                  primary="Recent Activity"
-
-                />
-              </ListItem>
-
-
+            <List
+              subheader={
+                <ListSubheader component="div">
+                  Product Claims
+                </ListSubheader>
+              }
+            >
+              <Divider />
               <div id="chart">
                 <ReactApexChart options={chartOptions} series={seriesChat} type="donut" />
               </div>
-
-            </CardContent>
+            </List>
           </Card>
         </Grid>
+
       </Grid>
     </Box>
   )

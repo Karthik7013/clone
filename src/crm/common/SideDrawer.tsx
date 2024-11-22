@@ -1,6 +1,5 @@
 import { Avatar, Badge, Box, Chip, Divider, Icon, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
-import { Link, useLocation } from 'react-router-dom';
-import { Link as MuiLink } from "@mui/material";
+import { Link } from 'react-router-dom';
 import React from 'react';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
@@ -11,8 +10,6 @@ import ProtectedRoutes from '../../ProtectedRoute';
 
 const SideDrawer = () => {
     const theme = useTheme()
-    const { pathname } = useLocation();
-    console.log(pathname, 'pathname')
 
     return (<Box>
         <Toolbar sx={{ display: { xs: 'block', md: 'none' } }}>
@@ -45,96 +42,99 @@ const SideDrawer = () => {
                     }}
                 />
             </ListItem>
-            <ProtectedRoutes role='customer' requiredPermission={1000}>
-                <MuiLink component={Link} to=''>
-                    <ListItem disablePadding
-                        secondaryAction={
-                            <Chip variant='outlined' label="new" size="small" color="primary" />
-                        }
+            <ProtectedRoutes role="customer" requiredPermission={1000}>
+
+                <ListItem disablePadding
+                    secondaryAction={
+                        <Chip variant="outlined" label="new" size="small" color="primary" />
+                    }
+                >
+                    <ListItemButton
+                        disableRipple
+                        component={Link}
+                        to=""
                     >
-                        <ListItemButton
-                            href='/dashboard'
-                            LinkComponent={Link}
-                            disableRipple>
-                            <ListItemIcon>
-                                <Icon fontSize='small'>dashboard</Icon>
-                            </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Dashboard'}</Typography>} />
-                        </ListItemButton>
-                    </ListItem>
-                </MuiLink>
+                        <ListItemIcon>
+                            <Icon fontSize="small">dashboard</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant="body2" noWrap>{'Dashboard'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+
             </ProtectedRoutes>
             <ProtectedRoutes role='customer' requiredPermission={1001}>
-                <MuiLink component={Link} to={'policies'}>
-                    <ListItem disablePadding>
-                        <ListItemButton
-                            disableRipple>
-                            <ListItemIcon>
-                                <Icon fontSize='small'>receipt_long</Icon>
-                            </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'My Policies'}</Typography>} />
-                        </ListItemButton>
-                    </ListItem>
-                </MuiLink>
+
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link}
+                        to="policies"
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>receipt_long</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'My Policies'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+
             </ProtectedRoutes>
             <ProtectedRoutes role='customer' requiredPermission={1002}>
-                <MuiLink component={Link} to={'claims'}>
-                    <ListItem disablePadding>
-                        <ListItemButton
-                            disableRipple>
-                            <ListItemIcon>
-                                <Icon fontSize='small'>verified_user</Icon>
-                            </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
-                        </ListItemButton>
-                    </ListItem>
-                </MuiLink>
+
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'claims'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>verified_user</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+
             </ProtectedRoutes>
             <ProtectedRoutes role='customer' requiredPermission={1003}>
-                <MuiLink component={Link} to={'register'}>
-                    <ListItem disablePadding>
-                        <ListItemButton
-                            disableRipple>
-                            <ListItemIcon>
-                                <Icon fontSize='small'>assignment_add</Icon>
-                            </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Register Claim'}</Typography>} />
-                        </ListItemButton>
-                    </ListItem>
-                </MuiLink>
+
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'register'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>assignment_add</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Register Claim'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+
             </ProtectedRoutes>
             <ProtectedRoutes role='customer' requiredPermission={1004}>
-                <MuiLink component={Link} to={'settings'}>
-                    <ListItem disablePadding>
-                        <ListItemButton
-                            disableRipple>
-                            <ListItemIcon>
-                                <Icon fontSize='small'>settings</Icon>
-                            </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
-                        </ListItemButton>
-                    </ListItem>
-                </MuiLink>
+
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'settings'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+
             </ProtectedRoutes>
             <ProtectedRoutes role='customer' requiredPermission={1005}>
-                <MuiLink component={Link} to={'helpline'}>
-                    <ListItem disablePadding
-                        secondaryAction={
-                            <Chip label="new" size="small" color="success" />
-                        }
-                    >
 
-                        <ListItemButton
-                            disableRipple>
-                            <ListItemIcon>
-                                <Icon fontSize='small'>support</Icon>
-                            </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Help'}</Typography>} />
-
-                        </ListItemButton>
-
-                    </ListItem>
-                </MuiLink>
+                <ListItem disablePadding
+                    secondaryAction={
+                        <Chip label="new" size="small" color="success" />
+                    }
+                >
+                    <ListItemButton
+                        component={Link} to={'helpline'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>support</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Help'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
             </ProtectedRoutes>
             <Divider />
         </List>

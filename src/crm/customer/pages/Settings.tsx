@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, ListSubheader, Switch, TextField, Typography } from "@mui/material"
+import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, ListSubheader, Switch, TextField, Typography, useTheme } from "@mui/material"
 import React from "react";
 import CakeRoundedIcon from '@mui/icons-material/CakeRounded';
 import LocalPoliceRoundedIcon from '@mui/icons-material/LocalPoliceRounded';
@@ -9,6 +9,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import EditProfile from "../components/EditProfile";
 import { handleEditProfile } from "../../../redux/slice/uiSlice";
 const Settings = () => {
+  const theme = useTheme()
   const authData = useSelector((state: RootState) => state.auth.authData);
   const dispatch: AppDispatch = useDispatch();
   const handleClose = () => dispatch(handleEditProfile());
@@ -97,7 +98,7 @@ const Settings = () => {
                 }
               >
                 <Divider />
-      
+
               </List>
               <Divider />
               <CardActions>
@@ -142,6 +143,25 @@ const Settings = () => {
                     primary={<Typography variant="subtitle2">Message Notifications</Typography>}
                   />
                 </ListItem>
+              </List>
+            </Card>
+          </Grid>
+          <Grid item xs={12}>
+            <Card>
+              <List
+                subheader={
+                  <ListSubheader sx={{ bgcolor: theme.palette.error.main, color: theme.palette.error.contrastText }} component="div" id="nested-list-subheader">
+                    Danger Zone
+                  </ListSubheader>
+                }
+              >
+                <Divider />
+                <ListItem>
+                  <ListItemText
+                    primary={<Typography variant="subtitle2">Whatsapp Notifications</Typography>}
+                  />
+                </ListItem>
+
               </List>
             </Card>
           </Grid>

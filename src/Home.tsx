@@ -132,7 +132,7 @@ const Home = () => {
                         </Box>
                         <Box>
                             <Card elevation={0}>
-                                <CardMedia height={200} component={'img'} image="https://static.pbcdn.in/cdn/images/home/term_crore_desktop.png?v=10" />
+                                <CardMedia height={200} component={'img'} image="https://img.freepik.com/free-vector/business-insurance-template-blog-banner_53876-117981.jpg" />
                             </Card>
                         </Box>
                     </Stack>
