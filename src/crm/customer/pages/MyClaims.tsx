@@ -3,8 +3,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from '@mui/x-data-grid';
 import LoadingModal from '../../../Framework/components/LoadingModal';
+import CachedRoundedIcon from '@mui/icons-material/CachedRounded';
 
 const MyClaims = () => {
   const columns = [
@@ -89,6 +90,22 @@ const MyClaims = () => {
     },
     // Add more rows as necessary
   ];
+
+  const CustomToolbar = () => {
+    return <GridToolbarContainer>
+      <Stack direction='row' sx={{ width: '100%' }} p={1}>
+        <Box flexGrow={1} />
+        <Button size='small' startIcon={<CachedRoundedIcon />}>
+          Refresh
+        </Button>
+        <GridToolbarFilterButton />
+        <GridToolbarDensitySelector />
+        <GridToolbarExport />
+      </Stack>
+
+    </GridToolbarContainer>
+  }
+
   return (
     <Box mt={3}>
       <ListItem
@@ -111,6 +128,9 @@ const MyClaims = () => {
 
       <div style={{ height: 450, width: '100%' }}>
         <DataGrid
+          slots={{
+            toolbar: CustomToolbar
+          }}
           rows={rows}
           columns={columns}
           checkboxSelection

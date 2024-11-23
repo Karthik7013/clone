@@ -34,7 +34,52 @@ export const pospRoutes = () => {
             },
             {
                 path: 'dashboard',
-                element: (islogin && role === 'agent') ? <CrmLayout sideBar={<SideDrawer />} /> : <Navigate to='/agent/signin' />
+                element: (islogin && role === 'agent') ? <CrmLayout sideBar={<SideDrawer />} /> : <Navigate to='/agent/signin' />,
+                children: [
+                    {
+                        path: '/agent/dashboard',
+                        element:
+                            <Dashboard />
+                    },
+                    {
+                        path: 'bookings',
+                        element:
+                            <Bookings />
+                    },
+                    {
+                        path: 'add-policy',
+                        element:
+                            <AddPolicy />
+                    },
+                    {
+                        path: 'claims',
+                        element:
+                            <Claims />
+                    },
+                    {
+                        path: 'settings',
+                        element:
+                            <Settings />
+                    },
+                    {
+                        path: 'help',
+                        element:
+                            <Helpline />
+                    },
+                    {
+                        path: 'study-material',
+                        element:
+                            <StudyMaterial />
+                    },
+                    {
+                        path: 'examination',
+                        element:
+                            <Examination />
+                    }, {
+                        path: "*",
+                        element: <PageNotFound />
+                    }
+                ]
             }
         ]
     })

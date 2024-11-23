@@ -31,14 +31,11 @@ function Copyright(props: any) {
 
 
 const EmployeeLogin = () => {
-    const navigate = useNavigate()
     const dispatch: AppDispatch = useDispatch();
     const isLoading = useSelector((state: RootProps) => state.auth.loading);
     const isLogin = useSelector((state: RootProps) => state.auth.isLogin);
 
-    React.useEffect(() => {
-        if (isLogin) navigate('/dashboard')
-    }, [isLogin])
+
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -81,9 +78,6 @@ const EmployeeLogin = () => {
                                 alt="company logo"
                             />
                         </Card>
-
-
-
                         <Typography component="h1" variant="h5">
                             Employee Sign in
                         </Typography>
