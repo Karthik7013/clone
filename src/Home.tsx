@@ -19,7 +19,9 @@ import giftBox from './assets/spark.svg';
 import CookieCard from "./Framework/components/CookieCard"
 import { RootState } from "./redux/store";
 import ProviderLogo from "./Framework/components/ProviderLogo";
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 const Home = () => {
     console.log('home renders')
     type navProps = {
@@ -85,6 +87,16 @@ const Home = () => {
         animation: `${rotate} 1s linear infinite`,
     }));
 
+    const settings = {
+        infinite: true, // Infinite scrolling
+        speed: 500, // Transition speed
+        slidesToShow: 1, // Number of slides to show at a time
+        slidesToScroll: 1, // Number of slides to scroll at a time
+        autoplay: true, // Auto play
+        autoplaySpeed: 2000, // Time before the next slide
+        arrows: false, // Disable next and previous arrows
+    };
+
 
 
     return <Box>
@@ -92,7 +104,7 @@ const Home = () => {
             <Grid container spacing={2} mt={1} flexGrow={1}>
                 <Grid item xs={12} mb={5}>
                     <Stack direction={'row'} justifyContent={'space-between'}>
-                        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                        <Box sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
                             <Typography variant="h4">Lets Find Your</Typography>
                             <Typography variant="h4" fontWeight={600}>Best Insurance Plan</Typography>
                             <Stack direction={'row'} gap={1} mt={2}>
@@ -131,14 +143,33 @@ const Home = () => {
                             </Stack>
                         </Box>
                         <Box>
-                            <Card elevation={0}>
-                                <CardMedia height={200} component={'img'} image="https://img.freepik.com/free-vector/business-insurance-template-blog-banner_53876-117981.jpg" />
-                            </Card>
+
+                            <Box sx={{ width: '100%', maxWidth: 400, mx: 'auto', mt: 4 }}>
+
+
+                                <Slider {...settings}>
+                                    <Box sx={{ position: 'relative' }}>
+                                        <Card elevation={0} sx={{ maxWidth: 400 }}>
+                                            <CardMedia component={'img'} image="https://img.freepik.com/free-vector/business-insurance-template-blog-banner_53876-117981.jpg" />
+                                        </Card>
+                                
+                                    </Box>
+                                    <Box sx={{ position: 'relative' }}>
+                                        <Card elevation={0} sx={{ maxWidth: 400 }}>
+                                            <CardMedia component={'img'} image="https://img.freepik.com/free-vector/business-insurance-template-blog-banner_53876-117981.jpg" />
+                                        </Card>
+                                    </Box>
+                                    <Box sx={{ position: 'relative' }}>
+                                        <Card elevation={0} sx={{ maxWidth: 400 }}>
+                                            <CardMedia component={'img'} image="https://img.freepik.com/free-vector/business-insurance-template-blog-banner_53876-117981.jpg" />
+                                        </Card>
+                                     
+                                    </Box>
+                                </Slider>
+                            </Box>
                         </Box>
                     </Stack>
-
                 </Grid>
-
                 {
                     products.map((nav: navProps, _: number) => {
                         return <Grid key={_} item xs={4} sm={3} md={3} lg={2}>

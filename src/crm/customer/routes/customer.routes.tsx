@@ -51,7 +51,7 @@ export const customerRoutes = () => {
                                 requiredPermission={1001}
                                 fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
                             >
-                                <MyPolicies policies={[]} />
+                                <MyPolicies />
                             </ProtectedRoutes>
                     },
                     {

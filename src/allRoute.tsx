@@ -43,6 +43,7 @@ import { RootState } from "./redux/store";
 import ProductSummary from "./Framework/components/ProductSummary";
 import { customerRoutes } from "./crm/customer/routes/customer.routes";
 import { pospRoutes } from "./crm/posp/routes/posp.routes";
+import { employeeRoutes } from "./crm/employee/routes/employee.routes";
 
 
 export const allRouter = () => {
@@ -176,6 +177,7 @@ export const allRouter = () => {
         },
         { ...customerRoutes() },
         { ...pospRoutes() },
+        { ...employeeRoutes() },
         {
             path: '*',
             element: <PageNotFound />
@@ -183,7 +185,3 @@ export const allRouter = () => {
     ]
     return createBrowserRouter(commonRoutes);
 }
-
-
-
-
