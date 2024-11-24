@@ -5,6 +5,8 @@ import { RootState } from '../../../redux/store';
 import { Navigate, Outlet } from 'react-router-dom';
 import CrmLayout from '../../layout/CrmLayout';
 import SideDrawer from '../../common/SideDrawer';
+import ProtectedRoutes from '../../../ProtectedRoute';
+import MessageBox from '../../../Framework/components/MessageBox';
 
 const Dashboard = lazy(() => import('../pages/Dashboard'));
 const Login = lazy(() => import('../pages/Login'));
@@ -39,42 +41,74 @@ export const pospRoutes = () => {
                     {
                         path: '/agent/dashboard',
                         element:
-                            <Dashboard />
+                            <ProtectedRoutes role="agent"
+                                fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                                requiredPermission={2000}>
+                                <Dashboard />
+                            </ProtectedRoutes>
                     },
                     {
                         path: 'bookings',
                         element:
-                            <Bookings />
+                            <ProtectedRoutes role="agent"
+                                fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                                requiredPermission={2001}>
+                                <Bookings />
+                            </ProtectedRoutes>
+
                     },
                     {
                         path: 'add-policy',
-                        element:
+                        element: <ProtectedRoutes role="agent"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={2002}>
                             <AddPolicy />
+                        </ProtectedRoutes>
+
                     },
                     {
                         path: 'claims',
-                        element:
+                        element: <ProtectedRoutes role="agent"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={2003}>
                             <Claims />
+                        </ProtectedRoutes>
+
                     },
                     {
                         path: 'settings',
-                        element:
+                        element: <ProtectedRoutes role="agent"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={2004}>
                             <Settings />
+                        </ProtectedRoutes>
+
                     },
                     {
                         path: 'help',
-                        element:
+                        element: <ProtectedRoutes role="agent"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={2005}>
                             <Helpline />
+                        </ProtectedRoutes>
+
                     },
                     {
                         path: 'study-material',
-                        element:
+                        element: <ProtectedRoutes role="agent"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={2006}>
                             <StudyMaterial />
+                        </ProtectedRoutes>
+
                     },
                     {
                         path: 'examination',
-                        element:
+                        element: <ProtectedRoutes role="agent"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={2006}>
                             <Examination />
+                        </ProtectedRoutes>
                     }, {
                         path: "*",
                         element: <PageNotFound />

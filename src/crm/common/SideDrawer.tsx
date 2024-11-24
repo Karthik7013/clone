@@ -136,6 +136,108 @@ const SideDrawer = () => {
                     </ListItemButton>
                 </ListItem>
             </ProtectedRoutes>
+
+
+            <ProtectedRoutes role='agent' requiredPermission={2000}>
+                <ListItem disablePadding
+                    secondaryAction={
+                        <Chip label="new" size="small" color="success" />
+                    }
+                >
+                    <ListItemButton
+                        component={Link} to={''}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>app_registration</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Overview'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='agent' requiredPermission={2001}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'bookings'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>post_add</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Bookings'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='agent' requiredPermission={2003}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'add-policy'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>assignment_add</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Add Policy'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='agent' requiredPermission={2003}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'claims'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>receipt_long</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='agent' requiredPermission={2004}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'settings'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>settings</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='agent' requiredPermission={2005}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'help'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>support</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Helpline'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='agent' requiredPermission={2006}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'examination'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>checklist_rtl</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Examination'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='agent' requiredPermission={2006}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'study-material'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>support</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Study Material'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
             <Divider />
         </List>
         <Box sx={{
@@ -150,72 +252,7 @@ const SideDrawer = () => {
 }
 
 // posp
-{/* <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Overview'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Bookings'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Add Policy'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Helpline'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink> */}
+
 // employee
 {/* <MuiLink component={Link} to={'/dashboard'}>
                 <ListItem disablePadding>

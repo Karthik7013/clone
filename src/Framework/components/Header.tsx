@@ -25,7 +25,7 @@ import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownR
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import ProductPannel from './ProductPannel';
-import { logoutCustomer } from '../../redux/slice/authSlice';
+import { logout } from '../../redux/slice/authSlice';
 import { AppDispatch, RootState } from '../../redux/store';
 
 const Header = () => {
@@ -60,7 +60,7 @@ const Header = () => {
         dispatch(toggleTheme())
     }
 
-    const handleOnclick = () => dispatch(logoutCustomer({})) // logout 
+    const handleOnclick = () => dispatch(logout({})) // logout 
 
     return (
         <CustomAppBar>

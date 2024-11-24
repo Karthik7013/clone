@@ -5,7 +5,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootProps } from "../../types/RootProps";
 import { toggleTheme } from "../../redux/slice/uiSlice";
-import { getCustomerProfile, logoutCustomer } from "../../redux/slice/authSlice";
+import { getAgentProfile, getCustomerProfile, logout } from "../../redux/slice/authSlice";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
@@ -23,6 +23,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
     let profile = useSelector((state: RootProps) => state.auth.authData);
     const dark = useSelector((state: RootProps) => state.ui.dark);
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const role = useSelector((state: RootProps) => state.auth.role);
 
     const handleDrawerClose = () => {
         setMobileOpen(false);
@@ -40,11 +41,24 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
         setAnchorEl(null);
     };
 
-    const handleOnclick = () => dispatch(logoutCustomer({})) // logout 
+    const handleOnclick = () => dispatch(logout({})) // logout 
     const handleTheme = () => dispatch(toggleTheme()); //toggle theme;
 
     useEffect(() => {
-        dispatch(getCustomerProfile({}));
+        switch (role) {
+            case 'customer':
+                dispatch(getCustomerProfile({}));
+                break;
+            case 'agent':
+                dispatch(getAgentProfile({}));
+                break;
+            case 'employee':
+
+                break;
+
+            default:
+                break;
+        }
     }, [dispatch]);
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({

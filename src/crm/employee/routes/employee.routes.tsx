@@ -20,7 +20,6 @@ const PageNotFound = React.lazy(() => import("../../../Framework/components/Page
 export const employeeRoutes = () => {
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
     const role = useSelector((state: RootState) => state.auth.role);
-    console.log(role, 'roleinemployee')
     return ({
         path: 'employee',
         element: <Outlet />,

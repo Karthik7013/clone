@@ -6,11 +6,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-
-import Grid from '@mui/material/Grid';
-
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-
 import Container from '@mui/material/Container';
 
 import LoginAvatar from "../../../assets/user-profile.svg";
@@ -45,9 +40,7 @@ const Login = () => {
     const isLogin = useSelector((state: RootState) => state.auth.isLogin);
     const alert = useSelector((state: RootState) => state.auth.alert);
     const closeAlertHandle = () => dispatch(closeAlert())
-    React.useEffect(() => {
-        // if (isLogin) navigate('/dashboard')
-    }, [isLogin])
+
 
 
 
@@ -63,8 +56,6 @@ const Login = () => {
     };
     return (
         <Box>
-
-
             <AlertBox alert={alert} onClose={closeAlertHandle} />
             <Container component="main" maxWidth="xs">
                 <Box

@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AgentService, authService, CustomerResources, CustomerService, EmployeeService } from "../../service/api";
+import { AgentResources, authService, CustomerResources, } from "../../service/api";
 import { createBrowserHistory, History } from 'history';
 import { authProps } from "../../types/AuthProps/AuthProps";
 
 
 const role = getSessionToken('role');
-
 export const history: History = createBrowserHistory();
 import { getSessionToken } from "../../utils/utils"
 const initialState: authProps = {
@@ -57,8 +56,7 @@ export const loginCustomer = createAsyncThunk('login/customer', async (payload: 
         }
         return rejectWithValue({ status: error.response.status, message: error.response.data.message });
     }
-}
-);
+});
 
 export const getCustomerProfile = createAsyncThunk('profile/customer', async (payload: {}, { rejectWithValue }) => {
     try {
@@ -69,9 +67,9 @@ export const getCustomerProfile = createAsyncThunk('profile/customer', async (pa
     }
 })
 
-export const logoutCustomer = createAsyncThunk('logout/customer', async (payload: {}, { rejectWithValue }) => {
+export const logout = createAsyncThunk('logout/customer', async (payload: {}, { rejectWithValue }) => {
     try {
-        const res = await CustomerService.post(`/signOut`);
+        const res = await authService.post(`/signOut`);
         return { status: res.status, data: res.data.data }
     } catch (error) {
         return rejectWithValue({ status: error.response.status, message: error.response.data });
@@ -79,25 +77,24 @@ export const logoutCustomer = createAsyncThunk('logout/customer', async (payload
 })
 
 // =============== | AGENT ACTIONS | ==============>
-export const loginAgent = createAsyncThunk('login/user', async (payload: { phone: number }, { rejectWithValue }) => {
+export const loginAgent = createAsyncThunk('login/agent', async (payload: { phone: number }, { rejectWithValue }) => {
     try {
-        const res = await AgentService.post('/verify', { ...payload });
-        console.log(res.data, 'res through toolkit');
+        const res = await authService.post('/agent/verify', { ...payload });
+        console.log(res.data);
+
         return { status: res.status, data: res.data };
     } catch (error) {
-        return rejectWithValue({ status: error.response.status, message: error.response.data });
+        if (error.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
     }
 }
 );
 
-// get agent Profile
-export const getAgentProfile = createAsyncThunk('profile/user', async (payload: {}, { rejectWithValue }) => {
+export const getAgentProfile = createAsyncThunk('profile/agent', async (payload: {}, { rejectWithValue }) => {
     try {
-        const token = getSessionToken('access-token');
-        const headers = {
-            "authorization": `Bearer ${token}`,
-        };
-        const res = await AgentService.get('/profile', { headers });
+        const res = await AgentResources.get(`/profile`);
         return { status: res.status, data: res.data.data }
     } catch (error) {
         return rejectWithValue({ status: error.response.status, message: error.response.data });
@@ -117,64 +114,6 @@ const authSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-
-        // employee
-        builder.addCase(loginUser.pending, (state) => {
-            state.loading = true;
-        })
-            .addCase(loginUser.rejected, (state) => {
-                state.loading = false;
-                state.alert = {
-                    type: 'error',
-                    message: 'invalid username/password',
-                    state: true
-                }
-
-            })
-            .addCase(loginUser.fulfilled, (state, action) => {
-                state.loading = false
-                state.isLogin = true;
-                state.alert = {
-                    message: 'Login Success',
-                    state: true,
-                    type: 'success'
-                }
-                sessionStorage.setItem('access-token', action.payload.data.data.accessToken);
-                sessionStorage.setItem('login-type', 'employee');
-            });
-        builder.addCase(getProfile.pending, (state) => {
-            state.loading = true;
-        })
-            .addCase(getProfile.rejected, (state, action) => {
-                state.loading = false;
-                state.alert = {
-                    type: 'error',
-                    message: 'failed to get profile',
-                    state: true
-                }
-            })
-            .addCase(getProfile.fulfilled, (state, action) => {
-                state.loading = false;
-                if (getSessionToken('prev_login')) {
-                    // console.log('first time entered')
-                    state.alert = {
-                        type: 'success',
-                        message: 'Welcom Back',
-                        state: true
-                    }
-                } else {
-                    state.alert = {
-                        type: 'success',
-                        message: 'Login Success',
-                        state: true
-                    }
-                    sessionStorage.setItem('prev_login', 'true')
-                }
-
-                state.isLogin = true;
-                state.profile = action.payload.data
-            })
-
         // customer
         builder.addCase(loginCustomer.pending, (state) => {
             state.loading = true;
@@ -230,14 +169,14 @@ const authSlice = createSlice({
                 }
                 state.isLogin = true;
                 state.authData = action.payload.data
-            })
-        builder.addCase(logoutCustomer.pending, (state) => {
+            });
+        builder.addCase(logout.pending, (state) => {
             state.loading = true
         })
-            .addCase(logoutCustomer.rejected, (state, action) => {
+            .addCase(logout.rejected, (state, action) => {
                 state.loading = false
             })
-            .addCase(logoutCustomer.fulfilled, (state, action) => {
+            .addCase(logout.fulfilled, (state, action) => {
                 state.loading = false;
                 state.isLogin = false;
                 state.role = null;
@@ -247,9 +186,127 @@ const authSlice = createSlice({
                     type: 'error'
                 }
                 sessionStorage.removeItem('role')
+            });
+        // agent 
+        builder.addCase(loginAgent.pending, (state) => {
+            state.loading = true;
+        })
+            .addCase(loginAgent.rejected, (state, action: { payload: any }) => {
+                state.loading = false;
+                state.alert = {
+                    type: 'error',
+                    message: action.payload.message,
+                    state: true
+                }
             })
+            .addCase(loginAgent.fulfilled, (state, action) => {
+                state.loading = false
+                state.isLogin = true;
+                state.alert = {
+                    message: 'Login Success',
+                    state: true,
+                    type: 'success'
+                }
+                state.role = action.payload.data.data.role
+                sessionStorage.setItem('role', action.payload.data.data.role);
+            });
+        builder.addCase(getAgentProfile.pending, (state) => {
+            state.loading = true;
+        })
+            .addCase(getAgentProfile.rejected, (state, action) => {
+                state.loading = false;
+                state.alert = {
+                    type: 'warning',
+                    message: 'Session has Expire Re login',
+                    state: true
+                }
+                state.isLogin = false;
+                state.authData = null;
+                sessionStorage.removeItem('role');
+            })
+            .addCase(getAgentProfile.fulfilled, (state, action) => {
+                state.loading = false;
+                if (getSessionToken('prev_login')) {
+                    state.alert = {
+                        type: 'success',
+                        message: 'Welcom Back',
+                        state: true
+                    }
+                } else {
+                    state.alert = {
+                        type: 'success',
+                        message: 'Login Success',
+                        state: true
+                    }
+                    sessionStorage.setItem('prev_login', 'true')
+                }
+                state.isLogin = true;
+                state.authData = action.payload.data
+            });
     }
 })
 
 export const { closeAlert } = authSlice.actions;
 export default authSlice.reducer;
+
+
+
+
+
+
+// // employee
+// builder.addCase(loginUser.pending, (state) => {
+//     state.loading = true;
+// })
+//     .addCase(loginUser.rejected, (state) => {
+//         state.loading = false;
+//         state.alert = {
+//             type: 'error',
+//             message: 'invalid username/password',
+//             state: true
+//         }
+
+//     })
+//     .addCase(loginUser.fulfilled, (state, action) => {
+//         state.loading = false
+//         state.isLogin = true;
+//         state.alert = {
+//             message: 'Login Success',
+//             state: true,
+//             type: 'success'
+//         }
+//         sessionStorage.setItem('access-token', action.payload.data.data.accessToken);
+//         sessionStorage.setItem('login-type', 'employee');
+//     });
+// builder.addCase(getProfile.pending, (state) => {
+//     state.loading = true;
+// })
+//     .addCase(getProfile.rejected, (state, action) => {
+//         state.loading = false;
+//         state.alert = {
+//             type: 'error',
+//             message: 'failed to get profile',
+//             state: true
+//         }
+//     })
+//     .addCase(getProfile.fulfilled, (state, action) => {
+//         state.loading = false;
+//         if (getSessionToken('prev_login')) {
+//             // console.log('first time entered')
+//             state.alert = {
+//                 type: 'success',
+//                 message: 'Welcom Back',
+//                 state: true
+//             }
+//         } else {
+//             state.alert = {
+//                 type: 'success',
+//                 message: 'Login Success',
+//                 state: true
+//             }
+//             sessionStorage.setItem('prev_login', 'true')
+//         }
+
+//         state.isLogin = true;
+//         state.profile = action.payload.data
+//     })

@@ -12,13 +12,6 @@ export const authService = axios.create({
   withCredentials: true
 })
 
-export const CustomerService = axios.create({
-  baseURL: 'http://localhost:8000/api/v1/auth/customer',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true
-})
 export const CustomerResources = axios.create({
   // baseURL: deployURL,
   baseURL: 'http://localhost:8000/api/v1/customer',
@@ -28,15 +21,16 @@ export const CustomerResources = axios.create({
   withCredentials: true
 })
 
-export const AgentService = axios.create({
+export const AgentResources = axios.create({
   // baseURL: deployURL,
-  baseURL: 'http://localhost:8000/api/v1/auth/agent',
+  baseURL: 'http://localhost:8000/api/v1/agent',
   headers: {
     'Content-Type': 'application/json',
-  }
+  },
+  withCredentials: true
 })
 
-export const EmployeeService = axios.create({
+export const EmployeeResources = axios.create({
   baseURL: 'http://localhost:8000/api/v1/auth/employee',
   headers: {
     'Content-Type': 'application/json',
@@ -46,7 +40,7 @@ export const EmployeeService = axios.create({
 
 
 
-// Add response interceptor
+// customerResources => response interceptor
 CustomerResources.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -57,6 +51,25 @@ CustomerResources.interceptors.response.use(
         try {
           await authService.post('/generate-access-token');
           return CustomerResources(originalRequest);
+        } catch (refreshError) {
+          console.error('Token refresh failed', refreshError);
+        }
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+// agentResources => response interceptor
+AgentResources.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response && error.response.status === 401) {
+      const originalRequest = error.config;
+      if (!originalRequest._retry) {
+        originalRequest._retry = true;
+        try {
+          await authService.post('/generate-access-token');
+          return AgentResources(originalRequest);
         } catch (refreshError) {
           console.error('Token refresh failed', refreshError);
         }
