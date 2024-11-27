@@ -7,7 +7,7 @@ import { keyframes } from '@emotion/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeBorderRadius, changeFontFamily, handlePallete, toggleTheme } from '../../redux/slice/uiSlice';
 import { AppDispatch, RootState } from '../../redux/store';
-
+import PaletteIcon from '@mui/icons-material/Palette';
 const CustomizePallete = () => {
     console.log('customizePallete render')
     const isOpen = useSelector((state: RootState) => state.ui.customizePalleteOpen);
@@ -60,6 +60,7 @@ const CustomizePallete = () => {
     const DrawerList = (
         <Box sx={{ width: 250 }} role="" onClick={toggleDrawer}>
             <Toolbar>
+                <PaletteIcon sx={{ mr: 1, color: 'inherit' }} />
                 <Typography>Customization</Typography>
             </Toolbar>
             <Divider />
@@ -75,7 +76,7 @@ const CustomizePallete = () => {
                         value={borderRadius}
                         aria-label="Default"
                         marks
-                        valueLabelFormat={valuetext} valueLabelDisplay="auto" step={4} min={0} max={16} />
+                        valueLabelFormat={valuetext} valueLabelDisplay="auto" step={4} min={0} max={32} />
                 </ListItem>
                 <Divider />
                 <ListItem>

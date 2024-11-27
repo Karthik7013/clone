@@ -31,10 +31,11 @@ export const AgentResources = axios.create({
 })
 
 export const EmployeeResources = axios.create({
-  baseURL: 'http://localhost:8000/api/v1/auth/employee',
+  baseURL: 'http://localhost:8000/api/v1/employee',
   headers: {
     'Content-Type': 'application/json',
-  }
+  },
+  withCredentials: true
 })
 
 
@@ -78,3 +79,23 @@ AgentResources.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+// employeeResources => response interceptor
+EmployeeResources.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response && error.response.status === 401) {
+      const originalRequest = error.config;
+      if (!originalRequest._retry) {
+        originalRequest._retry = true;
+        try {
+          await authService.post('/generate-access-token');
+          return EmployeeResources(originalRequest);
+        } catch (refreshError) {
+          console.error('Token refresh failed', refreshError);
+        }
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+

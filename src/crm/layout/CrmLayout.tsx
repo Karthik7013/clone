@@ -5,7 +5,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootProps } from "../../types/RootProps";
 import { toggleTheme } from "../../redux/slice/uiSlice";
-import { getAgentProfile, getCustomerProfile, logout } from "../../redux/slice/authSlice";
+import { getAgentProfile, getCustomerProfile, getEmployeeProfile, logout } from "../../redux/slice/authSlice";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
@@ -45,7 +45,9 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
     const handleTheme = () => dispatch(toggleTheme()); //toggle theme;
 
     useEffect(() => {
+        console.log(role, 'seee')
         switch (role) {
+
             case 'customer':
                 dispatch(getCustomerProfile({}));
                 break;
@@ -53,7 +55,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                 dispatch(getAgentProfile({}));
                 break;
             case 'employee':
-
+                dispatch(getEmployeeProfile({}))
                 break;
 
             default:
@@ -63,7 +65,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
         padding: theme.spacing(2),
-        borderRadius: theme.shape.borderRadius * 2,
+        borderRadius: theme.shape.borderRadius,
         flexGrow: 1,
         height: 'calc( 100dvh - 65px)',
         border: `1px solid ${alpha(theme.palette.divider, 0.05)}`,

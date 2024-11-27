@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Chip, Divider, Icon, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
+import { Avatar, Badge, Box, Chip, CircularProgress, Divider, Icon, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
@@ -6,11 +6,14 @@ import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import { useTheme } from '@mui/material';
 import KeyboardCommandKeyRoundedIcon from '@mui/icons-material/KeyboardCommandKeyRounded';
 import ProtectedRoutes from '../../ProtectedRoute';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 
 const SideDrawer = () => {
-    const theme = useTheme()
-
+    const theme = useTheme();
+    const activeTab = useSelector((state: RootState) => state.dashboard.activeTab);
+    const loading = useSelector((state: RootState) => state.auth.loading);
     return (<Box>
         <Toolbar sx={{ display: { xs: 'block', md: 'none' } }}>
             <ListItem component={Link} to="/" disablePadding sx={{ width: 240 - 10, display: { xs: 'none', md: 'flex' } }}>
@@ -21,7 +24,7 @@ const SideDrawer = () => {
                     <Typography color="text.primary">Namelix</Typography>} />
             </ListItem>
         </Toolbar>
-        <List component={Stack} sx={{ px: 1 }}>
+        {loading ? <CircularProgress /> : <List component={Stack} sx={{ px: 1 }}>
             <ListItem disablePadding sx={{ mb: 1 }}>
                 <TextField
                     size='small'
@@ -232,14 +235,130 @@ const SideDrawer = () => {
                         component={Link} to={'study-material'}
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>support</Icon>
+                            <Icon fontSize='small'>local_library</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Study Material'}</Typography>} />
                     </ListItemButton>
                 </ListItem>
             </ProtectedRoutes>
+
+            <ProtectedRoutes role='employee' requiredPermission={3000}>
+                <ListItem disablePadding
+                    secondaryAction={
+                        <Chip label="new" size="small" color="success" />
+                    }
+                >
+                    <ListItemButton
+                        component={Link} to={''}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>app_registration</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Dashboard'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='employee' requiredPermission={3001}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'service'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>app_registration</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Service'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='employee' requiredPermission={3002}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'revenue'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>app_registration</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Revenue'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='employee' requiredPermission={3003}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'sales'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>app_registration</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Sales'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='employee' requiredPermission={3004}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'income'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>app_registration</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Income'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='employee' requiredPermission={3005}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'employee-management'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>app_registration</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Employee Management'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='employee' requiredPermission={3006}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'products'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>app_registration</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Products'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='employee' requiredPermission={3007}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'settings'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>app_registration</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+            <ProtectedRoutes role='employee' requiredPermission={3008}>
+                <ListItem disablePadding>
+                    <ListItemButton
+                        component={Link} to={'access-management'}
+                        disableRipple>
+                        <ListItemIcon>
+                            <Icon fontSize='small'>app_registration</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography variant='body2' noWrap>{'Access Management'}</Typography>} />
+                    </ListItemButton>
+                </ListItem>
+            </ProtectedRoutes>
+
+
+
             <Divider />
-        </List>
+        </List>}
         <Box sx={{
             pb: theme.spacing(2)
         }}>

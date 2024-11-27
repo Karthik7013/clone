@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AgentResources, authService, CustomerResources, } from "../../service/api";
+import { AgentResources, authService, CustomerResources, EmployeeResources, } from "../../service/api";
 import { createBrowserHistory, History } from 'history';
 import { authProps } from "../../types/AuthProps/AuthProps";
 
@@ -21,25 +21,24 @@ const initialState: authProps = {
 
 
 // =============== | EMPLOYEE ACTIONS | ==============>
-export const loginUser = createAsyncThunk('login/user', async (payload: { phone: number }, { rejectWithValue }) => {
+export const loginEmployee = createAsyncThunk('login/user', async (payload: { phone: number }, { rejectWithValue }) => {
     try {
-        const res = await EmployeeService.post('/verify', { ...payload });
+        const res = await authService.post('/employee/verify', { ...payload });
         console.log(res.data, 'res through toolkit');
         return { status: res.status, data: res.data };
     } catch (error) {
-        return rejectWithValue({ status: error.response.status, message: error.response.data });
+        if (error.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
     }
 }
 );
 
-export const getProfile = createAsyncThunk('profile/user', async (payload: {}, { rejectWithValue }) => {
+export const getEmployeeProfile = createAsyncThunk('profile/employee', async (payload: {}, { rejectWithValue }) => {
     try {
-        const token = getSessionToken('access-token');
-        const headers = {
-            "authorization": `Bearer ${token}`,
-        };
-        // const res = await EmployeeService.get('/profile', { headers });
-        // return { status: res.status, data: res.data.data }
+        const res = await EmployeeResources.get(`/profile`);
+        return { status: res.status, data: res.data.data }
     } catch (error) {
         return rejectWithValue({ status: error.response.status, message: error.response.data });
     }
@@ -243,6 +242,62 @@ const authSlice = createSlice({
                 state.isLogin = true;
                 state.authData = action.payload.data
             });
+        // employee
+        builder.addCase(loginEmployee.pending, (state) => {
+            state.loading = true
+        })
+            .addCase(loginEmployee.rejected, (state, action: { payload: any }) => {
+                state.loading = false;
+                state.alert = {
+                    type: 'error',
+                    message: action.payload.message,
+                    state: true
+                }
+            })
+            .addCase(loginEmployee.fulfilled, (state, action) => {
+                state.loading = false
+                state.isLogin = true;
+                state.alert = {
+                    message: 'Login Success',
+                    state: true,
+                    type: 'success'
+                }
+                state.role = action.payload.data.data.role
+                sessionStorage.setItem('role', action.payload.data.data.role);
+            })
+        builder.addCase(getEmployeeProfile.pending, (state) => {
+            state.loading = true;
+        })
+            .addCase(getEmployeeProfile.rejected, (state, action) => {
+                state.loading = false;
+                state.alert = {
+                    type: 'warning',
+                    message: 'Session has Expire Re login',
+                    state: true
+                }
+                state.isLogin = false;
+                state.authData = null;
+                sessionStorage.removeItem('role');
+            })
+            .addCase(getEmployeeProfile.fulfilled, (state, action: { payload: any }) => {
+                state.loading = false;
+                if (getSessionToken('prev_login')) {
+                    state.alert = {
+                        type: 'success',
+                        message: 'Welcom Back',
+                        state: true
+                    }
+                } else {
+                    state.alert = {
+                        type: 'success',
+                        message: 'Login Success',
+                        state: true
+                    }
+                    sessionStorage.setItem('prev_login', 'true')
+                }
+                state.isLogin = true;
+                state.authData = action.payload.data
+            })
     }
 })
 

@@ -4,6 +4,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import React, { lazy } from "react";
 import SideDrawer from "../../common/SideDrawer";
 import CrmLayout from "../../layout/CrmLayout";
+import MessageBox from "../../../Framework/components/MessageBox";
+import ProtectedRoutes from "../../../ProtectedRoute";
 const EmployeeLogin = lazy(() => import('../pages/EmployeeLogin'));
 const AccessManagement = React.lazy(() => import("../pages/AccessManagement"));
 const AdminService = React.lazy(() => import("../pages/AdminService"));
@@ -39,43 +41,84 @@ export const employeeRoutes = () => {
                     {
                         path: '/employee/dashboard',
                         element:
-                            <BussinessAnalytics />
+                            <ProtectedRoutes role="employee"
+                                fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                                requiredPermission={3000}>
+                                <BussinessAnalytics />
+                            </ProtectedRoutes>
+
                     },
                     {
                         path: 'service',
-                        element: <AdminService />
+                        element: <ProtectedRoutes role="employee"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={3001}>
+                            <AdminService />
+                        </ProtectedRoutes>
                     },
                     {
                         path: 'revenue',
-                        element: <RevenueService />
+                        element: <ProtectedRoutes role="employee"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={3002}>
+                            <RevenueService />
+                        </ProtectedRoutes>
                     },
                     {
                         path: 'sales',
-                        element: <SalesService />
+                        element: <ProtectedRoutes role="employee"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={3003}>
+                            <SalesService />
+                        </ProtectedRoutes>
                     },
                     {
                         path: 'income',
-                        element: <IncomeService />
+                        element: <ProtectedRoutes role="employee"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={3004}>
+                            <IncomeService />
+                        </ProtectedRoutes>
                     },
                     {
                         path: 'employee-management',
-                        element: <EmployeeManagement />
+                        element: <ProtectedRoutes role="employee"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={3005}>
+                            <EmployeeManagement />
+                        </ProtectedRoutes>
                     },
                     {
                         path: 'products',
-                        element: <ProductsSale />
+                        element: <ProtectedRoutes role="employee"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={3006}>
+                            <ProductsSale />
+                        </ProtectedRoutes>
                     },
                     {
                         path: 'settings',
-                        element: <Settings />
+                        element: <ProtectedRoutes role="employee"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={3007}>
+                            <Settings />
+                        </ProtectedRoutes>
                     },
                     {
                         path: 'profile/:id',
-                        element: <EmployeeProfile />
+                        element: <ProtectedRoutes role="employee"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={2006}>
+                            <EmployeeProfile />
+                        </ProtectedRoutes>
                     },
                     {
                         path: 'access-management',
-                        element: <AccessManagement />
+                        element: <ProtectedRoutes role="employee"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={3008}>
+                            <AccessManagement />
+                        </ProtectedRoutes>
                     }, {
                         path: '*',
                         element: <PageNotFound />

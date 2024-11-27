@@ -103,7 +103,9 @@ const theme = (customStyles: customStylesProps) => {
                 styleOverrides: {
                     root: {
                         border: `1px solid ${dark ? '#ffffff21' : theme.palette.divider}`,
-                        boxShadow: 'none'
+                        boxShadow: 'none',
+                        borderRadius,
+                        overflow: 'hidden'
                     }
                 }
             }
@@ -130,7 +132,9 @@ const theme = (customStyles: customStylesProps) => {
             },
             MuiDrawer: {
                 styleOverrides: {
-
+                    root: {
+                        borderRadius
+                    }
                 }
             },
             MuiListItemIcon: {

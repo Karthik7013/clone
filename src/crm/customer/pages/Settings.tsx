@@ -8,6 +8,8 @@ import { AppDispatch, RootState } from "../../../redux/store";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import EditProfile from "../components/EditProfile";
 import { handleEditProfile } from "../../../redux/slice/uiSlice";
+import DangerousRoundedIcon from '@mui/icons-material/DangerousRounded';
+
 const Settings = () => {
   const theme = useTheme()
   const authData = useSelector((state: RootState) => state.auth.authData);
@@ -28,7 +30,7 @@ const Settings = () => {
         <List>
           <ListItem disablePadding sx={{ gap: 2 }} secondaryAction={<IconButton onClick={handleClose} ><EditRoundedIcon /></IconButton>}>
             <ListItemIcon>
-              <Avatar src="https://avatar.iran.liara.run/public" sx={{ width: '2.75em', height: '2.75em' }}>
+              <Avatar src="https://avatar.iran.liara.run/public" sx={{ width: '3.75em', height: '3.75em' }}>
               </Avatar>
             </ListItemIcon>
             <ListItemText
@@ -54,7 +56,7 @@ const Settings = () => {
 
         <Grid container columnSpacing={2} rowSpacing={2} mt={1}>
           <Grid item xs={12} md={8}>
-            <Card>
+            {/* <Card>
               <CardContent>
                 <Typography gutterBottom variant="h6" component="div">
                   Personal Information
@@ -69,10 +71,38 @@ const Settings = () => {
                   <Grid item xs={12} md={4}>Mobile Number : +91 {authData.phone}</Grid>
                 </Grid>
               </CardContent>
+            </Card> */}
+            <Card>
+
+              <List
+                subheader={
+                  <ListSubheader component="div">
+                    Personal Details
+                  </ListSubheader>
+                }
+              >
+                <Divider />
+
+                <Grid container spacing={1} padding={1}>
+                  <Grid item><TextField placeholder="First Name" value={authData.firstname + " " + authData.lastname} /></Grid>
+
+
+                  <Grid item><TextField value={authData.phone} placeholder="Mobile Number" /></Grid>
+
+
+                  <Grid item><TextField placeholder="Email" value={authData.email} fullWidth /></Grid>
+                  <Grid item><TextField type="date" placeholder="DOB" label="DOB" fullWidth /></Grid>
+                </Grid>
+
+              </List>
+              <Divider />
+              <CardActions>
+                <Button variant="contained" size="small">Save</Button>
+              </CardActions>
             </Card>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Card>
+            {/* <Card>
 
               <CardContent>
                 <Typography gutterBottom variant="h6" component="div">
@@ -84,20 +114,19 @@ const Settings = () => {
                 </Typography>
               </CardContent>
 
-            </Card>
-          </Grid>
-
-          <Grid item xs={12}>
+            </Card> */}
             <Card>
 
               <List
                 subheader={
                   <ListSubheader component="div">
-                    Contact Details
+                    Address Details
                   </ListSubheader>
                 }
               >
                 <Divider />
+
+
 
               </List>
               <Divider />
@@ -105,6 +134,10 @@ const Settings = () => {
                 <Button variant="contained" size="small">Save</Button>
               </CardActions>
             </Card>
+          </Grid>
+
+          <Grid item xs={12}>
+
           </Grid>
           <Grid item xs={12}>
             <Card>

@@ -8,21 +8,22 @@ import Grid from '@mui/material/Grid';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootProps } from '../../../types/RootProps';
-import { closeAlert, loginUser } from '../../../redux/slice/authSlice';
+import { closeAlert, loginEmployee, loginUser } from '../../../redux/slice/authSlice';
 // import LoadingModal from '../../../Framework/components/LoadingModal';
 import loginPanel from "/login-panel.svg"
 import logo from "/logo.jpg";
 import { AppDispatch, RootState } from '../../../redux/store';
 import AlertBox from '../../../Framework/components/AlertBox';
+import LoadingModal from '../../../Framework/components/LoadingModal';
 
 
 function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" to="https://mui.com/">
-                Your Website
-            </Link>{' '}
+            <Link color="inherit" to="/">
+                NameLix 360° Insurance
+            </Link>
             {new Date().getFullYear()}
             {'.'}
         </Typography>
@@ -33,15 +34,11 @@ function Copyright(props: any) {
 const EmployeeLogin = () => {
     const dispatch: AppDispatch = useDispatch();
     const isLoading = useSelector((state: RootProps) => state.auth.loading);
-    const isLogin = useSelector((state: RootProps) => state.auth.isLogin);
-
-
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // const data = { email: "mani123@gmail.com", password: "1234" }
-        const data = { phone: 9876543225 }
-        dispatch(loginUser(data));
+        const data = { phone: 7013140693 }
+        dispatch(loginEmployee(data));
     }
     return (
         <Box>

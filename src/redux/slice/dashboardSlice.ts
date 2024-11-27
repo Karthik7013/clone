@@ -3,6 +3,7 @@ import { CustomerResources } from "../../service/api";
 import axios from "axios";
 
 const initialState = {
+    activeTab: '',
     loading: false,
     alert: {
         type: undefined,
