@@ -108,7 +108,7 @@ export const employeeRoutes = () => {
                         path: 'profile/:id',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={2006}>
+                            requiredPermission={3007}>
                             <EmployeeProfile />
                         </ProtectedRoutes>
                     },

@@ -64,9 +64,9 @@ const Header = () => {
 
     return (
         <CustomAppBar>
-            <Container maxWidth="xl">
-                <Toolbar>
-                    <Box component={'a'} href='/' sx={{ background: 'white', borderRadius: '0.75rem', padding: 0.5, display: { xs: 'none', md: 'block' } }}>
+            <Container maxWidth="lg">
+                <Toolbar disableGutters>
+                    <Box component={'a'} href='/' sx={{ background: 'white', borderRadius: '0.45rem', padding: 0.5, display: { xs: 'none', md: 'block' } }}>
                         <CardMedia
                             component="img"
                             height="40"

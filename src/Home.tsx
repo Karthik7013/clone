@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //============ MUI IMPORTS ==============>
-import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Container, Divider, Fab, Grid, IconButton, keyframes, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Paper, Stack, styled, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Container, Divider, Fab, Grid, Grow, IconButton, keyframes, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Paper, Slide, Stack, styled, Typography } from "@mui/material";
 import { Link as MuiLink } from "@mui/material";
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import { Link } from "react-router-dom";
@@ -66,7 +66,16 @@ const Home = () => {
         }]
 
 
-
+    useEffect(() => {
+        const handleScroll = () => {
+            console.log('scroll trigger !')
+        };
+        document.addEventListener('scroll', handleScroll);
+        return () => {
+            console.log('clean the event')
+            document.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     const rotate = keyframes`
         0% {
@@ -96,6 +105,16 @@ const Home = () => {
         autoplaySpeed: 2500, // Time before the next slide
         arrows: false, // Disable next and previous arrows
         dots: true
+    };
+    const bannerSettings = {
+        infinite: true, // Infinite scrolling
+        speed: 500, // Transition speed
+        slidesToShow: 1, // Number of slides to show at a time
+        slidesToScroll: 1, // Number of slides to scroll at a time
+        autoplay: true, // Auto play
+        autoplaySpeed: 2000, // Time before the next slide
+        arrows: true, // Disable next and previous arrows
+        dots: false
     };
 
 
@@ -201,7 +220,7 @@ const Home = () => {
 
                 <Grid item xs={12}>
                     <List sx={{ width: '100%', bgcolor: 'background.paper' }} subheader={
-                        <Typography variant="subtitle2" justifyItems='center' >Continue Policy Purchase</Typography>
+                        <Typography variant="h6" justifyItems='center' >Continue Policy Purchase</Typography>
                     }>
                         <ListItem alignItems="flex-start" secondaryAction={
                             <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
@@ -290,6 +309,117 @@ const Home = () => {
                         </ListItem>
                     </List>
                 </Grid>
+
+                <Grid item xs={12}>
+                    <Box><Typography variant="h4" textAlign='center' fontWeight={600}>Our Products</Typography></Box>
+                    <Stack sx={{ flexDirection: { md: 'row' }, width: '100%', gap: 5 }}>
+                        <Box flexGrow={1} display={'flex'} flexDirection={'column'} justifyContent={'center'} maxWidth={600}>
+                            <Typography variant="h4" gutterBottom>
+                                Protect Your Loan with Insurance
+                            </Typography>
+                            <Typography component='abbr'>When life is unpredictable, Loan Insurance can provide the peace of mind you need. Whether you’re taking out a personal loan, mortgage, or car loan, loan insurance ensures that your payments are covered in the event of an unexpected situation, like illness, injury, or job loss.</Typography>
+                        </Box>
+                        <Box flexGrow={1}>
+                            <CardMedia
+                                component="img"
+                                height='450'
+                                width='450'
+                                image="https://img.freepik.com/free-vector/family-benefit-abstract-concept-vector-illustration-family-tax-benefit-payment-per-child-help-with-raising-children-economic-support-insurance-agent-piggy-bank-money-abstract-metaphor_335657-3984.jpg"
+                                alt="green iguana"
+                            />
+                        </Box>
+
+                    </Stack>
+                    <Stack sx={{ flexDirection: { md: 'row' }, width: '100%', gap: 5 }}>
+
+                        <Box order={1}>
+                            <CardMedia
+                                component="img"
+                                height='450'
+                                width='450'
+                                image="https://img.freepik.com/premium-vector/car-insurance-vector-concept-with-umbrella-protection_108061-1612.jpg"
+                                alt="green iguana"
+                            />
+                        </Box>
+                        <Box order={2} flexGrow={1} display={'flex'} flexDirection={'column'} justifyContent={'center'} maxWidth={600}>
+                            <Typography variant="h4" gutterBottom>
+                                Protect Your Vehicle with Comprehensive Insurance
+                            </Typography>
+                            <Typography component='abbr'>Your vehicle is more than just a mode of transportation—it's an important asset. Vehicle Insurance ensures that you’re financially covered in case of accidents, theft, or damage. Whether you have a car, motorcycle, or truck, comprehensive vehicle insurance gives you the peace of mind to drive without worry.</Typography>
+                        </Box>
+
+                    </Stack>
+                    <Stack sx={{ flexDirection: { md: 'row' }, width: '100%', gap: 5 }}>
+                        <Box flexGrow={1} display={'flex'} flexDirection={'column'} justifyContent={'center'} maxWidth={600}>
+                            <Typography variant="h4" gutterBottom>
+                                Secure Your Family's Future with Life Insurance
+                            </Typography>
+                            <Typography component='abbr'>Life is full of uncertainties, but Life Insurance offers a way to ensure that your loved ones are protected financially, no matter what happens. Whether you're looking to safeguard your family’s financial security or plan for the future, life insurance provides peace of mind that your obligations and family’s needs are taken care of.</Typography>
+                        </Box>
+                        <Box flexGrow={1}>
+                            <CardMedia
+                                component="img"
+                                height='450'
+                                width='450'
+                                image="https://img.freepik.com/free-vector/character-family-holding-insurance-illustration_53876-40419.jpg"
+                                alt="green iguana"
+                            />
+                        </Box>
+
+                    </Stack>
+                    <Stack sx={{ flexDirection: { md: 'row' }, width: '100%', gap: 5 }}>
+
+                        <Box order={1}>
+                            <CardMedia
+                                component="img"
+                                height='450'
+                                width='450'
+                                image="https://img.freepik.com/premium-vector/health-life-insurance-concept-doctor-patients-hospital-filling-health-life-insurance-policy-contract-flat-vector-modern-illustration_566886-10356.jpg"
+                                alt="green iguana"
+                            />
+
+                        </Box>
+                        <Slide direction="left" in={true} timeout={500}>
+                            <Box order={2} flexGrow={1} display={'flex'} flexDirection={'column'} justifyContent={'center'} maxWidth={600}>
+
+                                <Typography variant="h4" gutterBottom>
+                                    Protect Your Health with Comprehensive Health Insurance
+                                </Typography>
+
+                                <Typography component='abbr'>Your health is your most valuable asset, and Health Insurance ensures you’re covered when you need it the most. From routine check-ups to emergency treatments, health insurance provides the financial support you need for medical expenses, giving you access to quality care without the worry of high costs.</Typography>
+
+                            </Box>
+                        </Slide>
+                    </Stack>
+                    {/* https://img.freepik.com/free-vector/family-benefit-abstract-concept-vector-illustration-family-tax-benefit-payment-per-child-help-with-raising-children-economic-support-insurance-agent-piggy-bank-money-abstract-metaphor_335657-3984.jpg */}
+                </Grid>
+                <Grid item xs={12}>
+                    <Box sx={{ width: '100%', mx: 'auto', mt: 4, maxHeight: 400 }}>
+                        <Slider {...bannerSettings}>
+                            <Box sx={{ position: 'relative' }}>
+                                <Card elevation={0}>
+                                    <CardMedia height={260} component={'img'} image="https://img.freepik.com/free-vector/people-walking-rain-street-colorful-flat-vector-illustration-mother-with-child-raincoat-walking-red-umbrella_74855-10701.jpg" />
+                                </Card>
+
+                            </Box>
+                            <Box sx={{ position: 'relative' }}>
+                                <Card elevation={0}>
+                                    <CardMedia height={260} component={'img'} image="https://img.freepik.com/free-vector/people-walking-rain-street-colorful-flat-vector-illustration-mother-with-child-raincoat-walking-red-umbrella_74855-10701.jpg" />
+                                </Card>
+                            </Box>
+                            <Box sx={{ position: 'relative' }}>
+                                <Card elevation={0} >
+                                    <CardMedia height={260} component={'img'} image="https://img.freepik.com/free-vector/people-walking-rain-street-colorful-flat-vector-illustration-mother-with-child-raincoat-walking-red-umbrella_74855-10701.jpg" />
+                                </Card>
+                            </Box>
+                            <Box sx={{ position: 'relative' }}>
+                                <Card elevation={0}>
+                                    <CardMedia height={260} component={'img'} image="https://img.freepik.com/free-vector/people-walking-rain-street-colorful-flat-vector-illustration-mother-with-child-raincoat-walking-red-umbrella_74855-10701.jpg" />
+                                </Card>
+                            </Box>
+                        </Slider>
+                    </Box>
+                </Grid>
                 <Grid item xs={12}>
 
                     <Typography component='h1' textAlign='center' variant="h4">More than 25+ Insurance Providers</Typography>
@@ -302,6 +432,6 @@ const Home = () => {
         </Container>
 
         {cookiePrompt && <CookieCard />}
-    </Box>
+    </Box >
 }
 export default Home;

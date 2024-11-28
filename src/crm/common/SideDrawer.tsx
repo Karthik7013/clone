@@ -252,7 +252,7 @@ const SideDrawer = () => {
                         component={Link} to={''}
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>app_registration</Icon>
+                            <Icon fontSize='small'>dashboard</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Dashboard'}</Typography>} />
                     </ListItemButton>
@@ -264,7 +264,7 @@ const SideDrawer = () => {
                         component={Link} to={'service'}
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>app_registration</Icon>
+                            <Icon fontSize='small'>manage_accounts</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Service'}</Typography>} />
                     </ListItemButton>
@@ -276,7 +276,7 @@ const SideDrawer = () => {
                         component={Link} to={'revenue'}
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>app_registration</Icon>
+                            <Icon fontSize='small'>currency_rupee_circle</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Revenue'}</Typography>} />
                     </ListItemButton>
@@ -312,7 +312,7 @@ const SideDrawer = () => {
                         component={Link} to={'employee-management'}
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>app_registration</Icon>
+                            <Icon fontSize='small'>admin_panel_settings</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Employee Management'}</Typography>} />
                     </ListItemButton>
@@ -324,7 +324,7 @@ const SideDrawer = () => {
                         component={Link} to={'products'}
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>app_registration</Icon>
+                            <Icon fontSize='small'>category</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Products'}</Typography>} />
                     </ListItemButton>
@@ -336,7 +336,7 @@ const SideDrawer = () => {
                         component={Link} to={'settings'}
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>app_registration</Icon>
+                            <Icon fontSize='small'>settings</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
                     </ListItemButton>
@@ -348,7 +348,7 @@ const SideDrawer = () => {
                         component={Link} to={'access-management'}
                         disableRipple>
                         <ListItemIcon>
-                            <Icon fontSize='small'>app_registration</Icon>
+                            <Icon fontSize='small'>checklist_rtl</Icon>
                         </ListItemIcon>
                         <ListItemText primary={<Typography variant='body2' noWrap>{'Access Management'}</Typography>} />
                     </ListItemButton>
@@ -363,7 +363,7 @@ const SideDrawer = () => {
             pb: theme.spacing(2)
         }}>
             <Typography flexWrap='wrap' color='text.secondary' variant='subtitle2' textAlign='center' mt={1}>
-                <Chip icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small' />
+                <Chip color='warning' icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small' />
             </Typography>
         </Box>
     </Box >

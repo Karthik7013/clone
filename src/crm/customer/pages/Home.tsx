@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, CardActionArea, CardActions, CardContent, Chip, Divider, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, ListSubheader, Menu, MenuItem, Paper, Stack, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, ThemedProps, Typography } from '@mui/material'
+import { Avatar, Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Divider, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, ListSubheader, Menu, MenuItem, Paper, Stack, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, ThemedProps, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { DeleteOutline, MoreHorizOutlined, Forward5 } from '@mui/icons-material';
@@ -8,6 +8,7 @@ import { useTheme } from '@mui/material';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded';
 import ReactApexChart from 'react-apexcharts';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 const Home = () => {
   console.log("customer home renders")
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -198,6 +199,94 @@ const Home = () => {
               }
             >
               <Divider />
+
+
+              <ListItem alignItems="flex-start" secondaryAction={
+                <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
+              }>
+                <ListItemAvatar>
+                  <CardMedia
+                    component="img"
+                    sx={{ borderRadius: '0.4em', mr: 2, width: { xs: 40, md: 60 } }}
+                    image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
+                  />
+                </ListItemAvatar>
+                <ListItemText primary={
+                  <>
+                    <Typography variant="body2" component='span' mr={2}>Gowri Shankar</Typography>
+                    <Chip size="small" color="primary" variant="outlined" label="General Life Insurance"></Chip>
+
+                  </>
+                }
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        sx={{ color: 'text.primary', display: 'inline' }}
+                      >
+                        Application ID:
+                      </Typography>
+                      {"AP012454GH4FJDJ04"}
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+              <ListItem alignItems="flex-start" secondaryAction={
+                <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
+              }>
+                <ListItemAvatar>
+                  <CardMedia
+                    component="img"
+                    sx={{ borderRadius: '0.4em', mr: 2, width: { xs: 40, md: 60 } }}
+                    image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  primary="General Life Insurance"
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        sx={{ color: 'text.primary', display: 'inline' }}
+                      >
+                        Application ID: {"AP012454GH4FJDJ04"}
+                      </Typography>
+
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+              <ListItem alignItems="flex-start" secondaryAction={
+                <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
+              }>
+                <ListItemAvatar>
+                  <CardMedia
+                    component="img"
+                    sx={{ borderRadius: '0.4em', mr: 2, width: { xs: 40, md: 60 } }}
+                    image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  primary="General Life Insurance"
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        sx={{ color: 'text.primary', display: 'inline' }}
+                      >
+                        Application ID:
+                      </Typography>
+                      {"AP012454GH4FJDJ04"}
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+
 
             </List>
           </Card>

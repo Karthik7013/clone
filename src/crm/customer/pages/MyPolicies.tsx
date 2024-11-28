@@ -65,20 +65,7 @@ const MyPolicies = () => {
       }
     },
 
-    { field: 'mode', headerName: 'Mode', width: 120 },
-    { field: 'agent_id', headerName: 'Agent ID', width: 120 },
-    { field: 'customer_id', headerName: 'Customer ID', width: 120 },
-    { field: 'employee_id', headerName: 'Employee ID', width: 120 },
-    {
-      field: 'updated_at', headerName: 'Last Modified', width: 180,
-      renderCell: (params) => {
-        const status = params.value.split('T')[0];
-        console.log(status)
-        return (
-          status
-        );
-      }
-    },
+    { field: 'mode', headerName: 'Mode', width: 120 }
   ];
 
   const CustomToolbar = () => {

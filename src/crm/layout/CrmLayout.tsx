@@ -57,7 +57,6 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
             case 'employee':
                 dispatch(getEmployeeProfile({}))
                 break;
-
             default:
                 break;
         }
@@ -65,7 +64,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
         padding: theme.spacing(2),
-        borderRadius: theme.shape.borderRadius,
+        borderRadius: theme.shape.borderRadius*1.2,
         flexGrow: 1,
         height: 'calc( 100dvh - 65px)',
         border: `1px solid ${alpha(theme.palette.divider, 0.05)}`,
