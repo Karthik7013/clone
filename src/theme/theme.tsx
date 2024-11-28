@@ -197,6 +197,14 @@ const theme = (customStyles: customStylesProps) => {
                     }
                 }
             },
+            MuiListSubheader: {
+                styleOverrides: {
+                    root: {
+                        position: 'static',
+                        background: 'none',
+                    }
+                }
+            }
             // MuiMenu: {
             //     styleOverrides: {
             //         root: {

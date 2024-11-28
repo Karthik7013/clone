@@ -354,9 +354,6 @@ const SideDrawer = () => {
                     </ListItemButton>
                 </ListItem>
             </ProtectedRoutes>
-
-
-
             <Divider />
         </List>}
         <Box sx={{
@@ -369,103 +366,6 @@ const SideDrawer = () => {
     </Box >
     )
 }
-
-// posp
-
-// employee
-{/* <MuiLink component={Link} to={'/dashboard'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>dashboard</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Dashboard'}</Typography>} />
-                        {<ListItemSecondaryAction><Chip color='warning' label="+3" size='small' /></ListItemSecondaryAction>}
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'income'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>currency_rupee_circle</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Income Service'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'employee-management'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>admin_panel_settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Employee Management'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'agent-management'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>assignment_ind</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Agent Management'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'customer-management'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>groups</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Customer Management'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'access-management'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>checklist_rtl</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Access Management'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'products'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>category</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Product Sales'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink>
-            <MuiLink component={Link} to={'settings'}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        disableRipple>
-                        <ListItemIcon>
-                            <Icon fontSize='small'>settings</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
-                    </ListItemButton>
-                </ListItem>
-            </MuiLink> */}
-
-
-
-
 export default React.memo(SideDrawer);
 
 

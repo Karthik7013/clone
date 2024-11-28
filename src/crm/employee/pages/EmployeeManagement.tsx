@@ -31,12 +31,12 @@ const EmployeeManagement = () => {
         { id: 19, col1: '2121', col2: 'Oliver', col3: 'Backend', col4: 'Admin', col5: 'Sales', col6: 'Active', col7: 'oliver.white@example.com', col8: '01-06-2022', col9: '+91 9012345678' },
         { id: 20, col1: '4343', col2: 'Avery', col3: 'Database', col4: 'User', col5: 'Executive', col6: 'Pending', col7: 'avery.carter@example.com', col8: '15-07-2021', col9: '+91 0123456789' }
     ];
-
+    // https://avatar.iran.liara.run/username?username=K
     const columns: GridColDef[] = [
         { field: 'col1', headerName: 'Employee ID', width: 150 },
         {
             field: 'col2', headerName: 'Employee Name', width: 150,
-            renderCell: (params) => <Stack gap={2} alignItems={'center'} direction='row'><Avatar src='https://avatar.iran.liara.run/public'>{params.value[0]}</Avatar><Link to={`profile/${params.row.col1}`}>{params.value}</Link></Stack>
+            renderCell: (params) => <Stack gap={2} alignItems={'center'} direction='row'><Avatar src={`https://avatar.iran.liara.run/username?username=${params.value[0]}`}>{params.value[0]}</Avatar><Link to={`profile/${params.row.col1}`}>{params.value}</Link></Stack>
         },
         { field: 'col3', headerName: 'Department', width: 150 },
         { field: 'col4', headerName: 'Access', width: 150 },
