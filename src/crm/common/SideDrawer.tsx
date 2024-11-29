@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Chip, CircularProgress, Divider, Icon, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
+import { Avatar, Badge, Box, Card, CardContent, Chip, CircularProgress, Divider, Icon, InputAdornment, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
@@ -8,12 +8,15 @@ import KeyboardCommandKeyRoundedIcon from '@mui/icons-material/KeyboardCommandKe
 import ProtectedRoutes from '../../ProtectedRoute';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { Settings } from '@mui/icons-material';
 
 
 const SideDrawer = () => {
     const theme = useTheme();
     const activeTab = useSelector((state: RootState) => state.dashboard.activeTab);
     const loading = useSelector((state: RootState) => state.auth.loading);
+    const authData = useSelector((state: RootState) => state.auth.authData);
+    console.log(authData, 'see here');
     return (<Box>
         <Toolbar sx={{ display: { xs: 'block', md: 'none' } }}>
             <ListItem component={Link} to="/" disablePadding sx={{ width: 240 - 10, display: { xs: 'none', md: 'flex' } }}>
@@ -350,7 +353,7 @@ const SideDrawer = () => {
                         <ListItemIcon>
                             <Icon fontSize='small'>checklist_rtl</Icon>
                         </ListItemIcon>
-                        <ListItemText primary={<Typography variant='body2' noWrap>{'Access Management'}</Typography>} />
+                        <ListItemText primary={<Typography color='inherit' variant='body2' noWrap>{'Access Management'}</Typography>} />
                     </ListItemButton>
                 </ListItem>
             </ProtectedRoutes>
@@ -363,7 +366,15 @@ const SideDrawer = () => {
                 <Chip color='warning' icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small' />
             </Typography>
         </Box>
-    </Box >
+        <Box sx={{ p: 1, position: 'sticky', bottom: 0 }}>
+            <Card>
+                <ListItem>
+                    <ListItemAvatar><Avatar src='https://avatar.iran.liara.run/public' alt="" /></ListItemAvatar>
+                    <ListItemText primary={<Typography variant='subtitle2'>{authData?.firstname + " " + authData?.lastname}</Typography>} secondary={<Typography noWrap={false} variant='caption'>{authData?.email}</Typography>} />
+                </ListItem>
+            </Card>
+        </Box>
+    </Box>
     )
 }
 export default React.memo(SideDrawer);

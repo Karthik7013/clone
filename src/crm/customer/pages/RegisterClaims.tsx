@@ -1,21 +1,32 @@
-import { Box, Button, Grid, List, ListItem, ListItemText, ListSubheader, MenuItem, Stack, TextField, Typography } from "@mui/material"
-import React from "react"
+import { Box, Button, CircularProgress, Grid, List, ListItem, ListItemText, ListSubheader, MenuItem, Stack, TextField, Typography } from "@mui/material";
+import React from "react";
 import { useTheme } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
+import { useDispatch, useSelector } from "react-redux";
+import AlertBox from "../../../Framework/components/AlertBox";
+import { AppDispatch, RootState } from "../../../redux/store";
+import { closeAlert } from "../../../redux/slice/dashboardSlice";
+import { registerCustomerPolicies } from "../../../redux/slice/dashboardSlice";
+
 const RegisterClaims = () => {
   const theme = useTheme();
-  const { control, formState: { errors }, handleSubmit,reset } = useForm();
-  
+  const loading = useSelector((state: RootState) => state.dashboard.loading)
+  const { control, formState: { errors }, handleSubmit, reset } = useForm();
+  const dispatch: AppDispatch = useDispatch();
+  const closeAlertHandle = () => dispatch(closeAlert());
   const onSubmitHandle = (data) => {
-    console.log(data);
-    reset();
-
+    dispatch(registerCustomerPolicies(data))
+    // reset();
   }
+  const alert = useSelector((state: RootState) => state.dashboard.alert)
+
+
 
   return (
     <Box mt={3} component='form' onSubmit={handleSubmit(onSubmitHandle)}>
+      <AlertBox alert={alert} onClose={closeAlertHandle} />
       <ListItem
         disableGutters
         secondaryAction={
@@ -33,42 +44,45 @@ const RegisterClaims = () => {
       {/* Personal Details Section */}
       <List sx={{ width: '100%' }} subheader={<ListSubheader>Personal Details</ListSubheader>}>
         <Grid container spacing={2}>
-          <Grid item xs={12} mt={2}>
+          <Grid item xs={12} md={6}>
             <Controller
-              name="firstName"
+              defaultValue=""
+              name="first_name"
               control={control}
               render={({ field }) => (
                 <TextField
                   {...field}
                   fullWidth
                   label="First Name"
-                  error={!!errors.firstName}
-                  helperText={errors.firstName ? errors.firstName.message : ''}
+                  error={!!errors.first_name}
+                  helperText={errors.first_name ? errors.first_name.message : ''}
                 />
               )}
-              rules={{ required: "First Name is required" }} // Validation rule
+              rules={{ required: "First Name is required" }}
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} md={6}>
             <Controller
-              name="lastName"
+              name="last_name"
+              defaultValue=""
               control={control}
               render={({ field }) => (
                 <TextField
                   {...field}
                   fullWidth
                   label="Last Name"
-                  error={!!errors.lastName}
-                  helperText={errors.lastName ? errors.lastName.message : ''}
+                  error={!!errors.last_name}
+                  helperText={errors.last_name ? errors.last_name.message : ''}
                 />
               )}
               rules={{ required: "Last Name is required" }}
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <Controller
+              defaultValue=""
               name="dob"
               control={control}
               render={({ field }) => (
@@ -86,8 +100,9 @@ const RegisterClaims = () => {
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <Controller
+              defaultValue=""
               name="gender"
               control={control}
               render={({ field }) => (
@@ -109,6 +124,7 @@ const RegisterClaims = () => {
 
           <Grid item xs={12} md={6}>
             <Controller
+              defaultValue=""
               name="phone"
               control={control}
               render={({ field }) => (
@@ -121,12 +137,13 @@ const RegisterClaims = () => {
                   helperText={errors.phone ? errors.phone.message : ''}
                 />
               )}
-              rules={{ required: "Phone number is required" }}
+              rules={{ required: "Phone number is required", pattern: { value: /^[0-9]{10}$/, message: "Invalid phone number" } }}
             />
           </Grid>
 
           <Grid item xs={12} md={6}>
             <Controller
+              defaultValue=""
               name="email"
               control={control}
               render={({ field }) => (
@@ -150,15 +167,16 @@ const RegisterClaims = () => {
 
           <Grid item xs={12} md={6}>
             <Controller
-              name="streetAddress"
+              defaultValue=""
+              name="address"
               control={control}
               render={({ field }) => (
                 <TextField
                   {...field}
                   fullWidth
                   label="Street Address"
-                  error={!!errors.streetAddress}
-                  helperText={errors.streetAddress ? errors.streetAddress.message : ''}
+                  error={!!errors.address}
+                  helperText={errors.address ? errors.address.message : ''}
                 />
               )}
               rules={{ required: "Street Address is required" }}
@@ -167,6 +185,7 @@ const RegisterClaims = () => {
 
           <Grid item xs={12} md={6}>
             <Controller
+              defaultValue=""
               name="city"
               control={control}
               render={({ field }) => (
@@ -184,6 +203,7 @@ const RegisterClaims = () => {
 
           <Grid item xs={12} md={6}>
             <Controller
+              defaultValue=""
               name="state"
               control={control}
               render={({ field }) => (
@@ -201,6 +221,7 @@ const RegisterClaims = () => {
 
           <Grid item xs={12} md={6}>
             <Controller
+              defaultValue=""
               name="pincode"
               control={control}
               render={({ field }) => (
@@ -212,7 +233,7 @@ const RegisterClaims = () => {
                   helperText={errors.pincode ? errors.pincode.message : ''}
                 />
               )}
-              rules={{ required: "Pincode is required" }}
+              rules={{ required: "Pincode is required", pattern: { value: /^[0-9]{6}$/, message: "Invalid Pincode" } }}
             />
           </Grid>
         </Grid>
@@ -223,15 +244,16 @@ const RegisterClaims = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Controller
-              name="policyNumber"
+              defaultValue=""
+              name="policy_number"
               control={control}
               render={({ field }) => (
                 <TextField
                   {...field}
                   fullWidth
                   label="Policy Number"
-                  error={!!errors.policyNumber}
-                  helperText={errors.policyNumber ? errors.policyNumber.message : ''}
+                  error={!!errors.policy_number}
+                  helperText={errors.policy_number ? errors.policy_number.message : ''}
                 />
               )}
               rules={{ required: "Policy Number is required" }}
@@ -240,7 +262,8 @@ const RegisterClaims = () => {
 
           <Grid item xs={12} md={6}>
             <Controller
-              name="policyType"
+              defaultValue=""
+              name="policy_type"
               control={control}
               render={({ field }) => (
                 <TextField
@@ -248,8 +271,8 @@ const RegisterClaims = () => {
                   select
                   fullWidth
                   label="Policy Type"
-                  error={!!errors.policyType}
-                  helperText={errors.policyType ? errors.policyType.message : ''}
+                  error={!!errors.policy_type}
+                  helperText={errors.policy_type ? errors.policy_type.message : ''}
                 >
                   <MenuItem value="Life Insurance">Life Insurance</MenuItem>
                   <MenuItem value="Health Insurance">Health Insurance</MenuItem>
@@ -263,7 +286,8 @@ const RegisterClaims = () => {
 
           <Grid item xs={6}>
             <Controller
-              name="policyDate"
+              defaultValue=""
+              name="policy_issue_date"
               control={control}
               render={({ field }) => (
                 <TextField
@@ -272,8 +296,8 @@ const RegisterClaims = () => {
                   type="date"
                   fullWidth
                   label="Date of Policy Issuance"
-                  error={!!errors.policyDate}
-                  helperText={errors.policyDate ? errors.policyDate.message : ''}
+                  error={!!errors.policy_issue_date}
+                  helperText={errors.policy_issue_date ? errors.policy_issue_date.message : ''}
                 />
               )}
               rules={{ required: "Policy Date is required" }}
@@ -287,7 +311,8 @@ const RegisterClaims = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Controller
-              name="claimNature"
+              defaultValue=""
+              name="claim_nature"
               control={control}
               render={({ field }) => (
                 <TextField
@@ -295,8 +320,8 @@ const RegisterClaims = () => {
                   select
                   fullWidth
                   label="Nature of Claim"
-                  error={!!errors.claimNature}
-                  helperText={errors.claimNature ? errors.claimNature.message : ''}
+                  error={!!errors.claim_nature}
+                  helperText={errors.claim_nature ? errors.claim_nature.message : ''}
                 >
                   <MenuItem value="Accident">Accident</MenuItem>
                   <MenuItem value="Illness">Illness</MenuItem>
@@ -310,7 +335,8 @@ const RegisterClaims = () => {
 
           <Grid item xs={6}>
             <Controller
-              name="incidentDate"
+              defaultValue=""
+              name="incident_date"
               control={control}
               render={({ field }) => (
                 <TextField
@@ -319,8 +345,8 @@ const RegisterClaims = () => {
                   type="date"
                   fullWidth
                   label="Date of Incident"
-                  error={!!errors.incidentDate}
-                  helperText={errors.incidentDate ? errors.incidentDate.message : ''}
+                  error={!!errors.incident_date}
+                  helperText={errors.incident_date ? errors.incident_date.message : ''}
                 />
               )}
               rules={{ required: "Date of Incident is required" }}
@@ -329,7 +355,8 @@ const RegisterClaims = () => {
 
           <Grid item xs={6}>
             <Controller
-              name="supportDocs"
+              defaultValue=""
+              name="support_docs"
               control={control}
               render={({ field }) => (
                 <TextField
@@ -338,8 +365,8 @@ const RegisterClaims = () => {
                   type="file"
                   fullWidth
                   label="Support Documents"
-                  error={!!errors.supportDocs}
-                  helperText={errors.supportDocs ? errors.supportDocs.message : ''}
+                  error={!!errors.support_docs}
+                  helperText={errors.support_docs ? errors.support_docs.message : ''}
                 />
               )}
               rules={{ required: "Support Documents are required" }}
@@ -348,15 +375,16 @@ const RegisterClaims = () => {
 
           <Grid item xs={12}>
             <Controller
-              name="incidentDescription"
+              defaultValue=""
+              name="description"
               control={control}
               render={({ field }) => (
                 <TextField
                   {...field}
                   fullWidth
                   label="Brief Description of the Incident"
-                  error={!!errors.incidentDescription}
-                  helperText={errors.incidentDescription ? errors.incidentDescription.message : ''}
+                  error={!!errors.description}
+                  helperText={errors.description ? errors.description.message : ''}
                 />
               )}
               rules={{ required: "Description of the Incident is required" }}
@@ -370,7 +398,8 @@ const RegisterClaims = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Controller
-              name="additionalInfo"
+              defaultValue=""
+              name="additional_description"
               control={control}
               render={({ field }) => (
                 <TextField
@@ -379,8 +408,8 @@ const RegisterClaims = () => {
                   fullWidth
                   multiline
                   label="Additional Information"
-                  error={!!errors.additionalInfo}
-                  helperText={errors.additionalInfo ? errors.additionalInfo.message : ''}
+                  error={!!errors.additional_description}
+                  helperText={errors.additional_description ? errors.additional_description.message : ''}
                 />
               )}
             />
@@ -388,7 +417,8 @@ const RegisterClaims = () => {
         </Grid>
       </List>
 
-      <Button fullWidth variant="contained" type="submit">Register</Button>
+      <Button disabled={loading} fullWidth variant="contained" type="submit">{loading ? <CircularProgress color="primary" size={24} /> : "Register"}</Button>
+
     </Box>
   );
 }

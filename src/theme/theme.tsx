@@ -1,4 +1,4 @@
-import { alpha, createTheme, useTheme } from "@mui/material";
+import { alpha, colors, createTheme, useTheme } from "@mui/material";
 import '@mui/x-data-grid';
 
 type customStylesProps = {
@@ -88,7 +88,7 @@ const theme = (customStyles: customStylesProps) => {
             MuiListItemText: {
                 styleOverrides: {
                     root: {
-                        color: dark ? '#fff' : '#040D12',
+                        color: 'inherit'
                     }
                 }
             },
@@ -148,9 +148,10 @@ const theme = (customStyles: customStylesProps) => {
             MuiListItemButton: {
                 styleOverrides: {
                     root: {
-                        borderRadius: borderRadius,
-                        "&:hover": theme.palette.primary.main,
-                        color: theme.palette.text.secondary,
+                        borderRadius,
+                        "&:hover": {
+                            backgroundColor: theme.palette.primary.main,
+                        },
                         textDecoration: 'none',
                         marginBottom: 3,
                         "&:active": {
@@ -176,25 +177,37 @@ const theme = (customStyles: customStylesProps) => {
             MuiList: {
                 styleOverrides: {
                     root: {
-                        '&.MuiMenu-list': { padding: '5px' }
+                        '&.MuiMenu-list': { padding: '5px' },
+                        borderRadius
+                    }
+                }
+            },
+
+
+            MuiMenuList: {
+                styleOverrides: {
+                    root: {
+                        borderRadius
                     }
                 }
             },
             MuiMenuItem: {
                 styleOverrides: {
                     root: {
-                        borderRadius: theme.shape.borderRadius
+                        borderRadius,
+                        '&:hover': {
+                            backgroundColor: theme.palette.primary.light,
+                            color: theme.palette.contrastThreshold
+                        },
                     }
                 }
             },
             MuiPaper: {
                 styleOverrides: {
                     root: {
-
+                        borderRadius
                     },
-                    rounded: {
-                        borderRadius: theme.shape.borderRadius * 2
-                    }
+
                 }
             },
             MuiListSubheader: {
@@ -204,19 +217,9 @@ const theme = (customStyles: customStylesProps) => {
                         background: 'none',
                     }
                 }
-            }
-            // MuiMenu: {
-            //     styleOverrides: {
-            //         root: {
-            //             '.MuiList-root': {
-            //                 border: `1px solid ${alpha(theme.palette.background.default, 0.1)}`,
-            //                 borderRadius: theme.shape.borderRadius * 2,
-            //                 backgroundColor: alpha(theme.palette.primary.main,0.4),
-            //                 color:theme.palette.primary.contrastText
-            //             }
-            //         }
-            //     }
-            // }
+            },
+
+
         }
     })
 
