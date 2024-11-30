@@ -165,7 +165,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
 
-                            <Divider />
+                       
                             <MenuItem onClick={handleOnclick}>
                                 <ListItemIcon>
                                     <Logout fontSize="small" />

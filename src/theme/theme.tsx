@@ -151,11 +151,12 @@ const theme = (customStyles: customStylesProps) => {
                         borderRadius,
                         "&:hover": {
                             backgroundColor: theme.palette.primary.main,
+                            color: theme.palette.common.white
                         },
                         textDecoration: 'none',
                         marginBottom: 3,
                         "&:active": {
-                            backgroundColor: theme.palette.primary.main
+                            backgroundColor: theme.palette.primary.main,
                         }
                     }
                 }
@@ -197,7 +198,7 @@ const theme = (customStyles: customStylesProps) => {
                         borderRadius,
                         '&:hover': {
                             backgroundColor: theme.palette.primary.light,
-                            color: theme.palette.contrastThreshold
+                            color: theme.palette.common.white
                         },
                     }
                 }
