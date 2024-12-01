@@ -35,6 +35,10 @@ export const pospRoutes = () => {
                 element: (islogin && role === 'agent') ? <Navigate to='/agent/dashboard' /> : <Login />
             },
             {
+                path: 'signup',
+                element: (islogin && role === 'agent') ? <Navigate to='/agent/dashboard' /> : <>signup</>
+            },
+            {
                 path: 'dashboard',
                 element: (islogin && role === 'agent') ? <CrmLayout sideBar={<SideDrawer />} /> : <Navigate to='/agent/signin' />,
                 children: [

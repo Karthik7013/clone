@@ -137,7 +137,7 @@ const Header = () => {
                                 </CustomButton>
                             </Tooltip>
 
-                            <Tooltip title={<Typography variant="caption">{profile?.email}</Typography>}>
+                            <Tooltip title={profile?.email}>
                                 <IconButton
                                     sx={{ ml: 2 }}
                                     size='small'

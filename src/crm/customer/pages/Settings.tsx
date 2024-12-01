@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, ListSubheader, Switch, TextField, Typography, useTheme } from "@mui/material"
+import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, ListSubheader, Switch, TextareaAutosize, TextField, Typography, useTheme } from "@mui/material"
 import React from "react";
 import CakeRoundedIcon from '@mui/icons-material/CakeRounded';
 import LocalPoliceRoundedIcon from '@mui/icons-material/LocalPoliceRounded';
@@ -83,15 +83,23 @@ const Settings = () => {
               >
                 <Divider />
 
-                <Grid container spacing={1} padding={1}>
-                  <Grid item><TextField placeholder="First Name" value={authData.firstname + " " + authData.lastname} /></Grid>
+                <Grid container spacing={2} padding={2}>
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="caption" ml={1} mb={1}>Name</Typography>
+                    <TextField size="small" fullWidth placeholder="First Name" value={authData.firstname + " " + authData.lastname} /></Grid>
 
 
-                  <Grid item><TextField value={authData.phone} placeholder="Mobile Number" /></Grid>
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="caption" ml={1} mb={1}>Phone</Typography>
+                    <TextField size="small" fullWidth value={authData.phone} placeholder="Mobile Number" /></Grid>
 
 
-                  <Grid item><TextField placeholder="Email" value={authData.email} fullWidth /></Grid>
-                  <Grid item><TextField type="date" placeholder="DOB" label="DOB" fullWidth /></Grid>
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="caption" ml={1} mb={1}>Email</Typography>
+                    <TextField size="small" placeholder="Email" value={authData.email} fullWidth /></Grid>
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="caption" ml={1} mb={1}>Date of Birth</Typography>
+                    <TextField size="small" type="date" placeholder="DOB" fullWidth /></Grid>
                 </Grid>
 
               </List>
@@ -126,7 +134,12 @@ const Settings = () => {
               >
                 <Divider />
 
-
+                <TextField
+                  multiline
+                  rows={5}
+                  variant="standard"
+                  fullWidth
+                />
 
               </List>
               <Divider />

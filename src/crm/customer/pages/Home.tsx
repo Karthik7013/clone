@@ -114,8 +114,6 @@ const Home = () => {
         <div id="chart">
           <ApexCharts options={options} series={series} type="bar" height={350} />
         </div>
-
-
       </Box >
     );
   });
@@ -301,9 +299,9 @@ const Home = () => {
               }
             >
               <Divider />
-              <div id="chart">
+              <Box component={CardContent} id="chart">
                 <ReactApexChart options={chartOptions} series={seriesChat} type="donut" />
-              </div>
+              </Box>
             </List>
           </Card>
         </Grid>

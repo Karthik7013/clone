@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, Slide, SlideProps, Snackbar, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Alert, Button, CardActionArea, Slide, SlideProps, Snackbar, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { useDispatch } from 'react-redux';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import { alpha, styled } from '@mui/material/styles';
@@ -16,10 +16,11 @@ type alertProps = {
 }
 type props = {
     alert: alertProps,
-    onClose: () => UnknownAction
+    onClose: () => UnknownAction,
+    variant?: "filled" | "outlined" | "standard"
 }
 
-const AlertBox = ({ alert, onClose }: props) => {
+const AlertBox = ({ alert, onClose, variant = "outlined" }: props) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.up('md'));
     const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const AlertBox = ({ alert, onClose }: props) => {
         backgroundColor: alert.type && alpha(theme.palette[alert.type].main, 0.1),
         borderLeft: '4px solid',
         borderLeftColor: alert.type && theme.palette[alert.type].main,
-        fontWeight: 'bolder',
+        fontWeight: 'bolder'
     }));
 
     const AlertIcon = (type: 'info' | 'error' | 'warning' | 'success' | undefined) => {
@@ -62,9 +63,11 @@ const AlertBox = ({ alert, onClose }: props) => {
             onClose={handleClose}
             anchorOrigin={{ vertical: 'bottom', horizontal: isMobile ? 'right' : 'center' }}
         >
-            <CustomAlert variant='outlined' icon={AlertIcon(alert.type)} severity={alert.type}>
-                <Typography variant='caption'>{alert.message}</Typography>
-            </CustomAlert>
+            <CardActionArea>
+                <CustomAlert variant={variant} icon={AlertIcon(alert.type)} severity={alert.type}>
+                    <Typography variant='caption'>{alert.message}</Typography>
+                </CustomAlert>
+            </CardActionArea>
         </Snackbar>
     )
 }

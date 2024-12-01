@@ -1,4 +1,4 @@
-import { Alert, alpha, Button, styled } from '@mui/material';
+import { Alert, alpha, Button, CardActionArea, styled } from '@mui/material';
 import React from 'react';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
@@ -7,7 +7,7 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 type messageBoxProps = {
     type: 'error' | 'info' | 'success' | 'warning',
     children?: React.ReactNode,
-    message?:string
+    message?: string
 }
 
 const MessageBox = (props: messageBoxProps) => {
@@ -25,10 +25,12 @@ const MessageBox = (props: messageBoxProps) => {
         borderLeftColor: props.type && theme.palette[props.type].main
     }))
     return (
-        <StyledAlert iconMapping={iconMapping} variant='outlined' severity={props.type}>
-            {props.children}
-            {props.message}
-        </StyledAlert>
+        <CardActionArea>
+            <StyledAlert iconMapping={iconMapping} variant='outlined' severity={props.type}>
+                {props.children}
+                {props.message}
+            </StyledAlert>
+        </CardActionArea>
     )
 }
 

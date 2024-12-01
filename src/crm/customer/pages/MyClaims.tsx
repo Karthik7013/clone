@@ -110,13 +110,13 @@ const MyClaims = () => {
     <Box mt={3}>
       <ListItem
         disableGutters
-        secondaryAction={
-          <Stack direction='row' gap={1}>
-            <Button size='small' variant='outlined' startIcon={<FilterListRoundedIcon />}>Filter</Button>
-            <Button size='small' variant='outlined' startIcon={<FileUploadRoundedIcon />}>Export</Button>
-          </Stack>
+        // secondaryAction={
+        //   <Stack direction='row' gap={1}>
+        //     <Button size='small' variant='outlined' startIcon={<FilterListRoundedIcon />}>Filter</Button>
+        //     <Button size='small' variant='outlined' startIcon={<FileUploadRoundedIcon />}>Export</Button>
+        //   </Stack>
 
-        }
+        // }
       >
         <ListItemText
           primary={<Typography gutterBottom variant='h4'>Claims</Typography>}

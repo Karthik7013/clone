@@ -72,8 +72,7 @@ const dashboardSlice = createSlice({
             .addCase(getCustomerPolicies.rejected, (state, action) => {
                 console.log(action, 'error')
                 state.loading = false;
-            })
-            .addCase(getCustomerPolicies.fulfilled, (state, action) => {
+            }).addCase(getCustomerPolicies.fulfilled, (state, action) => {
                 state.loading = false;
                 state.data.policies = [...action.payload.data]
             })
@@ -81,7 +80,10 @@ const dashboardSlice = createSlice({
             state.loading = true
         }).addCase(registerCustomerPolicies.rejected, (state, action) => {
             console.log(action)
-            state.loading = false
+            state.loading = false;
+            state.alert.message = action.payload?.message;
+            state.alert.type = 'error';
+            state.alert.state = true
         }).addCase(registerCustomerPolicies.fulfilled, (state, action) => {
             state.loading = false
             state.alert.message = action.payload.data.description;

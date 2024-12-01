@@ -1,7 +1,7 @@
-import { alpha, AppBar, Avatar, Box, CardContent, Chip, Divider, Drawer, IconButton, LinearProgress, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, styled, Toolbar, Tooltip, Typography } from "@mui/material"
+import { alpha, AppBar, Avatar, Box, CardContent, Chip, Divider, Drawer, IconButton, LinearProgress, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, styled, Toolbar, Tooltip, Typography, useMediaQuery } from "@mui/material"
 import React, { Suspense, useEffect } from "react";
 import { Logout, NotesRounded } from '@mui/icons-material';
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootProps } from "../../types/RootProps";
 import { toggleTheme } from "../../redux/slice/uiSlice";
@@ -17,6 +17,7 @@ type crmLayoutPropType = {
     sideBar: React.ReactNode
 }
 const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
+    const isMobile = useMediaQuery('(max-width: 600px)');
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const dispatch: AppDispatch = useDispatch()
@@ -64,7 +65,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
         padding: theme.spacing(2),
-        borderRadius: theme.shape.borderRadius*1.2,
+        borderRadius: theme.shape.borderRadius * 1.2,
         flexGrow: 1,
         height: 'calc( 100dvh - 65px)',
         border: `1px solid ${alpha(theme.palette.divider, 0.05)}`,
@@ -101,15 +102,15 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                     <ListItemText primary={
                         <Typography color="text.primary">Namelix</Typography>} />
                 </ListItem>
-                <IconButton
+                {isMobile && <IconButton
                     disableTouchRipple
                     aria-label="open drawer"
                     edge="start"
-                    // onClick={handleDrawerToggle}
+                    onClick={handleDrawerToggle}
                     sx={{ mr: 2, borderRadius: '8px' }}
                 >
                     <NotesRounded />
-                </IconButton>
+                </IconButton>}
 
                 {
                     profile ? <>
@@ -165,7 +166,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
 
-                       
+
                             <MenuItem onClick={handleOnclick}>
                                 <ListItemIcon>
                                     <Logout fontSize="small" />

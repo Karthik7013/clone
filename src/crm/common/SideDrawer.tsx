@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Card, CardContent, Chip, CircularProgress, Divider, Icon, InputAdornment, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
+import { Avatar, Badge, Box, Card, CardContent, Chip, CircularProgress, Divider, Icon, InputAdornment, LinearProgress, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
@@ -19,7 +19,7 @@ const SideDrawer = () => {
     console.log(authData, 'see here');
     return (<Box>
         <Toolbar sx={{ display: { xs: 'block', md: 'none' } }}>
-            <ListItem component={Link} to="/" disablePadding sx={{ width: 240 - 10, display: { xs: 'none', md: 'flex' } }}>
+            <ListItem component={Link} to="/" disablePadding sx={{ mt: 4, width: 240 - 10, display: { xs: 'flex', md: 'none' } }}>
                 <ListItemIcon>
                     <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
                 </ListItemIcon>
@@ -27,7 +27,7 @@ const SideDrawer = () => {
                     <Typography color="text.primary">Namelix</Typography>} />
             </ListItem>
         </Toolbar>
-        {loading ? <CircularProgress /> : <List component={Stack} sx={{ px: 1 }}>
+        {loading ? <LinearProgress /> : <List component={Stack} sx={{ px: 1 }}>
             <ListItem disablePadding sx={{ mb: 1 }}>
                 <TextField
                     size='small'

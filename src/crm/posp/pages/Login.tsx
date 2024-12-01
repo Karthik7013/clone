@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from '@mui/material'
+import { Box, CircularProgress, Typography, Link as MuiLink } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -20,8 +20,8 @@ function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" to="https://mui.com/">
-                Your Website
+            <Link color="inherit" to="/">
+                NameLix 360° Insurance
             </Link>
             {new Date().getFullYear()}
         </Typography>
@@ -118,6 +118,7 @@ const Login = () => {
                         >
                             {isLoading ? <CircularProgress size={24} /> : "Login"}
                         </Button>
+                        <MuiLink component={Link} to='/agent/signup'>New ? click here to Register </MuiLink>
 
                     </Box>
 

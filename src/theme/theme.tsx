@@ -165,7 +165,7 @@ const theme = (customStyles: customStylesProps) => {
                 styleOverrides: {
                     root: {
                         textDecoration: "none",
-                        color: theme.palette.text.primary
+                        // color: theme.palette.common.black
                     }
                 }
             },
