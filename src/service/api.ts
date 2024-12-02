@@ -1,11 +1,11 @@
 import axios from "axios";
 
-// const deployURL = 'https://clone-api.onrender.com/api/v1/dashboard';
-// const localURL = 'http://localhost:8000/api/v1/dashboard'
-// const deployURL = 'https://clone-api.onrender.com/api/v1/dashboard';
+const deployURL = 'https://clone-api.onrender.com/api/v1';
+// const localURL = 'http://localhost:8000/api/v1'
+const localURL = 'https://clone-api.onrender.com/api/v1'
 
 export const authService = axios.create({
-  baseURL: 'http://localhost:8000/api/v1/auth',
+  baseURL: `${localURL}/auth`,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -13,8 +13,7 @@ export const authService = axios.create({
 })
 
 export const CustomerResources = axios.create({
-  // baseURL: deployURL,
-  baseURL: 'http://localhost:8000/api/v1/customer',
+  baseURL: `${localURL}/customer`,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -22,8 +21,7 @@ export const CustomerResources = axios.create({
 })
 
 export const AgentResources = axios.create({
-  // baseURL: deployURL,
-  baseURL: 'http://localhost:8000/api/v1/agent',
+  baseURL: `${localURL}/agent`,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -31,7 +29,7 @@ export const AgentResources = axios.create({
 })
 
 export const EmployeeResources = axios.create({
-  baseURL: 'http://localhost:8000/api/v1/employee',
+  baseURL: `${localURL}/employee`,
   headers: {
     'Content-Type': 'application/json',
   },

@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomerResources } from "../../service/api";
-import axios from "axios";
 import { alertProps } from "../../types/UiProps/uiProps";
 
 type dashboardProps = {
