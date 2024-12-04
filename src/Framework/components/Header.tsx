@@ -33,6 +33,7 @@ const Header = () => {
     const dark = useSelector((state: RootState) => state.ui.dark);
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
     const profile = useSelector((state: RootState) => state.auth.authData);
+    const role = useSelector((state: RootState) => state.auth.role);
 
     const dispatch: AppDispatch = useDispatch();
     const [anchorElProducts, setAnchorElProducts] = useState(null);
@@ -170,7 +171,7 @@ const Header = () => {
                             onClose={handleCloseSignInMenu}
                         >{
                                 islogin ? <Box>
-                                    <MenuItem onClick={() => navigate(`/customer/`)}>
+                                    <MenuItem onClick={() => navigate(`/${role}/`)}>
                                         <ListItemIcon>
                                             <SpaceDashboardIcon fontSize='small' />
                                         </ListItemIcon>

@@ -75,14 +75,13 @@ const theme = (customStyles: customStylesProps) => {
                             margin: 0,
                         }
                     },
-
                 }
             },
             MuiAppBar: {
                 styleOverrides: {
                     root: {
                         // backgroundColor: dark ? "#003f67" : '#23a8fa'
-                    }
+                    },
                 }
             },
             MuiListItemText: {
@@ -108,9 +107,7 @@ const theme = (customStyles: customStylesProps) => {
                         overflow: 'hidden'
                     }
                 }
-            }
-            ,
-
+            },
             MuiDataGrid: {
                 styleOverrides: {
                     root: {
@@ -128,7 +125,6 @@ const theme = (customStyles: customStylesProps) => {
                         },
                     },
                 },
-
             },
             MuiDrawer: {
                 styleOverrides: {
@@ -172,7 +168,20 @@ const theme = (customStyles: customStylesProps) => {
             MuiChip: {
                 styleOverrides: {
                     root: {
+                        borderRadius
                     },
+                    outlined: {
+                        '&.MuiChip-colorPrimary': {
+                            backgroundColor: alpha(theme.palette.primary.light, 0.15)
+                        },
+                        '&.MuiChip-colorError': {
+                            borderColor: '#d32f2f',  // Set border color for outlined error
+                        },
+                        '&.MuiChip-colorWarning': {
+                            borderColor: '#f57c00',  // Set border color for outlined warning
+                        },
+                    },
+
                 }
             },
             MuiList: {
@@ -183,8 +192,6 @@ const theme = (customStyles: customStylesProps) => {
                     }
                 }
             },
-
-
             MuiMenuList: {
                 styleOverrides: {
                     root: {
@@ -218,9 +225,7 @@ const theme = (customStyles: customStylesProps) => {
                         background: 'none',
                     }
                 }
-            },
-
-
+            }
         }
     })
 
