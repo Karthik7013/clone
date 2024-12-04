@@ -129,7 +129,7 @@ const SideDrawer = () => {
 
                 <ListItem disablePadding
                     secondaryAction={
-                        <Chip label="new" size="small" color="success" />
+                        <Chip variant='outlined' label="3" size="small" color="success" />
                     }
                 >
                     <ListItemButton

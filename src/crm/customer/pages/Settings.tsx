@@ -44,12 +44,13 @@ const Settings = () => {
         </List>
         <EditProfile />
 
-        <ButtonGroup fullWidth variant="text">
+        <ButtonGroup fullWidth variant="text" sx={{ mt: 3 }}>
           <Button variant="contained">Info</Button>
-          <Button>Logs</Button>
-          <Button>Referals</Button>
-          <Button>Wallete</Button>
           <Button>Payments</Button>
+          {/* <Button>Logs</Button>
+          <Button>Referals</Button>
+          <Button>Wallete</Button> */}
+
         </ButtonGroup>
         <Divider />
 
@@ -86,12 +87,12 @@ const Settings = () => {
                 <Grid container spacing={2} padding={2}>
                   <Grid item xs={12} md={6}>
                     <Typography variant="caption" ml={1} mb={1}>Name</Typography>
-                    <TextField size="small" fullWidth placeholder="First Name" value={authData.firstname + " " + authData.lastname} /></Grid>
+                    <TextField disabled InputProps={{ readOnly: true }} size="small" fullWidth placeholder="First Name" value={authData.firstname + " " + authData.lastname} /></Grid>
 
 
                   <Grid item xs={12} md={6}>
                     <Typography variant="caption" ml={1} mb={1}>Phone</Typography>
-                    <TextField size="small" fullWidth value={authData.phone} placeholder="Mobile Number" /></Grid>
+                    <TextField disabled InputProps={{ readOnly: true }} size="small" fullWidth value={authData.phone} placeholder="Mobile Number" /></Grid>
 
 
                   <Grid item xs={12} md={6}>
@@ -100,6 +101,27 @@ const Settings = () => {
                   <Grid item xs={12} md={6}>
                     <Typography variant="caption" ml={1} mb={1}>Date of Birth</Typography>
                     <TextField size="small" type="date" placeholder="DOB" fullWidth /></Grid>
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="caption" ml={1} mb={1}>Gender</Typography>
+                    <TextField size="small" select fullWidth /></Grid>
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="caption" ml={1} mb={1}>Address</Typography>
+                    <TextField size="small" fullWidth /></Grid>
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="caption" ml={1} mb={1}>City</Typography>
+                    <TextField size="small" fullWidth /></Grid>
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="caption" ml={1} mb={1}>State</Typography>
+                    <TextField size="small" fullWidth /></Grid>
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="caption" ml={1} mb={1}>Pincode</Typography>
+                    <TextField size="small" fullWidth /></Grid>
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="caption" ml={1} mb={1}>Country</Typography>
+                    <TextField size="small" fullWidth /></Grid>
+                  <Grid item xs={12} >
+                    <Typography variant="caption" ml={1} mb={1}>Bio</Typography>
+                    <TextField multiline rows={5} size="small" fullWidth /></Grid>
                 </Grid>
 
               </List>

@@ -18,7 +18,6 @@ const MyPolicies = () => {
   const dispatch: AppDispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.dashboard.loading)
   const policies = useSelector((state: RootState) => state.dashboard.data?.policies) || []
-  const memorizedPolicies = useMemo(() => policies, [policies])
   useEffect(() => {
     dispatch(getCustomerPolicies())
   }, [dispatch])
@@ -57,6 +56,7 @@ const MyPolicies = () => {
         const status = params.value;
         return (
           <Chip
+            variant='outlined'
             label={status}
             color={status === 'active' ? 'success' : status === 'inactive' ? 'error' : 'default'}
             size="small"

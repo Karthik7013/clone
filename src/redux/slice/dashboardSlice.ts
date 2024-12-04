@@ -21,7 +21,9 @@ const initialState: dashboardProps = {
         policies: [
 
         ],
+        claims: [
 
+        ]
     }
 }
 
@@ -50,6 +52,17 @@ export const registerCustomerPolicies = createAsyncThunk('register/policies', as
     }
 })
 
+export const getCustomerClaims = createAsyncThunk('customer/claims', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await CustomerResources.get('/claims');
+        return { status: res.status, data: res.data.data };
+    } catch (error) {
+        if (error.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+    }
+})
 
 
 const dashboardSlice = createSlice({
@@ -75,6 +88,16 @@ const dashboardSlice = createSlice({
                 state.loading = false;
                 state.data.policies = [...action.payload.data]
             })
+        builder.addCase(getCustomerClaims.pending, (state) => {
+            state.loading = true;
+        })
+            .addCase(getCustomerClaims.rejected, (state, action) => {
+                console.log(action, 'error')
+                state.loading = false;
+            }).addCase(getCustomerClaims.fulfilled, (state, action) => {
+                state.loading = false;
+                state.data.claims = [...action.payload.data]
+            })
         builder.addCase(registerCustomerPolicies.pending, (state) => {
             state.loading = true
         }).addCase(registerCustomerPolicies.rejected, (state, action) => {
@@ -89,6 +112,7 @@ const dashboardSlice = createSlice({
             state.alert.type = 'success';
             state.alert.state = true
         })
+
     }
 })
 export const { closeAlert } = dashboardSlice.actions;

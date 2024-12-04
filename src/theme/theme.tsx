@@ -108,6 +108,14 @@ const theme = (customStyles: customStylesProps) => {
                     }
                 }
             },
+            MuiCardMedia: {
+                styleOverrides: {
+                    root: {
+                        borderRadius,
+                    }
+                },
+
+            },
             MuiDataGrid: {
                 styleOverrides: {
                     root: {
@@ -175,11 +183,14 @@ const theme = (customStyles: customStylesProps) => {
                             backgroundColor: alpha(theme.palette.primary.light, 0.15)
                         },
                         '&.MuiChip-colorError': {
-                            borderColor: '#d32f2f',  // Set border color for outlined error
+                            backgroundColor: alpha(theme.palette.error.light, 0.15)
                         },
                         '&.MuiChip-colorWarning': {
-                            borderColor: '#f57c00',  // Set border color for outlined warning
+                            backgroundColor: alpha(theme.palette.warning.light, 0.15)
                         },
+                        '&.MuiChip-colorSuccess': {
+                            backgroundColor: alpha(theme.palette.success.light, 0.15)
+                        }
                     },
 
                 }
