@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, ListSubheader, Switch, TextareaAutosize, TextField, Typography, useTheme } from "@mui/material"
+import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, ListSubheader, MenuItem, Switch, TextareaAutosize, TextField, Typography, useTheme } from "@mui/material"
 import React from "react";
 import CakeRoundedIcon from '@mui/icons-material/CakeRounded';
 import LocalPoliceRoundedIcon from '@mui/icons-material/LocalPoliceRounded';
@@ -100,30 +100,37 @@ const Settings = () => {
                     <TextField size="small" placeholder="Email" value={authData.email} fullWidth /></Grid>
                   <Grid item xs={12} md={6}>
                     <Typography variant="caption" ml={1} mb={1}>Date of Birth</Typography>
-                    <TextField size="small" type="date" placeholder="DOB" fullWidth /></Grid>
+                    <TextField size="small" type="date" placeholder="DOB" fullWidth value={authData.dob.split('T')[0]} /></Grid>
                   <Grid item xs={12} md={6}>
                     <Typography variant="caption" ml={1} mb={1}>Gender</Typography>
-                    <TextField size="small" select fullWidth /></Grid>
+                    <TextField size="small" select fullWidth value={authData.gender}>
+                      <MenuItem value="Male">Male</MenuItem>
+                      <MenuItem value="Female">Male</MenuItem>
+                    </TextField></Grid>
                   <Grid item xs={12} md={6}>
                     <Typography variant="caption" ml={1} mb={1}>Address</Typography>
-                    <TextField size="small" fullWidth /></Grid>
+                    <TextField size="small" fullWidth value={authData.address} /></Grid>
                   <Grid item xs={12} md={6}>
-                    <Typography variant="caption" ml={1} mb={1}>City</Typography>
-                    <TextField size="small" fullWidth /></Grid>
+                    <Typography variant="caption" ml={1} mb={1} >City</Typography>
+                    <TextField size="small" fullWidth value={authData.city} /></Grid>
                   <Grid item xs={12} md={6}>
                     <Typography variant="caption" ml={1} mb={1}>State</Typography>
-                    <TextField size="small" fullWidth /></Grid>
+                    <TextField size="small" fullWidth value={authData.state} /></Grid>
                   <Grid item xs={12} md={6}>
                     <Typography variant="caption" ml={1} mb={1}>Pincode</Typography>
-                    <TextField size="small" fullWidth /></Grid>
+                    <TextField size="small" fullWidth value={authData.pincode} /></Grid>
                   <Grid item xs={12} md={6}>
                     <Typography variant="caption" ml={1} mb={1}>Country</Typography>
-                    <TextField size="small" fullWidth /></Grid>
+                    <TextField size="small" fullWidth value={authData.country} /></Grid>
                   <Grid item xs={12} >
                     <Typography variant="caption" ml={1} mb={1}>Bio</Typography>
-                    <TextField multiline rows={5} size="small" fullWidth /></Grid>
-                </Grid>
+                    <TextField multiline rows={5} size="small" fullWidth placeholder="Write something fun about yourself" sx={{
+                      '& ::placeholder': {
+                        fontStyle: 'italic',
+                      },
+                    }} /></Grid>
 
+                </Grid>
               </List>
               <Divider />
               <CardActions>

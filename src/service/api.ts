@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const deployURL = 'https://clone-api.onrender.com/api/v1';
 const localURL = 'http://localhost:8000/api/v1'
 // const localURL = 'https://clone-api.onrender.com/api/v1'
 

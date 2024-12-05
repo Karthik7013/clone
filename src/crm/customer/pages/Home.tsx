@@ -11,7 +11,6 @@ import ReactApexChart from 'react-apexcharts';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 const Home = () => {
   console.log("customer home renders")
-  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const profileStats = [
     {
@@ -93,19 +92,6 @@ const Home = () => {
   const seriesChat = [44, 55, 41, 17, 15]
 
 
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
-
-
   const StatusBarGraph = React.memo(() => {
     console.log('renderedchart');
     return (
@@ -127,7 +113,6 @@ const Home = () => {
             <Button size='small' variant='outlined' startIcon={<FilterListRoundedIcon />}>Filter</Button>
             <Button size='small' variant='outlined' startIcon={<FileUploadRoundedIcon />}>Export</Button>
           </Stack>
-
         }
       >
         <ListItemText
