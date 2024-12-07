@@ -20,17 +20,17 @@ const Home = () => {
     },
     {
       title: 'Claims',
-      profit: 40000,
+      profit: 2,
       loss: 0
     },
     {
       title: 'Renewal',
-      profit: 4000,
+      profit: 40,
       loss: 0
     },
     {
       title: 'Register',
-      profit: 4000,
+      profit: 0,
       loss: 0
     }
   ]

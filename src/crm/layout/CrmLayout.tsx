@@ -1,54 +1,45 @@
-import { alpha, AppBar, Avatar, Box, CardContent, Chip, Divider, Drawer, IconButton, LinearProgress, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, styled, Toolbar, Tooltip, Typography, useMediaQuery } from "@mui/material"
-import React, { Suspense, useEffect } from "react";
+import { alpha, AppBar, Avatar, Box, Button, CardContent, Chip, Divider, Drawer, IconButton, LinearProgress, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, styled, Toolbar, Tooltip, Typography, useMediaQuery } from "@mui/material"
+import React, { Suspense, useCallback, useEffect } from "react";
 import { Logout, NotesRounded } from '@mui/icons-material';
 import { Link, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootProps } from "../../types/RootProps";
-import { toggleTheme } from "../../redux/slice/uiSlice";
+import { handleIsMobile, toggleTheme } from "../../redux/slice/uiSlice";
 import { getAgentProfile, getCustomerProfile, getEmployeeProfile, logout } from "../../redux/slice/authSlice";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 const drawerWidth = 240;
-import { AppDispatch } from "../../redux/store";
+import { AppDispatch, RootState } from "../../redux/store";
 
 
 type crmLayoutPropType = {
     sideBar: React.ReactNode
 }
 const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
+    console.log('layout')
     const isMobile = useMediaQuery('(max-width: 600px)');
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
     const dispatch: AppDispatch = useDispatch()
-    let profile = useSelector((state: RootProps) => state.auth.authData);
+    const profile = useSelector((state: RootProps) => state.auth.authData);
     const dark = useSelector((state: RootProps) => state.ui.dark);
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+    const mobileOpen: boolean = useSelector((state: RootProps) => state.ui.isMobile);
     const role = useSelector((state: RootProps) => state.auth.role);
 
-    const handleDrawerClose = () => {
-        setMobileOpen(false);
-    };
+    const handleDrawerClose = useCallback(() => {
+        // setMobileOpen(false);
+        dispatch(handleIsMobile())
+    }, [dispatch]);
 
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
+    const handleDrawerToggle = useCallback(() => {
+        // setMobileOpen(!mobileOpen);
+        dispatch(handleIsMobile())
+    }, [dispatch]);
 
-
-    const handleClick = (event: any) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const handleOnclick = () => dispatch(logout({})) // logout 
-    const handleTheme = () => dispatch(toggleTheme()); //toggle theme;
+    const handleOnclick = useCallback(() => dispatch(logout({})), [dispatch]) // logout 
+    const handleTheme = useCallback(() => dispatch(toggleTheme()), [dispatch]); //toggle theme;
 
     useEffect(() => {
-        console.log(role, 'seee')
         switch (role) {
-
             case 'customer':
                 dispatch(getCustomerProfile({}));
                 break;
@@ -56,7 +47,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                 dispatch(getAgentProfile({}));
                 break;
             case 'employee':
-                dispatch(getEmployeeProfile({}))
+                dispatch(getEmployeeProfile({}));
                 break;
             default:
                 break;
@@ -129,6 +120,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                         <Tooltip title={dark ? "light" : "dark"}>
                             <IconButton color="default" sx={{ mr: 2 }} onClick={handleTheme}>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
                         </Tooltip>
+                        <Button onClick={handleOnclick}>Logout</Button>
                     </Stack>
                     {
                         profile ? <>
@@ -137,7 +129,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                                 title=""
                             >
                                 <IconButton
-                                    onClick={handleClick}
+
                                     size="small"
                                     sx={{ ml: 2 }}
                                 >
@@ -151,29 +143,6 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                         </> : <>
                             <Skeleton sx={{ borderRadius: 999 }} variant="circular" width={42} height={42}></Skeleton>
                         </>
-                    }
-                    {
-                        profile &&
-                        <Menu
-
-                            anchorEl={anchorEl}
-                            id="account-menu"
-                            open={open}
-                            onClose={handleClose}
-                            onClick={handleClose}
-                            variant="menu"
-                            transformOrigin={{ horizontal: 'right', vertical: 'center' }}
-                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                        >
-
-
-                            <MenuItem onClick={handleOnclick}>
-                                <ListItemIcon>
-                                    <Logout fontSize="small" />
-                                </ListItemIcon>
-                                <Typography>Logout</Typography>
-                            </MenuItem>
-                        </Menu>
                     }
                 </Stack>
             </Toolbar>

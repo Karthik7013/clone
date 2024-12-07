@@ -11,8 +11,9 @@ type uiProps = {
     fontFamily: string,
     cookieConsent: boolean,
     customizePalleteOpen: boolean,
-    customerEditProfile:boolean,
-    counter:number
+    customerEditProfile: boolean,
+    counter: number,
+    isMobile: boolean
 }
 
 export type { uiProps, alertProps }

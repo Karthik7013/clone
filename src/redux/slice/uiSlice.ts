@@ -11,7 +11,8 @@ const initialState: uiProps = {
     customizePalleteOpen: false,
     cookieConsent: false,
     customerEditProfile: false,
-    counter: 0
+    counter: 0,
+    isMobile: false
 }
 
 const uiSlice = createSlice({
@@ -39,9 +40,12 @@ const uiSlice = createSlice({
         },
         increaseCounter: (state) => {
             state.counter = state.counter + 1
+        },
+        handleIsMobile: (state) => {
+            state.isMobile = !state.isMobile
         }
     }
 })
 
-export const { increaseCounter,handleEditProfile, toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete } = uiSlice.actions
+export const { increaseCounter, handleEditProfile, toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete, handleIsMobile } = uiSlice.actions
 export default uiSlice.reducer

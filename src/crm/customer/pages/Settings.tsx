@@ -9,9 +9,12 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import EditProfile from "../components/EditProfile";
 import { handleEditProfile } from "../../../redux/slice/uiSlice";
 import DangerousRoundedIcon from '@mui/icons-material/DangerousRounded';
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import DescriptionIcon from '@mui/icons-material/Description';
+import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 const Settings = () => {
-  const theme = useTheme()
+  const theme = useTheme();
+  const isMobile = useSelector((state: RootState) => state.ui.isMobile)
   const authData = useSelector((state: RootState) => state.auth.authData);
   const dispatch: AppDispatch = useDispatch();
   const handleClose = () => dispatch(handleEditProfile());
@@ -57,22 +60,6 @@ const Settings = () => {
 
         <Grid container columnSpacing={2} rowSpacing={2} mt={1}>
           <Grid item xs={12} md={8}>
-            {/* <Card>
-              <CardContent>
-                <Typography gutterBottom variant="h6" component="div">
-                  Personal Information
-                </Typography>
-                <Divider variant="fullWidth" />
-                <Grid container rowSpacing={2} mt={1}>
-                  <Grid item xs={12} md={4}>Age : 26 years</Grid>
-                  <Grid item xs={12} md={4}>Gender: {authData.gender}</Grid>
-                  <Grid item xs={12} md={4}>Status: <Chip color="success" size="small" label="active"></Chip></Grid>
-                  <Grid item xs={12} md={6}>Email : {authData.email}</Grid>
-                  <Grid item md={2} />
-                  <Grid item xs={12} md={4}>Mobile Number : +91 {authData.phone}</Grid>
-                </Grid>
-              </CardContent>
-            </Card> */}
             <Card>
 
               <List
@@ -140,7 +127,6 @@ const Settings = () => {
           </Grid>
           <Grid item xs={12} md={4}>
             {/* <Card>
-
               <CardContent>
                 <Typography gutterBottom variant="h6" component="div">
                   Address Details
@@ -150,30 +136,45 @@ const Settings = () => {
                   <li>15-96 Simhagiri Colony Saligramapuram Visakhapatnam,Andhra Pradesh 530024</li>
                 </Typography>
               </CardContent>
-
             </Card> */}
             <Card>
 
               <List
                 subheader={
                   <ListSubheader component="div">
-                    Address Details
+                    Invoices
                   </ListSubheader>
                 }
               >
                 <Divider />
+                <List>
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map(() => <ListItem divider
+                    secondaryAction={<Chip size="small" icon={<QueryBuilderIcon fontSize="inherit" />} variant="outlined" color="warning" label="Pending" />}
+                    alignItems="flex-start">
+                    <ListItemAvatar>
+                      <DescriptionIcon />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="Invoice #323"
+                      secondary={
+                        <React.Fragment>
 
-                <TextField
-                  multiline
-                  rows={5}
-                  variant="standard"
-                  fullWidth
-                />
+                          {"26 May 2023"}
+                        </React.Fragment>
+                      }
+                    />
+                  </ListItem>)}
+                </List>
+
 
               </List>
               <Divider />
+
+
+
+
               <CardActions>
-                <Button variant="contained" size="small">Save</Button>
+                <Button variant="contained" size="small">more</Button>
               </CardActions>
             </Card>
           </Grid>
@@ -231,18 +232,21 @@ const Settings = () => {
                 }
               >
                 <Divider />
-                <ListItem>
-                  <ListItemText
-                    primary={<Typography variant="subtitle2">Whatsapp Notifications</Typography>}
-                  />
-                </ListItem>
+                <List>
 
+                  <ListItem secondaryAction={(!isMobile) && <Button startIcon={<DeleteIcon />} variant="outlined" color="error">Delete Account</Button>}
+                  >
+                    <ListItemText
+                      primary={<Typography maxWidth={'600px'} variant="subtitle2">By deleting your account you will lose all your data and access to any workspace that you associated with</Typography>}
+                    />
+                  </ListItem>
+                </List>
               </List>
             </Card>
           </Grid>
         </Grid>
       </Box >
-    </Box>
+    </Box >
   )
 }
 
