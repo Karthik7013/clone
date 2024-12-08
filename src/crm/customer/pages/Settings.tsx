@@ -111,7 +111,7 @@ const Settings = () => {
                     <TextField size="small" fullWidth value={authData.country} /></Grid>
                   <Grid item xs={12} >
                     <Typography variant="caption" ml={1} mb={1}>Bio</Typography>
-                    <TextField multiline rows={5} size="small" fullWidth placeholder="Write something fun about yourself" sx={{
+                    <TextField value={authData.bio} multiline rows={5} size="small" fullWidth placeholder="Write something fun about yourself" sx={{
                       '& ::placeholder': {
                         fontStyle: 'italic',
                       },

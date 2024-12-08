@@ -8,15 +8,14 @@ import KeyboardCommandKeyRoundedIcon from '@mui/icons-material/KeyboardCommandKe
 import ProtectedRoutes from '../../ProtectedRoute';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { Settings } from '@mui/icons-material';
-
 
 const SideDrawer = () => {
+    console.log('sidebar render');
     const theme = useTheme();
-    const activeTab = useSelector((state: RootState) => state.dashboard.activeTab);
+    // const activeTab = useSelector((state: RootState) => state.dashboard.activeTab);
     const loading = useSelector((state: RootState) => state.auth.loading);
     const authData = useSelector((state: RootState) => state.auth.authData);
-    console.log(authData, 'see here');
+
     return (<Box>
         <Toolbar sx={{ display: { xs: 'block', md: 'none' } }}>
             <ListItem component={Link} to="/" disablePadding sx={{ mt: 4, width: 240 - 10, display: { xs: 'flex', md: 'none' } }}>

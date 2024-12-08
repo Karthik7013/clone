@@ -18,6 +18,7 @@ const initialState: dashboardProps = {
         state: false
     },
     data: {
+        stats: null,
         policies: [
 
         ],
@@ -55,6 +56,18 @@ export const registerCustomerPolicies = createAsyncThunk('register/policies', as
 export const getCustomerClaims = createAsyncThunk('customer/claims', async (payload, { rejectWithValue }) => {
     try {
         const res = await CustomerResources.get('/claims');
+        return { status: res.status, data: res.data.data };
+    } catch (error) {
+        if (error.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+    }
+})
+
+export const getCustomerStats = createAsyncThunk('customer/stats', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await CustomerResources.get('/analytics');
         return { status: res.status, data: res.data.data };
     } catch (error) {
         if (error.message === 'Network Error') {
@@ -111,6 +124,24 @@ const dashboardSlice = createSlice({
             state.alert.message = action.payload.data.description;
             state.alert.type = 'success';
             state.alert.state = true
+        })
+        builder.addCase(getCustomerStats.pending, (state) => {
+            state.loading = true
+        }).addCase(getCustomerStats.rejected, (state, action) => {
+            console.log(action)
+            state.loading = false;
+            state.alert.message = action.payload?.message;
+            state.alert.type = 'error';
+            state.alert.state = true
+        }).addCase(getCustomerStats.fulfilled, (state, action) => {
+            state.loading = false;
+            console.log(action.payload.data, 'statpayload')
+            state.data.stats = action.payload.data
+            // state.alert.message = action.payload.data.description;
+            // state.alert.type = 'success';
+            // state.alert.state = true
+            // state.data.stats = 
+
         })
 
     }

@@ -1,5 +1,5 @@
-import { Avatar, Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Divider, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, ListSubheader, Menu, MenuItem, Paper, Stack, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, ThemedProps, Typography } from '@mui/material'
-import React from 'react'
+import { Avatar, Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Divider, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, ListSubheader, Menu, MenuItem, Paper, Skeleton, Stack, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, ThemedProps, Typography } from '@mui/material'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { DeleteOutline, MoreHorizOutlined, Forward5 } from '@mui/icons-material';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
@@ -9,8 +9,17 @@ import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded';
 import ReactApexChart from 'react-apexcharts';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/store";
+import { getCustomerStats } from '../../../redux/slice/dashboardSlice';
+
 const Home = () => {
-  console.log("customer home renders")
+  console.log("customer home renders");
+  const dispatch: AppDispatch = useDispatch();
+  const loading = useSelector((state: RootState) => state.dashboard.loading);
+  const customerStats = useSelector((state: RootState) => state.dashboard.data.stats);
+  // console.log(customerStats, 'customerstats');
+
 
   const profileStats = [
     {
@@ -35,7 +44,9 @@ const Home = () => {
     }
   ]
 
-
+  useEffect(() => {
+    dispatch(getCustomerStats())
+  }, [dispatch])
   const theme = useTheme()
 
   const options = {
@@ -96,10 +107,9 @@ const Home = () => {
     console.log('renderedchart');
     return (
       <Box>
-
-        <div id="chart">
+        {loading ? <Skeleton animation='wave' variant='rectangular' height="200px"></Skeleton> : <div id="chart">
           <ApexCharts options={options} series={series} type="bar" height={350} />
-        </div>
+        </div>}
       </Box >
     );
   });
@@ -120,41 +130,152 @@ const Home = () => {
         />
       </ListItem>
       <Grid container spacing={2}>
+
         <Grid item xs={12} md={5} >
-          <Stack direction="row" flexWrap='wrap' gap={2}>
-            {profileStats.map((data, _) => (<Card key={_} sx={{ flexGrow: 1 }}>
-              <ListItem
-                secondaryAction={
-                  <IconButton edge="end" aria-label="delete">
-                    <MoreHorizOutlined />
-                  </IconButton>
-                }
-              >
-                <ListItemAvatar>
-                  <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
-                    <Icon fontSize='small' color='inherit'>
-                      flash_on
-                    </Icon>
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={data.title}
-                />
-              </ListItem>
-              <CardContent sx={{ pt: 0 }}>
-                <Typography color="success.light" variant='h4'>{data.profit}</Typography>
-                <Chip size='small' label={<Typography variant='overline' >365 days</Typography>} />
-              </CardContent>
-              <Divider />
-              <CardActions>
-                <Button variant='contained' endIcon={<ArrowForwardRoundedIcon />}>View Report</Button>
-              </CardActions>
-            </Card>))
-            }
-          </Stack>
+          {loading ?
+            <Stack direction="row" flexWrap='wrap' gap={2}>
+              {profileStats.map((data, _) => (<Card key={_} sx={{ flexGrow: 1 }}>
+                <ListItem
+                  secondaryAction={
+                    <Skeleton variant='circular' width='30px' height='30px' />
+                  }
+                >
+                  <ListItemAvatar>
+                    <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+                      <Icon fontSize='small' color='inherit'>
+                        flash_on
+                      </Icon>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={data.title}
+                  />
+                </ListItem>
+                <CardContent sx={{ pt: 0 }}>
+                  <Skeleton variant='rectangular' width='50px' />
+                </CardContent>
+                <Divider />
+                <CardActions>
+                  {loading ? <Button variant='contained' endIcon={<ArrowForwardRoundedIcon />}>View Report</Button> : <Skeleton variant='rectangular' width="100px"></Skeleton>}
+                </CardActions>
+              </Card>))
+              }
+            </Stack>
+            : <Stack direction="row" flexWrap='wrap' gap={2}>
+              <Card sx={{ flexGrow: 1 }}>
+                <ListItem
+                  secondaryAction={
+                    <IconButton edge="end" aria-label="delete">
+                      <MoreHorizOutlined />
+                    </IconButton>
+                  }
+                >
+                  <ListItemAvatar>
+                    <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+                      <Icon fontSize='small' color='inherit'>
+                        flash_on
+                      </Icon>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={'Active Policies'}
+                  />
+                </ListItem>
+                <CardContent sx={{ pt: 0 }}>
+                  <Typography color="success.light" variant='h4'>{customerStats?.activePolicies.count}</Typography>
+                  <Chip size='small' label={<Typography variant='overline' >{customerStats?.activePolicies.percentage}%</Typography>} />
+                </CardContent>
+                <Divider />
+                <CardActions>
+                  <Button variant='contained' endIcon={<ArrowForwardRoundedIcon />}>View Report</Button>
+                </CardActions>
+              </Card>
+              <Card sx={{ flexGrow: 1 }}>
+                <ListItem
+                  secondaryAction={
+                    <IconButton edge="end" aria-label="delete">
+                      <MoreHorizOutlined />
+                    </IconButton>
+                  }
+                >
+                  <ListItemAvatar>
+                    <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+                      <Icon fontSize='small' color='inherit'>
+                        flash_on
+                      </Icon>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={'Claims'}
+                  />
+                </ListItem>
+                <CardContent sx={{ pt: 0 }}>
+                  <Typography color="success.light" variant='h4'>{customerStats?.claimPolicies.count}</Typography>
+                  <Chip size='small' label={<Typography variant='overline' >{customerStats?.claimPolicies.percentage}%</Typography>} />
+                </CardContent>
+                <Divider />
+                <CardActions>
+                  <Button variant='contained' endIcon={<ArrowForwardRoundedIcon />}>View Report</Button>
+                </CardActions>
+              </Card>
+              <Card sx={{ flexGrow: 1 }}>
+                <ListItem
+                  secondaryAction={
+                    <IconButton edge="end" aria-label="delete">
+                      <MoreHorizOutlined />
+                    </IconButton>
+                  }
+                >
+                  <ListItemAvatar>
+                    <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+                      <Icon fontSize='small' color='inherit'>
+                        flash_on
+                      </Icon>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={'Renewal'}
+                  />
+                </ListItem>
+                <CardContent sx={{ pt: 0 }}>
+                  <Typography color="success.light" variant='h4'>{customerStats?.renewalPolicies.count}</Typography>
+                  <Chip size='small' label={<Typography variant='overline' >{customerStats?.renewalPolicies.percentage}%</Typography>} />
+                </CardContent>
+                <Divider />
+                <CardActions>
+                  <Button variant='contained' endIcon={<ArrowForwardRoundedIcon />}>View Report</Button>
+                </CardActions>
+              </Card>
+              <Card sx={{ flexGrow: 1 }}>
+                <ListItem
+                  secondaryAction={
+                    <IconButton edge="end" aria-label="delete">
+                      <MoreHorizOutlined />
+                    </IconButton>
+                  }
+                >
+                  <ListItemAvatar>
+                    <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+                      <Icon fontSize='small' color='inherit'>
+                        flash_on
+                      </Icon>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={'Register'}
+                  />
+                </ListItem>
+                <CardContent sx={{ pt: 0 }}>
+                  <Typography color="success.light" variant='h4'>{customerStats?.registeredClaimPolicies.count}</Typography>
+                  <Chip size='small' label={<Typography variant='overline' >{customerStats?.registeredClaimPolicies.percentage}%</Typography>} />
+                </CardContent>
+                <Divider />
+                <CardActions>
+                  <Button variant='contained' endIcon={<ArrowForwardRoundedIcon />}>View Report</Button>
+                </CardActions>
+              </Card>
+            </Stack>}
         </Grid>
-
-
 
         <Grid item xs={12} md={7}>
           <Card>
@@ -182,8 +303,6 @@ const Home = () => {
               }
             >
               <Divider />
-
-
               <ListItem alignItems="flex-start" secondaryAction={
                 <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
               }>
@@ -274,6 +393,7 @@ const Home = () => {
             </List>
           </Card>
         </Grid>
+
         <Grid item xs={12} md={5}>
           <Card>
             <List

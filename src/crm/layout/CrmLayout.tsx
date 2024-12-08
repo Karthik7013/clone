@@ -19,24 +19,22 @@ type crmLayoutPropType = {
 const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
     console.log('layout')
     const isMobile = useMediaQuery('(max-width: 600px)');
-    const dispatch: AppDispatch = useDispatch()
-    const profile = useSelector((state: RootProps) => state.auth.authData);
-    const dark = useSelector((state: RootProps) => state.ui.dark);
-    const mobileOpen: boolean = useSelector((state: RootProps) => state.ui.isMobile);
-    const role = useSelector((state: RootProps) => state.auth.role);
+    const dispatch: AppDispatch = useDispatch();
+    const profile = useSelector((state: RootState) => state.auth.authData);
+    const dark = useSelector((state: RootState) => state.ui.dark);
+    const mobileOpen: boolean = useSelector((state: RootState) => state.ui.isMobile);
+    const role = useSelector((state: RootState) => state.auth.role);
 
     const handleDrawerClose = useCallback(() => {
-        // setMobileOpen(false);
         dispatch(handleIsMobile())
     }, [dispatch]);
 
     const handleDrawerToggle = useCallback(() => {
-        // setMobileOpen(!mobileOpen);
         dispatch(handleIsMobile())
     }, [dispatch]);
 
-    const handleOnclick = useCallback(() => dispatch(logout({})), [dispatch]) // logout 
-    const handleTheme = useCallback(() => dispatch(toggleTheme()), [dispatch]); //toggle theme;
+    const handleOnclick = useCallback(() => dispatch(logout({})), [dispatch]);
+    const handleTheme = useCallback(() => dispatch(toggleTheme()), [dispatch]);
 
     useEffect(() => {
         switch (role) {
@@ -52,7 +50,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
             default:
                 break;
         }
-    }, [dispatch]);
+    }, [role]);
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
         padding: theme.spacing(2),
@@ -105,7 +103,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
 
                 {
                     profile ? <>
-                        <Typography variant="body1" color='text.secondary'>
+                        <Typography variant="h6">
                             Hellow {profile.firstname} !
                         </Typography>
                     </> : <>
@@ -120,7 +118,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                         <Tooltip title={dark ? "light" : "dark"}>
                             <IconButton color="default" sx={{ mr: 2 }} onClick={handleTheme}>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
                         </Tooltip>
-                        <Button onClick={handleOnclick}>Logout</Button>
+                        <Button variant="outlined" onClick={handleOnclick}>Logout</Button>
                     </Stack>
                     {
                         profile ? <>
