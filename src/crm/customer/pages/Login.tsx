@@ -13,6 +13,8 @@ import { AppDispatch, RootState } from '../../../redux/store';
 import { closeAlert, loginCustomer } from '../../../redux/slice/authSlice';
 import { useForm } from "react-hook-form";
 import AlertBox from '../../../Framework/components/AlertBox';
+
+
 function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -106,7 +108,6 @@ const Login = () => {
                         >
                             {isLoading ? <CircularProgress size={24} /> : "Login"}
                         </Button>
-
                     </Box>
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />

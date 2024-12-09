@@ -8,6 +8,7 @@ import travelReducer from './slice/travelSlice';
 import healthReducer from './slice/healthSlice';
 import vehicleReducer from "./slice/vehicleSlice";
 import dashboardReducer from "./slice/dashboardSlice";
+import botReducer from "./slice/botSlice"
 
 
 const combinedReducers = combineReducers({
@@ -17,7 +18,8 @@ const combinedReducers = combineReducers({
   travel: travelReducer,
   vehicle: vehicleReducer,
   health: healthReducer,
-  dashboard: dashboardReducer
+  dashboard: dashboardReducer,
+  bot:botReducer,
 });
 
 

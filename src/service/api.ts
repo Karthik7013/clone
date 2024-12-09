@@ -35,6 +35,12 @@ export const EmployeeResources = axios.create({
   withCredentials: true
 })
 
+export const BotResources = axios.create({
+  baseURL: `${localURL}/bot`,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
 
 
 

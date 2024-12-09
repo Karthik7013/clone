@@ -12,12 +12,32 @@ import DangerousRoundedIcon from '@mui/icons-material/DangerousRounded';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DescriptionIcon from '@mui/icons-material/Description';
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
+import { Controller, useForm } from "react-hook-form";
+import { updateCustomerProfile } from "../../../redux/slice/dashboardSlice";
 const Settings = () => {
   const theme = useTheme();
   const isMobile = useSelector((state: RootState) => state.ui.isMobile)
   const authData = useSelector((state: RootState) => state.auth.authData);
   const dispatch: AppDispatch = useDispatch();
-  const handleClose = () => dispatch(handleEditProfile());
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      email: authData.email,
+      dob: authData.dob.split('T')[0], // format to 'YYYY-MM-DD'
+      gender: authData.gender,
+      address: authData.address,
+      city: authData.city,
+      state: authData.state,
+      pincode: authData.pincode,
+      country: authData.country,
+      bio: authData.bio,
+      marital_status:'Single'
+    }
+  });
+  // Handle the form submission
+  const onSubmitHandler = (data:any) => {
+    dispatch(updateCustomerProfile(data))
+  };
+
   return (
 
     <Box mt={3}>
@@ -31,7 +51,7 @@ const Settings = () => {
       </ListItem>
       <Box>
         <List>
-          <ListItem disablePadding sx={{ gap: 2 }} secondaryAction={<IconButton onClick={handleClose} ><EditRoundedIcon /></IconButton>}>
+          <ListItem disablePadding sx={{ gap: 2 }}>
             <ListItemIcon>
               <Avatar src="https://avatar.iran.liara.run/public" sx={{ width: '3.75em', height: '3.75em' }}>
               </Avatar>
@@ -59,73 +79,200 @@ const Settings = () => {
 
 
         <Grid container columnSpacing={2} rowSpacing={2} mt={1}>
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} lg={8}>
             <Card>
+              <form onSubmit={handleSubmit(onSubmitHandler)}>
+                <List
+                  subheader={
+                    <ListSubheader component="div">
+                      Personal Details
+                    </ListSubheader>
+                  }
+                >
+                  <Divider />
+                  <Grid container spacing={2} padding={2}>
+                    <Grid item xs={12} md={6}>
+                      <Typography variant="caption" ml={1} mb={1}>Name</Typography>
+                      <TextField
+                        size="small"
+                        fullWidth
+                        disabled
+                        InputProps={{ readOnly: true }}
+                        value={`${authData.firstname} ${authData.lastname}`} // Concatenate first and last names
+                      />
+                    </Grid>
 
-              <List
-                subheader={
-                  <ListSubheader component="div">
-                    Personal Details
-                  </ListSubheader>
-                }
-              >
+                    <Grid item xs={12} md={6}>
+                      <Typography variant="caption" ml={1} mb={1}>Phone</Typography>
+                      <TextField
+                        size="small"
+                        fullWidth
+                        disabled
+                        InputProps={{ readOnly: true }}
+                        value={`${authData.phone}`}
+                      />
+
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Typography variant="caption" ml={1} mb={1}>Email</Typography>
+                      <Controller
+                        name="email"
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            size="small"
+                            fullWidth
+                            placeholder="Email"
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Typography variant="caption" ml={1} mb={1}>Date of Birth</Typography>
+                      <Controller
+                        name="dob"
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            size="small"
+                            type="date"
+                            fullWidth
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Typography variant="caption" ml={1} mb={1}>Gender</Typography>
+                      <Controller
+                        name="gender"
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            size="small"
+                            select
+                            fullWidth
+                          >
+                            <MenuItem value="Male">Male</MenuItem>
+                            <MenuItem value="Female">Female</MenuItem>
+                          </TextField>
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Typography variant="caption" ml={1} mb={1}>Address</Typography>
+                      <Controller
+                        name="address"
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            size="small"
+                            fullWidth
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Typography variant="caption" ml={1} mb={1}>City</Typography>
+                      <Controller
+                        name="city"
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            size="small"
+                            fullWidth
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Typography variant="caption" ml={1} mb={1}>State</Typography>
+                      <Controller
+                        name="state"
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            size="small"
+                            fullWidth
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Typography variant="caption" ml={1} mb={1}>Pincode</Typography>
+                      <Controller
+                        name="pincode"
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            size="small"
+                            fullWidth
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Typography variant="caption" ml={1} mb={1}>Country</Typography>
+                      <Controller
+                        name="country"
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            size="small"
+                            fullWidth
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Typography variant="caption" ml={1} mb={1}>Bio</Typography>
+                      <Controller
+                        name="bio"
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            multiline
+                            rows={5}
+                            size="small"
+                            fullWidth
+                            placeholder="Write something fun about yourself"
+                            sx={{
+                              '& ::placeholder': {
+                                fontStyle: 'italic',
+                              },
+                            }}
+                          />
+                        )}
+                      />
+                    </Grid>
+                  </Grid>
+                </List>
                 <Divider />
+                <CardActions>
+                  <Button variant="contained" size="small" type="submit">Save</Button>
+                </CardActions>
+              </form>
 
-                <Grid container spacing={2} padding={2}>
-                  <Grid item xs={12} md={6}>
-                    <Typography variant="caption" ml={1} mb={1}>Name</Typography>
-                    <TextField disabled InputProps={{ readOnly: true }} size="small" fullWidth placeholder="First Name" value={authData.firstname + " " + authData.lastname} /></Grid>
-
-
-                  <Grid item xs={12} md={6}>
-                    <Typography variant="caption" ml={1} mb={1}>Phone</Typography>
-                    <TextField disabled InputProps={{ readOnly: true }} size="small" fullWidth value={authData.phone} placeholder="Mobile Number" /></Grid>
-
-
-                  <Grid item xs={12} md={6}>
-                    <Typography variant="caption" ml={1} mb={1}>Email</Typography>
-                    <TextField size="small" placeholder="Email" value={authData.email} fullWidth /></Grid>
-                  <Grid item xs={12} md={6}>
-                    <Typography variant="caption" ml={1} mb={1}>Date of Birth</Typography>
-                    <TextField size="small" type="date" placeholder="DOB" fullWidth value={authData.dob.split('T')[0]} /></Grid>
-                  <Grid item xs={12} md={6}>
-                    <Typography variant="caption" ml={1} mb={1}>Gender</Typography>
-                    <TextField size="small" select fullWidth value={authData.gender}>
-                      <MenuItem value="Male">Male</MenuItem>
-                      <MenuItem value="Female">Male</MenuItem>
-                    </TextField></Grid>
-                  <Grid item xs={12} md={6}>
-                    <Typography variant="caption" ml={1} mb={1}>Address</Typography>
-                    <TextField size="small" fullWidth value={authData.address} /></Grid>
-                  <Grid item xs={12} md={6}>
-                    <Typography variant="caption" ml={1} mb={1} >City</Typography>
-                    <TextField size="small" fullWidth value={authData.city} /></Grid>
-                  <Grid item xs={12} md={6}>
-                    <Typography variant="caption" ml={1} mb={1}>State</Typography>
-                    <TextField size="small" fullWidth value={authData.state} /></Grid>
-                  <Grid item xs={12} md={6}>
-                    <Typography variant="caption" ml={1} mb={1}>Pincode</Typography>
-                    <TextField size="small" fullWidth value={authData.pincode} /></Grid>
-                  <Grid item xs={12} md={6}>
-                    <Typography variant="caption" ml={1} mb={1}>Country</Typography>
-                    <TextField size="small" fullWidth value={authData.country} /></Grid>
-                  <Grid item xs={12} >
-                    <Typography variant="caption" ml={1} mb={1}>Bio</Typography>
-                    <TextField value={authData.bio} multiline rows={5} size="small" fullWidth placeholder="Write something fun about yourself" sx={{
-                      '& ::placeholder': {
-                        fontStyle: 'italic',
-                      },
-                    }} /></Grid>
-
-                </Grid>
-              </List>
-              <Divider />
-              <CardActions>
-                <Button variant="contained" size="small">Save</Button>
-              </CardActions>
             </Card>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} lg={4}>
             {/* <Card>
               <CardContent>
                 <Typography gutterBottom variant="h6" component="div">

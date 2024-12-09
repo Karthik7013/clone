@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import chat_bot from "../../assets/chat_bot.png";
-import { Avatar, Box, CardActions, CardContent, Chip, Divider, Fab, IconButton, ListItem, ListItemIcon, ListItemText, Menu, Skeleton, Stack, TextField } from '@mui/material';
+import { Avatar, Box, CardActions, CardContent, Chip, CircularProgress, Divider, Fab, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Menu, Skeleton, Stack, styled, TextField, Typography, useTheme } from '@mui/material';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { AppDispatch, RootState } from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Controller, useForm } from 'react-hook-form';
+import { makeQuery } from '../../redux/slice/botSlice';
 const ChatBot = () => {
-    console.log('chatbot rendered')
+    const dispatch: AppDispatch = useDispatch()
+    const { handleSubmit, control } = useForm()
+    const conversation = useSelector((state: RootState) => state.bot.conversation)
+    const loading = useSelector((state: RootState) => state.bot.loading)
+    const theme = useTheme()
+    console.log(conversation,'chatbot rendered')
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -13,6 +22,13 @@ const ChatBot = () => {
     const handleClose2 = () => {
         setAnchorEl(null);
     };
+
+    const onHandleSubmit = (data) => {
+        console.log(data);
+        dispatch(makeQuery(data))
+    }
+
+
     return (
         <Box sx={{ right: '16px', position: 'fixed', bottom: '16px' }}>
             <Fab
@@ -35,7 +51,7 @@ const ChatBot = () => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
 
-                <Box sx={{ width: 300 }}>
+                <Box sx={{ width: 300, height: 560, overflow: 'auto', position: 'relative' }}>
                     <CardContent>
                         <ListItem disablePadding
                             secondaryAction={
@@ -58,34 +74,60 @@ const ChatBot = () => {
                     </CardContent>
                     <Divider />
                     <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                        {[1, 2, 3, 4, 5].map((e: number) => {
-                            return <Stack key={e} direction={'row'} gap={1} alignItems={'center'}>
-                                <Avatar src={chat_bot} sx={{ width: '32px', height: '32px' }} /><Chip size='small' label='Hi👋🏻 How can i Help you ?'></Chip>
-                            </Stack>
-                        })}
-                        <Stack direction={'row'} gap={1} alignItems={'center'}>
-                            <Skeleton variant='circular' width={'40px'} height={'32px'} />
-                            <Box width={'100%'}>
-                                <Skeleton width={'70%'} height={'1rem'} />
-                                <Skeleton width={'50%'} height={'1rem'} />
-                            </Box>
-                        </Stack>
-                        <Stack direction={'row'} gap={1} alignItems={'flex-end'}>
-                            <Box width={'100%'}>
-                                <Skeleton width={'70%'} height={'1rem'} />
-                                <Skeleton width={'50%'} height={'1rem'} />
-                            </Box>
-                            <Skeleton variant='circular' width={'40px'} height={'32px'} />
-                        </Stack>
+                        <List disablePadding>
+                            <ListItem alignItems="flex-start" disableGutters disablePadding>
+                                <ListItemAvatar>
+                                    <Avatar src={chat_bot} alt="Remy Sharp" />
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={<Typography variant='subtitle2'>How can i help you !</Typography>}
+                                    secondary={
+                                        <Typography variant='caption' color='text.secondary'>
+                                            {" 26 Nov 1999"}
+                                        </Typography>
+                                    }
+                                />
+                            </ListItem>
+                            <ListItem alignItems="flex-start" disableGutters disablePadding>
+
+                                <ListItemText
+                                    primary={<Typography variant='subtitle2'>How can i help you !</Typography>}
+                                    secondary={
+                                        <Typography variant='caption' color='text.secondary'>
+                                            {" 26 Nov 1999"}
+                                        </Typography>
+                                    }
+                                />
+                                <ListItemAvatar>
+                                    <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+                                </ListItemAvatar>
+                            </ListItem>
+                        </List>
+
                     </CardContent>
                     <Divider />
-                    <CardActions>
-                        <Avatar sx={{ width: '32px', height: '32px' }} />
-                        <TextField placeholder='Enter your message' sx={{ flex: 1 }} size='small' />
-                        <IconButton color='primary'>
-                            <SendRoundedIcon />
-                        </IconButton>
-                    </CardActions>
+                    <form onSubmit={handleSubmit(onHandleSubmit)}>
+                        <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999, bgcolor: theme.palette.background.paper }}>
+                            <Avatar sx={{ width: '32px', height: '32px' }} />
+                            <Controller
+                                defaultValue=''
+                                name="t"
+                                control={control}
+                                rules={{ required: 'Ask Something !' }}
+                                render={({ field }) => (
+                                    <TextField
+                                        sx={{ flex: 1 }} size='small'
+                                        placeholder='Enter your message'
+                                        {...field}
+                                        variant="outlined"
+                                    />
+                                )}
+                            />
+                            <IconButton type='submit' disabled={loading} color='primary'>
+                                {loading ? <CircularProgress size="20px" /> : <SendRoundedIcon />}
+                            </IconButton>
+                        </CardActions>
+                    </form>
                 </Box>
             </Menu >
         </Box >

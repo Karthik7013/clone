@@ -77,6 +77,20 @@ export const getCustomerStats = createAsyncThunk('customer/stats', async (payloa
     }
 })
 
+export const updateCustomerProfile = createAsyncThunk('customer/update', async (payload:any, { rejectWithValue }) => {
+    console.log(payload);
+    
+    try {
+        const res = await CustomerResources.post('/profile/update',payload);
+        return { status: res.status, data: res.data.data };
+    } catch (error) {
+        if (error.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+    }
+})
+
 
 const dashboardSlice = createSlice({
     name: 'dashboard',
@@ -142,6 +156,23 @@ const dashboardSlice = createSlice({
             // state.alert.state = true
             // state.data.stats = 
 
+        })
+
+
+        builder.addCase(updateCustomerProfile.pending, (state) => {
+            state.loading = true
+        }).addCase(updateCustomerProfile.rejected, (state, action) => {
+            console.log(action)
+            state.loading = false;
+            state.alert.message = action.payload?.message;
+            state.alert.type = 'error';
+            state.alert.state = true
+        }).addCase(updateCustomerProfile.fulfilled, (state, action) => {
+            state.loading = false;
+            console.log(action.payload.data, 'statpayload')
+            state.alert.message = action.payload.data.description;
+            state.alert.type = 'success';
+            state.alert.state = true
         })
 
     }

@@ -24,9 +24,9 @@ const MyClaims = () => {
     { field: 'register_claim_id', headerName: 'Registered ID', width: 150 },
     {
       field: 'claim_date', headerName: 'Claim Date', width: 150,
-      // renderCell: (params) => {
-      //   return format(new Date(params.value), 'MM/dd/yyyy'); // Format the date to MM/DD/YYYY
-      // }
+      renderCell: (params) => {
+        return params.value.split('T')[0] // Format the date to MM/DD/YYYY
+      }
     },
     { field: 'claim_amount', headerName: 'Claim Amount', width: 150 },
     {
@@ -48,9 +48,9 @@ const MyClaims = () => {
     { field: 'remarks', headerName: 'Remarks', width: 150 },
     {
       field: 'updated_at', headerName: 'Last Modify', width: 150,
-      // renderCell: (params) => {
-      //   return format(new Date(params.value), 'MM/dd/yyyy HH:mm'); // Format the update_at date with time
-      // }
+      renderCell: (params) => {
+        return params.value.split('T')[0]  // Format the update_at date with time
+      }
     },
   ];
 
