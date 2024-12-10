@@ -23,29 +23,30 @@ const botSlice = createSlice({
         loading: false,
         conversation: [
             {
-                botResponse: null,
-                userMessage: 'No Thanks',
-                timeStamp: new Date()
+                response: 'Hi ! How can i help you ?',
+                candidate:'bot',
+                timeStamp: new Date().toISOString()
             }
         ]
     },
     reducers: {
-
-    }
-    ,
+        pushMessage: (state, action:{payload:{t:string}  ,type:String}) => {
+            state.conversation.push({ response: action.payload.t,candidate:'user', timeStamp: new Date().toISOString() })
+        }
+    },
     extraReducers: (builder) => {
-        builder.addCase(makeQuery.pending, (state) => {
+        builder.addCase(makeQuery.pending, (state, action) => {
             state.loading = true;
         })
             .addCase(makeQuery.rejected, (state, action) => {
-                console.log(action, 'error')
                 state.loading = false;
             }).addCase(makeQuery.fulfilled, (state, action) => {
                 state.loading = false;
-                console.log(action.payload)
+                console.log(action.payload.data.response, 'see final response')
+                state.conversation.push({ response: action.payload.data.response,candidate:'bot', timeStamp: new Date().toISOString() })
             })
     }
 })
 
-
+export const { pushMessage } = botSlice.actions;
 export default botSlice.reducer;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import chat_bot from "../../assets/chat_bot.png";
 import { Avatar, Box, CardActions, CardContent, Chip, CircularProgress, Divider, Fab, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Menu, Skeleton, Stack, styled, TextField, Typography, useTheme } from '@mui/material';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
@@ -6,11 +6,20 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { AppDispatch, RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
-import { makeQuery } from '../../redux/slice/botSlice';
+import { makeQuery,pushMessage } from '../../redux/slice/botSlice';
+
 const ChatBot = () => {
     const dispatch: AppDispatch = useDispatch()
     const { handleSubmit, control } = useForm()
-    const conversation = useSelector((state: RootState) => state.bot.conversation)
+    const conversation = useSelector((state: RootState) => state.bot.conversation);
+
+
+
+    useEffect(() => {
+        console.log(conversation, 'conversation')
+    }, [conversation])
+
+
     const loading = useSelector((state: RootState) => state.bot.loading)
     const theme = useTheme()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -23,6 +32,7 @@ const ChatBot = () => {
     };
 
     const onHandleSubmit = (data) => {
+        dispatch(pushMessage(data))
         dispatch(makeQuery(data))
     }
 
@@ -86,7 +96,7 @@ const ChatBot = () => {
                                     }
                                 />
                             </ListItem>
-                            <ListItem alignItems="flex-start" disableGutters disablePadding>
+                            {/* <ListItem alignItems="center" disableGutters disablePadding>
 
                                 <ListItemText
                                     primary={<Typography variant='subtitle2'>How can i help you !</Typography>}
@@ -99,7 +109,7 @@ const ChatBot = () => {
                                 <ListItemAvatar>
                                     <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
                                 </ListItemAvatar>
-                            </ListItem>
+                            </ListItem> */}
                         </List>
 
                     </CardContent>
