@@ -13,7 +13,6 @@ const ChatBot = () => {
     const conversation = useSelector((state: RootState) => state.bot.conversation)
     const loading = useSelector((state: RootState) => state.bot.loading)
     const theme = useTheme()
-    console.log(conversation,'chatbot rendered')
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -24,7 +23,6 @@ const ChatBot = () => {
     };
 
     const onHandleSubmit = (data) => {
-        console.log(data);
         dispatch(makeQuery(data))
     }
 

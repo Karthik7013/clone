@@ -4,9 +4,9 @@ import { BotResources } from "../../service/api";
 
 
 
-export const makeQuery = createAsyncThunk('bot/ask', async (payload:any, { rejectWithValue }) => {
+export const makeQuery = createAsyncThunk('bot/ask', async (payload: any, { rejectWithValue }) => {
     try {
-        const res = await BotResources.post('/ask');
+        const res = await BotResources.post('/ask', payload);
         return { status: res.status, data: res.data.data };
     } catch (error) {
         if (error.message === 'Network Error') {
@@ -44,7 +44,7 @@ const botSlice = createSlice({
                 state.loading = false;
                 console.log(action.payload)
             })
-        }
+    }
 })
 
 
