@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import chat_bot from "../../assets/chat_bot.png";
-import { Avatar, Box, CardActions, CardContent, Chip, CircularProgress, Divider, Fab, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Menu, Skeleton, Stack, styled, TextField, Typography, useTheme } from '@mui/material';
+import { alpha, Avatar, Box, CardActions, CardContent, Chip, CircularProgress, Divider, Fab, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Menu, Skeleton, Stack, styled, TextField, Toolbar, Typography, useTheme } from '@mui/material';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { AppDispatch, RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
-import { makeQuery,pushMessage } from '../../redux/slice/botSlice';
-
+import { makeQuery, pushMessage } from '../../redux/slice/botSlice';
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
+import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
 const ChatBot = () => {
     const dispatch: AppDispatch = useDispatch()
-    const { handleSubmit, control } = useForm()
+    const { handleSubmit, control, reset } = useForm()
     const conversation = useSelector((state: RootState) => state.bot.conversation);
 
 
@@ -33,7 +34,8 @@ const ChatBot = () => {
 
     const onHandleSubmit = (data) => {
         dispatch(pushMessage(data))
-        dispatch(makeQuery(data))
+        dispatch(makeQuery(data));
+        reset()
     }
 
 
@@ -59,83 +61,84 @@ const ChatBot = () => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
 
-                <Box sx={{ width: 300, height: 560, overflow: 'auto', position: 'relative' }}>
-                    <CardContent>
-                        <ListItem disablePadding
-                            secondaryAction={
-                                <IconButton onClick={handleClose2} edge="end" aria-label="delete">
-                                    <CloseRoundedIcon />
-                                </IconButton>
-                            }
-                        >
-                            <ListItemIcon>
-
-                                <Avatar src={chat_bot} sx={{ width: '52px', height: '52px', mr: 2 }} />
-
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Chat bot"
-                                secondary={"online"}
-                            />
-                        </ListItem>
-
-                    </CardContent>
-                    <Divider />
-                    <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                        <List disablePadding>
-                            <ListItem alignItems="flex-start" disableGutters disablePadding>
-                                <ListItemAvatar>
-                                    <Avatar src={chat_bot} alt="Remy Sharp" />
-                                </ListItemAvatar>
+                <Box sx={{ width: 320, height: 560, overflow: 'auto' }} component={Stack}
+                >
+                    <Box>
+                        <CardContent>
+                            <ListItem disableGutters disablePadding
+                                secondaryAction={
+                                    <IconButton onClick={handleClose2} edge="end" aria-label="delete">
+                                        <CloseRoundedIcon />
+                                    </IconButton>
+                                }
+                            >
+                                <ListItemIcon>
+                                    <Avatar src={chat_bot} sx={{ width: '42px', height: '42px', mr: 2 }} />
+                                </ListItemIcon>
                                 <ListItemText
-                                    primary={<Typography variant='subtitle2'>How can i help you !</Typography>}
-                                    secondary={
-                                        <Typography variant='caption' color='text.secondary'>
-                                            {" 26 Nov 1999"}
-                                        </Typography>
-                                    }
+                                    primary="Support"
+                                    secondary={"online"}
                                 />
                             </ListItem>
-                            {/* <ListItem alignItems="center" disableGutters disablePadding>
+                        </CardContent>
+                        <Divider />
+                    </Box>
+                    <Box flexGrow={1} overflow={'auto'}>
+                        <List>
+                            {conversation.map((content, _) => {
+                                return <ListItem key={_} alignItems="flex-start">
+                                    <ListItemAvatar sx={{ mr: 0 }}>
+                                        <Avatar sx={{ width: '26px', height: '26px' }} src={content.candidate === 'user' ? 'https://avatar.iran.liara.run/public' : chat_bot} alt="Remy Sharp" />
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        sx={{ bgcolor: alpha(theme.palette.divider, 0.1), padding: 1, borderRadius: '5px' }}
+                                        primary={<Typography variant='caption'>{content?.response}</Typography>}
+                                        secondary={
+                                            <Typography component='div' variant='caption' color='text.secondary'>
+                                                {content?.timeStamp.split('T')[0]}
+                                            </Typography>
+                                        }
+                                    />
+                                </ListItem>
+                            })}
 
-                                <ListItemText
-                                    primary={<Typography variant='subtitle2'>How can i help you !</Typography>}
-                                    secondary={
-                                        <Typography variant='caption' color='text.secondary'>
-                                            {" 26 Nov 1999"}
-                                        </Typography>
-                                    }
-                                />
-                                <ListItemAvatar>
-                                    <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-                                </ListItemAvatar>
-                            </ListItem> */}
                         </List>
 
-                    </CardContent>
-                    <Divider />
-                    <form onSubmit={handleSubmit(onHandleSubmit)}>
-                        <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999, bgcolor: theme.palette.background.paper }}>
-                            <Avatar sx={{ width: '32px', height: '32px' }} />
-                            <Controller
-                                defaultValue=''
-                                name="t"
-                                control={control}
-                                rules={{ required: 'Ask Something !' }}
-                                render={({ field }) => (
-                                    <TextField
-                                        sx={{ flex: 1 }} size='small'
-                                        placeholder='Enter your message'
-                                        {...field}
-                                        variant="outlined"
-                                    />
-                                )}
-                            />
-                            <IconButton type='submit' disabled={loading} color='primary'>
-                                {loading ? <CircularProgress size="20px" /> : <SendRoundedIcon />}
-                            </IconButton>
-                        </CardActions>
-                    </form>
+
+
+                    </Box>
+                    <Box>
+                        <Divider />
+                        <form onSubmit={handleSubmit(onHandleSubmit)}>
+                            <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
+                                <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} />
+                                <Controller
+                                    defaultValue=''
+                                    name="t"
+                                    control={control}
+                                    rules={{ required: 'Ask Something !' }}
+                                    render={({ field }) => (
+                                        <TextField
+                                            sx={{ flex: 1 }} size='small'
+                                            placeholder='Enter your message'
+                                            {...field}
+                                            variant="outlined"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton disableFocusRipple type='submit' disabled={loading} color='default'>
+                                                            {loading ? <StopCircleRoundedIcon color='action' /> : <AutoAwesomeRoundedIcon />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                        />
+                                    )}
+                                />
+
+                            </CardActions>
+                        </form>
+                    </Box>
                 </Box>
             </Menu >
         </Box >

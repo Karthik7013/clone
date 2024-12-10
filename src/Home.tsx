@@ -108,7 +108,7 @@ const Home = () => {
     };
     const bannerSettings = {
         infinite: true, // Infinite scrolling
-        speed: 500, // Transition speed
+        speed: 800, // Transition speed
         slidesToShow: 1, // Number of slides to show at a time
         slidesToScroll: 1, // Number of slides to scroll at a time
         autoplay: true, // Auto play
@@ -398,13 +398,13 @@ const Home = () => {
                         <Slider {...bannerSettings}>
                             <Box sx={{ position: 'relative' }}>
                                 <Card elevation={0}>
-                                    <CardMedia height={260} component={'img'} image="https://img.freepik.com/free-vector/people-walking-rain-street-colorful-flat-vector-illustration-mother-with-child-raincoat-walking-red-umbrella_74855-10701.jpg" />
+                                    <CardMedia height={260} component={'img'} image="https://tekglide.com/wp-content/uploads/2024/03/Blog-01-02-scaled.webp" />
                                 </Card>
 
                             </Box>
                             <Box sx={{ position: 'relative' }}>
                                 <Card elevation={0}>
-                                    <CardMedia height={260} component={'img'} image="https://img.freepik.com/free-vector/people-walking-rain-street-colorful-flat-vector-illustration-mother-with-child-raincoat-walking-red-umbrella_74855-10701.jpg" />
+                                    <CardMedia height={260} component={'img'} image="https://img.freepik.com/free-vector/support-call-centre-composition-with-doodle-images-people-with-gadgets_1284-29966.jpg" />
                                 </Card>
                             </Box>
                             <Box sx={{ position: 'relative' }}>
