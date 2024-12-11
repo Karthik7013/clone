@@ -87,18 +87,17 @@ const ChatBot = () => {
                         <List>
                             {conversation.map((content, _) => {
                                 return <ListItem key={_} alignItems="flex-start">
-                                    <ListItemAvatar sx={{ mr: 0 }}>
-                                        <Avatar sx={{ width: '26px', height: '26px' }} src={content.candidate === 'user' ? 'https://avatar.iran.liara.run/public' : chat_bot} alt="Remy Sharp" />
-                                    </ListItemAvatar>
-                                    <ListItemText
-                                        sx={{ bgcolor: alpha(theme.palette.divider, 0.1), padding: 1, borderRadius: '5px' }}
-                                        primary={<Typography variant='caption'>{content?.response}</Typography>}
-                                        secondary={
-                                            <Typography component='div' variant='caption' color='text.secondary'>
-                                                {content?.timeStamp.split('T')[0]}
+                                    <Stack direction='row' width='100%' gap={1} mb={2}>
+                                        <Box>
+                                            <Avatar sx={{ width: '26px', height: '26px' }} src={content.candidate === 'user' ? 'https://avatar.iran.liara.run/public' : chat_bot} alt="Remy Sharp" />
+                                        </Box>
+                                        <Box flexGrow={1} display='flex' position='relative'>
+                                            <Typography component='b' variant='caption' sx={{ bgcolor: alpha(theme.palette.divider, 0.07), padding: 1, borderRadius: '10px', width: 'fit-content' }}>
+                                                {content?.response}
                                             </Typography>
-                                        }
-                                    />
+                                            <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='caption' variant='caption' color='text.secondary'>{content?.timeStamp.split('T')[0]}</Typography>
+                                        </Box>
+                                    </Stack>
                                 </ListItem>
                             })}
 
