@@ -16,22 +16,40 @@ export const makeQuery = createAsyncThunk('bot/ask', async (payload: any, { reje
     }
 })
 
+type conversation = {
+    response: String,
+    candidate: 'bot' | 'user',
+    timeStamp: String
+}
+type initialProps = {
+    loading: boolean,
+    conversation: conversation[]
+}
+
+
+const initialState: initialProps = {
+    loading: false,
+    conversation: [
+        {
+            response: 'Hi ! How can i help you ?',
+            candidate: 'bot',
+            timeStamp: new Date().toISOString()
+        },
+        {
+            response: 'hai this is the dummy question to check the ui of the chat message in the chat bot ',
+            candidate: 'user',
+            timeStamp: new Date().toISOString()
+        }
+    ]
+}
+
 
 const botSlice = createSlice({
     name: 'chat',
-    initialState: {
-        loading: false,
-        conversation: [
-            {
-                response: 'Hi ! How can i help you ?',
-                candidate:'bot',
-                timeStamp: new Date().toISOString()
-            }
-        ]
-    },
+    initialState,
     reducers: {
-        pushMessage: (state, action:{payload:{t:string}  ,type:String}) => {
-            state.conversation.push({ response: action.payload.t,candidate:'user', timeStamp: new Date().toISOString() })
+        pushMessage: (state, action: { payload: { t: string }, type: String }) => {
+            state.conversation.push({ response: action.payload.t, candidate: 'user', timeStamp: new Date().toISOString() })
         }
     },
     extraReducers: (builder) => {
@@ -43,7 +61,7 @@ const botSlice = createSlice({
             }).addCase(makeQuery.fulfilled, (state, action) => {
                 state.loading = false;
                 console.log(action.payload.data.response, 'see final response')
-                state.conversation.push({ response: action.payload.data.response,candidate:'bot', timeStamp: new Date().toISOString() })
+                state.conversation.push({ response: action.payload.data.response, candidate: 'bot', timeStamp: new Date().toISOString() })
             })
     }
 })

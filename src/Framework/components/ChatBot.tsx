@@ -37,6 +37,31 @@ const ChatBot = () => {
         dispatch(makeQuery(data));
         reset()
     }
+    type conversationProps = {
+        candidate: 'user' | 'bot',
+        response: String,
+        timeStamp: String
+    }
+
+    const Conversation = ({ candidate, response, timeStamp }: conversationProps) => {
+        return <ListItem alignItems="flex-start">
+            <Stack direction='row' width='100%' gap={1} mb={2}>
+                <Box order={candidate === 'bot' ? 0 : 1}>
+                    <Avatar sx={{ width: '26px', height: '26px' }} src={candidate === 'user' ? 'https://avatar.iran.liara.run/public' : chat_bot} alt="Remy Sharp" />
+                </Box>
+                <Box order={candidate === 'bot' ? 1 : 0} flexGrow={1} display='flex' justifyContent={candidate === 'user' ? 'flex-end' : 'flex-start'}>
+                    <Box position='relative'>
+                        <Box sx={{ bgcolor: alpha(theme.palette.divider, 0.07), padding: 0.7, borderRadius: '10px', maxWidth: '220px' }}>
+                            <Typography variant='caption' >
+                                {response}
+                            </Typography>
+                        </Box>
+                        <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='caption' variant='caption' color='text.secondary'>{timeStamp.split('T')[0]}</Typography>
+                    </Box>
+                </Box>
+            </Stack>
+        </ListItem>
+    }
 
 
     return (
@@ -86,19 +111,7 @@ const ChatBot = () => {
                     <Box flexGrow={1} overflow={'auto'}>
                         <List>
                             {conversation.map((content, _) => {
-                                return <ListItem key={_} alignItems="flex-start">
-                                    <Stack direction='row' width='100%' gap={1} mb={2}>
-                                        <Box>
-                                            <Avatar sx={{ width: '26px', height: '26px' }} src={content.candidate === 'user' ? 'https://avatar.iran.liara.run/public' : chat_bot} alt="Remy Sharp" />
-                                        </Box>
-                                        <Box flexGrow={1} display='flex' position='relative'>
-                                            <Typography component='b' variant='caption' sx={{ bgcolor: alpha(theme.palette.divider, 0.07), padding: 1, borderRadius: '10px', width: 'fit-content' }}>
-                                                {content?.response}
-                                            </Typography>
-                                            <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='caption' variant='caption' color='text.secondary'>{content?.timeStamp.split('T')[0]}</Typography>
-                                        </Box>
-                                    </Stack>
-                                </ListItem>
+                                return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
                             })}
 
                         </List>
