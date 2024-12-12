@@ -35,11 +35,6 @@ const initialState: initialProps = {
             candidate: 'bot',
             timeStamp: new Date().toISOString()
         },
-        {
-            response: 'hai this is the dummy question to check the ui of the chat message in the chat bot ',
-            candidate: 'user',
-            timeStamp: new Date().toISOString()
-        }
     ]
 }
 

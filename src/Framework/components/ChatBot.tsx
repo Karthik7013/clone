@@ -13,14 +13,6 @@ const ChatBot = () => {
     const dispatch: AppDispatch = useDispatch()
     const { handleSubmit, control, reset } = useForm()
     const conversation = useSelector((state: RootState) => state.bot.conversation);
-
-
-
-    useEffect(() => {
-        console.log(conversation, 'conversation')
-    }, [conversation])
-
-
     const loading = useSelector((state: RootState) => state.bot.loading)
     const theme = useTheme()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

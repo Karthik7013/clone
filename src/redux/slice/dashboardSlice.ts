@@ -6,7 +6,36 @@ type dashboardProps = {
     activeTab: null | '',
     alert: alertProps,
     loading: boolean,
-    data: any
+    stats: {
+        data: any,
+        alert: alertProps,
+        loading: boolean
+    },
+    policies: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
+    },
+    myclaims: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
+    },
+    registerClaim: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
+    },
+    updateProfile: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
+    }
+    applicationQueue: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
+    }
 }
 
 const initialState: dashboardProps = {
@@ -17,14 +46,59 @@ const initialState: dashboardProps = {
         message: '',
         state: false
     },
-    data: {
-        stats: null,
-        policies: [
-
-        ],
-        claims: [
-
-        ]
+    policies: {
+        loading: false,
+        data: [],
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        }
+    },
+    myclaims: {
+        loading: false,
+        data: [],
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        }
+    },
+    stats: {
+        loading: false,
+        alert: {
+            message: '',
+            type: undefined,
+            state: false
+        },
+        data: null
+    },
+    registerClaim: {
+        data: null,
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        },
+        loading: false
+    },
+    updateProfile: {
+        data: null,
+        alert: {
+            message: '',
+            type: undefined,
+            state: false
+        },
+        loading: false
+    },
+    applicationQueue: {
+        loading: false,
+        data: [],
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        }
     }
 }
 
@@ -77,11 +151,24 @@ export const getCustomerStats = createAsyncThunk('customer/stats', async (payloa
     }
 })
 
-export const updateCustomerProfile = createAsyncThunk('customer/update', async (payload:any, { rejectWithValue }) => {
+export const updateCustomerProfile = createAsyncThunk('customer/update', async (payload: any, { rejectWithValue }) => {
     console.log(payload);
-    
+
     try {
-        const res = await CustomerResources.post('/profile/update',payload);
+        const res = await CustomerResources.post('/profile/update', payload);
+        return { status: res.status, data: res.data.data };
+    } catch (error) {
+        if (error.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+    }
+})
+
+
+export const getCustomerApplicationQueue = createAsyncThunk('customer/policyQueue', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await CustomerResources.get('/policyQueue');
         return { status: res.status, data: res.data.data };
     } catch (error) {
         if (error.message === 'Network Error') {
@@ -102,79 +189,83 @@ const dashboardSlice = createSlice({
                 message: '',
                 state: false
             }
+        },
+        closeRegisterAlert: (state) => {
+            state.registerClaim.alert = {
+                type: undefined,
+                message: '',
+                state: false
+            }
         }
     },
     extraReducers: (builder) => {
         builder.addCase(getCustomerPolicies.pending, (state) => {
-            state.loading = true;
+            state.policies.loading = true;
         })
             .addCase(getCustomerPolicies.rejected, (state, action) => {
-                console.log(action, 'error')
-                state.loading = false;
+                state.policies.loading = false;
             }).addCase(getCustomerPolicies.fulfilled, (state, action) => {
-                state.loading = false;
-                state.data.policies = [...action.payload.data]
+                state.policies.loading = false;
+                state.policies.data = [...action.payload.data]
             })
         builder.addCase(getCustomerClaims.pending, (state) => {
-            state.loading = true;
+            state.myclaims.loading = true;
         })
             .addCase(getCustomerClaims.rejected, (state, action) => {
-                console.log(action, 'error')
-                state.loading = false;
+                state.myclaims.loading = false;
             }).addCase(getCustomerClaims.fulfilled, (state, action) => {
-                state.loading = false;
-                state.data.claims = [...action.payload.data]
+                state.myclaims.loading = false;
+                state.myclaims.data = [...action.payload.data]
             })
         builder.addCase(registerCustomerPolicies.pending, (state) => {
-            state.loading = true
+            state.registerClaim.loading = true;
         }).addCase(registerCustomerPolicies.rejected, (state, action) => {
-            console.log(action)
-            state.loading = false;
-            state.alert.message = action.payload?.message;
-            state.alert.type = 'error';
-            state.alert.state = true
+            state.registerClaim.loading = false;
+            state.registerClaim.alert.message = action.payload?.message;
+            state.registerClaim.alert.type = 'error';
+            state.registerClaim.alert.state = true
         }).addCase(registerCustomerPolicies.fulfilled, (state, action) => {
-            state.loading = false
-            state.alert.message = action.payload.data.description;
-            state.alert.type = 'success';
-            state.alert.state = true
+            state.registerClaim.loading = false
+            state.registerClaim.alert.message = action.payload.data.description;
+            state.registerClaim.alert.type = 'success';
+            state.registerClaim.alert.state = true
         })
         builder.addCase(getCustomerStats.pending, (state) => {
-            state.loading = true
+            state.stats.loading = true
         }).addCase(getCustomerStats.rejected, (state, action) => {
-            console.log(action)
-            state.loading = false;
-            state.alert.message = action.payload?.message;
-            state.alert.type = 'error';
-            state.alert.state = true
+            state.stats.loading = false;
+            state.stats.alert.message = action.payload?.message;
+            state.stats.alert.type = 'error';
+            state.stats.alert.state = true
         }).addCase(getCustomerStats.fulfilled, (state, action) => {
-            state.loading = false;
-            console.log(action.payload.data, 'statpayload')
-            state.data.stats = action.payload.data
-            // state.alert.message = action.payload.data.description;
-            // state.alert.type = 'success';
-            // state.alert.state = true
-            // state.data.stats = 
-
+            state.stats.loading = false;
+            state.stats.data = action.payload.data
         })
 
 
         builder.addCase(updateCustomerProfile.pending, (state) => {
-            state.loading = true
+            state.updateProfile.loading = true
         }).addCase(updateCustomerProfile.rejected, (state, action) => {
-            console.log(action)
-            state.loading = false;
-            state.alert.message = action.payload?.message;
-            state.alert.type = 'error';
-            state.alert.state = true
+            state.updateProfile.loading = false;
+            state.updateProfile.alert.message = action.payload?.message;
+            state.updateProfile.alert.type = 'error';
+            state.updateProfile.alert.state = true
         }).addCase(updateCustomerProfile.fulfilled, (state, action) => {
-            state.loading = false;
-            console.log(action.payload.data, 'statpayload')
-            state.alert.message = action.payload.data.description;
-            state.alert.type = 'success';
-            state.alert.state = true
+            state.updateProfile.loading = false;
+            state.updateProfile.alert.message = action.payload.data.description;
+            state.updateProfile.alert.type = 'success';
+            state.updateProfile.alert.state = true
         })
 
+
+        builder.addCase(getCustomerApplicationQueue.pending, (state) => {
+            state.applicationQueue.loading = true
+        }).addCase(getCustomerApplicationQueue.rejected, (state, action) => {
+            state.applicationQueue.loading = false;
+        }).addCase(getCustomerApplicationQueue.fulfilled, (state, action) => {
+            state.applicationQueue.loading = false;
+            state.applicationQueue.data = action.payload.data
+        })
     }
 })
 export const { closeAlert } = dashboardSlice.actions;

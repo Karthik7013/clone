@@ -12,23 +12,27 @@ import { AppDispatch, RootState } from '../../../redux/store';
 
 const MyClaims = () => {
   const dispatch: AppDispatch = useDispatch();
-  const claims = useSelector((state: RootState) => state.dashboard.data?.claims) || [];
-  const loading = useSelector((state: RootState) => state.dashboard.loading)
+  const claims = useSelector((state: RootState) => state.dashboard.myclaims.data) || [];
+  const loading = useSelector((state: RootState) => state.dashboard.myclaims.loading)
 
 
   useEffect(() => {
-    console.log(claims);
   }, [dispatch])
+  // policy number,
+  // policy type
   const columns = [
     { field: 'claim_id', headerName: 'Claim ID', width: 150 },
-    { field: 'register_claim_id', headerName: 'Registered ID', width: 150 },
+    { field: 'policy_number', headerName: 'Policy Number', width: 150 },
+    { field: 'policy_type', headerName: 'Policy Type', width: 150 },
+    { field: 'insured_company', headerName: 'Insured Company', width: 150 },
+
     {
       field: 'claim_date', headerName: 'Claim Date', width: 150,
       renderCell: (params) => {
         return params.value.split('T')[0] // Format the date to MM/DD/YYYY
       }
     },
-    { field: 'claim_amount', headerName: 'Claim Amount', width: 150 },
+    { field: 'coverage_amount', headerName: 'Claim Amount', width: 150 },
     {
       field: 'claim_status', headerName: 'Claim Status', width: 150,
       renderCell: (params) => {

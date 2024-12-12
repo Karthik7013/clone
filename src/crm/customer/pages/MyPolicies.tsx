@@ -16,8 +16,8 @@ import CachedRoundedIcon from '@mui/icons-material/CachedRounded';
 
 const MyPolicies = () => {
   const dispatch: AppDispatch = useDispatch();
-  const loading = useSelector((state: RootState) => state.dashboard.loading)
-  const policies = useSelector((state: RootState) => state.dashboard.data?.policies) || []
+  const loading = useSelector((state: RootState) => state.dashboard.policies.loading)
+  const policies = useSelector((state: RootState) => state.dashboard.policies.data) || []
   useEffect(() => {
     dispatch(getCustomerPolicies())
   }, [dispatch])

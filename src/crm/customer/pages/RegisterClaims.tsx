@@ -10,7 +10,7 @@ import { closeAlert } from "../../../redux/slice/dashboardSlice";
 import { registerCustomerPolicies } from "../../../redux/slice/dashboardSlice";
 
 const RegisterClaims = () => {
-  const loading = useSelector((state: RootState) => state.dashboard.loading)
+  const loading = useSelector((state: RootState) => state.dashboard.registerClaim.loading)
   const { control, formState: { errors }, handleSubmit, reset } = useForm();
   const dispatch: AppDispatch = useDispatch();
   const closeAlertHandle = () => dispatch(closeAlert());
@@ -18,7 +18,7 @@ const RegisterClaims = () => {
     dispatch(registerCustomerPolicies(data))
     reset();
   }
-  const alert = useSelector((state: RootState) => state.dashboard.alert)
+  const alert = useSelector((state: RootState) => state.dashboard.registerClaim.alert)
 
   return (
     <Box mt={3} component='form' onSubmit={handleSubmit(onSubmitHandle)}>
