@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import chat_bot from "../../assets/chat_bot.png";
+import chat_bot from "../../assets/gemini_ai_.svg";
 import { alpha, Avatar, Box, CardActions, CardContent, Chip, CircularProgress, Divider, Fab, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Menu, Skeleton, Stack, styled, TextField, Toolbar, Typography, useTheme } from '@mui/material';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
@@ -43,8 +43,8 @@ const ChatBot = () => {
                 </Box>
                 <Box order={candidate === 'bot' ? 1 : 0} flexGrow={1} display='flex' justifyContent={candidate === 'user' ? 'flex-end' : 'flex-start'}>
                     <Box position='relative'>
-                        <Box sx={{ bgcolor: alpha(theme.palette.divider, 0.07), padding: 0.7, borderRadius: '10px', maxWidth: '220px' }}>
-                            <Typography variant='caption' >
+                        <Box sx={{ bgcolor: alpha(theme.palette.divider, 0.07), padding: '0.7px 10px ', borderRadius: '10px', maxWidth: '220px' }}>
+                            <Typography variant='caption'>
                                 {response}
                             </Typography>
                         </Box>
@@ -59,9 +59,10 @@ const ChatBot = () => {
     return (
         <Box sx={{ right: '16px', position: 'fixed', bottom: '16px' }}>
             <Fab
+
                 onClick={handleClick}
                 size="small"
-                sx={{ ml: 2 }}
+                sx={{ ml: 2, borderRadius: '16px' }}
                 aria-controls={open ? 'account-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
@@ -93,7 +94,7 @@ const ChatBot = () => {
                                     <Avatar src={chat_bot} sx={{ width: '42px', height: '42px', mr: 2 }} />
                                 </ListItemIcon>
                                 <ListItemText
-                                    primary="Support"
+                                    primary="AI Support"
                                     secondary={"online"}
                                 />
                             </ListItem>

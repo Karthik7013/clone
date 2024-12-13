@@ -40,7 +40,7 @@ const PoliciesQueue = () => {
                         </ListItemAvatar>
                         <ListItemText primary={
                             <>
-                                <Typography variant="body2" component='span' mr={2}>Gowri Shankar</Typography>
+                                <Typography variant="body2" component='span' mr={2}>{app.product_type}</Typography>
                                 <Chip size="small" color="primary" variant="outlined" label="General Life Insurance"></Chip>
                             </>
                         }
