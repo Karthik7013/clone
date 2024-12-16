@@ -183,6 +183,9 @@ const dashboardSlice = createSlice({
     name: 'dashboard',
     initialState,
     reducers: {
+        setActiveTab: (state, action) => {
+            state.activeTab = action.payload
+        },
         closeAlert: (state) => {
             state.alert = {
                 type: undefined,

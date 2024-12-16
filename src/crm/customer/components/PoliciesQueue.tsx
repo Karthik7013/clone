@@ -35,13 +35,14 @@ const PoliciesQueue = () => {
                             <CardMedia
                                 component="img"
                                 sx={{ borderRadius: '0.4em', mr: 2, width: { xs: 40, md: 60 } }}
-                                image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
+                                image={'https://e7.pngegg.com/pngimages/748/512/png-clipart-hdfc-logo-bank-logos.png'}
+                                alt=""
                             />
                         </ListItemAvatar>
                         <ListItemText primary={
                             <>
                                 <Typography variant="body2" component='span' mr={2}>{app.product_type}</Typography>
-                                <Chip size="small" color="primary" variant="outlined" label="General Life Insurance"></Chip>
+
                             </>
                         }
                             secondary={

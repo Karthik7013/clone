@@ -292,8 +292,7 @@ const Home = () => {
 
 
         <Grid item xs={12} md={7}>
-          <PoliciesQueue
-          />
+          <PoliciesQueue />
         </Grid>
 
         <Grid item xs={12} md={5}>
