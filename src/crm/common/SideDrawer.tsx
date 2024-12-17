@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Card, CardContent, Chip, CircularProgress, Divider, Icon, InputAdornment, LinearProgress, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
+import { Avatar, Badge, Box, Button, Card, CardContent, Chip, CircularProgress, Divider, Icon, InputAdornment, LinearProgress, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import React from 'react';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
@@ -8,6 +8,7 @@ import KeyboardCommandKeyRoundedIcon from '@mui/icons-material/KeyboardCommandKe
 import ProtectedRoutes from '../../ProtectedRoute';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 
 const SideDrawer = () => {
     const currentPath = useLocation().pathname.split('/').splice(-1);
@@ -371,20 +372,34 @@ const SideDrawer = () => {
                 </ProtectedRoutes>
                 <Divider />
             </List>}
-        <Box sx={{
-            pb: theme.spacing(2)
-        }}>
-            <Typography flexWrap='wrap' color='text.secondary' variant='subtitle2' textAlign='center' mt={1}>
-                <Chip color='warning' icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small' />
-            </Typography>
-        </Box>
-        <Box sx={{ p: 1, position: 'sticky', bottom: 0 }}>
+
+
+        <Stack gap={1} sx={{ p: 1, position: 'sticky', bottom: 0 }}>
+            <Card>
+                <CardContent>
+                    <Stack direction='row' alignItems='center'>
+                        <ListItemIcon><AutoAwesomeRoundedIcon color='warning' fontSize='small' /></ListItemIcon>
+                        <ListItemText primary={<Typography variant='subtitle2' component="h1">Train Ends in 6 Days !</Typography>} />
+                    </Stack>
+                    <Box my={1}>
+                        <Typography variant='caption'>You are on a free premium trail plain on monthly billing</Typography>
+                    </Box>
+                    <Button fullWidth variant='contained'>View more details</Button>
+                </CardContent>
+            </Card>
             <Card>
                 <ListItem>
                     <ListItemAvatar><Avatar src='https://avatar.iran.liara.run/public' alt="" /></ListItemAvatar>
                     <ListItemText primary={<Typography variant='subtitle2'>{authData?.firstname + " " + authData?.lastname}</Typography>} secondary={<Typography noWrap={false} variant='caption'>{authData?.email}</Typography>} />
                 </ListItem>
             </Card>
+        </Stack>
+        <Box sx={{
+            pb: theme.spacing(2)
+        }}>
+            <Typography flexWrap='wrap' color='text.secondary' variant='subtitle2' textAlign='center' mt={1}>
+                <Chip color='warning' icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small' />
+            </Typography>
         </Box>
     </Box>
     )
