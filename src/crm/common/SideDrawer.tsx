@@ -244,7 +244,7 @@ const SideDrawer = () => {
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
-                <ProtectedRoutes role='agent' requiredPermission={2006}>
+                <ProtectedRoutes role='agent' requiredPermission={2007}>
                     <ListItem disablePadding>
                         <ListItemButton
                             sx={{ bgcolor: currentPath.includes('study-material') ? theme.palette.primary.main : 'inherit' }}

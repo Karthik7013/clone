@@ -1,21 +1,103 @@
 import React from 'react'
-import smp from "../../../assets/smp.pdf"
+// import smp from "../../../assets/smp.pdf";
+import { Box, ListItemText, ListItem, Typography, Accordion, AccordionSummary, AccordionDetails, List, IconButton, ListItemButton } from "@mui/material";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import GetAppRoundedIcon from '@mui/icons-material/GetAppRounded';
 const StudyMaterial = () => {
 
-    return (
-        <>study
+    return <Box mt={3}>
+        <ListItem disableGutters>
+            <ListItemText
+                primary={<Typography gutterBottom variant='h4'>Study Material</Typography>}
+            />
+        </ListItem>
+        <Box>
+            <Accordion>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                >
+                    Accordion 1
+                </AccordionSummary>
+                <AccordionDetails>
+                    <List dense>
+                        <ListItemButton>
+                            <ListItem secondaryAction={<IconButton color='inherit'><GetAppRoundedIcon /></IconButton>}>
+                                <ListItemText
+                                    primary="Single-line item"
+                                />
+                            </ListItem>
+                        </ListItemButton>
+                        <ListItemButton>
+                            <ListItem secondaryAction={<IconButton color='inherit'><GetAppRoundedIcon /></IconButton>}>
+                                <ListItemText
+                                    primary="Single-line item"
+                                />
+                            </ListItem>
+                        </ListItemButton>
+                        <ListItemButton>
+                            <ListItem secondaryAction={<IconButton color='inherit'><GetAppRoundedIcon /></IconButton>}>
+                                <ListItemText
+                                    primary="Single-line item"
+                                />
+                            </ListItem>
+                        </ListItemButton>
+                        <ListItemButton>
+                            <ListItem secondaryAction={<IconButton color='inherit'><GetAppRoundedIcon /></IconButton>}>
+                                <ListItemText
+                                    primary="Single-line item"
+                                />
+                            </ListItem>
+                        </ListItemButton>
+                    </List>
 
-            <iframe
-                src={smp}
-                width="100%"
-                height="600px"
-                style={{ border: 'none' }}
-                title="PDF Viewer"
-            >
-                This browser does not support PDFs. Please download the PDF to view it: <a href={smp}>Download PDF</a>.
-            </iframe>
-        </>
-    )
+                </AccordionDetails>
+            </Accordion>
+            <Accordion>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                >
+                    Accordion 1
+                </AccordionSummary>
+                <AccordionDetails>
+                    <List dense>
+                        <ListItemButton>
+                            <ListItem secondaryAction={<IconButton color='inherit'><GetAppRoundedIcon /></IconButton>}>
+                                <ListItemText
+                                    primary="Single-line item"
+                                />
+                            </ListItem>
+                        </ListItemButton>
+                        <ListItemButton>
+                            <ListItem secondaryAction={<IconButton color='inherit'><GetAppRoundedIcon /></IconButton>}>
+                                <ListItemText
+                                    primary="Single-line item"
+                                />
+                            </ListItem>
+                        </ListItemButton>
+                        <ListItemButton>
+                            <ListItem secondaryAction={<IconButton color='inherit'><GetAppRoundedIcon /></IconButton>}>
+                                <ListItemText
+                                    primary="Single-line item"
+                                />
+                            </ListItem>
+                        </ListItemButton>
+                        <ListItemButton>
+                            <ListItem secondaryAction={<IconButton color='inherit'><GetAppRoundedIcon /></IconButton>}>
+                                <ListItemText
+                                    primary="Single-line item"
+                                />
+                            </ListItem>
+                        </ListItemButton>
+                    </List>
+
+                </AccordionDetails>
+            </Accordion>
+        </Box >
+    </Box >
 }
 
 export default StudyMaterial
