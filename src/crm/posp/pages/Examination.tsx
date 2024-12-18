@@ -106,43 +106,51 @@ const Examination = () => {
     }
     return (
         <div>
-            <Box sx={{ width: '100%' }}>
-                <Stepper activeStep={activeStep}>
-                    {steps.map((label, index) => {
+            <Box mt={3}>
+                <ListItem disableGutters>
+                    <ListItemText
+                        primary={<Typography gutterBottom variant='h4'>Examination</Typography>}
+                    />
+                </ListItem>
+                <Box sx={{ width: '100%' }}>
+                    <Stepper activeStep={activeStep}>
+                        {steps.map((label, index) => {
 
 
-                        return (
-                            <Step key={label}>
-                                <StepLabel>{label}</StepLabel>
-                            </Step>
-                        );
-                    })}
-                </Stepper>
+                            return (
+                                <Step key={label}>
+                                    <StepLabel>{label}</StepLabel>
+                                </Step>
+                            );
+                        })}
+                    </Stepper>
 
-                <React.Fragment>
-                    <Box sx={{ pt: 2 }}>
-                        {activeStep === 0 && < Instruction />}
-                        {activeStep === 1 && <Questions />}
-                        {activeStep === 2 && <Result />}
-                        <CircularProgress />
-                        <Box>
-                            {
-                                !(activeStep === 0) && <Button
-                                    color="inherit"
-                                    onClick={handleBack}
-                                    sx={{ mr: 1 }}
-                                >
-                                    Back
+                    <React.Fragment>
+                        <Box sx={{ pt: 2 }}>
+                            {activeStep === 0 && < Instruction />}
+                            {activeStep === 1 && <Questions />}
+                            {activeStep === 2 && <Result />}
+                            <CircularProgress />
+                            <Box>
+                                {
+                                    !(activeStep === 0) && <Button
+                                        color="inherit"
+                                        onClick={handleBack}
+                                        sx={{ mr: 1 }}
+                                    >
+                                        Back
+                                    </Button>
+                                }
+                                <Button endIcon={<ArrowForwardRoundedIcon />} variant='contained' onClick={handleNext}>
+                                    Start Exam
                                 </Button>
-                            }
-                            <Button endIcon={<ArrowForwardRoundedIcon />} variant='contained' onClick={handleNext}>
-                                Start Exam
-                            </Button>
+                            </Box>
                         </Box>
-                    </Box>
-                </React.Fragment>
+                    </React.Fragment>
 
+                </Box>
             </Box>
+
         </div >
     )
 }

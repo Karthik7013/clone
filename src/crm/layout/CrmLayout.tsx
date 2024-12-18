@@ -9,7 +9,7 @@ import { getAgentProfile, getCustomerProfile, getEmployeeProfile, logout } from 
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
-const drawerWidth = 240;
+const drawerWidth = 260;
 import { AppDispatch, RootState } from "../../redux/store";
 
 

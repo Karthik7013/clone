@@ -12,11 +12,7 @@ import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 
 const SideDrawer = () => {
     const currentPath = useLocation().pathname.split('/').splice(-1);
-    console.log(currentPath)
-    console.log('sidebar render');
     const theme = useTheme();
-    const activeTab = useSelector((state: RootState) => state.dashboard.activeTab);
-    console.log(activeTab);
     const loading = useSelector((state: RootState) => state.auth.loading);
     const authData = useSelector((state: RootState) => state.auth.authData);
 
@@ -371,18 +367,18 @@ const SideDrawer = () => {
                     </ListItem>
                 </ProtectedRoutes>
                 <Divider />
-            </List>}
+            </List>
+        }
 
-
-        <Stack gap={1} sx={{ p: 1, position: 'sticky', bottom: 0 }}>
+        <Stack gap={1} px={1}>
             <Card>
                 <CardContent>
                     <Stack direction='row' alignItems='center'>
                         <ListItemIcon><AutoAwesomeRoundedIcon color='warning' fontSize='small' /></ListItemIcon>
-                        <ListItemText primary={<Typography variant='subtitle2' component="h1">Train Ends in 6 Days !</Typography>} />
+                        <ListItemText primary={<Typography fontFamily={600} variant='subtitle2' component="h1">Train Ends in 6 Days !</Typography>} />
                     </Stack>
-                    <Box my={1}>
-                        <Typography variant='caption'>You are on a free premium trail plain on monthly billing</Typography>
+                    <Box mb={1}>
+                        <Typography variant='caption' fontSize='12px'>You are on a free premium trail plain on monthly billing</Typography>
                     </Box>
                     <Button fullWidth variant='contained'>View more details</Button>
                 </CardContent>
@@ -394,6 +390,7 @@ const SideDrawer = () => {
                 </ListItem>
             </Card>
         </Stack>
+
         <Box sx={{
             pb: theme.spacing(2)
         }}>
