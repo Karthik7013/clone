@@ -2,7 +2,7 @@
 
 
 
-import { Box, Button, ButtonGroup, Divider, Grow, IconButton, Slide, Stack, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Divider, Grow, IconButton, ListItem, ListItemText, Slide, Stack, Typography } from '@mui/material';
 import { DataGrid, GridToolbarContainer } from '@mui/x-data-grid';
 import { GridColDef } from '@mui/x-data-grid';
 import React from 'react'
@@ -98,28 +98,32 @@ const CustomerManagement = () => {
     return (
         <>
 
-            <MessageBox type='info'>
-                No new records found !
-            </MessageBox>
+            <Box mt={3}>
+                <ListItem disableGutters>
+                    <ListItemText
+                        primary={<Typography gutterBottom variant='h4'>Product Service</Typography>}
+                    />
+                </ListItem>
+                <Box>
+                    <MessageBox type='info'>
+                        No new records found !
+                    </MessageBox>
+                    <Box mt={1} sx={{ height: 470 }}>
+                        <DataGrid
+                            sx={{ '--DataGrid-overlayHeight': '300px' }}
+                            slots={{
 
-
-            <Box mt={1} sx={{ height: 470 }}>
-
-
-                <DataGrid
-                    sx={{ '--DataGrid-overlayHeight': '300px' }}
-                    slots={{
-
-                        toolbar: ToolbarHeader,
-                    }}
-                    rows={rows}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5, 10, 20]}
-                    checkboxSelection
-                />
+                                toolbar: ToolbarHeader,
+                            }}
+                            rows={rows}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5, 10, 20]}
+                            checkboxSelection
+                        />
+                    </Box>
+                </Box >
             </Box>
-
         </>
 
     )

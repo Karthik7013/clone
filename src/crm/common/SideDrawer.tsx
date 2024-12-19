@@ -300,7 +300,7 @@ const SideDrawer = () => {
                             component={Link} to={'sales'}
                             disableRipple>
                             <ListItemIcon>
-                                <Icon fontSize='small'>app_registration</Icon>
+                                <Icon fontSize='small'>payments</Icon>
                             </ListItemIcon>
                             <ListItemText primary={<Typography variant='body2' noWrap>{'Sales'}</Typography>} />
                         </ListItemButton>
@@ -312,7 +312,7 @@ const SideDrawer = () => {
                             component={Link} to={'income'}
                             disableRipple>
                             <ListItemIcon>
-                                <Icon fontSize='small'>app_registration</Icon>
+                                <Icon fontSize='small'>currency_exchange</Icon>
                             </ListItemIcon>
                             <ListItemText primary={<Typography variant='body2' noWrap>{'Income'}</Typography>} />
                         </ListItemButton>
@@ -327,6 +327,30 @@ const SideDrawer = () => {
                                 <Icon fontSize='small'>admin_panel_settings</Icon>
                             </ListItemIcon>
                             <ListItemText primary={<Typography variant='body2' noWrap>{'Employee Management'}</Typography>} />
+                        </ListItemButton>
+                    </ListItem>
+                </ProtectedRoutes>
+                <ProtectedRoutes role='employee' requiredPermission={3005}>
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            component={Link} to={'employee-management'}
+                            disableRipple>
+                            <ListItemIcon>
+                                <Icon fontSize='small'>manage_accounts</Icon>
+                            </ListItemIcon>
+                            <ListItemText primary={<Typography variant='body2' noWrap>{'Customer Management'}</Typography>} />
+                        </ListItemButton>
+                    </ListItem>
+                </ProtectedRoutes>
+                <ProtectedRoutes role='employee' requiredPermission={3005}>
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            component={Link} to={'employee-management'}
+                            disableRipple>
+                            <ListItemIcon>
+                                <Icon fontSize='small'>assignment_ind</Icon>
+                            </ListItemIcon>
+                            <ListItemText primary={<Typography variant='body2' noWrap>{'Agent Management'}</Typography>} />
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>

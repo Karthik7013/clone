@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grow, Slide, Typography } from '@mui/material';
+import { Box, Button, Divider, Grow, ListItem, ListItemText, Slide, Typography } from '@mui/material';
 import { DataGrid, GridToolbarContainer } from '@mui/x-data-grid';
 import { GridColDef } from '@mui/x-data-grid';
 import React from 'react'
@@ -87,28 +87,40 @@ const CustomerManagement = () => {
     return (
         <>
 
-            <MessageBox type='error'>
-                Customer Details Not Found
-            </MessageBox>
+            <Box mt={3}>
+                <ListItem disableGutters>
+                    <ListItemText
+                        primary={<Typography gutterBottom variant='h4'>Product Service</Typography>}
+                    />
+                </ListItem>
+                <Box>
 
 
-            <Box mt={1} sx={{ height: 470 }}>
 
 
-                <DataGrid
-                    sx={{ '--DataGrid-overlayHeight': '300px' }}
-                    slots={{
+                    <MessageBox type='error'>
+                        Customer Details Not Found
+                    </MessageBox>
 
-                        toolbar: ToolbarHeader,
-                    }}
-                    rows={rows}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5, 10, 20]}
-                    checkboxSelection
-                />
+
+                    <Box mt={1} sx={{ height: 470 }}>
+
+
+                        <DataGrid
+                            sx={{ '--DataGrid-overlayHeight': '300px' }}
+                            slots={{
+
+                                toolbar: ToolbarHeader,
+                            }}
+                            rows={rows}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5, 10, 20]}
+                            checkboxSelection
+                        />
+                    </Box>
+                </Box >
             </Box>
-
         </>
 
     )

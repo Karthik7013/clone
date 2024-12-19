@@ -126,34 +126,36 @@ const EmployeeManagement = () => {
 
     return (
         <Box>
-
-
-            <Grid container>
-                <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <MessageBox type='success'>
-                        Records Updated
-                    </MessageBox>
-                    <Box sx={{ height: 580, mt: 1 }}>
-                        <DataGrid
-                            sx={{ '--DataGrid-overlayHeight': '300px' }}
-                            slots={{
-                                noRowsOverlay: CustomNoRowsOverlay,
-                                toolbar: ToolbarHeader,
-                            }}
-                            getRowId={(rowId) => rowId.id}
-                            rows={rows} columns={columns} checkboxSelection
-                            disableRowSelectionOnClick />
-                    </Box>
-                </Grid>
-            </Grid>
+            <Box mt={3}>
+                <ListItem disableGutters>
+                    <ListItemText
+                        primary={<Typography gutterBottom variant='h4'>Employee Management</Typography>}
+                    />
+                </ListItem>
+                <Box>
 
 
 
-
-
-
-
-
+                    <Grid container>
+                        <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <MessageBox type='success'>
+                                Records Updated
+                            </MessageBox>
+                            <Box sx={{ height: 580, mt: 1 }}>
+                                <DataGrid
+                                    sx={{ '--DataGrid-overlayHeight': '300px' }}
+                                    slots={{
+                                        noRowsOverlay: CustomNoRowsOverlay,
+                                        toolbar: ToolbarHeader,
+                                    }}
+                                    getRowId={(rowId) => rowId.id}
+                                    rows={rows} columns={columns} checkboxSelection
+                                    disableRowSelectionOnClick />
+                            </Box>
+                        </Grid>
+                    </Grid>
+                </Box >
+            </Box>
         </Box>
     )
 }

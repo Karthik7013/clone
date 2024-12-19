@@ -1,8 +1,18 @@
+import { Box, ListItem, ListItemText, Typography } from '@mui/material'
 import React from 'react'
 
 const ProductsSale = () => {
   return (
-    <div>ProductsSale</div>
+<Box mt={3}>
+      <ListItem disableGutters>
+        <ListItemText
+          primary={<Typography gutterBottom variant='h4'>Product Service</Typography>}
+        />
+      </ListItem>
+      <Box>
+
+      </Box >
+    </Box>
   )
 }
 
