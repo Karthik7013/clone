@@ -11,7 +11,7 @@ const CompareQuotes = () => {
     <>
       <Box >
         <Container>
-          <Stack direction={'row'} columnGap={2} p={2}>
+          <Stack columnGap={2} sx={{ mt: 3, flexDirection: { xs: 'column', md: 'row' } }}>
             <Stack spacing={2}>
               <ListItem sx={{ p: 0 }}>
                 <ListItemIcon>
@@ -23,8 +23,10 @@ const CompareQuotes = () => {
                 <Typography variant='h6'>Plan Comparison</Typography>
               </ListItem>
             </Stack>
-            <Box gap={2} flex={1} component={Stack} direction={'row'}>
-              {[1, 2, 3].map((e) => <Card elevation={2} sx={{ width: '100%', maxWidth: 300, p: 1, border: '1px solid #e5e5e5' }}>
+            <Box gap={2} flex={1} component={Stack} sx={{ flexDirection: { xs: 'column', md: 'row' } }}>
+              {[1, 2, 3].map((e, _) => <Card key={_} elevation={2}
+                sx={{ flexGrow: 1, maxWidth: 360, p: 1 }}
+              >
                 <Stack direction={'row'} gap={2}>
                   <CardMedia
                     component={'img'}
@@ -35,7 +37,7 @@ const CompareQuotes = () => {
                   <Typography component='h1' variant='body1'>Health Care</Typography>
 
                 </Stack>
-                <Stack direction={'row'} justifyContent={'space-between'}>
+                <Stack mb={1} direction={'row'} justifyContent={'space-between'}>
                   <Box>
                     <Typography variant='body2'>Sum Insurance</Typography>
                     <Typography variant='caption' fontWeight={600}>$10,000</Typography>

@@ -1,9 +1,8 @@
-import { alpha, AppBar, Avatar, Box, Button, CardContent, Chip, Divider, Drawer, IconButton, LinearProgress, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, styled, Toolbar, Tooltip, Typography, useMediaQuery } from "@mui/material"
+import { alpha, AppBar, Avatar, Box, Button, CardContent, Chip, Drawer, IconButton, LinearProgress, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, styled, Toolbar, Tooltip, Typography, useMediaQuery } from "@mui/material"
 import React, { Suspense, useCallback, useEffect } from "react";
 import { Logout, NotesRounded } from '@mui/icons-material';
 import { Link, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { RootProps } from "../../types/RootProps";
 import { handleIsMobile, toggleTheme } from "../../redux/slice/uiSlice";
 import { getAgentProfile, getCustomerProfile, getEmployeeProfile, logout } from "../../redux/slice/authSlice";
 import LightModeIcon from '@mui/icons-material/LightMode';
