@@ -168,10 +168,6 @@ export const allRouter = () => {
                             element: <VehicleHome />
                         }
                     ]
-                },
-                {
-                    path: 'summary',
-                    element: <ProductSummary />
                 }
             ],
         },

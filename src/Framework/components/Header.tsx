@@ -10,7 +10,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LogoutRoundedIcon from '@mui/icons-material/Logout';
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toggleTheme } from '../../redux/slice/uiSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,17 +36,10 @@ const Header = () => {
     const role = useSelector((state: RootState) => state.auth.role);
 
     const dispatch: AppDispatch = useDispatch();
-    const [anchorElProducts, setAnchorElProducts] = useState(null);
-    const [anchorElSignIn, setAnchorElSignIn] = useState(null);
-    const navigate = useNavigate();
-    // functions for product-menu-dropdown open/close
-    const handleOpenProductMenu = (event: any) => {
-        setAnchorElProducts(event.currentTarget)
-    }
 
-    const handleCloseProductMenu = () => {
-        setAnchorElProducts(null);
-    };
+    const [anchorElSignIn, setAnchorElSignIn] = useState<HTMLElement | null>(null);
+    const navigate = useNavigate();
+
 
     // functions for sign-menu-dropdown open/close
     const handleOpenSignInMenu = (event: any) => {
@@ -57,6 +50,7 @@ const Header = () => {
         setAnchorElSignIn(null);
     };
 
+    // function for toggle theme
     const toggleMode = () => {
         dispatch(toggleTheme())
     }
@@ -87,43 +81,14 @@ const Header = () => {
                         }}
                     >
                         <Stack sx={{ background: '#fff', borderRadius: "5px", padding: '5px', width: '70px' }}>
-                            <img src="/logo.jpg" alt="" />
+                            <img src="/logo.jpg" alt="logo" />
                         </Stack>
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
-                        <Tooltip title="Insurance Product">
-                            <Button endIcon={<KeyboardArrowDownRoundedIcon />} onClick={handleOpenProductMenu} sx={{ color: 'white' }}>
-                                Insurance Products
-                            </Button>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px', px: 2 }}
-                            id="menu-appbar"
-                            anchorEl={anchorElProducts}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElProducts)}
-                            onClose={handleCloseProductMenu}
-                        >
-                            <ProductPannel />
-
-                        </Menu>
-                        <Tooltip
-                            title={<>
-                                hellowjlksjkljlkjklfjakfja;
-                            </>}>
+                        <ProductPannel />
                             <Button sx={{ color: 'white', display: 'block' }}>
                                 Claims
                             </Button>
-                        </Tooltip>
-
                         <Button startIcon={<CallRoundedIcon />} sx={{ color: 'white' }}>
                             Talk to Expert
                         </Button>

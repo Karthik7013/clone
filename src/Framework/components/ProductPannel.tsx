@@ -1,11 +1,16 @@
-import { Box, Card, CardContent, Divider, Grid, Link, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Typography } from '@mui/material'
-import React from 'react'
+import { Button, CardContent, Divider, Grid, Link, List, ListItem, ListItemIcon, ListItemText, Popover, Typography } from '@mui/material'
+import React, { useState } from 'react'
 import CircleRoundedIcon from '@mui/icons-material/CircleRounded';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import theme from '../../theme/theme';
 const ProductPannel = () => {
+    const [anchorElProducts, setAnchorElProducts] = useState<HTMLElement | null>(null);
+    // functions for product-menu-dropdown open/close
+    const handleOpenProductMenu = (event: any) => setAnchorElProducts(event.currentTarget)
+
+    const handleCloseProductMenu = () => setAnchorElProducts(null)
 
     const product = {
-
-
         "dropdown": [
             {
                 "category": "Health Insurance",
@@ -24,15 +29,6 @@ const ProductPannel = () => {
                     { "name": "Whole Life Insurance", "url": "/life/whole" },
                     { "name": "Universal Life Insurance", "url": "/life/universal" },
                     { "name": "Final Expense Insurance", "url": "/life/final-expense" }
-                ]
-            },
-            {
-                "category": "Auto Insurance",
-                "products": [
-                    { "name": "Car Insurance", "url": "/auto/car" },
-                    { "name": "Motorcycle Insurance", "url": "/auto/motorcycle" },
-                    { "name": "Commercial Auto Insurance", "url": "/auto/commercial" },
-                    { "name": "Classic Car Insurance", "url": "/auto/classic" }
                 ]
             },
             {
@@ -71,15 +67,6 @@ const ProductPannel = () => {
                     { "name": "Cat Insurance", "url": "/pet/cat" },
                     { "name": "Exotic Pet Insurance", "url": "/pet/exotic" }
                 ]
-            },
-            {
-                "category": "Specialty Insurance",
-                "products": [
-                    { "name": "Cyber Insurance", "url": "/specialty/cyber" },
-                    { "name": "Flood Insurance", "url": "/specialty/flood" },
-                    { "name": "Identity Theft Protection", "url": "/specialty/identity-theft" },
-                    { "name": "Umbrella Insurance", "url": "/specialty/umbrella" }
-                ]
             }
         ]
     }
@@ -101,18 +88,37 @@ const ProductPannel = () => {
         </List>
     }
     return (
+        <>
+            <Button
+                onMouseEnter={handleOpenProductMenu}
+                onMouseLeave={handleOpenProductMenu}
+                sx={{
+                    color: 'white',
+                    cursor: 'pointer',
+                }}
+                endIcon={<ArrowDropDownIcon sx={{ rotate: anchorElProducts ? '180deg' : '' }} />}
+            >
+                Insurance Products
+            </Button>
+            <Popover
+                sx={{ marginTop: 8 }}
+                open={Boolean(anchorElProducts)}
+                anchorEl={anchorElProducts}
 
-        <CardContent>
-            <Typography variant='h6' gutterBottom>Insurance Products</Typography>
-            <Divider />
-            <Grid container mt={1}>
-                {product.dropdown.map((group, _) => {
-                    return <Grid key={_} item xs={12} md={4}><Category group={group} /></Grid>
-                })}
+            >
 
-            </Grid>
-        </CardContent>
+                <CardContent onMouseLeave={handleCloseProductMenu}>
+                    <Typography variant='h6' gutterBottom>Insurance Products</Typography>
+                    <Divider />
+                    <Grid container mt={1}>
+                        {product.dropdown.map((group, _) => {
+                            return <Grid key={_} item xs={12} md={4}><Category group={group} /></Grid>
+                        })}
+                    </Grid>
+                </CardContent>
+            </Popover>
+        </>
     )
 }
 
-export default ProductPannel
+export default React.memo(ProductPannel)

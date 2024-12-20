@@ -30,11 +30,11 @@ const Settings = () => {
       pincode: authData.pincode,
       country: authData.country,
       bio: authData.bio,
-      marital_status:'Single'
+      marital_status: 'Single'
     }
   });
   // Handle the form submission
-  const onSubmitHandler = (data:any) => {
+  const onSubmitHandler = (data: any) => {
     dispatch(updateCustomerProfile(data))
   };
 
@@ -289,7 +289,7 @@ const Settings = () => {
               <List
                 subheader={
                   <ListSubheader component="div">
-                    Invoices
+                    Payments
                   </ListSubheader>
                 }
               >

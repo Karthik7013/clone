@@ -14,7 +14,7 @@ import { allRouter } from "./allRoute"
 import CustomizePallete from './Framework/components/CustomizePallete';
 import CustomThemeProvider from './theme/CustomThemeProvider';
 import { handleCookieConsent } from './redux/slice/uiSlice';
-import { AppDispatch, RootState } from './redux/store';
+import { AppDispatch } from './redux/store';
 
 const App = () => {
     console.log('app renders')

@@ -65,18 +65,6 @@ const Home = () => {
             path: 'loan'
         }]
 
-
-    useEffect(() => {
-        const handleScroll = () => {
-            console.log('scroll trigger !')
-        };
-        document.addEventListener('scroll', handleScroll);
-        return () => {
-            console.log('clean the event')
-            document.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
     const rotate = keyframes`
         0% {
           transform: rotate(0deg);
