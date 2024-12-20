@@ -4,7 +4,7 @@ import CurrencyExchangeRoundedIcon from '@mui/icons-material/CurrencyExchangeRou
 import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
 import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 const ProductSummary = () => {
-    return <Container sx={{ pt: 2 }}>
+    return <Box sx={{ pt: 2 }}>
         <Card>
             <ListItem>
                 <ListItemText primary={<Typography variant="subtitle2">Employee Details</Typography>} secondary={<Typography variant="caption" color='text.secondary'>Add or Manage your Employee Members</Typography>} />
@@ -65,7 +65,6 @@ const ProductSummary = () => {
 
 
 
-    </Container>
-    return <Container>Product Summary</Container>
+    </Box>
 }
 export default ProductSummary
