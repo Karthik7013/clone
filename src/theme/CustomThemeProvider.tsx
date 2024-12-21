@@ -10,7 +10,7 @@ type themeProviderProps = {
 }
 
 const CustomThemeProvider = (props: themeProviderProps) => {
-    console.log('Customer Theme Provider')
+
     const dark = useSelector((state: RootState) => state.ui.dark);
     const borderRadius = useSelector((state: RootState) => state.ui.borderRadius);
     const fontFamily = useSelector((state: RootState) => state.ui.fontFamily);

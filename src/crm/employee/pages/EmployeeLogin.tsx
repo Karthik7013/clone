@@ -1,4 +1,4 @@
-import { Box, Card, CardMedia, CircularProgress, Stack, Typography } from '@mui/material'
+import { Box, Card, CardContent, CardMedia, CircularProgress, Stack, Typography } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import * as React from 'react';
 
@@ -67,60 +67,67 @@ const EmployeeLogin = () => {
                             px: 5
                         }}
                     >
-                        <Card elevation={0}>
-                            <CardMedia
-                                component="img"
-                                height={60}
-                                image={logo}
-                                alt="company logo"
-                            />
+                        <Card>
+                            <CardContent component={Stack} alignItems='center'>
+
+
+                                <Card elevation={0}>
+                                    <CardMedia
+                                        component="img"
+                                        height={60}
+                                        image={logo}
+                                        alt="company logo"
+                                    />
+                                </Card>
+                                <Typography component="h1" variant="h5">
+                                    Employee Sign in
+                                </Typography>
+                                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="mobile"
+                                        label="Mobile Number"
+                                        name="mobile"
+                                        autoComplete="mobile"
+                                        autoFocus
+                                    />
+                                    <TextField
+                                        disabled
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="otp"
+
+                                        name="otp"
+                                        autoComplete="otp"
+                                        autoFocus
+                                        type="password" label="Enter OTP" />
+
+
+                                    <Button
+
+                                        disabled={isLoading}
+                                        type='submit'
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{ mt: 3, mb: 2 }}
+                                    >
+                                        {isLoading ? <CircularProgress size={24} /> : "Login"}
+                                    </Button>
+                                    <Grid container>
+                                        <Grid item xs>
+                                            <Link to="#">
+                                                Forgot password?
+                                            </Link>
+                                        </Grid>
+                                    </Grid>
+                                    {/* <LoadingModal /> */}
+                                    <Copyright sx={{ mt: 5 }} />
+                                </Box>
+                            </CardContent>
                         </Card>
-                        <Typography component="h1" variant="h5">
-                            Employee Sign in
-                        </Typography>
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="mobile"
-                                label="Mobile Number"
-                                name="mobile"
-                                autoComplete="mobile"
-                                autoFocus
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="otp"
-
-                                name="otp"
-                                autoComplete="otp"
-                                autoFocus
-                                type="password" label="Enter OTP" />
-
-
-                            <Button
-
-                                disabled={isLoading}
-                                type='submit'
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                {isLoading ? <CircularProgress size={24} /> : "Login"}
-                            </Button>
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link to="#">
-                                        Forgot password?
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                            {/* <LoadingModal /> */}
-                            <Copyright sx={{ mt: 5 }} />
-                        </Box>
                     </Box>
                 </Grid>
             </Grid>

@@ -57,7 +57,6 @@ const Home = () => {
   const seriesChat = [44, 55, 41, 17, 15]
 
   const StatusBarGraph = React.memo(() => {
-    console.log('renderedchart');
     return (
       <Box>
         <div id="chart">

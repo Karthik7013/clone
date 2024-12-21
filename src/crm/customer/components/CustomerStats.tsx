@@ -12,6 +12,7 @@ const CustomerStats = () => {
     const loading = useSelector((state: RootState) => state.dashboard.stats.loading);
     const customerStats = useSelector((state: RootState) => state.dashboard.stats.data);
     const theme = useTheme()
+    console.log('customer Stats')
 
     useEffect(() => {
         dispatch(getCustomerStats())
@@ -239,4 +240,4 @@ const CustomerStats = () => {
 }
 
 
-export default CustomerStats;
+export default React.memo(CustomerStats);

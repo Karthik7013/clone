@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 
 //============ MUI IMPORTS ==============>
 import { Toolbar } from "@mui/material";
@@ -29,18 +29,11 @@ import HealthPayment from "./health/pages/HealthPayment";
 
 //============ DASHBOARD COMPONENTS IMPORTS ==============>
 
-import CustomerLogin from "./crm/customer/pages/Login";
 import PageNotFound from "./Framework/components/PageNotFound";
-import CrmLayout from "./crm/layout/CrmLayout";
 import ChatBot from "./Framework/components/ChatBot";
 
 //============ REDUX IMPORTS ==============>
-import { useSelector } from "react-redux";
-import { RootState } from "./redux/store";
 
-
-
-import ProductSummary from "./Framework/components/ProductSummary";
 import { customerRoutes } from "./crm/customer/routes/customer.routes";
 import { pospRoutes } from "./crm/posp/routes/posp.routes";
 import { employeeRoutes } from "./crm/employee/routes/employee.routes";

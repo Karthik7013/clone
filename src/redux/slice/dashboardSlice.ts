@@ -3,9 +3,6 @@ import { CustomerResources } from "../../service/api";
 import { alertProps } from "../../types/UiProps/uiProps";
 
 type dashboardProps = {
-    activeTab: null | '',
-    alert: alertProps,
-    loading: boolean,
     stats: {
         data: any,
         alert: alertProps,
@@ -44,13 +41,6 @@ type dashboardProps = {
 }
 
 const initialState: dashboardProps = {
-    activeTab: '',
-    loading: false,
-    alert: {
-        type: undefined,
-        message: '',
-        state: false
-    },
     policies: {
         loading: false,
         data: [],

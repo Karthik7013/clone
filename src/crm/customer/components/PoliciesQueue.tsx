@@ -9,12 +9,12 @@ import { Link } from "react-router-dom";
 const PoliciesQueue = () => {
     const dispatch: AppDispatch = useDispatch();
     const loading = useSelector((state: RootState) => state.dashboard.applicationQueue.loading);
-    const applications = useSelector((state: RootState) => state.dashboard.applicationQueue.data) || []
-    console.log(applications)
+    const applications = useSelector((state: RootState) => state.dashboard.applicationQueue.data)
+    console.log('application')
 
     useEffect(() => {
         dispatch(getCustomerApplicationQueue())
-    }, [dispatch])
+    }, [])
 
 
     return <Card>
