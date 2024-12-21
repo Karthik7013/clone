@@ -35,6 +35,11 @@ type dashboardProps = {
         loading: boolean,
         data: any,
         alert: alertProps
+    },
+    myPayments: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
     }
 }
 
@@ -92,6 +97,15 @@ const initialState: dashboardProps = {
         loading: false
     },
     applicationQueue: {
+        loading: false,
+        data: [],
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        }
+    },
+    myPayments: {
         loading: false,
         data: [],
         alert: {
@@ -178,6 +192,17 @@ export const getCustomerApplicationQueue = createAsyncThunk('customer/policyQueu
     }
 })
 
+export const getCustomerPayments = createAsyncThunk('customer/payments', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await CustomerResources.get('/payments');
+        return { status: res.status, data: res.data.data };
+    } catch (error) {
+        if (error.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+    }
+})
 
 const dashboardSlice = createSlice({
     name: 'dashboard',
@@ -268,6 +293,15 @@ const dashboardSlice = createSlice({
         }).addCase(getCustomerApplicationQueue.fulfilled, (state, action) => {
             state.applicationQueue.loading = false;
             state.applicationQueue.data = action.payload.data
+        })
+
+        builder.addCase(getCustomerPayments.pending, (state) => {
+            state.myPayments.loading = true
+        }).addCase(getCustomerPayments.rejected, (state, action) => {
+            state.myPayments.loading = false;
+        }).addCase(getCustomerPayments.fulfilled, (state, action) => {
+            state.myPayments.loading = false;
+            state.myPayments.data = action.payload.data
         })
     }
 })

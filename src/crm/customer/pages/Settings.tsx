@@ -10,10 +10,11 @@ import EditProfile from "../components/EditProfile";
 import { handleEditProfile } from "../../../redux/slice/uiSlice";
 import DangerousRoundedIcon from '@mui/icons-material/DangerousRounded';
 import DeleteIcon from '@mui/icons-material/Delete';
-import DescriptionIcon from '@mui/icons-material/Description';
-import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
+
+
 import { Controller, useForm } from "react-hook-form";
 import { updateCustomerProfile } from "../../../redux/slice/dashboardSlice";
+import CustomerPayments from "../components/CustomerPayments";
 const Settings = () => {
   const theme = useTheme();
   const isMobile = useSelector((state: RootState) => state.ui.isMobile)
@@ -284,46 +285,7 @@ const Settings = () => {
                 </Typography>
               </CardContent>
             </Card> */}
-            <Card>
-
-              <List
-                subheader={
-                  <ListSubheader component="div">
-                    Payments
-                  </ListSubheader>
-                }
-              >
-                <Divider />
-                <List>
-                  {[1, 2, 3, 4, 5, 6, 7, 8].map(() => <ListItem divider
-                    secondaryAction={<Chip size="small" icon={<QueryBuilderIcon fontSize="inherit" />} variant="outlined" color="warning" label="Pending" />}
-                    alignItems="flex-start">
-                    <ListItemAvatar>
-                      <DescriptionIcon />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary="Invoice #323"
-                      secondary={
-                        <React.Fragment>
-
-                          {"26 May 2023"}
-                        </React.Fragment>
-                      }
-                    />
-                  </ListItem>)}
-                </List>
-
-
-              </List>
-              <Divider />
-
-
-
-
-              <CardActions>
-                <Button variant="contained" size="small">more</Button>
-              </CardActions>
-            </Card>
+            <CustomerPayments />
           </Grid>
 
           <Grid item xs={12}>

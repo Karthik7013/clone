@@ -1,15 +1,13 @@
 import { Box, Button, Card, CardContent, Divider, Grid, List, ListItem, ListItemText, ListSubheader, Stack, Typography } from '@mui/material'
 import React from 'react'
-
 import ApexCharts from 'react-apexcharts';
 import { useTheme } from '@mui/material';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded';
 import ReactApexChart from 'react-apexcharts';
-
-
 import PoliciesQueue from '../components/PoliciesQueue';
 import CustomerStats from '../components/CustomerStats';
+
 const Home = () => {
   console.log("customer home renders");
   const theme = useTheme()
@@ -49,21 +47,11 @@ const Home = () => {
     name: 'Sales',
     data: [10, 40, 30, 70, 50, 60, 90]
   }];
+
   const chartOptions = {
     chart: {
       type: 'donut',
-    },
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        chart: {
-          width: 200
-        },
-        legend: {
-          position: 'bottom'
-        }
-      }
-    }]
+    }
   }
 
   const seriesChat = [44, 55, 41, 17, 15]
@@ -129,7 +117,7 @@ const Home = () => {
               }
             >
               <Divider />
-              <Box component={CardContent} id="chart">
+              <Box component={CardContent} id="chart" style={{ width: '400px', margin: 'auto' }}>
                 <ReactApexChart options={chartOptions} series={seriesChat} type="donut" />
               </Box>
             </List>
