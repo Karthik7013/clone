@@ -30,7 +30,7 @@ const StudyMaterial = () => {
                 <AccordionDetails>
                     <Divider />
                     <List>
-                        {[1, 2, 3, 4].map(() => (<ListItem secondaryAction={<ButtonGroup size='small'>
+                        {[1, 2, 3, 4].map((_) => (<ListItem key={_} secondaryAction={<ButtonGroup size='small'>
                             <Button title='view' color="primary" variant='outlined' >
                                 <RemoveRedEyeRoundedIcon fontSize='small' />
                             </Button>
@@ -41,7 +41,7 @@ const StudyMaterial = () => {
                                 title="download"
                                 color="success"
                                 variant="contained"
-
+                                target='_blank'
                             >
                                 Download
                                 <GetAppRoundedIcon fontSize="small" />
@@ -71,7 +71,7 @@ const StudyMaterial = () => {
                     <Divider />
                     <List>
 
-                        {[1, 2, 3, 4].map(() => (<ListItem secondaryAction={<ButtonGroup size='small'>
+                        {[1, 2, 3, 4].map((_) => (<ListItem key={_} secondaryAction={<ButtonGroup size='small'>
                             <Button title='view' color="primary" variant='outlined' >
                                 <RemoveRedEyeRoundedIcon fontSize='small' />
                             </Button>
