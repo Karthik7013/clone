@@ -48,13 +48,20 @@ const Home = () => {
     data: [10, 40, 30, 70, 50, 60, 90]
   }];
 
-  const chartOptions = {
-    chart: {
-      type: 'donut',
+  const dataProducts = {
+    data: {
+      labels: ["Motor Insurance", "Pet Insurance", "Travel Insurance", "Life Insurance", "Health Insurance"],
+      series: [44, 55, 41, 17, 15]
     }
   }
 
-  const seriesChat = [44, 55, 41, 17, 15]
+  const chartOptions = {
+    chart: {
+      type: 'donut',
+    },
+    labels: dataProducts.data.labels, // Custom labels
+  }
+
 
   const StatusBarGraph = React.memo(() => {
     return (
@@ -117,7 +124,7 @@ const Home = () => {
             >
               <Divider />
               <Box component={CardContent} id="chart" style={{ width: '400px', margin: 'auto' }}>
-                <ReactApexChart options={chartOptions} series={seriesChat} type="donut" />
+                <ReactApexChart options={chartOptions} series={dataProducts.data.series} type="donut" />
               </Box>
             </List>
           </Card>

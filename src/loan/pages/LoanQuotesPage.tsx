@@ -8,11 +8,15 @@ import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded"
 import { useState } from "react";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import MessageBox from "../../Framework/components/MessageBox";
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store'
+import { handleAddtoCompare, handleEmptyCompare } from "../../redux/slice/uiSlice";
 
 const LoanQuotesPage = () => {
+    const dispatch: AppDispatch = useDispatch();
     const [viewDetails, setViewDetails] = useState(false)
     const [isMobile, setIsMobile] = useState<boolean>(false);
-    const [productCompare, setProductCompare] = useState([]);
+    const compareProducts = useSelector((state: RootState) => state.ui.productsCompare);
     const scrollBarStyles = {
         overflow: 'auto', // Enable scrollbars
         '&::-webkit-scrollbar': {
@@ -93,11 +97,12 @@ const LoanQuotesPage = () => {
     }
 
     const handleCompare = (id: number) => {
-        if (productCompare.length <= 3) {
-
+        if (compareProducts.length <= 3) {
+            dispatch(handleAddtoCompare(id))
         }
     }
-    const cancel = () => setProductCompare([])
+
+    const cancel = () => dispatch(handleEmptyCompare());
 
 
     return (
@@ -144,7 +149,7 @@ const LoanQuotesPage = () => {
                         <Grid container columns={18} spacing={2}>
                             <Grid item xs={18}>
                                 <Grid container rowGap={3}>
-                                    <MessageBox type="warning">
+                                    {/* <MessageBox type="warning">
                                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero eius ea veniam consectetur cumque non vero illo numquam? Earum quod aut corporis repellendus, error a quis commodi at sunt excepturi ipsum neque.
                                     </MessageBox>
                                     <MessageBox type="error">
@@ -155,15 +160,14 @@ const LoanQuotesPage = () => {
                                     </MessageBox>
                                     <MessageBox type="success">
                                         We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
-                                    </MessageBox>
+                                    </MessageBox> */}
 
 
                                     {/* quote cards */}
 
-
-                                    {[1, 2].map((e: number) => (
-                                        <Grid key={e} container rowSpacing={2}>
-                                            <Grid item xs={12}>
+                                    <Grid container rowSpacing={2}>
+                                        {[1, 2, 3, 4, 5].map((e: number) => (
+                                            <Grid item xs={12} key={e}>
                                                 <Card sx={{ borderRadius: '9px', padding: '6px' }}>
                                                     <Box display={'flex'}>
                                                         <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
@@ -199,9 +203,8 @@ const LoanQuotesPage = () => {
                                                     </Box>
                                                 </Card>
                                             </Grid>
-                                        </Grid>
-                                    ))}
-
+                                        ))}
+                                    </Grid>
                                     {/* loading quote cards */}
                                     {
                                         [1, 2, 3, 4].map((e: number) => {
@@ -242,7 +245,6 @@ const LoanQuotesPage = () => {
 
                                     <Dialog
                                         open={viewDetails}
-
                                         keepMounted
                                         // onClose={closeViewDetails}
                                         aria-describedby="alert-dialog-slide-description"
@@ -260,8 +262,7 @@ const LoanQuotesPage = () => {
                                         </DialogActions>
                                     </Dialog>
 
-
-                                    <Link to="/loan/payment">payment</Link>
+                                    {/* <Link to="/loan/payment">payment</Link> */}
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -277,8 +278,7 @@ const LoanQuotesPage = () => {
                     }
                 </Stack>
             </Stack>
-
-            {true && <Paper
+            {Boolean(compareProducts.length) && <Paper
                 role="dialog"
                 aria-modal="false"
                 aria-label="Cookie banner"
@@ -340,15 +340,13 @@ const LoanQuotesPage = () => {
                         >
                             <Button>Clear
                             </Button>
-                            <Badge badgeContent={3} color='primary'>
-
+                            <Badge badgeContent={compareProducts.length + 1} color='primary'>
                                 <Button variant="contained" startIcon={<CompareArrowsRoundedIcon />}>Compare
                                 </Button>
                             </Badge>
                         </Stack>
                     </Stack>
                 </Container>
-
             </Paper>}
         </Box >
     )

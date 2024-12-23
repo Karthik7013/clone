@@ -12,7 +12,8 @@ const initialState: uiProps = {
     cookieConsent: false,
     customerEditProfile: false,
     counter: 0,
-    isMobile: false
+    isMobile: false,
+    productsCompare:[]
 }
 
 const uiSlice = createSlice({
@@ -43,9 +44,18 @@ const uiSlice = createSlice({
         },
         handleIsMobile: (state) => {
             state.isMobile = !state.isMobile
+        },
+        handleAddtoCompare:(state,action)=>{
+           const findProduct =  state.productsCompare.filter((product)=> {
+             
+            })
+        },
+        handleEmptyCompare:(state)=>{
+          state.productsCompare = []  
         }
+
     }
 })
 
-export const { increaseCounter, handleEditProfile, toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete, handleIsMobile } = uiSlice.actions
+export const { increaseCounter, handleEditProfile, toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete, handleIsMobile,handleAddtoCompare,handleEmptyCompare } = uiSlice.actions
 export default uiSlice.reducer

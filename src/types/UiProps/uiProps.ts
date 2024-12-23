@@ -13,7 +13,8 @@ type uiProps = {
     customizePalleteOpen: boolean,
     customerEditProfile: boolean,
     counter: number,
-    isMobile: boolean
+    isMobile: boolean,
+    productsCompare:Number[]
 }
 
 export type { uiProps, alertProps }
