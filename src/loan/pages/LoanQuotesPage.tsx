@@ -145,11 +145,10 @@ const LoanQuotesPage = () => {
                         </Button>
                     </Toolbar>
 
-                    <Container maxWidth='lg' sx={{ py: { xs: 1, md: 3 } }}>
-                        <Grid container columns={18} spacing={2}>
-                            <Grid item xs={18}>
-                                <Grid container rowGap={3}>
-                                    {/* <MessageBox type="warning">
+                    <Grid container columns={18} spacing={2} px={4} sx={{ py: { xs: 1, md: 3 } }}>
+                        <Grid item xs={18}>
+                            <Grid container rowGap={3}>
+                                {/* <MessageBox type="warning">
                                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero eius ea veniam consectetur cumque non vero illo numquam? Earum quod aut corporis repellendus, error a quis commodi at sunt excepturi ipsum neque.
                                     </MessageBox>
                                     <MessageBox type="error">
@@ -163,114 +162,113 @@ const LoanQuotesPage = () => {
                                     </MessageBox> */}
 
 
-                                    {/* quote cards */}
+                                {/* quote cards */}
 
-                                    <Grid container rowSpacing={2}>
-                                        {[1, 2, 3, 4, 5].map((e: number) => (
-                                            <Grid item xs={12} key={e}>
-                                                <Card sx={{ borderRadius: '9px', padding: '6px' }}>
+                                <Grid container rowSpacing={2}>
+                                    {[1, 2, 3, 4, 5].map((e: number) => (
+                                        <Grid item xs={12} key={e}>
+                                            <Card sx={{ borderRadius: '9px', padding: '6px' }}>
+                                                <Box display={'flex'}>
+                                                    <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
+                                                        <CardMedia
+                                                            component="img"
+                                                            sx={{ borderRadius: '0.4em', height: { xs: 60, md: 60 }, width: { xs: 100, md: 100 } }}
+                                                            image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
+                                                        />
+                                                        <Box flex={1} display={'flex'} sx={{ justifyContent: { lg: 'center' } }}>
+                                                            <Box sx={{ display: { xs: 'flex', lg: 'block' }, gap: 1 }}>
+                                                                <Typography gutterBottom variant='body1' color={'text.secondary'}>IDV Covers</Typography>
+                                                                <Typography variant='body2' color={'text.primary'}>
+                                                                    ₹<b style={{ fontSize: '18px' }}>{50000}</b>
+                                                                </Typography>
+                                                            </Box>
+                                                        </Box>
+                                                    </Box>
+                                                    <Box >
+                                                        <Button sx={{ borderRadius: '0.4em' }} variant='contained' endIcon={<ArrowForwardRoundedIcon />}>
+                                                            <Typography variant='body1'>
+                                                                <Typography> ₹ 5000</Typography>
+                                                            </Typography>
+                                                        </Button>
+                                                    </Box>
+                                                </Box>
+                                                <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                                                    <FormGroup>
+                                                        <FormControlLabel control={<Checkbox onChange={() => handleCompare(e)} size='small' />} label={<Typography variant="caption">Compare</Typography>} />
+                                                    </FormGroup>
+                                                    <Button size="small" onClick={openViewDetails}>
+                                                        <Typography variant='caption' color={'text.secondary'}>View Details</Typography>
+                                                    </Button>
+                                                </Box>
+                                            </Card>
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                                {/* loading quote cards */}
+                                {
+                                    [1, 2, 3, 4].map((e: number) => {
+                                        return <Grid container rowSpacing={2}>
+                                            <Grid item xs={12}>
+                                                <Card sx={{ borderRadius: '9px', padding: '10px' }}>
                                                     <Box display={'flex'}>
                                                         <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
-                                                            <CardMedia
-                                                                component="img"
-                                                                sx={{ borderRadius: '0.4em', height: { xs: 60, md: 60 }, width: { xs: 100, md: 100 } }}
-                                                                image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
-                                                            />
+
+                                                            <Skeleton sx={{
+                                                                height: { xs: 60, md: '100%' }, width: { xs: 100, md: 120 }
+                                                            }} animation='wave' />
                                                             <Box flex={1} display={'flex'} sx={{ justifyContent: { lg: 'center' } }}>
                                                                 <Box sx={{ display: { xs: 'flex', lg: 'block' }, gap: 1 }}>
-                                                                    <Typography gutterBottom variant='body1' color={'text.secondary'}>IDV Covers</Typography>
-                                                                    <Typography variant='body2' color={'text.primary'}>
-                                                                        ₹<b style={{ fontSize: '18px' }}>{50000}</b>
-                                                                    </Typography>
+                                                                    <Skeleton width={200} height={20} />
+                                                                    <Skeleton width={200} height={20} />
                                                                 </Box>
                                                             </Box>
                                                         </Box>
                                                         <Box >
-                                                            <Button sx={{ borderRadius: '0.4em' }} variant='contained' endIcon={<ArrowForwardRoundedIcon />}>
-                                                                <Typography variant='body1'>
-                                                                    <Typography> ₹ 5000</Typography>
-                                                                </Typography>
-                                                            </Button>
+                                                            <Skeleton width={100} height={50} />
                                                         </Box>
                                                     </Box>
                                                     <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                                                        <FormGroup>
-                                                            <FormControlLabel control={<Checkbox onChange={() => handleCompare(e)} size='small' />} label={<Typography variant="caption">Compare</Typography>} />
-                                                        </FormGroup>
-                                                        <Button size="small" onClick={openViewDetails}>
-                                                            <Typography variant='caption' color={'text.secondary'}>View Details</Typography>
-                                                        </Button>
+                                                        <Box >
+                                                            <Skeleton width={18} height={30} />
+                                                        </Box>
+                                                        <Box>
+                                                            <Skeleton width={100} height={16} />
+                                                        </Box>
                                                     </Box>
                                                 </Card>
                                             </Grid>
-                                        ))}
-                                    </Grid>
-                                    {/* loading quote cards */}
-                                    {
-                                        [1, 2, 3, 4].map((e: number) => {
-                                            return <Grid container rowSpacing={2}>
-                                                <Grid item xs={12}>
-                                                    <Card sx={{ borderRadius: '9px', padding: '10px' }}>
-                                                        <Box display={'flex'}>
-                                                            <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
+                                        </Grid>
+                                    })
+                                }
+                                {/* view product details */}
 
-                                                                <Skeleton sx={{
-                                                                    height: { xs: 60, md: '100%' }, width: { xs: 100, md: 120 }
-                                                                }} animation='wave' />
-                                                                <Box flex={1} display={'flex'} sx={{ justifyContent: { lg: 'center' } }}>
-                                                                    <Box sx={{ display: { xs: 'flex', lg: 'block' }, gap: 1 }}>
-                                                                        <Skeleton width={200} height={20} />
-                                                                        <Skeleton width={200} height={20} />
-                                                                    </Box>
-                                                                </Box>
-                                                            </Box>
-                                                            <Box >
-                                                                <Skeleton width={100} height={50} />
-                                                            </Box>
-                                                        </Box>
-                                                        <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                                                            <Box >
-                                                                <Skeleton width={18} height={30} />
-                                                            </Box>
-                                                            <Box>
-                                                                <Skeleton width={100} height={16} />
-                                                            </Box>
-                                                        </Box>
-                                                    </Card>
-                                                </Grid>
-                                            </Grid>
-                                        })
-                                    }
-                                    {/* view product details */}
+                                <Dialog
+                                    open={viewDetails}
+                                    keepMounted
+                                    // onClose={closeViewDetails}
+                                    aria-describedby="alert-dialog-slide-description"
+                                >
+                                    <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText id="alert-dialog-slide-description">
+                                            Let Google help apps determine location. This means sending anonymous
+                                            location data to Google, even when no apps are running.
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={closeViewDetails}>Disagree</Button>
+                                        <Button onClick={closeViewDetails}>Agree</Button>
+                                    </DialogActions>
+                                </Dialog>
 
-                                    <Dialog
-                                        open={viewDetails}
-                                        keepMounted
-                                        // onClose={closeViewDetails}
-                                        aria-describedby="alert-dialog-slide-description"
-                                    >
-                                        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
-                                        <DialogContent>
-                                            <DialogContentText id="alert-dialog-slide-description">
-                                                Let Google help apps determine location. This means sending anonymous
-                                                location data to Google, even when no apps are running.
-                                            </DialogContentText>
-                                        </DialogContent>
-                                        <DialogActions>
-                                            <Button onClick={closeViewDetails}>Disagree</Button>
-                                            <Button onClick={closeViewDetails}>Agree</Button>
-                                        </DialogActions>
-                                    </Dialog>
-
-                                    {/* <Link to="/loan/payment">payment</Link> */}
-                                </Grid>
+                                {/* <Link to="/loan/payment">payment</Link> */}
                             </Grid>
                         </Grid>
-                    </Container>
+                    </Grid>
                 </Box>
                 <Stack width={300} rowGap={3} py={3} pr={3} sx={{ display: { xs: 'none', md: 'flex' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'scroll', ...scrollBarHidden }}>
                     {
-                        [1, 2].map((e: number) => {
+                        [1, 2, 3].map((e: number) => {
                             return <Card>
                                 <CardMedia component={'img'} image="https://img.freepik.com/free-vector/health-insurance-template-vector-blog-banner_53876-111243.jpg?size=626&ext=jpg&ga=GA1.1.1631789375.1722771379&semt=ais_hybrid" height={'100%'} />
                             </Card>
@@ -278,6 +276,7 @@ const LoanQuotesPage = () => {
                     }
                 </Stack>
             </Stack>
+
             {Boolean(compareProducts.length) && <Paper
                 role="dialog"
                 aria-modal="false"

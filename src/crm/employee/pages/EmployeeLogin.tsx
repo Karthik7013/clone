@@ -68,9 +68,7 @@ const EmployeeLogin = () => {
                         }}
                     >
                         <Card>
-                            <CardContent component={Stack} alignItems='center'>
-
-
+                            <CardContent component={Stack} alignItems='center' my={10}>
                                 <Card elevation={0}>
                                     <CardMedia
                                         component="img"
