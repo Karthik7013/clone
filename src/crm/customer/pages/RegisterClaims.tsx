@@ -15,6 +15,7 @@ const RegisterClaims = () => {
   const dispatch: AppDispatch = useDispatch();
   const closeAlertHandle = () => dispatch(closeAlert());
   const onSubmitHandle = (data) => {
+    console.log(data)
     dispatch(registerCustomerPolicies(data))
     reset();
   }

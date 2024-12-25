@@ -19,7 +19,6 @@ const initialState: authProps = {
     role: role,
 }
 
-
 // =============== | EMPLOYEE ACTIONS | ==============>
 export const loginEmployee = createAsyncThunk('login/user', async (payload: { phone: number }, { rejectWithValue }) => {
     try {
@@ -66,7 +65,7 @@ export const getCustomerProfile = createAsyncThunk('profile/customer', async (pa
     }
 })
 
-export const logout = createAsyncThunk('logout/customer', async (payload: {}, { rejectWithValue }) => {
+export const logout = createAsyncThunk('logout', async (payload: {}, { rejectWithValue }) => {
     try {
         const res = await authService.post(`/signOut`);
         return { status: res.status, data: res.data.data }
@@ -152,39 +151,13 @@ const authSlice = createSlice({
             })
             .addCase(getCustomerProfile.fulfilled, (state, action) => {
                 state.loading = false;
-                if (getSessionToken('prev_login')) {
-                    state.alert = {
-                        type: 'success',
-                        message: 'Welcom Back',
-                        state: true
-                    }
-                } else {
-                    state.alert = {
-                        type: 'success',
-                        message: 'Login Success',
-                        state: true
-                    }
-                    sessionStorage.setItem('prev_login', 'true')
+                state.alert = {
+                    type: 'success',
+                    message: 'Login Success',
+                    state: true
                 }
                 state.isLogin = true;
                 state.authData = action.payload.data
-            });
-        builder.addCase(logout.pending, (state) => {
-            state.loading = true
-        })
-            .addCase(logout.rejected, (state, action) => {
-                state.loading = false
-            })
-            .addCase(logout.fulfilled, (state, action) => {
-                state.loading = false;
-                state.isLogin = false;
-                state.role = null;
-                state.alert = {
-                    message: 'Logout Success',
-                    state: true,
-                    type: 'error'
-                }
-                sessionStorage.removeItem('role')
             });
         // agent 
         builder.addCase(loginAgent.pending, (state) => {
@@ -298,70 +271,26 @@ const authSlice = createSlice({
                 state.isLogin = true;
                 state.authData = action.payload.data
             })
+        // logout
+        builder.addCase(logout.pending, (state) => {
+            state.loading = true
+        })
+            .addCase(logout.rejected, (state, action) => {
+                state.loading = false
+            })
+            .addCase(logout.fulfilled, (state, action) => {
+                state.loading = false;
+                state.isLogin = false;
+                state.role = null;
+                state.alert = {
+                    message: 'Logout Success',
+                    state: true,
+                    type: 'error'
+                }
+                sessionStorage.removeItem('role')
+            });
     }
 })
 
 export const { closeAlert } = authSlice.actions;
 export default authSlice.reducer;
-
-
-
-
-
-
-// // employee
-// builder.addCase(loginUser.pending, (state) => {
-//     state.loading = true;
-// })
-//     .addCase(loginUser.rejected, (state) => {
-//         state.loading = false;
-//         state.alert = {
-//             type: 'error',
-//             message: 'invalid username/password',
-//             state: true
-//         }
-
-//     })
-//     .addCase(loginUser.fulfilled, (state, action) => {
-//         state.loading = false
-//         state.isLogin = true;
-//         state.alert = {
-//             message: 'Login Success',
-//             state: true,
-//             type: 'success'
-//         }
-//         sessionStorage.setItem('access-token', action.payload.data.data.accessToken);
-//         sessionStorage.setItem('login-type', 'employee');
-//     });
-// builder.addCase(getProfile.pending, (state) => {
-//     state.loading = true;
-// })
-//     .addCase(getProfile.rejected, (state, action) => {
-//         state.loading = false;
-//         state.alert = {
-//             type: 'error',
-//             message: 'failed to get profile',
-//             state: true
-//         }
-//     })
-//     .addCase(getProfile.fulfilled, (state, action) => {
-//         state.loading = false;
-//         if (getSessionToken('prev_login')) {
-//             // console.log('first time entered')
-//             state.alert = {
-//                 type: 'success',
-//                 message: 'Welcom Back',
-//                 state: true
-//             }
-//         } else {
-//             state.alert = {
-//                 type: 'success',
-//                 message: 'Login Success',
-//                 state: true
-//             }
-//             sessionStorage.setItem('prev_login', 'true')
-//         }
-
-//         state.isLogin = true;
-//         state.profile = action.payload.data
-//     })

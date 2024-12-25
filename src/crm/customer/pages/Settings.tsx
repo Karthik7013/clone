@@ -19,6 +19,7 @@ const Settings = () => {
   const theme = useTheme();
   const isMobile = useSelector((state: RootState) => state.ui.isMobile)
   const authData = useSelector((state: RootState) => state.auth.authData);
+  const loading = useSelector((state: RootState) => state.dashboard.updateProfile.loading);
   const dispatch: AppDispatch = useDispatch();
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -267,24 +268,14 @@ const Settings = () => {
                 </List>
                 <Divider />
                 <CardActions>
-                  <Button variant="contained" size="small" type="submit">Save</Button>
+                  <Button disabled={loading} variant="contained" size="small" type="submit">Save</Button>
                 </CardActions>
               </form>
 
             </Card>
           </Grid>
           <Grid item xs={12} lg={4}>
-            {/* <Card>
-              <CardContent>
-                <Typography gutterBottom variant="h6" component="div">
-                  Address Details
-                </Typography>
-                <Divider sx={{ mb: 1 }} />
-                <Typography variant="body2" color="text.secondary">
-                  <li>15-96 Simhagiri Colony Saligramapuram Visakhapatnam,Andhra Pradesh 530024</li>
-                </Typography>
-              </CardContent>
-            </Card> */}
+
             <CustomerPayments />
           </Grid>
 

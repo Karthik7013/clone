@@ -9,6 +9,6 @@ export default defineConfig({
         sourcemap: true, // Optionally generate source maps for debugging
     },
     server: {
-        port: 3000,  // You can change the development server port if needed
+        port: 5173,  // You can change the development server port if needed
     }
 });
