@@ -1,2 +1,50 @@
-node_modules
+# Node modules directory
+node_modules/
+
+# Vite and build output
+/dist
+/.vite
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
 .env
+.env.*.local
+
+# npm package lock and yarn lock
+package-lock.json
+yarn.lock
+
+# Next.js build files (if applicable)
+.next/
+
+# IDE and editor settings
+.vscode/
+.idea/
+
+# Coverage directory used by testing tools
+coverage/
+
+# SvelteKit (if using Svelte)
+.svelte-kit/
+
+# Temporary files and directories created by the OS or IDE
+*.swp
+*.swo
+
+# MacOS Finder settings
+*.AppleDouble
+*.LSOverride
+
+# Windows Installer files
+ehthumbs.db
+Desktop.ini
+
+# Optional: If you want to ignore .env files with sensitive information
+.env.local
+.env.*.local
