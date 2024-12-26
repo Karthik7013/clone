@@ -10,7 +10,7 @@ import EditProfile from "../components/EditProfile";
 import { handleEditProfile } from "../../../redux/slice/uiSlice";
 import DangerousRoundedIcon from '@mui/icons-material/DangerousRounded';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 
 import { Controller, useForm } from "react-hook-form";
 import { updateCustomerProfile } from "../../../redux/slice/dashboardSlice";
@@ -62,7 +62,7 @@ const Settings = () => {
               primary={<Typography variant="h6">{authData.firstname} {authData.lastname} ({authData.customer_id}) <Chip clickable size="small" label="Premium" color="warning" variant="outlined" icon={<LocalPoliceRoundedIcon fontSize="small" />}></Chip></Typography>}
               secondary={
                 <>
-                  {(authData.created_at).split('T')[0]}
+                  <Typography variant="caption"><CalendarMonthRoundedIcon fontSize="inherit" /> {(authData.created_at).split('T')[0]}</Typography>
                 </>
               } />
           </ListItem>

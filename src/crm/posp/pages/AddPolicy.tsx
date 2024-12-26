@@ -19,7 +19,7 @@ const AddPolicy = () => {
         />
       </ListItem>
       <Box>
-        <Stack direction='row' columnGap={2}>
+        <Stack direction='row' columnGap={2} overflow="auto">
           <Chip onClick={() => handleChangeTab('car')} color={activeForm === 'car' ? "primary" : 'default'} icon={<TimeToLeaveRoundedIcon />} variant="outlined" clickable label="Private Car" />
           <Chip onClick={() => handleChangeTab('bike')} color={activeForm === 'bike' ? "primary" : 'default'} icon={<TwoWheelerRoundedIcon />} variant="outlined" clickable label="Two Wheeler" />
           <Chip onClick={() => handleChangeTab('commercial')} color={activeForm === 'commercial' ? "primary" : 'default'} icon={<LocalShippingRoundedIcon />} variant="outlined" clickable label="Commercial" />

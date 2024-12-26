@@ -123,7 +123,7 @@ const Home = () => {
               }
             >
               <Divider />
-              <Box component={CardContent} id="chart" style={{ width: '400px', margin: 'auto' }}>
+              <Box component={CardContent} id="chart" style={{ width: '465px', margin: 'auto' }}>
                 <ReactApexChart options={chartOptions} series={dataProducts.data.series} type="donut" />
               </Box>
             </List>

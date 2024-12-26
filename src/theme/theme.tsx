@@ -236,6 +236,13 @@ const theme = (customStyles: customStylesProps) => {
                         background: 'none',
                     }
                 }
+            },
+            MuiCardActionArea: {
+                styleOverrides: {
+                    root: {
+                        borderRadius
+                    }
+                }
             }
         }
     })
