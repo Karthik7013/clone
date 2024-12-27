@@ -96,7 +96,43 @@ export const employeeRoutes = () => {
                             },
                             {
                                 path: 'profile/:id',
-                                element: <Profile />
+                                element: <EmployeeProfile />
+                            }
+                        ]
+                    },
+                    {
+                        path: 'customer-management',
+                        element: <ProtectedRoutes role="employee"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={3006}>
+                            <Outlet />
+                        </ProtectedRoutes>,
+                        children: [
+                            {
+                                index: true,
+                                element: <EmployeeManagement />
+                            },
+                            {
+                                path: 'profile/:id',
+                                element: <EmployeeProfile />
+                            }
+                        ]
+                    },
+                    {
+                        path: 'agent-management',
+                        element: <ProtectedRoutes role="employee"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={3007}>
+                            <Outlet />
+                        </ProtectedRoutes>,
+                        children: [
+                            {
+                                index: true,
+                                element: <EmployeeManagement />
+                            },
+                            {
+                                path: 'profile/:id',
+                                element: <EmployeeProfile />
                             }
                         ]
                     },
@@ -104,7 +140,7 @@ export const employeeRoutes = () => {
                         path: 'products',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3006}>
+                            requiredPermission={3008}>
                             <ProductsSale />
                         </ProtectedRoutes>
                     },
@@ -112,7 +148,7 @@ export const employeeRoutes = () => {
                         path: 'settings',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3007}>
+                            requiredPermission={3008}>
                             <Settings />
                         </ProtectedRoutes>
                     },
@@ -120,7 +156,7 @@ export const employeeRoutes = () => {
                         path: 'profile/:id',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3007}>
+                            requiredPermission={3009}>
                             <EmployeeProfile />
                         </ProtectedRoutes>
                     },
@@ -128,7 +164,7 @@ export const employeeRoutes = () => {
                         path: 'access-management',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3008}>
+                            requiredPermission={3010}>
                             <AccessManagement />
                         </ProtectedRoutes>
                     }, {

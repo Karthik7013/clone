@@ -34,7 +34,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
 
     const handleOnclick = useCallback(() => dispatch(logout({})), [dispatch]);
     const handleTheme = useCallback(() => dispatch(toggleTheme()), [dispatch]);
-    const handleToggleDrawer = ()=> dispatch(handleIsDesktop())
+    const handleToggleDrawer = () => dispatch(handleIsDesktop())
 
     useEffect(() => {
         switch (role) {
@@ -165,7 +165,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
             >
                 {crmLayoutProps.sideBar}
             </Drawer>
-            {!desktopOpen && <Box minWidth={drawerWidth} maxWidth={drawerWidth} sx={{ display: { xs: 'none', md: 'block' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
+            {desktopOpen && <Box minWidth={drawerWidth} maxWidth={drawerWidth} sx={{ display: { xs: 'none', md: 'block' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
                 {crmLayoutProps.sideBar}
             </Box>}
             <StyledCardContent>

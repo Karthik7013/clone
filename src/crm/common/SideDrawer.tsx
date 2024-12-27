@@ -333,7 +333,7 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={3005}>
                     <ListItem disablePadding>
                         <ListItemButton
-                            component={Link} to={'employee-management'}
+                            component={Link} to={'customer-management'}
                             disableRipple>
                             <ListItemIcon>
                                 <Icon fontSize='small'>manage_accounts</Icon>
@@ -345,7 +345,7 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={3005}>
                     <ListItem disablePadding>
                         <ListItemButton
-                            component={Link} to={'employee-management'}
+                            component={Link} to={'agent-management'}
                             disableRipple>
                             <ListItemIcon>
                                 <Icon fontSize='small'>assignment_ind</Icon>
