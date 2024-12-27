@@ -6,6 +6,7 @@ import SideDrawer from "../../common/SideDrawer";
 import CrmLayout from "../../layout/CrmLayout";
 import MessageBox from "../../../Framework/components/MessageBox";
 import ProtectedRoutes from "../../../ProtectedRoute";
+import Profile from "../components/Profile";
 const EmployeeLogin = lazy(() => import('../pages/EmployeeLogin'));
 const AccessManagement = React.lazy(() => import("../pages/AccessManagement"));
 const AdminService = React.lazy(() => import("../pages/AdminService"));
@@ -14,7 +15,7 @@ const EmployeeManagement = React.lazy(() => import("../pages/EmployeeManagement"
 const EmployeeProfile = React.lazy(() => import("../pages/EmployeeProfile"));
 const ProductsSale = React.lazy(() => import("../pages/ProductsSale"));
 const RevenueService = React.lazy(() => import("../pages/RevenueService"));
-const SalesService = React.lazy(() => import("../pages/SalesService"));
+const ClaimService = React.lazy(() => import("../pages/ClaimService"));
 const Settings = React.lazy(() => import("../pages/Settings"));
 const IncomeService = React.lazy(() => import("../pages/IcomeService"));
 const PageNotFound = React.lazy(() => import("../../../Framework/components/PageNotFound"));
@@ -66,11 +67,11 @@ export const employeeRoutes = () => {
                         </ProtectedRoutes>
                     },
                     {
-                        path: 'sales',
+                        path: 'claims',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
                             requiredPermission={3003}>
-                            <SalesService />
+                            <ClaimService />
                         </ProtectedRoutes>
                     },
                     {
@@ -86,8 +87,18 @@ export const employeeRoutes = () => {
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
                             requiredPermission={3005}>
-                            <EmployeeManagement />
-                        </ProtectedRoutes>
+                            <Outlet />
+                        </ProtectedRoutes>,
+                        children: [
+                            {
+                                index: true,
+                                element: <EmployeeManagement />
+                            },
+                            {
+                                path: 'profile/:id',
+                                element: <Profile />
+                            }
+                        ]
                     },
                     {
                         path: 'products',

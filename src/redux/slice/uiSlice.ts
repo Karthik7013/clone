@@ -6,13 +6,13 @@ const getPreference = () => localStorage.getItem('dark') || 'light'
 
 const initialState: uiProps = {
     dark: getPreference() === 'dark' ? true : false,
-    borderRadius: 8,
+    borderRadius: 24,
     fontFamily: 'Poppins',
     customizePalleteOpen: false,
     cookieConsent: false,
     customerEditProfile: false,
-    counter: 0,
     isMobile: false,
+    isDesktop:true,
     productsCompare: [0]
 }
 
@@ -39,8 +39,8 @@ const uiSlice = createSlice({
         handleEditProfile: (state) => {
             state.customerEditProfile = !state.customerEditProfile
         },
-        increaseCounter: (state) => {
-            state.counter = state.counter + 1
+        handleIsDesktop: (state) => {
+            state.isDesktop = !state.isDesktop
         },
         handleIsMobile: (state) => {
             state.isMobile = !state.isMobile
@@ -59,5 +59,5 @@ const uiSlice = createSlice({
     }
 })
 
-export const { increaseCounter, handleEditProfile, toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete, handleIsMobile, handleAddtoCompare, handleEmptyCompare } = uiSlice.actions
+export const { handleIsDesktop, handleEditProfile, toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete, handleIsMobile, handleAddtoCompare, handleEmptyCompare } = uiSlice.actions
 export default uiSlice.reducer

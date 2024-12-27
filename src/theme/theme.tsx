@@ -243,6 +243,20 @@ const theme = (customStyles: customStylesProps) => {
                         borderRadius
                     }
                 }
+            },
+            MuiIconButton:{
+                styleOverrides:{
+                    root:{
+                        borderRadius
+                    }
+                }
+            },
+            MuiSelect:{
+                styleOverrides:{
+                    root:{
+                        borderRadius
+                    }
+                }
             }
         }
     })

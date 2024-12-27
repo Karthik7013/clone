@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Badge, Box, Button, Card, CardContent, CardMedia, Checkbox, Chip, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Drawer, FormControlLabel, FormGroup, Grid, LinearProgress, List, ListItem, Paper, Skeleton, Slide, Slider, Stack, TextField, Toolbar, Typography } from "@mui/material"
+import { Alert, Badge, Box, Button, ButtonGroup, Card, CardContent, CardMedia, Checkbox, Chip, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Drawer, FormControlLabel, FormGroup, Grid, LinearProgress, List, ListItem, Paper, Skeleton, Slide, Slider, Stack, TextField, Toolbar, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
@@ -11,7 +11,7 @@ import MessageBox from "../../Framework/components/MessageBox";
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store'
 import { handleAddtoCompare, handleEmptyCompare } from "../../redux/slice/uiSlice";
-
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 const LoanQuotesPage = () => {
     const dispatch: AppDispatch = useDispatch();
     const [viewDetails, setViewDetails] = useState(false)
@@ -145,7 +145,7 @@ const LoanQuotesPage = () => {
                         </Button>
                     </Toolbar>
 
-                    <Grid container columns={18} spacing={2} px={4} sx={{ py: { xs: 1, md: 3 } }}>
+                    <Grid container columns={18} spacing={2} px={1} sx={{ py: { xs: 1, md: 3 } }}>
                         <Grid item xs={18}>
                             <Grid container rowGap={3}>
                                 {/* <MessageBox type="warning">
@@ -167,12 +167,12 @@ const LoanQuotesPage = () => {
                                 <Grid container rowSpacing={2}>
                                     {[1, 2, 3, 4, 5].map((e: number) => (
                                         <Grid item xs={12} key={e}>
-                                            <Card sx={{ borderRadius: '9px', padding: '6px' }}>
+                                            <Card sx={{ padding: '6px' }}>
                                                 <Box display={'flex'}>
                                                     <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
                                                         <CardMedia
                                                             component="img"
-                                                            sx={{ borderRadius: '0.4em', height: { xs: 60, md: 60 }, width: { xs: 100, md: 100 } }}
+                                                            sx={{ height: { xs: 60, md: 60 }, width: { xs: 100, md: 100 } }}
                                                             image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
                                                         />
                                                         <Box flex={1} display={'flex'} sx={{ justifyContent: { lg: 'center' } }}>
@@ -185,7 +185,7 @@ const LoanQuotesPage = () => {
                                                         </Box>
                                                     </Box>
                                                     <Box >
-                                                        <Button sx={{ borderRadius: '0.4em' }} variant='contained' endIcon={<ArrowForwardRoundedIcon />}>
+                                                        <Button variant='contained' endIcon={<ArrowForwardRoundedIcon />}>
                                                             <Typography variant='body1'>
                                                                 <Typography> ₹ 5000</Typography>
                                                             </Typography>
@@ -209,7 +209,7 @@ const LoanQuotesPage = () => {
                                     [1, 2, 3, 4].map((e: number) => {
                                         return <Grid container rowSpacing={2}>
                                             <Grid item xs={12}>
-                                                <Card sx={{ borderRadius: '9px', padding: '10px' }}>
+                                                <Card sx={{ padding: '10px' }}>
                                                     <Box display={'flex'}>
                                                         <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
 
@@ -296,23 +296,22 @@ const LoanQuotesPage = () => {
                     borderTopWidth: 1,
                 }}
             >
-                <Container>
+                <Container maxWidth="lg">
                     <Stack
                         direction={{ xs: 'column', sm: 'row' }}
-                        justifyContent="space-between"
-                        gap={2}
+                        alignItems={'center'}
                     >
                         <Box
                             display={'flex'}
                             sx={{
                                 flexShrink: 1,
-                                gap: 2,
+                                gap: 3,
                                 alignSelf: { xs: 'flex-start', sm: 'center' },
                             }}
                         >
 
                             {[1, 2, 3, 4].map((product) => {
-                                return <Button sx={{ p: 0 }}>
+                                return <Badge badgeContent={<CancelRoundedIcon sx={{cursor:'pointer'}} fontSize="small" />} >
                                     <Card>
                                         <CardMedia
                                             component="img"
@@ -321,29 +320,25 @@ const LoanQuotesPage = () => {
                                             image="https://economictimes.indiatimes.com/thumb/msid-83775383,width-1200,height-900,resizemode-4,imgsize-102884/12.jpg?from=mdr"
                                         />
                                     </Card>
-                                </Button>
+                                </Badge>
+
 
                             })}
 
                         </Box>
-                        <Stack
-                            gap={2}
-                            direction={{
-                                xs: 'row-reverse',
-                                sm: 'row',
-                            }}
-                            sx={{
-                                flexShrink: 0,
-                                alignSelf: { xs: 'flex-end', sm: 'center' },
-                            }}
-                        >
-                            <Button>Clear
-                            </Button>
-                            <Badge badgeContent={compareProducts.length + 1} color='primary'>
-                                <Button variant="contained" startIcon={<CompareArrowsRoundedIcon />}>Compare
+                        <Box flexGrow={1} />
+                        <Box>
+                            <ButtonGroup
+                            >
+                                <Button>Clear
                                 </Button>
-                            </Badge>
-                        </Stack>
+                                <Badge badgeContent={compareProducts.length + 1} color='primary'>
+                                    <Button variant="contained" startIcon={<CompareArrowsRoundedIcon />}>Compare
+                                    </Button>
+                                </Badge>
+                            </ButtonGroup>
+                        </Box>
+
                     </Stack>
                 </Container>
             </Paper>}

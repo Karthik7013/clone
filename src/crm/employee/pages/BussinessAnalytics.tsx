@@ -1,13 +1,13 @@
-import { Box, Breadcrumbs, Button, Card, CardActionArea, CardContent, CardHeader, CardMedia, Grid, ListItem, ListItemText, Stack, TextField, Toolbar, Typography } from "@mui/material"
+import { alpha, Avatar, Box, Breadcrumbs, Button, ButtonGroup, Card, CardActionArea, CardContent, CardHeader, CardMedia, Grid, IconButton, ListItem, ListItemAvatar, ListItemText, MenuItem, MenuList, Select, Stack, TextField, Toolbar, Typography } from "@mui/material"
 import React, { useState } from "react"
 import ReactApexChart from 'react-apexcharts';
-
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import { useTheme } from "@mui/material";
+import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 const BussinessAnalytics = () => {
-  const data = [
-    { id: 0, value: 10, label: 'series A' },
-    { id: 1, value: 15, label: 'series B' },
-    { id: 2, value: 20, label: 'series C' },
-  ];
+  const theme = useTheme();
+
   const StatusCard = () => {
     return <Grid item xs={12} sm={6} md={6} lg={3}>
       <Card elevation={5} sx={{ display: 'flex', p: 2, gap: 2, justifyContent: 'space-between', overflow: 'initial', pb: 0, backgroundImage: 'linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%)' }}>
@@ -107,19 +107,65 @@ const BussinessAnalytics = () => {
     }
   })
 
-  return ( <Box mt={3}>
-      <ListItem disableGutters>
-        <ListItemText
-          primary={<Typography gutterBottom variant='h4'>Overview</Typography>}
-        />
-      </ListItem>
-      <Box>
-      <Grid container rowGap={1} columnSpacing={2}>
-        {[1, 2, 3, 4].map((card,index) => <StatusCard key={index} />)}
+  return (<Box mt={3}>
+    <ListItem disableGutters>
+      <ListItemText
+        primary={<Typography gutterBottom variant='h4'>Overview</Typography>}
+      />
+    </ListItem>
+    <Box>
+      <Grid container columnSpacing={2} rowSpacing={2}>
+        <Grid item lg={8} xs={12}>
+          <Box>
+            <Stack direction='row' alignItems='center' mb={2}>
+              <Typography gutterBottom variant="h6">Total Sales</Typography>
+              <Box flexGrow={1} />
+              <Select startAdornment={<CalendarMonthRoundedIcon sx={{ mr: 1 }} fontSize="small" />} size="small" sx={{ maxWidth: 150 }} fullWidth value='year'>
+                <MenuItem value="year">Yearly</MenuItem>
+                <MenuItem value="month">Monthly</MenuItem>
+                <MenuItem value="week">Weekly</MenuItem>
+              </Select>
+            </Stack>
+            <Stack direction='row' sx={{ gap: 2, flexWrap: 'wrap' }}>
+              {[1, 2, 3, 4].map((i) => {
+                return <Card component={Stack} key={i} sx={{ flexGrow: 1, p: 2, minWidth: 60, rowGap: 2 }}>
+                  <Box component={Stack} direction={'row'} alignItems='center'>
+                    <Avatar sx={{ bgcolor: theme.palette.primary.main, color: theme.palette.background.default, mr: 1 }}>
+                      <GroupsRoundedIcon />
+                    </Avatar>
+                    <Typography variant="subtitle2">Total Orders</Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="h5" fontWeight={600}>
+                      123,670
+                    </Typography>
+                    <ListItem
+                      disableGutters
+                      secondaryAction={
+                        <IconButton color="warning" edge="end" aria-label="delete">
+                          <TrendingUpRoundedIcon color="inherit" />
+                        </IconButton>
+                      }
+                    >
+                      <ListItemText disableTypography primary={<Typography variant="caption">Sales this Month</Typography>} />
+                    </ListItem>
+                  </Box>
+                </Card>
+              })}
+            </Stack>
+          </Box>
+        </Grid>
+        <Grid item xs={12} lg={4}>
+          <Typography gutterBottom variant="h6">Trending Policies</Typography>
+          <Card>
+            <CardContent>
+
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-      </Box >
-      </Box >
-  
+    </Box>
+  </Box >
   )
 }
 

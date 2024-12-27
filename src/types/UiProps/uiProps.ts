@@ -12,8 +12,8 @@ type uiProps = {
     cookieConsent: boolean,
     customizePalleteOpen: boolean,
     customerEditProfile: boolean,
-    counter: number,
     isMobile: boolean,
+    isDesktop:boolean,
     productsCompare:Number[]
 }
 

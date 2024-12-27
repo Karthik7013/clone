@@ -297,12 +297,12 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={3003}>
                     <ListItem disablePadding>
                         <ListItemButton
-                            component={Link} to={'sales'}
+                            component={Link} to={'claims'}
                             disableRipple>
                             <ListItemIcon>
                                 <Icon fontSize='small'>payments</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Sales'}</Typography>} />
+                            <ListItemText primary={<Typography variant='body2' noWrap>{'Claims'}</Typography>} />
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -399,7 +399,7 @@ const SideDrawer = () => {
                 <CardContent>
                     <Stack direction='row' alignItems='center'>
                         <ListItemIcon><AutoAwesomeRoundedIcon color='warning' fontSize='small' /></ListItemIcon>
-                        <ListItemText primary={<Typography fontFamily={600} variant='subtitle2' component="h1">Train Ends in 6 Days !</Typography>} />
+                        <ListItemText primary={<Typography fontFamily={600} variant='subtitle2' component="h1">Trail ends in 6 days !</Typography>} />
                     </Stack>
                     <Box mb={1}>
                         <Typography variant='caption' fontSize='12px'>You are on a free premium trail plain on monthly billing</Typography>

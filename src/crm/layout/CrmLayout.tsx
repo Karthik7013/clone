@@ -1,9 +1,9 @@
-import { alpha, AppBar, Avatar, Box, Button, CardContent, Chip, Drawer, IconButton, LinearProgress, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, styled, Toolbar, Tooltip, Typography, useMediaQuery } from "@mui/material"
+import { alpha, AppBar, Avatar, Box, Button, CardContent, Chip, Drawer, IconButton, LinearProgress, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, styled, Toolbar, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material"
 import React, { Suspense, useCallback, useEffect } from "react";
-import { Logout, NotesRounded } from '@mui/icons-material';
+import { NotesRounded } from '@mui/icons-material';
 import { Link, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { handleIsMobile, toggleTheme } from "../../redux/slice/uiSlice";
+import { handleIsDesktop, handleIsMobile, toggleTheme } from "../../redux/slice/uiSlice";
 import { getAgentProfile, getCustomerProfile, getEmployeeProfile, logout } from "../../redux/slice/authSlice";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
@@ -16,14 +16,14 @@ type crmLayoutPropType = {
     sideBar: React.ReactNode
 }
 const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
-    console.log('layout')
-    const isMobile = useMediaQuery('(max-width: 600px)');
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const dispatch: AppDispatch = useDispatch();
     const profile = useSelector((state: RootState) => state.auth.authData);
     const dark = useSelector((state: RootState) => state.ui.dark);
     const mobileOpen: boolean = useSelector((state: RootState) => state.ui.isMobile);
     const role = useSelector((state: RootState) => state.auth.role);
-
+    const desktopOpen: boolean = useSelector((state: RootState) => state.ui.isDesktop);
     const handleDrawerClose = useCallback(() => {
         dispatch(handleIsMobile())
     }, [dispatch]);
@@ -34,6 +34,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
 
     const handleOnclick = useCallback(() => dispatch(logout({})), [dispatch]);
     const handleTheme = useCallback(() => dispatch(toggleTheme()), [dispatch]);
+    const handleToggleDrawer = ()=> dispatch(handleIsDesktop())
 
     useEffect(() => {
         switch (role) {
@@ -99,6 +100,15 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                 >
                     <NotesRounded />
                 </IconButton>}
+                {!isMobile && <IconButton
+                    disableTouchRipple
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={handleToggleDrawer}
+                    sx={{ mr: 2, borderRadius: '8px' }}
+                >
+                    <NotesRounded />
+                </IconButton>}
 
                 {
                     profile ? <>
@@ -112,7 +122,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                 <Box flex={1} sx={{ display: 'flex', justifyContent: 'center' }} />
 
                 <Stack direction="row" alignItems='center' gap={2}>
-                    <Chip color="primary" size="small" icon={<LocationOnRoundedIcon sx={{ color: 'inherit' }} />} label={profile?.city} />
+                    <Chip sx={{ display: { xs: 'none', md: 'block' } }} color="primary" size="small" icon={<LocationOnRoundedIcon sx={{ color: 'inherit' }} />} label={profile?.city} />
                     <Stack direction={'row'} sx={{ display: { xs: 'none', md: 'block' } }}>
                         <Tooltip title={dark ? "light" : "dark"}>
                             <IconButton color="default" sx={{ mr: 2 }} onClick={handleTheme}>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
@@ -155,9 +165,9 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
             >
                 {crmLayoutProps.sideBar}
             </Drawer>
-            <Box minWidth={drawerWidth} maxWidth={drawerWidth} sx={{ display: { xs: 'none', md: 'block' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
+            {!desktopOpen && <Box minWidth={drawerWidth} maxWidth={drawerWidth} sx={{ display: { xs: 'none', md: 'block' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
                 {crmLayoutProps.sideBar}
-            </Box>
+            </Box>}
             <StyledCardContent>
                 <Suspense fallback={<LinearProgress />}>
                     <Outlet />
