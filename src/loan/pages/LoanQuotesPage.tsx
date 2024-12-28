@@ -212,7 +212,6 @@ const LoanQuotesPage = () => {
                                                 <Card sx={{ padding: '10px' }}>
                                                     <Box display={'flex'}>
                                                         <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
-
                                                             <Skeleton sx={{
                                                                 height: { xs: 60, md: '100%' }, width: { xs: 100, md: 120 }
                                                             }} animation='wave' />
@@ -223,7 +222,7 @@ const LoanQuotesPage = () => {
                                                                 </Box>
                                                             </Box>
                                                         </Box>
-                                                        <Box >
+                                                        <Box>
                                                             <Skeleton width={100} height={50} />
                                                         </Box>
                                                     </Box>
@@ -311,7 +310,7 @@ const LoanQuotesPage = () => {
                         >
 
                             {[1, 2, 3, 4].map((product) => {
-                                return <Badge badgeContent={<CancelRoundedIcon sx={{cursor:'pointer'}} fontSize="small" />} >
+                                return <Badge badgeContent={<CancelRoundedIcon sx={{ cursor: 'pointer' }} fontSize="small" />} >
                                     <Card>
                                         <CardMedia
                                             component="img"
