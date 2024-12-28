@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { uiProps } from "../../types/UiProps/uiProps";
 
 
@@ -12,8 +12,9 @@ const initialState: uiProps = {
     cookieConsent: false,
     customerEditProfile: false,
     isMobile: false,
-    isDesktop:true,
-    productsCompare: [0]
+    isDesktop: true,
+    productsCompare: [0],
+    otpModal: false,
 }
 
 const uiSlice = createSlice({
@@ -45,6 +46,9 @@ const uiSlice = createSlice({
         handleIsMobile: (state) => {
             state.isMobile = !state.isMobile
         },
+        handleOtpModal: (state, action: PayloadAction<boolean>) => {
+            state.otpModal = action.payload
+        },
         handleAddtoCompare: (state, action) => {
             const id = state.productsCompare.findIndex((product_id) => product_id === action.payload);
             if (id !== -1) {
@@ -59,5 +63,6 @@ const uiSlice = createSlice({
     }
 })
 
-export const { handleIsDesktop, handleEditProfile, toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete, handleIsMobile, handleAddtoCompare, handleEmptyCompare } = uiSlice.actions
+export const { handleIsDesktop, handleEditProfile, toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete, handleIsMobile,
+    handleOtpModal, handleAddtoCompare, handleEmptyCompare } = uiSlice.actions
 export default uiSlice.reducer

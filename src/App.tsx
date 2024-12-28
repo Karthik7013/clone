@@ -1,13 +1,11 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom';
 
 //============ MUI IMPORTS ==============>
 import { CssBaseline, LinearProgress } from '@mui/material';
 
 //============ REDUX IMPORTS ==============>
-import { useDispatch, useSelector } from 'react-redux';
-
-//============ PROP TYPES IMPORTS ==============>
+import { useDispatch } from 'react-redux';
 
 //============ PROJECT IMPORTS ==============>
 import { allRouter } from "./allRoute"
@@ -17,7 +15,19 @@ import { handleCookieConsent } from './redux/slice/uiSlice';
 import { AppDispatch } from './redux/store';
 
 const App = () => {
-    console.log('app renders')
+
+    useEffect(() => {
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            const message = "Are you sure you want to leave without saving your changes?";
+            event.returnValue = message;
+            return message;
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
     const dispatch: AppDispatch = useDispatch();
     useEffect(() => {
         const cookieConsentState = document.cookie.split('; ').find(row => row.startsWith('cookie-accept'));
@@ -29,7 +39,7 @@ const App = () => {
     return (
         <CustomThemeProvider>
             <CssBaseline />
-            <React.Suspense fallback={<LinearProgress />}>
+            <React.Suspense fallback={<LinearProgress />} >
                 <RouterProvider router={allRouter()} />
             </React.Suspense>
             <CustomizePallete />
@@ -37,4 +47,4 @@ const App = () => {
     )
 }
 
-export default App
+export default App;

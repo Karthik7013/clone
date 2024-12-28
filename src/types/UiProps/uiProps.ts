@@ -13,8 +13,9 @@ type uiProps = {
     customizePalleteOpen: boolean,
     customerEditProfile: boolean,
     isMobile: boolean,
-    isDesktop:boolean,
-    productsCompare:Number[]
+    isDesktop: boolean,
+    productsCompare: Number[],
+    otpModal: boolean
 }
 
 export type { uiProps, alertProps }
