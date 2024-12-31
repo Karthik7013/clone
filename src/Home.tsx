@@ -22,6 +22,7 @@ import ProviderLogo from "./Framework/components/ProviderLogo";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 const Home = () => {
     console.log('home renders')
     type navProps = {
@@ -153,8 +154,6 @@ const Home = () => {
                         <Box>
 
                             <Box sx={{ width: '100%', maxWidth: 360, mx: 'auto', mt: 4 }}>
-
-
                                 <Slider {...settings}>
                                     <Box sx={{ position: 'relative' }}>
                                         <Card elevation={0} sx={{ maxWidth: 380 }}>
@@ -188,10 +187,9 @@ const Home = () => {
                             <MuiLink component={Link} to={nav.path}>
                                 <CardActionArea>
                                     <CardContent component={Card}>
-
                                         <Stack alignItems={'center'}>
                                             <Avatar src={nav.imgUrl} sx={{ width: "28px", height: "28px", objectFit: 'cover' }} variant="square" />
-                                            <Typography className="addition-service-card-title">{nav.name}</Typography>
+                                            <Typography variant="caption">{nav.name}</Typography>
                                         </Stack>
 
                                     </CardContent>

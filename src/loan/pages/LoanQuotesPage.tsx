@@ -148,99 +148,94 @@ const LoanQuotesPage = () => {
                     <Grid container columns={18} spacing={2} px={1} sx={{ py: { xs: 1, md: 3 } }}>
                         <Grid item xs={18}>
                             <Grid container rowGap={3}>
-                                {/* <MessageBox type="warning">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero eius ea veniam consectetur cumque non vero illo numquam? Earum quod aut corporis repellendus, error a quis commodi at sunt excepturi ipsum neque.
-                                    </MessageBox>
-                                    <MessageBox type="error">
-                                        We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
-                                    </MessageBox>
-                                    <MessageBox type="info">
-                                        We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
-                                    </MessageBox>
-                                    <MessageBox type="success">
-                                        We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
-                                    </MessageBox> */}
-
+                                <MessageBox type="warning">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero eius ea veniam consectetur cumque non vero illo numquam? Earum quod aut corporis repellendus, error a quis commodi at sunt excepturi ipsum neque.
+                                </MessageBox>
+                                <MessageBox type="error">
+                                    We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
+                                </MessageBox>
+                                <MessageBox type="info">
+                                    We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
+                                </MessageBox>
+                                <MessageBox type="success">
+                                    We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
+                                </MessageBox>
 
                                 {/* quote cards */}
+                                {[1, 2, 3, 4, 5].map((e: number) => (
+                                    <Grid item xs={12} key={e}>
+                                        <Card sx={{ padding: '6px' }}>
+                                            <Box display={'flex'}>
+                                                <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
+                                                    <CardMedia
+                                                        component="img"
+                                                        sx={{ height: { xs: 60, md: 60 }, width: { xs: 100, md: 100 } }}
+                                                        image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
+                                                    />
+                                                    <Box flex={1} display={'flex'} sx={{ justifyContent: { lg: 'center' } }}>
+                                                        <Box sx={{ display: { xs: 'flex', lg: 'block' }, gap: 1 }}>
+                                                            <Typography gutterBottom variant='body1' color={'text.secondary'}>IDV Covers</Typography>
+                                                            <Typography variant='body2' color={'text.primary'}>
+                                                                ₹<b style={{ fontSize: '18px' }}>{50000}</b>
+                                                            </Typography>
+                                                        </Box>
+                                                    </Box>
+                                                </Box>
+                                                <Box >
+                                                    <Button variant='contained' endIcon={<ArrowForwardRoundedIcon />}>
+                                                        <Typography variant='body1'>
+                                                            <Typography> ₹ 5000</Typography>
+                                                        </Typography>
+                                                    </Button>
+                                                </Box>
+                                            </Box>
+                                            <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                                                <FormGroup>
+                                                    <FormControlLabel control={<Checkbox onChange={() => handleCompare(e)} size='small' />} label={<Typography variant="caption">Compare</Typography>} />
+                                                </FormGroup>
+                                                <Button size="small" onClick={openViewDetails}>
+                                                    <Typography variant='caption' color={'text.secondary'}>View Details</Typography>
+                                                </Button>
+                                            </Box>
+                                        </Card>
+                                    </Grid>
+                                ))}
 
-                                <Grid container rowSpacing={2}>
-                                    {[1, 2, 3, 4, 5].map((e: number) => (
-                                        <Grid item xs={12} key={e}>
-                                            <Card sx={{ padding: '6px' }}>
+                                {/* loading quote cards */}
+                                {[1, 2, 3, 4].map((e: number) => {
+                                    return <Grid container rowSpacing={2}>
+                                        <Grid item xs={12}>
+                                            <Card sx={{ padding: '10px' }}>
                                                 <Box display={'flex'}>
                                                     <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
-                                                        <CardMedia
-                                                            component="img"
-                                                            sx={{ height: { xs: 60, md: 60 }, width: { xs: 100, md: 100 } }}
-                                                            image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
-                                                        />
+                                                        <Skeleton sx={{
+                                                            height: { xs: 60, md: '100%' }, width: { xs: 100, md: 120 }
+                                                        }} animation='wave' />
                                                         <Box flex={1} display={'flex'} sx={{ justifyContent: { lg: 'center' } }}>
                                                             <Box sx={{ display: { xs: 'flex', lg: 'block' }, gap: 1 }}>
-                                                                <Typography gutterBottom variant='body1' color={'text.secondary'}>IDV Covers</Typography>
-                                                                <Typography variant='body2' color={'text.primary'}>
-                                                                    ₹<b style={{ fontSize: '18px' }}>{50000}</b>
-                                                                </Typography>
+                                                                <Skeleton width={200} height={20} />
+                                                                <Skeleton width={200} height={20} />
                                                             </Box>
                                                         </Box>
                                                     </Box>
-                                                    <Box >
-                                                        <Button variant='contained' endIcon={<ArrowForwardRoundedIcon />}>
-                                                            <Typography variant='body1'>
-                                                                <Typography> ₹ 5000</Typography>
-                                                            </Typography>
-                                                        </Button>
+                                                    <Box>
+                                                        <Skeleton width={100} height={50} />
                                                     </Box>
                                                 </Box>
                                                 <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                                                    <FormGroup>
-                                                        <FormControlLabel control={<Checkbox onChange={() => handleCompare(e)} size='small' />} label={<Typography variant="caption">Compare</Typography>} />
-                                                    </FormGroup>
-                                                    <Button size="small" onClick={openViewDetails}>
-                                                        <Typography variant='caption' color={'text.secondary'}>View Details</Typography>
-                                                    </Button>
+                                                    <Box >
+                                                        <Skeleton width={18} height={30} />
+                                                    </Box>
+                                                    <Box>
+                                                        <Skeleton width={100} height={16} />
+                                                    </Box>
                                                 </Box>
                                             </Card>
                                         </Grid>
-                                    ))}
-                                </Grid>
-                                {/* loading quote cards */}
-                                {
-                                    [1, 2, 3, 4].map((e: number) => {
-                                        return <Grid container rowSpacing={2}>
-                                            <Grid item xs={12}>
-                                                <Card sx={{ padding: '10px' }}>
-                                                    <Box display={'flex'}>
-                                                        <Box flex={1} sx={{ display: "flex", flexDirection: { xs: 'column', lg: 'row' }, rowGap: 2 }}>
-                                                            <Skeleton sx={{
-                                                                height: { xs: 60, md: '100%' }, width: { xs: 100, md: 120 }
-                                                            }} animation='wave' />
-                                                            <Box flex={1} display={'flex'} sx={{ justifyContent: { lg: 'center' } }}>
-                                                                <Box sx={{ display: { xs: 'flex', lg: 'block' }, gap: 1 }}>
-                                                                    <Skeleton width={200} height={20} />
-                                                                    <Skeleton width={200} height={20} />
-                                                                </Box>
-                                                            </Box>
-                                                        </Box>
-                                                        <Box>
-                                                            <Skeleton width={100} height={50} />
-                                                        </Box>
-                                                    </Box>
-                                                    <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                                                        <Box >
-                                                            <Skeleton width={18} height={30} />
-                                                        </Box>
-                                                        <Box>
-                                                            <Skeleton width={100} height={16} />
-                                                        </Box>
-                                                    </Box>
-                                                </Card>
-                                            </Grid>
-                                        </Grid>
-                                    })
+                                    </Grid>
+                                })
                                 }
                                 {/* view product details */}
-
                                 <Dialog
                                     open={viewDetails}
                                     keepMounted

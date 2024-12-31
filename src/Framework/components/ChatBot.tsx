@@ -5,7 +5,7 @@ import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { AppDispatch, RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { makeQuery, pushMessage } from '../../redux/slice/botSlice';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
@@ -24,7 +24,11 @@ const ChatBot = () => {
         setAnchorEl(null);
     };
 
-    const onHandleSubmit = (data) => {
+    interface BotSubmitType {
+        t: string
+    }
+
+    const onHandleSubmit: SubmitHandler<BotSubmitType> = (data) => {
         dispatch(pushMessage(data))
         dispatch(makeQuery(data));
         reset()
@@ -127,6 +131,8 @@ const ChatBot = () => {
                                             sx={{ flex: 1 }} size='small'
                                             placeholder='Enter your message'
                                             {...field}
+                                            multiline
+                                            maxRows={4}
                                             variant="outlined"
                                             InputProps={{
                                                 endAdornment: (

@@ -37,6 +37,8 @@ import ChatBot from "./Framework/components/ChatBot";
 import { customerRoutes } from "./crm/customer/routes/customer.routes";
 import { pospRoutes } from "./crm/posp/routes/posp.routes";
 import { employeeRoutes } from "./crm/employee/routes/employee.routes";
+import ThankYouPage from "./loan/pages/ThankYouPage";
+import Failedpage from "./loan/pages/FailedPage";
 
 
 export const allRouter = () => {
@@ -80,6 +82,14 @@ export const allRouter = () => {
                         {
                             path: 'payment',
                             element: <LoanPaymentPage />
+                        },
+                        {
+                            path: 'success',
+                            element: <ThankYouPage />
+                        },
+                        {
+                            path: 'failed',
+                            element: <Failedpage />
                         }
                     ]
                 },

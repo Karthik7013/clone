@@ -16,17 +16,6 @@ import { AppDispatch } from './redux/store';
 
 const App = () => {
 
-    useEffect(() => {
-        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-            const message = "Are you sure you want to leave without saving your changes?";
-            event.returnValue = message;
-            return message;
-        };
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, []);
 
     const dispatch: AppDispatch = useDispatch();
     useEffect(() => {

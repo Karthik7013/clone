@@ -22,34 +22,13 @@ const SideDrawer = () => {
                 <ListItemIcon>
                     <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
                 </ListItemIcon>
-                <ListItemText primary={
-                    <Typography color="text.primary">Namelix</Typography>} />
+                <ListItemText primary={<Typography color="text.primary">Namelix</Typography>} />
             </ListItem>
         </Toolbar>
         {loading ? <LinearProgress /> :
-            <List component={Stack} sx={{ px: 1 }}>
-                <ListItem disablePadding sx={{ mb: 1 }}>
-                    <TextField
-                        size='small'
-                        variant="outlined"
-                        fullWidth
-                        placeholder='Search'
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchRoundedIcon />
-                                </InputAdornment>
-                            ),
-                            endAdornment: (
-                                <InputAdornment position='end'>
-                                    <KeyboardCommandKeyRoundedIcon fontSize='inherit' />
-                                </InputAdornment>
-                            )
-                        }}
-                    />
-                </ListItem>
+            <List component={Stack} sx={{ px: 1 }} subheader={<Typography variant='caption' color='text.secondary'>Menu</Typography>}>
+                <Divider sx={{mb:1}} />
                 <ProtectedRoutes role="customer" requiredPermission={1000}>
-
                     <ListItem disablePadding
                         secondaryAction={
                             <Chip variant="outlined" label="new" size="small" color="primary" />

@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import OtpModal from '../../Framework/components/OtpModal';
@@ -32,7 +32,7 @@ const LoanLandingPage = () => {
             <Link to="/loan/quotes">Get Quotes</Link>
 
             <Box component='form' mt={3} onSubmit={handleSubmit(handleFormSubmit)}>
-                <Grid container rowSpacing={2}>
+                <Grid container rowSpacing={2} columnSpacing={2}>
                     <Grid item xs={12} md={4}>
                         <Controller
                             defaultValue=""
@@ -56,6 +56,7 @@ const LoanLandingPage = () => {
                             render={({ field }) => (
                                 <TextField
                                     {...field}
+                                    fullWidth
                                     error={!!errors?.mobile}
                                     helperText={errors?.mobile?.message}
                                     label="Mobile Number"
@@ -74,9 +75,129 @@ const LoanLandingPage = () => {
                             )}
                         />
                     </Grid>
+
+                    <Grid item xs={12} md={4}>
+                        <TextField
+                            fullWidth
+                            label="Loan Amount"
+                            name="loanAmount"
+                            type="number"
+                            required
+                        />
+                    </Grid>
+
+                    {/* Loan Term */}
+                    <Grid item xs={12} md={4}>
+                        <TextField
+                            fullWidth
+                            label="Loan Term (in years)"
+                            name="loanTerm"
+                            type="number"
+
+                            required
+                        />
+                    </Grid>
+
+                    {/* Loan Type */}
+                    <Grid item xs={12} md={4}>
+                        <FormControl fullWidth>
+                            <InputLabel>Loan Type</InputLabel>
+                            <Select
+                                name="loanType"
+
+                                required
+                            >
+                                <MenuItem value="mortgage">Mortgage</MenuItem>
+                                <MenuItem value="personal">Personal Loan</MenuItem>
+                                <MenuItem value="auto">Auto Loan</MenuItem>
+                                <MenuItem value="business">Business Loan</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    {/* Borrower's Age */}
+                    <Grid item xs={12} md={4}>
+                        <TextField
+                            fullWidth
+                            label="Borrower's Age"
+                            name="borrowerAge"
+                            type="number"
+
+                            required
+                        />
+                    </Grid>
+
+                    {/* Health Condition */}
+                    <Grid item xs={12} md={4}>
+                        <FormControl fullWidth>
+                            <InputLabel>Health Condition</InputLabel>
+                            <Select
+                                name="healthCondition"
+
+                                required
+                            >
+                                <MenuItem value="standard">Standard Health</MenuItem>
+                                <MenuItem value="pre-existing">Pre-existing Condition</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    {/* Employment Status */}
+                    <Grid item xs={12} md={4}>
+                        <FormControl fullWidth>
+                            <InputLabel>Employment Status</InputLabel>
+                            <Select
+                                name="employmentStatus"
+
+                                required
+                            >
+                                <MenuItem value="employed">Employed</MenuItem>
+                                <MenuItem value="self-employed">Self-employed</MenuItem>
+                                <MenuItem value="unemployed">Unemployed</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    {/* Coverage Type */}
+                    <Grid item xs={12} md={4}>
+                        <FormControl fullWidth>
+                            <InputLabel>Coverage Type</InputLabel>
+                            <Select
+                                name="coverageType"
+
+                                required
+                            >
+                                <MenuItem value="full">Full Coverage</MenuItem>
+                                <MenuItem value="partial">Partial Coverage</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    {/* Premium Payment Option */}
+                    <Grid item xs={12} md={4}>
+                        <FormControl fullWidth>
+                            <InputLabel>Premium Payment Option</InputLabel>
+                            <Select
+                                name="premiumPaymentOption"
+
+                                required
+                            >
+                                <MenuItem value="monthly">Monthly</MenuItem>
+                                <MenuItem value="annually">Annually</MenuItem>
+                                <MenuItem value="lump-sum">Lump Sum</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    {/* Submit Button */}
                     <Grid item xs={12}>
-                        <Button variant="outlined" type='submit'>
-                            GET QUOTE
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                        >
+                            Get Quote
                         </Button>
                     </Grid>
                 </Grid>
