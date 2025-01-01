@@ -1,25 +1,23 @@
 import { Button, Card, CardMedia, Chip, Divider, IconButton, LinearProgress, List, ListItem, ListItemAvatar, ListItemText, ListSubheader, Typography } from "@mui/material"
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../redux/store";
 import { getCustomerApplicationQueue } from "../../../redux/slice/dashboardSlice";
 import { Link } from "react-router-dom";
 import CachedRoundedIcon from '@mui/icons-material/CachedRounded';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 
 const PoliciesQueue = () => {
     const dispatch: AppDispatch = useDispatch();
     const loading = useSelector((state: RootState) => state.dashboard.applicationQueue.loading);
     const applications = useSelector((state: RootState) => state.dashboard.applicationQueue.data)
     console.log('application')
-    const [refresh, setRefresh] = useState<Boolean>(false);
 
     useEffect(() => {
-        dispatch(getCustomerApplicationQueue())
-    }, [refresh])
+        if (applications.length === 0 && !loading) dispatch(getCustomerApplicationQueue())
+    }, [applications, loading, dispatch])
 
+    const refreshApplications = () => dispatch(getCustomerApplicationQueue())
 
     return <Card>
         {
@@ -28,11 +26,10 @@ const PoliciesQueue = () => {
                     <ListSubheader>
                         <ListItem disableGutters
                             secondaryAction={
-                                <IconButton onClick={() => setRefresh((prev) => !prev)} size='small' title='refresh' color='primary'>
+                                <IconButton onClick={refreshApplications} size='small' title='refresh' color='primary'>
                                     <CachedRoundedIcon fontSize='inherit' />
                                 </IconButton>
-                            }
-                        >
+                            }>
                             <ListItemText
                                 primary="Policy Queue"
                             />
@@ -43,10 +40,16 @@ const PoliciesQueue = () => {
                 {loading && <LinearProgress />}
                 <Divider />
 
-                {applications.map((app, _: number) => {
+                {applications.map((app: any, _: number) => {
                     return <React.Fragment key={_}>
                         <ListItem alignItems="flex-start" secondaryAction={
-                            <Button LinkComponent={Link} to={app?.redirect} endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
+                            <Button
+                                component={Link}
+                                to={app?.redirect} // Pass to prop to the Link component
+                                endIcon={<ArrowForwardIosRoundedIcon />}
+                            >
+                                Resume
+                            </Button>
                         }>
                             <ListItemAvatar>
                                 <CardMedia

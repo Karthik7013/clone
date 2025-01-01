@@ -15,8 +15,8 @@ const CustomerStats = () => {
     console.log('customer Stats')
 
     useEffect(() => {
-        dispatch(getCustomerStats())
-    }, [dispatch])
+        if (!customerStats && !loading) dispatch(getCustomerStats())
+    }, [customerStats, loading, dispatch])
     return <Box>
         {loading ?
             <Stack direction="row" flexWrap='wrap' gap={2}>

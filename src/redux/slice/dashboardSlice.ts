@@ -1,6 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CustomerResources } from "../../service/api";
+import { CustomerResources, EmployeeResources } from "../../service/api";
 import { alertProps } from "../../types/UiProps/uiProps";
+import { AxiosError } from "axios";
+interface ErrorResponse {
+    status?: number;
+    message: string;
+}
+interface CustomerPoliciesResponse {
+
+}
 
 type dashboardProps = {
     stats: {
@@ -34,6 +42,17 @@ type dashboardProps = {
         alert: alertProps
     },
     myPayments: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
+    },
+    // employee types
+    employeesList: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
+    },
+    agentsList: {
         loading: boolean,
         data: any,
         alert: alertProps
@@ -103,6 +122,26 @@ const initialState: dashboardProps = {
             state: false,
             type: undefined
         }
+    },
+    // employee states
+
+    employeesList: {
+        loading: false,
+        data: [],
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        }
+    },
+    agentsList: {
+        loading: false,
+        data: [],
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        }
     }
 }
 
@@ -112,10 +151,13 @@ export const getCustomerPolicies = createAsyncThunk('customer/policies', async (
         const res = await CustomerResources.get('/policies');
         return { status: res.status, data: res.data.data };
     } catch (error) {
-        if (error.message === 'Network Error') {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
             return rejectWithValue({ message: "Oops! Something went wrong" });
         }
-        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
     }
 })
 
@@ -124,10 +166,13 @@ export const registerCustomerPolicies = createAsyncThunk('register/policies', as
         const res = await CustomerResources.post('/register-claims', payload);
         return { status: res.status, data: res.data.data };
     } catch (error) {
-        if (error.message === 'Network Error') {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
             return rejectWithValue({ message: "Oops! Something went wrong" });
         }
-        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
     }
 })
 
@@ -136,10 +181,13 @@ export const getCustomerClaims = createAsyncThunk('customer/claims', async (payl
         const res = await CustomerResources.get('/claims');
         return { status: res.status, data: res.data.data };
     } catch (error) {
-        if (error.message === 'Network Error') {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
             return rejectWithValue({ message: "Oops! Something went wrong" });
         }
-        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
     }
 })
 
@@ -148,10 +196,13 @@ export const getCustomerStats = createAsyncThunk('customer/stats', async (payloa
         const res = await CustomerResources.get('/analytics');
         return { status: res.status, data: res.data.data };
     } catch (error) {
-        if (error.message === 'Network Error') {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
             return rejectWithValue({ message: "Oops! Something went wrong" });
         }
-        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
     }
 })
 
@@ -162,10 +213,13 @@ export const updateCustomerProfile = createAsyncThunk('customer/update', async (
         const res = await CustomerResources.post('/profile/update', payload);
         return { status: res.status, data: res.data.data };
     } catch (error) {
-        if (error.message === 'Network Error') {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
             return rejectWithValue({ message: "Oops! Something went wrong" });
         }
-        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
     }
 })
 
@@ -175,10 +229,13 @@ export const getCustomerApplicationQueue = createAsyncThunk('customer/policyQueu
         const res = await CustomerResources.get('/policyQueue');
         return { status: res.status, data: res.data.data };
     } catch (error) {
-        if (error.message === 'Network Error') {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
             return rejectWithValue({ message: "Oops! Something went wrong" });
         }
-        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
     }
 })
 
@@ -187,12 +244,48 @@ export const getCustomerPayments = createAsyncThunk('customer/payments', async (
         const res = await CustomerResources.get('/payments');
         return { status: res.status, data: res.data.data };
     } catch (error) {
-        if (error.message === 'Network Error') {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
             return rejectWithValue({ message: "Oops! Something went wrong" });
         }
-        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
     }
 })
+
+
+// employee actions
+
+export const getEmployeesList = createAsyncThunk('employee/employeeList', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await EmployeeResources.get('/employees');
+        return { status: res.status, data: res.data.data };
+    } catch (error) {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
+    }
+})
+export const getAgentsList = createAsyncThunk('employee/agentList', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await EmployeeResources.get('/agents');
+        return { status: res.status, data: res.data.data };
+    } catch (error) {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
+    }
+})
+
 
 const dashboardSlice = createSlice({
     name: 'dashboard',
@@ -293,6 +386,24 @@ const dashboardSlice = createSlice({
             state.myPayments.loading = false;
             state.myPayments.data = action.payload.data
         })
+        // employee reducers
+        builder.addCase(getEmployeesList.pending, (state) => {
+            state.employeesList.loading = true
+        }).addCase(getEmployeesList.rejected, (state, action) => {
+            state.employeesList.loading = false;
+        }).addCase(getEmployeesList.fulfilled, (state, action) => {
+            state.employeesList.loading = false;
+            state.employeesList.data = action.payload?.data
+        })
+        builder.addCase(getAgentsList.pending, (state) => {
+            state.agentsList.loading = true
+        }).addCase(getAgentsList.rejected, (state, action) => {
+            state.agentsList.loading = false;
+        }).addCase(getAgentsList.fulfilled, (state, action) => {
+            state.agentsList.loading = false;
+            state.agentsList.data = action.payload?.data
+        })
+
     }
 })
 export const { closeAlert } = dashboardSlice.actions;

@@ -7,6 +7,8 @@ import CrmLayout from "../../layout/CrmLayout";
 import MessageBox from "../../../Framework/components/MessageBox";
 import ProtectedRoutes from "../../../ProtectedRoute";
 import Profile from "../components/Profile";
+import CustomerManagement from "../pages/AgentManagement";
+import AgentManagement from "../pages/AgentManagement";
 const EmployeeLogin = lazy(() => import('../pages/EmployeeLogin'));
 const AccessManagement = React.lazy(() => import("../pages/AccessManagement"));
 const AdminService = React.lazy(() => import("../pages/AdminService"));
@@ -110,7 +112,7 @@ export const employeeRoutes = () => {
                         children: [
                             {
                                 index: true,
-                                element: <EmployeeManagement />
+                                element: <CustomerManagement />
                             },
                             {
                                 path: 'profile/:id',
@@ -128,7 +130,7 @@ export const employeeRoutes = () => {
                         children: [
                             {
                                 index: true,
-                                element: <EmployeeManagement />
+                                element: <AgentManagement />
                             },
                             {
                                 path: 'profile/:id',
