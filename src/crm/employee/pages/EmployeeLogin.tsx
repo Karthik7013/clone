@@ -8,13 +8,11 @@ import Grid from '@mui/material/Grid';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootProps } from '../../../types/RootProps';
-import { closeAlert, loginEmployee, loginUser } from '../../../redux/slice/authSlice';
+import { loginEmployee } from '../../../redux/slice/authSlice';
 // import LoadingModal from '../../../Framework/components/LoadingModal';
 import loginPanel from "/login-panel.svg"
 import logo from "/logo.jpg";
 import { AppDispatch, RootState } from '../../../redux/store';
-import AlertBox from '../../../Framework/components/AlertBox';
-import LoadingModal from '../../../Framework/components/LoadingModal';
 
 
 function Copyright(props: any) {
@@ -48,8 +46,8 @@ const EmployeeLogin = () => {
                 <Grid
                     item
                     xs={false}
-                    sm={4}
-                    md={7}
+
+                    lg={7}
                     sx={{
                         backgroundImage: `url(${loginPanel})`,
                         backgroundSize: 'contain',
@@ -57,7 +55,7 @@ const EmployeeLogin = () => {
                         backgroundRepeat: 'no-repeat'
                     }}
                 />
-                <Grid item xs={12} sm={8} md={5} component={Stack} justifyContent={'center'}>
+                <Grid item xs={12} lg={5} component={Stack} justifyContent={'center'}>
                     <Box
                         sx={{
                             display: 'flex',

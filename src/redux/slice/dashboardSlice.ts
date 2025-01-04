@@ -56,6 +56,11 @@ type dashboardProps = {
         loading: boolean,
         data: any,
         alert: alertProps
+    },
+    customerList: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
     }
 }
 
@@ -135,6 +140,15 @@ const initialState: dashboardProps = {
         }
     },
     agentsList: {
+        loading: false,
+        data: [],
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        }
+    },
+    customerList: {
         loading: false,
         data: [],
         alert: {
@@ -285,6 +299,20 @@ export const getAgentsList = createAsyncThunk('employee/agentList', async (paylo
         }
     }
 })
+export const getCustomerList = createAsyncThunk('employee/customerList', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await EmployeeResources.get('/customers');
+        return { status: res.status, data: res.data.data };
+    } catch (error) {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
+    }
+})
 
 
 const dashboardSlice = createSlice({
@@ -402,6 +430,14 @@ const dashboardSlice = createSlice({
         }).addCase(getAgentsList.fulfilled, (state, action) => {
             state.agentsList.loading = false;
             state.agentsList.data = action.payload?.data
+        })
+        builder.addCase(getCustomerList.pending, (state) => {
+            state.customerList.loading = true
+        }).addCase(getCustomerList.rejected, (state, action) => {
+            state.customerList.loading = false;
+        }).addCase(getCustomerList.fulfilled, (state, action) => {
+            state.customerList.loading = false;
+            state.customerList.data = action.payload?.data
         })
 
     }

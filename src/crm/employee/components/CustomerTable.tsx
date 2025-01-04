@@ -7,30 +7,34 @@ import ModeEditRoundedIcon from '@mui/icons-material/ModeEditRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAgentsList } from '../../../redux/slice/dashboardSlice';
+import { getCustomerList } from '../../../redux/slice/dashboardSlice';
 import { AppDispatch, RootState } from '../../../redux/store';
 
-const AgentTable = () => {
+const CustomerTable = () => {
     const dispatch: AppDispatch = useDispatch();
-    const loading = useSelector((state: RootState) => state.dashboard.agentsList.loading);
-    const agentList: GridRowsProp = useSelector((state: RootState) => state.dashboard.agentsList.data);
+    const loading = useSelector((state: RootState) => state.dashboard.customerList.loading);
+    const customerList: GridRowsProp = useSelector((state: RootState) => state.dashboard.customerList.data);
 
     useEffect(() => {
-        if (agentList.length === 0 && !loading)
-            dispatch(getAgentsList())
-    }, [dispatch, loading, agentList])
+        if (customerList.length === 0 && !loading)
+            dispatch(getCustomerList())
+    }, [dispatch, loading, customerList])
+
+
+
+
 
 
 
 
     const columns: GridColDef[] = [
-        { field: 'agent_id', headerName: 'Agent ID', width: 150 },
+        { field: 'customer_id', headerName: 'Customer ID', width: 150 },
         {
-            field: 'firstname', headerName: 'Agent Name', width: 150,
+            field: 'firstname', headerName: 'Customer Name', width: 150,
             renderCell: (params) => (
                 <Stack gap={2} alignItems={'center'} direction='row'>
                     <Avatar src={`https://avatar.iran.liara.run/username?username=${params.value[0]}`}>{params.value[0]}</Avatar>
-                    <Link to={`profile/${params.row.agent_id}`}>{params.value}</Link>
+                    <Link to={`profile/${params.row.customer_id}`}>{params.value}</Link>
                 </Stack>
             )
         },
@@ -42,17 +46,15 @@ const AgentTable = () => {
         { field: 'state', headerName: 'State', width: 150 },
         { field: 'city', headerName: 'City', width: 150 },
         { field: 'pincode', headerName: 'Pincode', width: 150 },
+        { field: 'marital_status', headerName: 'Marital Status', width: 150 },
         { field: 'country', headerName: 'Country', width: 150 },
-        { field: 'examdate', headerName: 'Exam Date', width: 150 },
-        { field: 'isexampass', headerName: 'Exam Status', width: 150 },
-        { field: 'attemptsleft', headerName: 'Attempts', width: 150 },
-        { field: 'hiredate', headerName: 'Join Date', width: 150 },
-        { field: 'license_number', headerName: 'License ID', width: 150 },
-        { field: 'commission_rate', headerName: 'Pay out', width: 150 },
-        { field: 'created_at', headerName: 'Created Date', width: 150 },
+        { field: 'created_at', headerName: 'Create Date', width: 150 },
         { field: 'updated_at', headerName: 'Update Date', width: 150 },
-        { field: 'refered_by', headerName: 'Refered by', width: 150 },
-        { field: 'salary', headerName: 'Salary', width: 150 },
+        { field: 'refered_by_employee', headerName: 'Employee ID', width: 150 },
+        { field: 'refered_by_agent', headerName: 'Agent ID', width: 150 },
+        { field: 'bio', headerName: 'About', width: 150 },
+
+
         { field: 'status', headerName: 'Status', width: 150, renderCell: (params) => <Chip variant='filled' label={params.value} clickable /> },
         {
             field: 'actions', headerName: 'Actions', width: 150, renderCell: (params) => {
@@ -118,7 +120,7 @@ const AgentTable = () => {
                 <GridToolbarContainer sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', p: 1 }}>
                     <Box>
                         <Typography variant="h6">
-                            Agent Management
+                            Customer Management
                         </Typography>
                         <Typography variant='caption' color={'text.secondary'}>Manage All Employee Details and add new Employee</Typography>
                     </Box>
@@ -146,9 +148,9 @@ const AgentTable = () => {
                             toolbar: ToolbarHeader,
                         }}
                         loading={loading}
-                        rows={agentList} columns={columns}
+                        rows={customerList} columns={columns}
                         checkboxSelection
-                        getRowId={(row) => row.agent_id}
+                        getRowId={(row) => row.customer_id}
                         disableRowSelectionOnClick />
                 </Box>
             </Grid>
@@ -156,4 +158,4 @@ const AgentTable = () => {
     )
 }
 
-export default AgentTable
+export default CustomerTable

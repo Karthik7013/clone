@@ -7,7 +7,7 @@ import CrmLayout from "../../layout/CrmLayout";
 import MessageBox from "../../../Framework/components/MessageBox";
 import ProtectedRoutes from "../../../ProtectedRoute";
 import Profile from "../components/Profile";
-import CustomerManagement from "../pages/AgentManagement";
+import CustomerManagement from "../pages/CustomerManagement";
 import AgentManagement from "../pages/AgentManagement";
 const EmployeeLogin = lazy(() => import('../pages/EmployeeLogin'));
 const AccessManagement = React.lazy(() => import("../pages/AccessManagement"));
