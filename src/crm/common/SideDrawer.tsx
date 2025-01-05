@@ -1,10 +1,9 @@
-import { Avatar, Badge, Box, Button, Card, CardContent, Chip, CircularProgress, Divider, Icon, InputAdornment, LinearProgress, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Button, Card, CardContent, Chip, CircularProgress, Divider, Icon, LinearProgress, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import React from 'react';
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import { useTheme } from '@mui/material';
-import KeyboardCommandKeyRoundedIcon from '@mui/icons-material/KeyboardCommandKeyRounded';
+
 import ProtectedRoutes from '../../ProtectedRoute';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -27,7 +26,7 @@ const SideDrawer = () => {
         </Toolbar>
         {loading ? <LinearProgress /> :
             <List component={Stack} sx={{ px: 1 }} subheader={<Typography variant='caption' color='text.secondary'>Menu</Typography>}>
-                <Divider sx={{mb:1}} />
+                <Divider sx={{ mb: 1 }} />
                 <ProtectedRoutes role="customer" requiredPermission={1000}>
                     <ListItem disablePadding
                         secondaryAction={
@@ -35,6 +34,7 @@ const SideDrawer = () => {
                         }
                     >
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('dashboard') ? theme.palette.primary.main : 'inherit' }}
                             disableRipple
                             component={Link}
                             to=""
@@ -51,6 +51,7 @@ const SideDrawer = () => {
 
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('policies') ? theme.palette.primary.main : 'inherit' }}
                             component={Link}
                             to="policies"
                             disableRipple>
@@ -66,6 +67,7 @@ const SideDrawer = () => {
 
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('claims') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'claims'}
                             disableRipple>
                             <ListItemIcon>
@@ -80,6 +82,7 @@ const SideDrawer = () => {
 
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('register') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'register'}
                             disableRipple>
                             <ListItemIcon>
@@ -94,6 +97,7 @@ const SideDrawer = () => {
 
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('settings') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'settings'}
                             disableRipple>
                             <ListItemIcon>
@@ -112,6 +116,8 @@ const SideDrawer = () => {
                         }
                     >
                         <ListItemButton
+
+                            sx={{ bgcolor: currentPath.includes('helpline') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'helpline'}
                             disableRipple>
                             <ListItemIcon>

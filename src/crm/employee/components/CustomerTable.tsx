@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Chip, Divider, Grid, IconButton, Stack, Typography, styled } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import MessageBox from '../../../Framework/components/MessageBox'
-import { DataGrid, GridColDef, GridRowsProp, GridToolbarContainer } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRowsProp, GridToolbarContainer, GridToolbarQuickFilter } from '@mui/x-data-grid'
 import { GroupAddRounded } from '@mui/icons-material';
 import ModeEditRoundedIcon from '@mui/icons-material/ModeEditRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCustomerList } from '../../../redux/slice/dashboardSlice';
 import { AppDispatch, RootState } from '../../../redux/store';
-
+import { GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from '@mui/x-data-grid';
 const CustomerTable = () => {
     const dispatch: AppDispatch = useDispatch();
     const loading = useSelector((state: RootState) => state.dashboard.customerList.loading);
@@ -117,15 +117,15 @@ const CustomerTable = () => {
     function ToolbarHeader(props: unknown) {
         return (
             <>
-                <GridToolbarContainer sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', p: 1 }}>
-                    <Box>
-                        <Typography variant="h6">
-                            Customer Management
-                        </Typography>
-                        <Typography variant='caption' color={'text.secondary'}>Manage All Employee Details and add new Employee</Typography>
+                <GridToolbarContainer sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', p: 2 }}>
+                    <Box ml={1}>
+                        <GridToolbarQuickFilter />
                     </Box>
                     <Box>
-                        <Button variant='contained' size='small' startIcon={<GroupAddRounded />}>New Employee</Button>
+
+                        <GridToolbarFilterButton />
+                        <GridToolbarDensitySelector />
+                        <GridToolbarExport />
                     </Box>
                 </GridToolbarContainer>
                 <Divider />
@@ -137,9 +137,7 @@ const CustomerTable = () => {
     return (
         <Grid container>
             <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column' }}>
-                <MessageBox type='success'>
-                    Records Updated
-                </MessageBox>
+
                 <Box sx={{ height: 640, mt: 1 }}>
                     <DataGrid
                         sx={{ '--DataGrid-overlayHeight': '300px' }}

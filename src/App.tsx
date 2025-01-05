@@ -15,8 +15,6 @@ import { handleCookieConsent } from './redux/slice/uiSlice';
 import { AppDispatch } from './redux/store';
 
 const App = () => {
-
-
     const dispatch: AppDispatch = useDispatch();
     useEffect(() => {
         const cookieConsentState = document.cookie.split('; ').find(row => row.startsWith('cookie-accept'));

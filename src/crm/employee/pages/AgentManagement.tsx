@@ -1,8 +1,8 @@
-import { Box, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, ListItem, ListItemText, Typography, useTheme } from '@mui/material';
 import AgentTable from '../components/AgentTable';
-import CustomerTable from '../components/CustomerTable';
 
 const AgentManagement = () => {
+    const theme = useTheme()
     return (
         <>
             <Box mt={3}>
@@ -12,6 +12,7 @@ const AgentManagement = () => {
                     />
                 </ListItem>
                 <Box>
+
                     <AgentTable />
                 </Box >
             </Box>

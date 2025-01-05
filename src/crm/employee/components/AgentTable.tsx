@@ -1,7 +1,7 @@
-import { Avatar, Box, Button, Chip, Divider, Grid, IconButton, Stack, Typography, styled } from '@mui/material'
+import { Avatar, Box, Button, Chip, Divider, Grid, IconButton, Stack, TextField, Typography, styled } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import MessageBox from '../../../Framework/components/MessageBox'
-import { DataGrid, GridColDef, GridRowsProp, GridToolbarContainer } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRowsProp, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridToolbarQuickFilter } from '@mui/x-data-grid'
 import { GroupAddRounded } from '@mui/icons-material';
 import ModeEditRoundedIcon from '@mui/icons-material/ModeEditRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
@@ -56,7 +56,7 @@ const AgentTable = () => {
         { field: 'status', headerName: 'Status', width: 150, renderCell: (params) => <Chip variant='filled' label={params.value} clickable /> },
         {
             field: 'actions', headerName: 'Actions', width: 150, renderCell: (params) => {
-                return <Stack direction={'row'}>
+                return <Stack direction={'row'} mt={0.5} alignItems='center' justifyContent='center'>
                     <IconButton><ModeEditRoundedIcon color='info' /></IconButton>
                     <IconButton><DeleteOutlineRoundedIcon color='error' /></IconButton>
                 </Stack>
@@ -115,17 +115,17 @@ const AgentTable = () => {
     function ToolbarHeader(props: unknown) {
         return (
             <>
-                <GridToolbarContainer sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', p: 1 }}>
+                <GridToolbarContainer sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', p: 2 }}>
                     <Box>
-                        <Typography variant="h6">
-                            Agent Management
-                        </Typography>
-                        <Typography variant='caption' color={'text.secondary'}>Manage All Employee Details and add new Employee</Typography>
+                        <GridToolbarQuickFilter />
                     </Box>
                     <Box>
-                        <Button variant='contained' size='small' startIcon={<GroupAddRounded />}>New Employee</Button>
+                        <Button size='small' startIcon={<GroupAddRounded />}>New Agent</Button>
+                        <GridToolbarFilterButton />
+                        <GridToolbarDensitySelector />
+                        <GridToolbarExport />
                     </Box>
-                </GridToolbarContainer>
+                </GridToolbarContainer >
                 <Divider />
             </>
 
@@ -135,9 +135,7 @@ const AgentTable = () => {
     return (
         <Grid container>
             <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column' }}>
-                <MessageBox type='success'>
-                    Records Updated
-                </MessageBox>
+
                 <Box sx={{ height: 640, mt: 1 }}>
                     <DataGrid
                         sx={{ '--DataGrid-overlayHeight': '300px' }}

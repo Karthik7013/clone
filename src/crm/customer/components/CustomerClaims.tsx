@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/store';
-import { DataGrid, GridColDef, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridToolbarQuickFilter } from '@mui/x-data-grid';
 import { Box, Button, Chip, Stack } from '@mui/material';
 import { getCustomerClaims } from '../../../redux/slice/dashboardSlice';
 import CachedRoundedIcon from '@mui/icons-material/CachedRounded';
@@ -47,10 +47,11 @@ const CustomerClaims = () => {
             }
         },
     ];
-    const refreshCustomerClaims = ()=>  dispatch(getCustomerClaims())
+    const refreshCustomerClaims = () => dispatch(getCustomerClaims())
     const CustomToolbar = () => {
         return <GridToolbarContainer>
-            <Stack direction='row' sx={{ width: '100%' }} p={1}>
+            <Stack direction='row' sx={{ width: '100%' }} p={2}>
+                <GridToolbarQuickFilter />
                 <Box flexGrow={1} />
                 <Button size='small' startIcon={<CachedRoundedIcon />} onClick={refreshCustomerClaims}>
                     Refresh

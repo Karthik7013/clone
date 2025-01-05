@@ -205,99 +205,8 @@ const Home = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <List sx={{ width: '100%', bgcolor: 'background.paper' }} subheader={
-                        <Typography variant="h6" justifyItems='center' >Continue Policy Purchase</Typography>
-                    }>
-                        <ListItem alignItems="flex-start" secondaryAction={
-                            <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
-                        }>
-                            <ListItemAvatar>
-                                <CardMedia
-                                    component="img"
-                                    sx={{ borderRadius: '0.4em', mr: 2, width: { xs: 40, md: 60 } }}
-                                    image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
-                                />
-                            </ListItemAvatar>
-                            <ListItemText primary={
-                                <>
-                                    <Typography variant="body2" component='span' mr={2}>Gowri Shankar</Typography>
-                                    <Chip size="small" color="primary" variant="outlined" label="General Life Insurance"></Chip>
-
-                                </>
-                            }
-                                secondary={
-                                    <React.Fragment>
-                                        <Typography
-                                            component="span"
-                                            variant="body2"
-                                            sx={{ color: 'text.primary', display: 'inline' }}
-                                        >
-                                            Application ID:
-                                        </Typography>
-                                        {"AP012454GH4FJDJ04"}
-                                    </React.Fragment>
-                                }
-                            />
-                        </ListItem>
-                        <Divider variant="inset" component="li" />
-                        <ListItem alignItems="flex-start" secondaryAction={
-                            <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
-                        }>
-                            <ListItemAvatar>
-                                <CardMedia
-                                    component="img"
-                                    sx={{ borderRadius: '0.4em', mr: 2, width: { xs: 40, md: 60 } }}
-                                    image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
-                                />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="General Life Insurance"
-                                secondary={
-                                    <React.Fragment>
-                                        <Typography
-                                            component="span"
-                                            variant="body2"
-                                            sx={{ color: 'text.primary', display: 'inline' }}
-                                        >
-                                            Application ID: {"AP012454GH4FJDJ04"}
-                                        </Typography>
-
-                                    </React.Fragment>
-                                }
-                            />
-                        </ListItem>
-                        <Divider variant="inset" component="li" />
-                        <ListItem alignItems="flex-start" secondaryAction={
-                            <Button endIcon={<ArrowForwardIosRoundedIcon />}>Resume</Button>
-                        }>
-                            <ListItemAvatar>
-                                <CardMedia
-                                    component="img"
-                                    sx={{ borderRadius: '0.4em', mr: 2, width: { xs: 40, md: 60 } }}
-                                    image={'https://upload.wikimedia.org/wikipedia/commons/9/90/Care_health_insurance_logo.png'}
-                                />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="General Life Insurance"
-                                secondary={
-                                    <React.Fragment>
-                                        <Typography
-                                            component="span"
-                                            variant="body2"
-                                            sx={{ color: 'text.primary', display: 'inline' }}
-                                        >
-                                            Application ID:
-                                        </Typography>
-                                        {"AP012454GH4FJDJ04"}
-                                    </React.Fragment>
-                                }
-                            />
-                        </ListItem>
-                    </List>
-                </Grid>
-
-                <Grid item xs={12}>
-                    <Box><Typography variant="h4" textAlign='center' fontWeight={600}>Our Products</Typography></Box>
+                    <Box>
+                        <Typography variant="h4" textAlign='center' fontWeight={600}>Our Products</Typography></Box>
                     <Stack sx={{ flexDirection: { md: 'row' }, width: '100%', gap: 5 }}>
                         <Box flexGrow={1} display={'flex'} flexDirection={'column'} justifyContent={'center'} maxWidth={600}>
                             <Typography variant="h4" gutterBottom>
@@ -377,7 +286,6 @@ const Home = () => {
                             </Box>
                         </Slide>
                     </Stack>
-                    {/* https://img.freepik.com/free-vector/family-benefit-abstract-concept-vector-illustration-family-tax-benefit-payment-per-child-help-with-raising-children-economic-support-insurance-agent-piggy-bank-money-abstract-metaphor_335657-3984.jpg */}
                 </Grid>
                 <Grid item xs={12}>
                     <Box sx={{ width: '100%', mx: 'auto', mt: 4, maxHeight: 400 }}>

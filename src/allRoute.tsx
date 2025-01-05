@@ -1,4 +1,3 @@
-import React from "react";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 
 //============ MUI IMPORTS ==============>
@@ -13,33 +12,25 @@ import Footer from "./Framework/components/Footer";
 import { VehicleHome } from './vehicle/pages/index'
 
 //============ LOAN COMPONENTS IMPORTS ==============>
-import LoanLandingPage from "./loan/pages/LoanLandingPage";
-import CompareQuotes from "./Framework/components/CompareQuotes";
-import LoanQuotesPage from "./loan/pages/LoanQuotesPage";
-import LoanPaymentPage from "./loan/pages/LoanPaymentPage";
+import { LoanLandingPage, LoanPaymentPage, LoanQuotesPage, FailedPage, ThankYouPage } from "./loan/pages/index"
 
 //============ TRAVEL COMPONENTS IMPORTS ==============>
-import TravelHome from "./travel/pages/TravelHome";
-import TravelPayment from "./travel/pages/TravelPayment";
+import { TravelHome, TravelPayment } from "./travel/pages/index"
 
 //============ HEALTH COMPONENTS IMPORTS ==============>
-import HealthHome from "./health/pages/HealthHome";
-import HealthProposal from "./health/pages/HealthProposal";
-import HealthPayment from "./health/pages/HealthPayment";
+import { HealthHome, HealthPayment, HealthProposal } from "./health/pages/index"
 
 //============ DASHBOARD COMPONENTS IMPORTS ==============>
 
-import PageNotFound from "./Framework/components/PageNotFound";
-import ChatBot from "./Framework/components/ChatBot";
 
 //============ REDUX IMPORTS ==============>
 
 import { customerRoutes } from "./crm/customer/routes/customer.routes";
 import { pospRoutes } from "./crm/posp/routes/posp.routes";
 import { employeeRoutes } from "./crm/employee/routes/employee.routes";
-import ThankYouPage from "./loan/pages/ThankYouPage";
-import Failedpage from "./loan/pages/FailedPage";
 
+//============ FRAMEWORK IMPORTS ==============>
+import { CompareQuotes, ChatBot, PageNotFound } from "./Framework/components/index";
 
 export const allRouter = () => {
     let commonRoutes = [
@@ -89,7 +80,7 @@ export const allRouter = () => {
                         },
                         {
                             path: 'failed',
-                            element: <Failedpage />
+                            element: <FailedPage />
                         }
                     ]
                 },

@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client'
-
 //============ CSS IMPORTS ==============>
 import "./index.css";
 //============ REDUX IMPORTS ==============>

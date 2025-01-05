@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Chip, Divider, Grid, IconButton, Stack, Typography, styled } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import MessageBox from '../../../Framework/components/MessageBox'
-import { DataGrid, GridColDef, GridRowsProp, GridToolbarContainer } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRowsProp, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridToolbarQuickFilter } from '@mui/x-data-grid'
 import { GroupAddRounded } from '@mui/icons-material';
 import ModeEditRoundedIcon from '@mui/icons-material/ModeEditRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
@@ -9,10 +9,14 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmployeesList } from '../../../redux/slice/dashboardSlice';
 import { AppDispatch, RootState } from '../../../redux/store';
+import AddEmployee from './AddEmployee';
+import { toggleAddEmployeeModal } from '../../../redux/slice/uiSlice';
 
 const EmployeeTable = () => {
     const dispatch: AppDispatch = useDispatch();
     const loading = useSelector((state: RootState) => state.dashboard.employeesList.loading);
+    const addEmployeeModalOpen = useSelector((state: RootState) => state.ui.addEmployeeModal);
+    const handleAddEmployeeModal = useCallback(() => dispatch(toggleAddEmployeeModal()), [addEmployeeModalOpen])
     const employeeList: GridRowsProp = useSelector((state: RootState) => state.dashboard.employeesList.data);
 
     useEffect(() => {
@@ -109,15 +113,15 @@ const EmployeeTable = () => {
     function ToolbarHeader(props: unknown) {
         return (
             <>
-                <GridToolbarContainer sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', p: 1 }}>
+                <GridToolbarContainer sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', p: 2 }}>
                     <Box>
-                        <Typography variant="h6">
-                            EmployeeManagement
-                        </Typography>
-                        <Typography variant='caption' color={'text.secondary'}>Manage All Employee Details and add new Employee</Typography>
+                        <GridToolbarQuickFilter />
                     </Box>
                     <Box>
-                        <Button variant='contained' size='small' startIcon={<GroupAddRounded />}>New Employee</Button>
+                        <Button size='small' onClick={handleAddEmployeeModal} startIcon={<GroupAddRounded />}>New Employee</Button>
+                        <GridToolbarFilterButton />
+                        <GridToolbarDensitySelector />
+                        <GridToolbarExport />
                     </Box>
                 </GridToolbarContainer>
                 <Divider />
@@ -126,12 +130,10 @@ const EmployeeTable = () => {
         );
     }
 
+
     return (
         <Grid container>
             <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column' }}>
-                <MessageBox type='success'>
-                    Records Updated
-                </MessageBox>
                 <Box sx={{ height: 640, mt: 1 }}>
                     <DataGrid
                         sx={{ '--DataGrid-overlayHeight': '300px' }}
@@ -144,6 +146,7 @@ const EmployeeTable = () => {
                         rows={employeeList} columns={columns} checkboxSelection
                         disableRowSelectionOnClick />
                 </Box>
+                <AddEmployee open={addEmployeeModalOpen} handleClose={handleAddEmployeeModal} />
             </Grid>
         </Grid>
     )
