@@ -55,12 +55,6 @@ const ProductSummary = () => {
                     <ListItemText primary={<Typography variant="body2" color="text.secondary">View employee data</Typography>} />
                 </ListItem>
             </List>
-            <Divider />
-            <CardActions sx={{ justifyContent: 'flex-end' }}>
-                <Button variant="contained">Cancel</Button>
-                <Button variant="contained" startIcon={<SaveRoundedIcon />}>Save</Button>
-            </CardActions>
-
         </Card>
 
 
