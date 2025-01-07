@@ -16,18 +16,20 @@ const ProtectedRoutes = (props: prop) => {
     let permissions = useSelector((state: RootState) => state.auth.authData?.permissions) || [];
     const hasPermission = permissions.includes(props.requiredPermission);
 
-    if ((props.role === role && hasPermission)) {
-        return <>{props.children}</>;
-    } else {
-        if (loading) {
-            return <LinearProgress />
-        } else {
-            return <>
-                {props.fallback}
-            </>;
-        }
+    return <>{props.children}</>;
 
-    }
+    // if ((props.role === role && hasPermission)) {
+    //     return <>{props.children}</>;
+    // } else {
+    //     if (loading) {
+    //         return <LinearProgress />
+    //     } else {
+    //         return <>
+    //             {props.fallback}
+    //         </>;
+    //     }
+
+    // }
 }
 
 export default ProtectedRoutes;

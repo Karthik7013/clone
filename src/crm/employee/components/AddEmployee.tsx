@@ -91,7 +91,7 @@ const AddEmployee = (props: addEmployeeProps) => {
                             name="dob"
                             control={control}
                             rules={{ required: "DOB is required" }}
-                            render={({ field }) => <TextField {...field} type="date" size="small" fullWidth label="DOB" error={!!errors.dob} helperText={errors.dob?.message} />}
+                            render={({ field }) => <TextField InputLabelProps={{ shrink: true }} {...field} type="date" size="small" fullWidth label="DOB" error={!!errors.dob} helperText={errors.dob?.message} />}
                         />
                     </Grid>
                     <Grid item xs={12} md={4}>
@@ -208,7 +208,7 @@ const AddEmployee = (props: addEmployeeProps) => {
                             name="joinDate"
                             control={control}
                             rules={{ required: "Join Date is required" }}
-                            render={({ field }) => <TextField {...field} type="date" size="small" fullWidth label="Join Date" error={!!errors.joinDate} helperText={errors.joinDate?.message} />}
+                            render={({ field }) => <TextField InputLabelProps={{ shrink: true }} {...field} type="date" size="small" fullWidth label="Join Date" error={!!errors.joinDate} helperText={errors.joinDate?.message} />}
                         />
                     </Grid>
                     <Grid item xs={12} md={4}>
@@ -230,7 +230,7 @@ const AddEmployee = (props: addEmployeeProps) => {
                         />
                     </Grid>
                 </Grid>
-                <ProductSummary />
+                {/* <ProductSummary /> */}
             </DialogContent>
             <DialogActions>
                 <Button variant="contained" color="error" autoFocus onClick={props.handleClose}>
