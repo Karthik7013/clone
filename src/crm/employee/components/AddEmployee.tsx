@@ -2,6 +2,10 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormCon
 import CloseIcon from '@mui/icons-material/Close';
 import { ProductSummary } from "../../../Framework/components";
 import { useForm, Controller } from "react-hook-form";
+import { useEffect } from "react";
+import { getEmployeeRoles } from "../../../redux/slice/dashboardSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/store";
 
 // Define types for the form data
 type FormData = {
@@ -30,11 +34,17 @@ type addEmployeeProps = {
 }
 
 const AddEmployee = (props: addEmployeeProps) => {
+    const empRoles = useSelector((state: RootState) => state.dashboard.employee_roles.data);
+    const dispatch: AppDispatch = useDispatch();
     const { handleSubmit, control, formState: { errors }, watch } = useForm<FormData>();
     const department = watch('department');
     const onSubmit = (data: FormData) => {
         console.log(data);
     };
+
+    useEffect(() => {
+        if (!empRoles.length) dispatch(getEmployeeRoles())
+    }, [])
 
     return (
         <Dialog fullWidth maxWidth="md" open={props.open} component='form' onSubmit={handleSubmit(onSubmit)}>
@@ -161,11 +171,7 @@ const AddEmployee = (props: addEmployeeProps) => {
                                     <InputLabel>Department</InputLabel>
                                     <Select {...field} label="Department">
                                         <MenuItem value="" disabled><em>Select Department</em></MenuItem>
-                                        <MenuItem value="administrative">Administrative department</MenuItem>
-                                        <MenuItem value="sales">Sales Department</MenuItem>
-                                        <MenuItem value="hr">HR Department</MenuItem>
-                                        <MenuItem value="it">IT Department</MenuItem>
-                                        <MenuItem value="claims">Claims Department</MenuItem>
+                                        {[...new Set(empRoles.map((dep) => dep.department))].map((department, index: number) => <MenuItem key={index} value={department} >{department}</MenuItem>)}
                                     </Select>
                                     <FormHelperText>{errors.department?.message}</FormHelperText>
                                 </FormControl>
@@ -183,12 +189,12 @@ const AddEmployee = (props: addEmployeeProps) => {
                                     <InputLabel>Role</InputLabel>
                                     <Select {...field} label="Role">
                                         <MenuItem value="" disabled><em>Select Role</em></MenuItem>
-                                        <MenuItem value="administrative">CEO (ADMIN)</MenuItem>
-                                        <MenuItem value="sales">PO</MenuItem>
-                                        <MenuItem value="hr">HR Manager</MenuItem>
-                                        <MenuItem value="it">IT Manager</MenuItem>
-                                        <MenuItem value="claims">Claims Manager</MenuItem>
-                                        <MenuItem value="claims">Sales Manager</MenuItem>
+
+                                        {
+                                            [...empRoles.filter((role) => role.department === department)].map((item, index) => <MenuItem key={index} value={item.role_id}>{item.role_name}</MenuItem>)
+                                        }
+
+
                                     </Select>
                                     <FormHelperText>{errors.role?.message}</FormHelperText>
                                 </FormControl>

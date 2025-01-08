@@ -61,6 +61,16 @@ type dashboardProps = {
         loading: boolean,
         data: any,
         alert: alertProps
+    },
+    employee_roles: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
+    },
+    employee_permissions: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
     }
 }
 
@@ -155,6 +165,24 @@ const initialState: dashboardProps = {
             message: '',
             state: false,
             type: undefined
+        }
+    },
+    employee_roles: {
+        loading: false,
+        data: [],
+        alert: {
+            message: '',
+            type: undefined,
+            state: false
+        }
+    },
+    employee_permissions: {
+        loading: false,
+        data: [],
+        alert: {
+            message: '',
+            type: undefined,
+            state: false
         }
     }
 }
@@ -313,6 +341,36 @@ export const getCustomerList = createAsyncThunk('employee/customerList', async (
         }
     }
 })
+export const getEmployeeRoles = createAsyncThunk('employee/roles', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await EmployeeResources.get('/get-roles');
+        return { status: res.status, data: res.data.data };
+    } catch (error) {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
+    }
+})
+export const getEmployeePermissions = createAsyncThunk('employee/permissions', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await EmployeeResources.get('/get-permissions');
+        return { status: res.status, data: res.data.data };
+    } catch (error) {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
+    }
+})
+
+
 
 
 const dashboardSlice = createSlice({
@@ -440,6 +498,22 @@ const dashboardSlice = createSlice({
             state.customerList.data = action.payload?.data
         })
 
+        builder.addCase(getEmployeeRoles.pending, (state) => {
+            state.employee_roles.loading = true
+        }).addCase(getEmployeeRoles.rejected, (state, action) => {
+            state.employee_roles.loading = false;
+        }).addCase(getEmployeeRoles.fulfilled, (state, action) => {
+            state.employee_roles.loading = false;
+            state.employee_roles.data = action.payload?.data
+        })
+        builder.addCase(getEmployeePermissions.pending, (state) => {
+            state.employee_permissions.loading = true
+        }).addCase(getEmployeePermissions.rejected, (state, action) => {
+            state.employee_permissions.loading = false;
+        }).addCase(getEmployeePermissions.fulfilled, (state, action) => {
+            state.employee_permissions.loading = false;
+            state.employee_permissions.data = action.payload?.data
+        })
     }
 })
 export const { closeAlert } = dashboardSlice.actions;

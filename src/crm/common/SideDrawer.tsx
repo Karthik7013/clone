@@ -27,7 +27,11 @@ const SideDrawer = () => {
         {loading ? <LinearProgress /> :
             <List component={Stack} sx={{ px: 1 }} subheader={<Typography variant='caption' color='text.secondary'>Menu</Typography>}>
                 <Divider sx={{ mb: 1 }} />
-                <ProtectedRoutes role="customer" requiredPermission={1000}>
+
+                {/* 
+                ---------------- customer ----------------------
+                */}
+                {/* <ProtectedRoutes role="customer" requiredPermission={1000}>
                     <ListItem disablePadding
                         secondaryAction={
                             <Chip variant="outlined" label="new" size="small" color="primary" />
@@ -126,10 +130,12 @@ const SideDrawer = () => {
                             <ListItemText primary={<Typography variant='body2' noWrap>{'Help'}</Typography>} />
                         </ListItemButton>
                     </ListItem>
-                </ProtectedRoutes>
+                </ProtectedRoutes> */}
 
-
-                <ProtectedRoutes role='agent' requiredPermission={2000}>
+                {/* 
+                --------------------- agent ------------------
+                 */}
+                {/* <ProtectedRoutes role='agent' requiredPermission={2000}>
                     <ListItem disablePadding
                         secondaryAction={
                             <Chip label="new" size="small" color="success" />
@@ -237,8 +243,10 @@ const SideDrawer = () => {
                             <ListItemText primary={<Typography variant='body2' noWrap>{'Study Material'}</Typography>} />
                         </ListItemButton>
                     </ListItem>
-                </ProtectedRoutes>
-
+                </ProtectedRoutes> */}
+                {/* 
+                --------------- employee ------------------------------
+                 */}
                 <ProtectedRoutes role='employee' requiredPermission={3000}>
                     <ListItem disablePadding
                         secondaryAction={
