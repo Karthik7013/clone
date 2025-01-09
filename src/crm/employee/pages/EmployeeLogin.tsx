@@ -35,7 +35,7 @@ const EmployeeLogin = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = { phone: 7013140693 }
+        const data = { phone: 7013140699 }
         dispatch(loginEmployee(data));
     }
     return (

@@ -247,7 +247,7 @@ const SideDrawer = () => {
                 {/* 
                 --------------- employee ------------------------------
                  */}
-                <ProtectedRoutes role='employee' requiredPermission={3000}>
+                <ProtectedRoutes role='employee' requiredPermission={'21c01c0a'}>
                     <ListItem disablePadding
                         secondaryAction={
                             <Chip label="new" size="small" color="success" />
@@ -263,7 +263,7 @@ const SideDrawer = () => {
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
-                <ProtectedRoutes role='employee' requiredPermission={3001}>
+                <ProtectedRoutes role='employee' requiredPermission={'09b8583a'}>
                     <ListItem disablePadding>
                         <ListItemButton
                             component={Link} to={'service'}
@@ -275,7 +275,7 @@ const SideDrawer = () => {
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
-                <ProtectedRoutes role='employee' requiredPermission={3002}>
+                <ProtectedRoutes role='employee' requiredPermission={'3dc29c59'}>
                     <ListItem disablePadding>
                         <ListItemButton
                             component={Link} to={'revenue'}
@@ -287,7 +287,7 @@ const SideDrawer = () => {
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
-                <ProtectedRoutes role='employee' requiredPermission={3003}>
+                <ProtectedRoutes role='employee' requiredPermission={'f1940075'}>
                     <ListItem disablePadding>
                         <ListItemButton
                             component={Link} to={'claims'}
@@ -299,7 +299,7 @@ const SideDrawer = () => {
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
-                <ProtectedRoutes role='employee' requiredPermission={3004}>
+                <ProtectedRoutes role='employee' requiredPermission={'dc48f569'}>
                     <ListItem disablePadding>
                         <ListItemButton
                             component={Link} to={'income'}
@@ -311,7 +311,7 @@ const SideDrawer = () => {
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
-                <ProtectedRoutes role='employee' requiredPermission={3005}>
+                <ProtectedRoutes role='employee' requiredPermission={'7b8d75a2'}>
                     <ListItem disablePadding>
                         <ListItemButton
                             component={Link} to={'employee-management'}
@@ -323,7 +323,7 @@ const SideDrawer = () => {
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
-                <ProtectedRoutes role='employee' requiredPermission={3005}>
+                <ProtectedRoutes role='employee' requiredPermission={'123535eb'}>
                     <ListItem disablePadding>
                         <ListItemButton
                             component={Link} to={'customer-management'}
@@ -335,7 +335,7 @@ const SideDrawer = () => {
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
-                <ProtectedRoutes role='employee' requiredPermission={3005}>
+                <ProtectedRoutes role='employee' requiredPermission={'3306c28c'}>
                     <ListItem disablePadding>
                         <ListItemButton
                             component={Link} to={'agent-management'}
@@ -347,7 +347,7 @@ const SideDrawer = () => {
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
-                <ProtectedRoutes role='employee' requiredPermission={3006}>
+                <ProtectedRoutes role='employee' requiredPermission={'3686ad02'}>
                     <ListItem disablePadding>
                         <ListItemButton
                             component={Link} to={'products'}
@@ -359,7 +359,7 @@ const SideDrawer = () => {
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
-                <ProtectedRoutes role='employee' requiredPermission={3007}>
+                <ProtectedRoutes role='employee' requiredPermission={'4be3e5fb'}>
                     <ListItem disablePadding>
                         <ListItemButton
                             component={Link} to={'settings'}
@@ -371,7 +371,7 @@ const SideDrawer = () => {
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
-                <ProtectedRoutes role='employee' requiredPermission={3008}>
+                <ProtectedRoutes role='employee' requiredPermission={'4e971f7b'}>
                     <ListItem disablePadding>
                         <ListItemButton
                             component={Link} to={'access-management'}

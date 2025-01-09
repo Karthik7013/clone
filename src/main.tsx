@@ -10,10 +10,10 @@ import ErrorBoundary from './Framework/components/ErrorBoundary';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 if (import.meta.env.VITE_NODE_ENV === 'PRODUCTION') {
-  // Override console.log to do nothing in production
-  console.log = () => { };
-  console.warn = () => { };
-  console.error = () => { };
+
+  // console.log = () => { };
+  // console.warn = () => { };
+  // console.error = () => { };
 }
 
 root.render(

@@ -47,7 +47,7 @@ export const employeeRoutes = () => {
                         element:
                             <ProtectedRoutes role="employee"
                                 fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                                requiredPermission={3000}>
+                                requiredPermission={'21c01c0a'}>
                                 <BussinessAnalytics />
                             </ProtectedRoutes>
 
@@ -56,7 +56,7 @@ export const employeeRoutes = () => {
                         path: 'service',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3001}>
+                            requiredPermission={'09b8583a'}>
                             <AdminService />
                         </ProtectedRoutes>
                     },
@@ -64,7 +64,7 @@ export const employeeRoutes = () => {
                         path: 'revenue',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3002}>
+                            requiredPermission={'3dc29c59'}>
                             <RevenueService />
                         </ProtectedRoutes>
                     },
@@ -72,7 +72,7 @@ export const employeeRoutes = () => {
                         path: 'claims',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3003}>
+                            requiredPermission={'f1940075'}>
                             <ClaimService />
                         </ProtectedRoutes>
                     },
@@ -80,7 +80,7 @@ export const employeeRoutes = () => {
                         path: 'income',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3004}>
+                            requiredPermission={'dc48f569'}>
                             <IncomeService />
                         </ProtectedRoutes>
                     },
@@ -88,7 +88,7 @@ export const employeeRoutes = () => {
                         path: 'employee-management',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3005}>
+                            requiredPermission={'7b8d75a2'}>
                             <Outlet />
                         </ProtectedRoutes>,
                         children: [
@@ -106,7 +106,7 @@ export const employeeRoutes = () => {
                         path: 'customer-management',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3006}>
+                            requiredPermission={'123535eb'}>
                             <Outlet />
                         </ProtectedRoutes>,
                         children: [
@@ -124,7 +124,7 @@ export const employeeRoutes = () => {
                         path: 'agent-management',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3007}>
+                            requiredPermission={'3306c28c'}>
                             <Outlet />
                         </ProtectedRoutes>,
                         children: [
@@ -142,7 +142,7 @@ export const employeeRoutes = () => {
                         path: 'products',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3008}>
+                            requiredPermission={'3686ad02'}>
                             <ProductsSale />
                         </ProtectedRoutes>
                     },
@@ -150,26 +150,19 @@ export const employeeRoutes = () => {
                         path: 'settings',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3008}>
+                            requiredPermission={'4be3e5fb'}>
                             <Settings />
-                        </ProtectedRoutes>
-                    },
-                    {
-                        path: 'profile/:id',
-                        element: <ProtectedRoutes role="employee"
-                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3009}>
-                            <EmployeeProfile />
                         </ProtectedRoutes>
                     },
                     {
                         path: 'access-management',
                         element: <ProtectedRoutes role="employee"
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
-                            requiredPermission={3010}>
+                            requiredPermission={'4e971f7b'}>
                             <AccessManagement />
                         </ProtectedRoutes>
-                    }, {
+                    },
+                    {
                         path: '*',
                         element: <PageNotFound />
                     }

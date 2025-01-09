@@ -6,7 +6,7 @@ const getPreference = () => localStorage.getItem('dark') || 'light'
 
 const initialState: uiProps = {
     dark: getPreference() === 'dark' ? true : false,
-    borderRadius: 24,
+    borderRadius: 12,
     fontFamily: 'Poppins',
     customizePalleteOpen: false,
     cookieConsent: false,

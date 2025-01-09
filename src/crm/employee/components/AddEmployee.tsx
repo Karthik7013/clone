@@ -40,6 +40,7 @@ const AddEmployee = (props: addEmployeeProps) => {
     const department = watch('department');
     const onSubmit = (data: FormData) => {
         console.log(data);
+        dispatch()
     };
 
     useEffect(() => {
@@ -236,10 +237,10 @@ const AddEmployee = (props: addEmployeeProps) => {
                         />
                     </Grid>
                 </Grid>
-                {/* <ProductSummary /> */}
+
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="error" autoFocus onClick={props.handleClose}>
+                <Button type="reset" variant="contained" color="error" autoFocus onClick={props.handleClose}>
                     Cancel
                 </Button>
                 <Box flex={1} />
