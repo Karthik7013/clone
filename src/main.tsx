@@ -10,16 +10,15 @@ import ErrorBoundary from './Framework/components/ErrorBoundary';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 if (import.meta.env.VITE_NODE_ENV === 'PRODUCTION') {
-
-  // console.log = () => { };
-  // console.warn = () => { };
-  // console.error = () => { };
+  console.log = () => { };
+  console.warn = () => { };
+  console.error = () => { };
 }
 
 root.render(
-  <ErrorBoundary>
+  // <ErrorBoundary>
     <Provider store={store}>
       <App />
     </Provider>
-  </ErrorBoundary>
+  // </ErrorBoundary>
 )

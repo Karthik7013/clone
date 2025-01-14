@@ -1,29 +1,38 @@
-import { Avatar, Box, Button, Chip, Divider, Grid, IconButton, Stack, Typography, styled } from '@mui/material'
-import React, { useCallback, useEffect, useState } from 'react'
-import MessageBox from '../../../Framework/components/MessageBox'
+import { Avatar, Box, Button, Chip, Divider, Grid, IconButton, ListItemIcon, Menu, MenuItem, Stack, styled, Link as MuiLink } from '@mui/material'
+import React, { useCallback, useEffect } from 'react'
 import { DataGrid, GridColDef, GridRowsProp, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridToolbarQuickFilter } from '@mui/x-data-grid'
 import { GroupAddRounded } from '@mui/icons-material';
 import ModeEditRoundedIcon from '@mui/icons-material/ModeEditRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEmployeesList } from '../../../redux/slice/dashboardSlice';
+import { closeAddEmployeeAlert, getEmployeesList, handleAddEmployeeModal } from '../../../redux/slice/dashboardSlice';
 import { AppDispatch, RootState } from '../../../redux/store';
 import AddEmployee from './AddEmployee';
-import { toggleAddEmployeeModal } from '../../../redux/slice/uiSlice';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import AlertBox from '../../../Framework/components/AlertBox';
 
 const EmployeeTable = () => {
+    const alert = useSelector((state: RootState) => state.dashboard.create_new_employee.alert)
     const dispatch: AppDispatch = useDispatch();
     const loading = useSelector((state: RootState) => state.dashboard.employeesList.loading);
-    const addEmployeeModalOpen = useSelector((state: RootState) => state.ui.addEmployeeModal);
-    const handleAddEmployeeModal = useCallback(() => dispatch(toggleAddEmployeeModal()), [addEmployeeModalOpen])
+    const addEmployeeModalOpen = useSelector((state: RootState) => state.dashboard.addEmployeeModal);
+    const toggleEmployeeModal = useCallback(() => dispatch(handleAddEmployeeModal()), [addEmployeeModalOpen])
     const employeeList: GridRowsProp = useSelector((state: RootState) => state.dashboard.employeesList.data);
 
     useEffect(() => {
         if (employeeList.length === 0 && !loading)
             dispatch(getEmployeesList())
     }, [dispatch, loading, employeeList])
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
 
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
 
 
@@ -34,7 +43,7 @@ const EmployeeTable = () => {
             renderCell: (params) => (
                 <Stack gap={2} alignItems={'center'} direction='row'>
                     <Avatar src={`https://avatar.iran.liara.run/username?username=${params.value[0]}`}>{params.value[0]}</Avatar>
-                    <Link to={`profile/${params.row.employee_id}`}>{params.value}</Link>
+                    <MuiLink component={Link} to={`profile/${params.row.employee_id}`}>{params.value}</MuiLink>
                 </Stack>
             )
         },
@@ -48,16 +57,42 @@ const EmployeeTable = () => {
         { field: 'pincode', headerName: 'Pincode', width: 150 },
         { field: 'country', headerName: 'Country', width: 150 },
         { field: 'department', headerName: 'Department', width: 150 },
-        { field: 'designation', headerName: 'Designation', width: 150 },
+        { field: 'role_name', headerName: 'Designation', width: 150 },
         { field: 'salary', headerName: 'Salary', width: 150 },
-        { field: 'status', headerName: 'Status', width: 150, renderCell: (params) => <Chip variant='filled' label={params.value} clickable /> },
-        { field: 'joinedate', headerName: 'Join Date', width: 150 },
+        { field: 'status', headerName: 'Status', width: 150, renderCell: (params) => <Chip color={params.value === 'Active' ? 'success' : 'error'} variant='filled' label={params.value} clickable /> },
+        { field: 'joinedate', headerName: 'Join Date', width: 150, renderCell: (param) => param.value.split('T')[0] },
         {
             field: 'co10', headerName: 'Actions', width: 150, renderCell: (params) => {
-                return <Stack direction={'row'}>
-                    <IconButton><ModeEditRoundedIcon color='info' /></IconButton>
-                    <IconButton><DeleteOutlineRoundedIcon color='error' /></IconButton>
-                </Stack>
+                return <>
+                    <IconButton
+                        id="basic-button"
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}
+                    >
+                        <MoreVertIcon />
+                    </IconButton>
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        sx={{ padding: 0 }}
+                        onClose={handleClose}
+                        MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                        }}
+                    >
+                        <MenuItem dense onClick={handleClose}>
+
+                            <ModeEditRoundedIcon sx={{ mr: 1 }} fontSize="small" />
+                            Edit</MenuItem>
+                        <MenuItem dense onClick={handleClose} color='error'>
+
+                            <DeleteOutlineRoundedIcon sx={{ mr: 1 }} color='inherit' fontSize="small" />
+                            Delete</MenuItem>
+                    </Menu>
+                </>
             }
         }
     ];
@@ -118,7 +153,7 @@ const EmployeeTable = () => {
                         <GridToolbarQuickFilter />
                     </Box>
                     <Box>
-                        <Button size='small' onClick={handleAddEmployeeModal} startIcon={<GroupAddRounded />}>New Employee</Button>
+                        <Button size='small' onClick={toggleEmployeeModal} startIcon={<GroupAddRounded />}>New Employee</Button>
                         <GridToolbarFilterButton />
                         <GridToolbarDensitySelector />
                         <GridToolbarExport />
@@ -130,6 +165,7 @@ const EmployeeTable = () => {
         );
     }
 
+    const handleCloseAlert = () => dispatch(closeAddEmployeeAlert());
 
     return (
         <Grid container>
@@ -146,8 +182,9 @@ const EmployeeTable = () => {
                         rows={employeeList} columns={columns} checkboxSelection
                         disableRowSelectionOnClick />
                 </Box>
-                <AddEmployee open={addEmployeeModalOpen} handleClose={handleAddEmployeeModal} />
+                <AddEmployee open={addEmployeeModalOpen} handleClose={toggleEmployeeModal} />
             </Grid>
+            <AlertBox alert={alert} onClose={handleCloseAlert} />
         </Grid>
     )
 }

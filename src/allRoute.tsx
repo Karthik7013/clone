@@ -9,7 +9,7 @@ import Home from "./Home";
 import Footer from "./Framework/components/Footer";
 
 //============ VEHICLE COMPONENTS IMPORTS ==============>
-import { VehicleHome } from './vehicle/pages/index'
+import { VehicleHome, VehiclePayment, VehicleProposal, VehicleQuotes } from './vehicle/pages/index'
 
 //============ LOAN COMPONENTS IMPORTS ==============>
 import { LoanLandingPage, LoanPaymentPage, LoanQuotesPage, FailedPage, ThankYouPage } from "./loan/pages/index"
@@ -19,11 +19,6 @@ import { TravelHome, TravelPayment } from "./travel/pages/index"
 
 //============ HEALTH COMPONENTS IMPORTS ==============>
 import { HealthHome, HealthPayment, HealthProposal } from "./health/pages/index"
-
-//============ DASHBOARD COMPONENTS IMPORTS ==============>
-
-
-//============ REDUX IMPORTS ==============>
 
 import { customerRoutes } from "./crm/customer/routes/customer.routes";
 import { pospRoutes } from "./crm/posp/routes/posp.routes";
@@ -150,16 +145,45 @@ export const allRouter = () => {
                     children: [
                         {
                             path: 'car',
-                            element: <VehicleHome />,
-
+                            element: <Outlet />,
+                            children: [
+                                {
+                                    index: true,
+                                    element: <VehicleHome />
+                                },
+                                {
+                                    path: 'helow',
+                                    element: <>next</>
+                                }
+                            ]
                         },
                         {
                             path: 'bike',
-                            element: <VehicleHome />
+                            element: <Outlet />,
+                            children: [
+                                {
+                                    index: true,
+                                    element: <VehicleHome />
+                                },
+                                {
+                                    path: 'helow',
+                                    element: <>next</>
+                                }
+                            ]
                         },
                         {
                             path: 'commercial',
-                            element: <VehicleHome />
+                            element: <Outlet />,
+                            children: [
+                                {
+                                    index: true,
+                                    element: <VehicleHome />
+                                },
+                                {
+                                    path: 'helow',
+                                    element: <>next</>
+                                }
+                            ]
                         }
                     ]
                 }

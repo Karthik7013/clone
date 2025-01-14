@@ -15,8 +15,7 @@ type uiProps = {
     isMobile: boolean,
     isDesktop: boolean,
     productsCompare: Number[],
-    otpModal: boolean,
-    addEmployeeModal: boolean
+    otpModal: boolean
 }
 
 export type { uiProps, alertProps }

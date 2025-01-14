@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomerResources, EmployeeResources } from "../../service/api";
 import { alertProps } from "../../types/UiProps/uiProps";
 import { AxiosError } from "axios";
+import { boolean } from "yup";
 interface ErrorResponse {
     status?: number;
     message: string;
@@ -68,6 +69,12 @@ type dashboardProps = {
         alert: alertProps
     },
     employee_permissions: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
+    },
+    addEmployeeModal: boolean,
+    create_new_employee: {
         loading: boolean,
         data: any,
         alert: alertProps
@@ -184,6 +191,16 @@ const initialState: dashboardProps = {
             type: undefined,
             state: false
         }
+    },
+    addEmployeeModal: false,
+    create_new_employee: {
+        loading: false,
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        },
+        data: null
     }
 }
 
@@ -370,6 +387,22 @@ export const getEmployeePermissions = createAsyncThunk('employee/permissions', a
     }
 })
 
+export const createNewEmployee = createAsyncThunk('employee/create-employee', async (payload: any, { rejectWithValue }) => {
+    try {
+        console.log(payload, 'reducer...add')
+        const res = await EmployeeResources.post('/create-new-employee', payload);
+        return { status: res.status, data: res.data.data };
+    } catch (error) {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
+    }
+})
+
 
 
 
@@ -394,6 +427,16 @@ const dashboardSlice = createSlice({
                 type: undefined,
                 message: '',
                 state: false
+            }
+        },
+        handleAddEmployeeModal: (state) => {
+            state.addEmployeeModal = !state.addEmployeeModal
+        },
+        closeAddEmployeeAlert: (state) => {
+            state.create_new_employee.alert = {
+                message: "",
+                state: false,
+                type: undefined
             }
         }
     },
@@ -516,7 +559,28 @@ const dashboardSlice = createSlice({
             state.employee_permissions.loading = false;
             state.employee_permissions.data = action.payload?.data
         })
+        builder.addCase(createNewEmployee.pending, (state) => {
+            state.create_new_employee.loading = true
+        }).addCase(createNewEmployee.rejected, (state, action) => {
+            console.log(action.payload, 'failed-payload')
+            state.create_new_employee.loading = false;
+            state.create_new_employee.alert = {
+                message: 'Failed to create Employee',
+                state: true,
+                type: 'error'
+            }
+        }).addCase(createNewEmployee.fulfilled, (state, action) => {
+            console.log(action.payload, 'success-payload')
+            state.create_new_employee.loading = false;
+            state.create_new_employee.data = action.payload?.data,
+                state.create_new_employee.alert = {
+                    message: 'Employee created',
+                    state: true,
+                    type: 'success'
+                };
+            state.addEmployeeModal = false
+        })
     }
 })
-export const { closeAlert } = dashboardSlice.actions;
+export const { closeAlert, closeAddEmployeeAlert, handleAddEmployeeModal } = dashboardSlice.actions;
 export default dashboardSlice.reducer

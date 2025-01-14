@@ -5,12 +5,12 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { Avatar, Card, CardMedia, ListItemIcon, ListItemText, Stack, } from '@mui/material';
+import { Avatar, CardMedia, ListItemIcon, ListItemText, Stack, } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LogoutRoundedIcon from '@mui/icons-material/Logout';
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toggleTheme } from '../../redux/slice/uiSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +21,6 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import ProductPannel from './ProductPannel';
@@ -51,9 +50,7 @@ const Header = () => {
     };
 
     // function for toggle theme
-    const toggleMode = () => {
-        dispatch(toggleTheme())
-    }
+    const toggleMode = () => dispatch(toggleTheme())
 
     const handleOnclick = () => dispatch(logout({})) // logout 
 
@@ -86,9 +83,9 @@ const Header = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
                         <ProductPannel />
-                            <Button sx={{ color: 'white', display: 'block' }}>
-                                Claims
-                            </Button>
+                        <Button sx={{ color: 'white', display: 'block' }}>
+                            Claims
+                        </Button>
                         <Button startIcon={<CallRoundedIcon />} sx={{ color: 'white' }}>
                             Talk to Expert
                         </Button>

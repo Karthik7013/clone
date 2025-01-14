@@ -137,8 +137,8 @@ const ChatBot = () => {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <IconButton disableFocusRipple type='submit' disabled={loading} color='default'>
-                                                            {loading ? <StopCircleRoundedIcon color='action' /> : <AutoAwesomeRoundedIcon />}
+                                                        <IconButton disableRipple disableTouchRipple disableFocusRipple type='submit' disabled={loading} color='default'>
+                                                            {loading ? <StopCircleRoundedIcon color='action' /> : <AutoAwesomeRoundedIcon color='warning' />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 ),

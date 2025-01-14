@@ -8,14 +8,14 @@ import ProtectedRoutes from '../../ProtectedRoute';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
-
+const drawerWidth = 260;
 const SideDrawer = () => {
     const currentPath = useLocation().pathname.split('/').splice(-1);
     const theme = useTheme();
     const loading = useSelector((state: RootState) => state.auth.loading);
     const authData = useSelector((state: RootState) => state.auth.authData);
 
-    return (<Box>
+    return (<Box maxWidth={drawerWidth}>
         <Toolbar sx={{ display: { xs: 'block', md: 'none' } }}>
             <ListItem component={Link} to="/" disablePadding sx={{ mt: 4, width: 240 - 10, display: { xs: 'flex', md: 'none' } }}>
                 <ListItemIcon>
@@ -31,7 +31,7 @@ const SideDrawer = () => {
                 {/* 
                 ---------------- customer ----------------------
                 */}
-                {/* <ProtectedRoutes role="customer" requiredPermission={1000}>
+                <ProtectedRoutes role="customer" requiredPermission={1000}>
                     <ListItem disablePadding
                         secondaryAction={
                             <Chip variant="outlined" label="new" size="small" color="primary" />
@@ -130,12 +130,12 @@ const SideDrawer = () => {
                             <ListItemText primary={<Typography variant='body2' noWrap>{'Help'}</Typography>} />
                         </ListItemButton>
                     </ListItem>
-                </ProtectedRoutes> */}
+                </ProtectedRoutes>
 
                 {/* 
                 --------------------- agent ------------------
                  */}
-                {/* <ProtectedRoutes role='agent' requiredPermission={2000}>
+                <ProtectedRoutes role='agent' requiredPermission={2000}>
                     <ListItem disablePadding
                         secondaryAction={
                             <Chip label="new" size="small" color="success" />
@@ -243,7 +243,7 @@ const SideDrawer = () => {
                             <ListItemText primary={<Typography variant='body2' noWrap>{'Study Material'}</Typography>} />
                         </ListItemButton>
                     </ListItem>
-                </ProtectedRoutes> */}
+                </ProtectedRoutes>
                 {/* 
                 --------------- employee ------------------------------
                  */}
@@ -391,8 +391,10 @@ const SideDrawer = () => {
             <Card>
                 <CardContent>
                     <Stack direction='row' alignItems='center'>
-                        <ListItemIcon><AutoAwesomeRoundedIcon color='warning' fontSize='small' /></ListItemIcon>
-                        <ListItemText primary={<Typography fontFamily={600} variant='subtitle2' component="h1">Trail ends in 6 days !</Typography>} />
+                        <ListItemIcon>
+                            <AutoAwesomeRoundedIcon color='warning' fontSize='small' />
+                        </ListItemIcon>
+                        <ListItemText primary={<Typography fontWeight={600} variant='subtitle2' component="h1">Trail ends in 6 days !</Typography>} />
                     </Stack>
                     <Box mb={1}>
                         <Typography variant='caption' fontSize='12px'>You are on a free premium trail plain on monthly billing</Typography>
@@ -419,18 +421,3 @@ const SideDrawer = () => {
     )
 }
 export default React.memo(SideDrawer);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

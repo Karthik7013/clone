@@ -1,19 +1,15 @@
-import { Box, Card, CardContent, CardMedia, CircularProgress, Stack, Typography } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
+import { Box, Card, CardContent, CardMedia, CircularProgress, Stack, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import * as React from 'react';
-
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { RootProps } from '../../../types/RootProps';
+import { AppDispatch, RootProps } from '../../../redux/store';
 import { loginEmployee } from '../../../redux/slice/authSlice';
-// import LoadingModal from '../../../Framework/components/LoadingModal';
-import loginPanel from "/login-panel.svg"
+import { useForm, Controller } from 'react-hook-form'; // import react-hook-form
+import loginPanel from "/login-panel.svg";
 import logo from "/logo.jpg";
-import { AppDispatch, RootState } from '../../../redux/store';
-
 
 function Copyright(props: any) {
     return (
@@ -28,98 +24,122 @@ function Copyright(props: any) {
     );
 }
 
-
 const EmployeeLogin = () => {
     const dispatch: AppDispatch = useDispatch();
     const isLoading = useSelector((state: RootProps) => state.auth.loading);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = { phone: 7013140699 }
-        dispatch(loginEmployee(data));
-    }
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        defaultValues: {
+            mobile: '',
+            otp: '',
+        },
+    });
+
+    const onSubmit = (data: any) => {
+        const { mobile } = data;
+        dispatch(loginEmployee({ phone: mobile }));
+    };
+
     return (
         <Box>
-
-            {/* <AlertBox alert={alert} onClose={handleCloseAlert} /> */}
-            <Grid container component="main" sx={{ height: '100vh' }}>
+            <Grid container component="main" sx={{ height: "100dvh" }}>
                 <Grid
+                    component={Stack}
                     item
+                    alignItems='center'
                     xs={false}
-
                     lg={7}
-                    sx={{
-                        backgroundImage: `url(${loginPanel})`,
-                        backgroundSize: 'contain',
-                        backgroundPosition: 'left',
-                        backgroundRepeat: 'no-repeat'
-                    }}
-                />
-                <Grid item xs={12} lg={5} component={Stack} justifyContent={'center'}>
+                    sx={{ padding: 16 }}>
+                    <CardMedia component='img' src={loginPanel} alt="alt" />
+                </Grid>
+                <Grid item xs={12} lg={5} component={Stack} alignItems='center' justifyContent={'center'}>
                     <Box
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            px: 5
+                            px: 5,
                         }}
                     >
-                        <Card>
-                            <CardContent component={Stack} alignItems='center' my={10}>
+                        <Card elevation={10}>
+                            <CardContent component={Stack} alignItems="center" my={5}>
                                 <Card elevation={0}>
-                                    <CardMedia
-                                        component="img"
-                                        height={60}
-                                        image={logo}
-                                        alt="company logo"
-                                    />
+                                    <CardMedia component="img" height={60} image={logo} alt="company logo" />
                                 </Card>
                                 <Typography component="h1" variant="h5">
                                     Employee Sign in
                                 </Typography>
-                                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                                    <TextField
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="mobile"
-                                        label="Mobile Number"
+                                <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3, px: 5 }}>
+                                    <Controller
                                         name="mobile"
-                                        autoComplete="mobile"
-                                        autoFocus
+                                        control={control}
+                                        rules={{
+                                            required: 'Mobile number is required',
+                                            pattern: {
+                                                value: /^[0-9]{10}$/,
+                                                message: 'Invalid phone number',
+                                            },
+                                        }}
+                                        render={({ field }) => (
+                                            <TextField
+                                                {...field}
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                id="mobile"
+                                                label="Mobile Number"
+                                                name="mobile"
+                                                autoComplete="mobile"
+                                                autoFocus
+                                                error={!!errors.mobile}
+                                                helperText={errors.mobile?.message}
+                                            />
+                                        )}
                                     />
-                                    <TextField
-                                        disabled
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="otp"
-
+                                    <Controller
                                         name="otp"
-                                        autoComplete="otp"
-                                        autoFocus
-                                        type="password" label="Enter OTP" />
-
+                                        control={control}
+                                        rules={{
+                                            required: 'OTP is required',
+                                        }}
+                                        render={({ field }) => (
+                                            <TextField
+                                                {...field}
+                                                // disabled
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                id="otp"
+                                                name="otp"
+                                                autoComplete="otp"
+                                                autoFocus
+                                                type="password"
+                                                label="Enter OTP"
+                                                error={!!errors.otp}
+                                                helperText={errors.otp?.message}
+                                            />
+                                        )}
+                                    />
 
                                     <Button
-
                                         disabled={isLoading}
-                                        type='submit'
+                                        type="submit"
                                         fullWidth
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
                                     >
-                                        {isLoading ? <CircularProgress size={24} /> : "Login"}
+                                        {isLoading ? <CircularProgress size={24} /> : 'Login'}
                                     </Button>
                                     <Grid container>
                                         <Grid item xs>
-                                            <Link to="#">
-                                                Forgot password?
-                                            </Link>
+                                            <Link to="#">Forgot password?</Link>
                                         </Grid>
                                     </Grid>
-                                    {/* <LoadingModal /> */}
                                     <Copyright sx={{ mt: 5 }} />
                                 </Box>
                             </CardContent>
@@ -127,14 +147,8 @@ const EmployeeLogin = () => {
                     </Box>
                 </Grid>
             </Grid>
-        </Box>
-    )
-}
+        </Box >
+    );
+};
 
-export default EmployeeLogin
-
-
-
-
-
-
+export default EmployeeLogin;

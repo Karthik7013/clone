@@ -424,6 +424,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const dispatch: AppDispatch = useDispatch();
     const profile = useSelector((state: RootState) => state.auth.authData);
+    console.log(profile, 'profile')
     const dark = useSelector((state: RootState) => state.ui.dark);
     const mobileOpen: boolean = useSelector((state: RootState) => state.ui.isMobile);
     const role = useSelector((state: RootState) => state.auth.role);
@@ -547,25 +548,25 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                     />
                 </Box>
 
-                <Stack direction="row" alignItems='center' gap={2}>
-                    <Chip sx={{ display: { xs: 'none', md: 'block' } }} color="primary" size="small" icon={<LocationOnRoundedIcon sx={{ color: 'inherit' }} />} label={profile?.city} />
+                <Stack direction="row" gap={2} alignItems='center'>
+                    <Chip sx={{ display: { xs: 'none', md: 'flex' } }} color="primary" size="small" icon={<LocationOnRoundedIcon fontSize="inherit" />} label={profile?.city} />
                     <Stack direction={'row'} sx={{ display: { xs: 'none', md: 'block' } }}>
                         <Tooltip title={dark ? "light" : "dark"}>
                             <IconButton color="default" sx={{ mr: 2 }} onClick={handleTheme}>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
                         </Tooltip>
-                        <IconButton>
+                        <IconButton sx={{ mr: 2 }}>
                             <Badge badgeContent={3} variant="dot">
-                                <NotificationsRoundedIcon />
+                                <NotificationsRoundedIcon color="inherit" />
                             </Badge>
                         </IconButton>
                         <Button size="small" color="error" endIcon={<LogoutRoundedIcon fontSize="inherit" />} variant="outlined" onClick={handleOnclick}>Logout</Button>
 
                     </Stack>
                     {
-                        profile ? <>
+                        profile ?
                             <Tooltip
                                 sx={{ maxWidth: '100%' }}
-                                title=""
+                                title="check"
                             >
                                 <IconButton
 
@@ -581,10 +582,9 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                                     </Avatar>
                                 </IconButton>
                             </Tooltip>
-                        </> :
-                            <>
-                                <Skeleton sx={{ borderRadius: 999 }} variant="circular" width={42} height={42}></Skeleton>
-                            </>
+                            :
+                            <Skeleton sx={{ borderRadius: 999 }} variant="circular" width={42} height={42} />
+
                     }
                 </Stack>
             </Toolbar>
@@ -594,9 +594,6 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                 open={mobileOpen}
                 variant="temporary"
                 onClose={handleDrawerClose}
-                sx={{
-                    width: drawerWidth,
-                }}
             >
                 {crmLayoutProps.sideBar}
             </Drawer>

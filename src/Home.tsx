@@ -111,7 +111,7 @@ const Home = () => {
     return <Box>
         <Container maxWidth='lg'>
             <Grid container spacing={2} mt={1} flexGrow={1}>
-                <Grid item xs={12} mb={5}>
+                <Grid item xs={12} my={5}>
                     <Stack direction={'row'} justifyContent={'space-between'}>
                         <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                             <Typography variant="h4">Lets Find Your</Typography>
@@ -198,15 +198,49 @@ const Home = () => {
                         </Grid>
                     })
                 }
+                {
+                    products.map((nav: navProps, _: number) => {
+                        return <Grid key={_} item xs={4} sm={3} md={3} lg={2}>
+                            <MuiLink component={Link} to={nav.path}>
+                                <CardActionArea>
+                                    <CardContent component={Card}>
+                                        <Stack alignItems={'center'}>
+                                            <Avatar src={nav.imgUrl} sx={{ width: "28px", height: "28px", objectFit: 'cover' }} variant="square" />
+                                            <Typography variant="caption">{nav.name}</Typography>
+                                        </Stack>
+
+                                    </CardContent>
+                                </CardActionArea>
+                            </MuiLink>
+                        </Grid>
+                    })
+                }
+                {
+                    products.map((nav: navProps, _: number) => {
+                        return <Grid key={_} item xs={4} sm={3} md={3} lg={2}>
+                            <MuiLink component={Link} to={nav.path}>
+                                <CardActionArea>
+                                    <CardContent component={Card}>
+                                        <Stack alignItems={'center'}>
+                                            <Avatar src={nav.imgUrl} sx={{ width: "28px", height: "28px", objectFit: 'cover' }} variant="square" />
+                                            <Typography variant="caption">{nav.name}</Typography>
+                                        </Stack>
+
+                                    </CardContent>
+                                </CardActionArea>
+                            </MuiLink>
+                        </Grid>
+                    })
+                }
                 <Grid item xs={12}>
                     <Box minWidth={'100%'} display={'flex'} justifyContent={'center'}>
                         <Chip variant="outlined" label="Explore more" size="small" />
                     </Box>
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={12} my={5}>
                     <Box>
-                        <Typography variant="h4" textAlign='center' fontWeight={600}>Our Products</Typography></Box>
+                        <Typography gutterBottom variant="h4" textAlign='center' fontWeight={600}>Our Products</Typography></Box>
                     <Stack sx={{ flexDirection: { md: 'row' }, width: '100%', gap: 5 }}>
                         <Box flexGrow={1} display={'flex'} flexDirection={'column'} justifyContent={'center'} maxWidth={600}>
                             <Typography variant="h4" gutterBottom>

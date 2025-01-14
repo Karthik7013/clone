@@ -1,9 +1,8 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormHelperText, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
-import { ProductSummary } from "../../../Framework/components";
 import { useForm, Controller } from "react-hook-form";
 import { useEffect } from "react";
-import { getEmployeeRoles } from "../../../redux/slice/dashboardSlice";
+import { createNewEmployee, getEmployeeRoles } from "../../../redux/slice/dashboardSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../redux/store";
 
@@ -34,13 +33,14 @@ type addEmployeeProps = {
 }
 
 const AddEmployee = (props: addEmployeeProps) => {
+    const loading = useSelector((state: RootState) => state.dashboard.create_new_employee.loading);
+
     const empRoles = useSelector((state: RootState) => state.dashboard.employee_roles.data);
     const dispatch: AppDispatch = useDispatch();
     const { handleSubmit, control, formState: { errors }, watch } = useForm<FormData>();
     const department = watch('department');
     const onSubmit = (data: FormData) => {
-        console.log(data);
-        dispatch()
+        dispatch(createNewEmployee(data));
     };
 
     useEffect(() => {
@@ -244,7 +244,7 @@ const AddEmployee = (props: addEmployeeProps) => {
                     Cancel
                 </Button>
                 <Box flex={1} />
-                <Button variant="contained" type="submit" autoFocus>
+                <Button disabled={loading} variant="contained" type="submit" autoFocus>
                     Save changes
                 </Button>
             </DialogActions>

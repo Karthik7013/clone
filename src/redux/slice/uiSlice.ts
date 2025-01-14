@@ -15,7 +15,6 @@ const initialState: uiProps = {
     isDesktop: true,
     productsCompare: [0],
     otpModal: false,
-    addEmployeeModal: false
 }
 
 const uiSlice = createSlice({
@@ -60,9 +59,6 @@ const uiSlice = createSlice({
         },
         handleEmptyCompare: (state) => {
             state.productsCompare = []
-        },
-        toggleAddEmployeeModal: (state) => {
-            state.addEmployeeModal = !state.addEmployeeModal
         }
     }
 })
