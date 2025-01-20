@@ -50,51 +50,17 @@ const EmployeeTable = () => {
         { field: 'phone', headerName: 'Contact', width: 150 },
         { field: 'email', headerName: 'Email', width: 150 },
         { field: 'gender', headerName: 'Gender', width: 150 },
-        { field: 'dob', headerName: 'Date of Birth', width: 150 },
+        { field: 'dob', headerName: 'Date of Birth', width: 150, renderCell: (param) => param.value.split('T')[0] },
         { field: 'address', headerName: 'Address', width: 150 },
         { field: 'state', headerName: 'State', width: 150 },
         { field: 'city', headerName: 'City', width: 150 },
         { field: 'pincode', headerName: 'Pincode', width: 150 },
         { field: 'country', headerName: 'Country', width: 150 },
         { field: 'department', headerName: 'Department', width: 150 },
-        { field: 'role_name', headerName: 'Designation', width: 150 },
-        { field: 'salary', headerName: 'Salary', width: 150 },
-        { field: 'status', headerName: 'Status', width: 150, renderCell: (params) => <Chip color={params.value === 'Active' ? 'success' : 'error'} variant='filled' label={params.value} clickable /> },
+        { field: 'role_name', headerName: 'Designation', width: 150, renderCell: (params) => <Chip size='small' label={params.value} /> },
+        { field: 'salary', headerName: 'Salary (INR)', width: 150 },
+        { field: 'status', headerName: 'Status', width: 150, renderCell: (params) => <Chip size='small' color={params.value === 'Active' ? 'success' : 'error'} variant='outlined' label={params.value} clickable /> },
         { field: 'joinedate', headerName: 'Join Date', width: 150, renderCell: (param) => param.value.split('T')[0] },
-        {
-            field: 'co10', headerName: 'Actions', width: 150, renderCell: (params) => {
-                return <>
-                    <IconButton
-                        id="basic-button"
-                        aria-controls={open ? 'basic-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                        onClick={handleClick}
-                    >
-                        <MoreVertIcon />
-                    </IconButton>
-                    <Menu
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        sx={{ padding: 0 }}
-                        onClose={handleClose}
-                        MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                        }}
-                    >
-                        <MenuItem dense onClick={handleClose}>
-
-                            <ModeEditRoundedIcon sx={{ mr: 1 }} fontSize="small" />
-                            Edit</MenuItem>
-                        <MenuItem dense onClick={handleClose} color='error'>
-
-                            <DeleteOutlineRoundedIcon sx={{ mr: 1 }} color='inherit' fontSize="small" />
-                            Delete</MenuItem>
-                    </Menu>
-                </>
-            }
-        }
     ];
 
 

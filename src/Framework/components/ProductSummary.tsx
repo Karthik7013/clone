@@ -39,11 +39,11 @@ const ProductSummary = () => {
 
     return <Box sx={{ pt: 2 }} component='form'>
         <Card>
-            <ListItem secondaryAction={<TextField placeholder="Search" size="small"  />}>
+            <ListItem secondaryAction={<TextField placeholder="Search" size="small" />}>
                 <ListItemText primary={<Typography variant="subtitle2">Employee Permissions</Typography>} secondary={<Typography variant="caption" color='text.secondary'>Add or Manage your Employee Permissions</Typography>} />
             </ListItem>
             <Divider />
-            <List disablePadding dense sx={{maxHeight:500,overflow:'auto'}}>
+            <List disablePadding dense sx={{ maxHeight: 500, overflow: 'auto' }}>
                 {loadingPermissions && <LinearProgress />}
                 {
                     permissions.map((permission) => {
@@ -64,212 +64,198 @@ const ProductSummary = () => {
 
 
 
-            </Card>
-            </Box>}
-            // <Box component={Card}>
-            //     <Grid container columnSpacing={2} rowGap={0} component={CardContent}>
-            //         <Grid item xs={12}>
-            //             <Typography variant="h6">Create Role</Typography>
-            //         </Grid>
-            //         <Grid item xs={12} md={3}>
-            //             <Controller
-            //                 name="role_name"
-            //                 control={control}
-            //                 defaultValue=""
-            //                 rules={{ required: 'Role Name is required' }}
-            //                 render={({ field }) => (
-            //                     <TextField
-            //                         {...field}
-            //                         label="Role Name"
-            //                         variant="outlined"
-            //                         fullWidth
-            //                         margin="normal"
-            //                         error={!!errors.role_name}
-            //                         helperText={errors.role_name ? errors.role_name.message : ''}
-            //                     />
-            //                 )}
-            //             />
-            //         </Grid>
-            //         <Grid item xs={12} md={3}>
-            //             <Controller
-            //                 name="department"
-            //                 control={control}
-            //                 defaultValue=""
-            //                 rules={{ required: 'Department is required' }}
-            //                 render={({ field }) => (
-            //                     <TextField
-            //                         {...field}
-            //                         label="Department"
-            //                         variant="outlined"
-            //                         fullWidth
-            //                         margin="normal"
-            //                         error={!!errors.department}
-            //                         helperText={errors.department ? errors.department.message : ''}
-            //                     />
-            //                 )}
-            //             />
-            //         </Grid>
-            //         <Grid item xs={12} md={3}>
-            //             <Controller
-            //                 name="level"
-            //                 control={control}
-            //                 defaultValue={0}  // Set default number value
-            //                 rules={{
-            //                     required: 'Level is required',
+        </Card>
+        <Grid container rowSpacing={2} columnSpacing={2}>
+            <Grid item xs={12} >
 
-            //                 }}
-            //                 render={({ field }) => (
-            //                     <TextField
-            //                         {...field}
-            //                         label="Level"
-            //                         variant="outlined"
-            //                         fullWidth
-            //                         margin="normal"
-            //                         type="number"
-            //                         error={!!errors.level}
-            //                         helperText={errors.level ? errors.level.message : ''}
-            //                     />
-            //                 )}
-            //             />
-            //         </Grid>
-            //         <Grid item xs={12} >
-            //             <Controller
-            //                 name="role_description"
-            //                 control={control}
-            //                 defaultValue=""
-            //                 rules={{ required: 'Description is required' }}
-            //                 render={({ field }) => (
-            //                     <TextField
-            //                         multiline
-            //                         maxRows={10}
-            //                         minRows={4}
-            //                         {...field}
-            //                         label="Description"
-            //                         variant="outlined"
-            //                         fullWidth
-            //                         margin="normal"
-            //                         error={!!errors.role_description}
-            //                         helperText={errors.role_description ? errors.role_description.message : ''}
-            //                     />
-            //                 )}
-            //             />
-            //         </Grid>
+                <Box component={Card}>
+                    <Grid container columnSpacing={2} rowGap={0} component={CardContent}>
+                        <Grid item xs={12}>
+                            <Typography variant="h6">Create Role</Typography>
+                        </Grid>
+                        <Grid item xs={12} md={3}>
+                            <Controller
+                                name="role_name"
+                                control={control}
+                                defaultValue=""
+                                rules={{ required: 'Role Name is required' }}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label="Role Name"
+                                        variant="outlined"
+                                        fullWidth
+                                        margin="normal"
+                                        error={!!errors.role_name}
+                                        helperText={errors.role_name ? errors.role_name.message : ''}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={3}>
+                            <Controller
+                                name="department"
+                                control={control}
+                                defaultValue=""
+                                rules={{ required: 'Department is required' }}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label="Department"
+                                        variant="outlined"
+                                        fullWidth
+                                        margin="normal"
+                                        error={!!errors.department}
+                                        helperText={errors.department ? errors.department.message : ''}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={3}>
+                            <Controller
+                                name="level"
+                                control={control}
+                                defaultValue={0}  // Set default number value
+                                rules={{
+                                    required: 'Level is required',
 
-
-            //         <Grid item xs={12}>
-            //             <Button
-            //                 variant="contained"
-            //                 color="primary"
-            //                 onClick={handleSubmit(onSubmit)}
-            //                 fullWidth
-            //                 sx={{ marginTop: 2 }}
-            //             >
-            //                 Create Role
-            //             </Button>
-            //         </Grid>
-            //     </Grid>
+                                }}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label="Level"
+                                        variant="outlined"
+                                        fullWidth
+                                        margin="normal"
+                                        type="number"
+                                        error={!!errors.level}
+                                        helperText={errors.level ? errors.level.message : ''}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item xs={12} >
+                            <Controller
+                                name="role_description"
+                                control={control}
+                                defaultValue=""
+                                rules={{ required: 'Description is required' }}
+                                render={({ field }) => (
+                                    <TextField
+                                        multiline
+                                        maxRows={10}
+                                        minRows={4}
+                                        {...field}
+                                        label="Description"
+                                        variant="outlined"
+                                        fullWidth
+                                        margin="normal"
+                                        error={!!errors.role_description}
+                                        helperText={errors.role_description ? errors.role_description.message : ''}
+                                    />
+                                )}
+                            />
+                        </Grid>
 
 
+                        <Grid item xs={12}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleSubmit(onSubmit)}
+                                fullWidth
+                                sx={{ marginTop: 2 }}
+                            >
+                                Create Role
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Grid>
+            <Grid item xs={12}>
+
+                <Box component={Card}>
+                    <Grid container columnSpacing={2} rowGap={0} component={CardContent}>
+                        <Grid item xs={12}>
+                            <Typography variant="h6">Create Permission</Typography>
+                        </Grid>
+                        <Grid item xs={12} md={3}>
+                            {/* <Controller
+                            name="role_name"
+                            control={control}
+                            defaultValue=""
+                            rules={{ required: 'Role Name is required' }}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    label="Role Name"
+                                    variant="outlined"
+                                    fullWidth
+                                    margin="normal"
+                                    error={!!errors.role_name}
+                                    helperText={errors.role_name ? errors.role_name.message : ''}
+                                />
+                            )}
+                        /> */}
+                            <TextField
+                                label="Permission Name"
+                                variant="outlined"
+                                fullWidth
+                                margin="normal"
+                            />
+                        </Grid>
 
 
+                        <Grid item xs={12} >
+                            {/* <Controller
+                            name="role_description"
+                            control={control}
+                            defaultValue=""
+                            rules={{ required: 'Description is required' }}
+                            render={({ field }) => (
+                                <TextField
+                                    multiline
+                                    maxRows={10}
+                                    minRows={4}
+                                    {...field}
+                                    label="Description"
+                                    variant="outlined"
+                                    fullWidth
+                                    margin="normal"
+                                    error={!!errors.role_description}
+                                    helperText={errors.role_description ? errors.role_description.message : ''}
+                                />
+                            )}
+                        /> */}
+                            <TextField
+                                multiline
+                                maxRows={10}
+                                minRows={4}
+                                label="Description"
+                                variant="outlined"
+                                fullWidth
+                                margin="normal"
+                            />
+                        </Grid>
 
 
+                        <Grid item xs={12}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                fullWidth
+                                sx={{ marginTop: 2 }}
+                            >
+                                Create Permission
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Grid>
+        </Grid>
+    </Box>
+}
 
 
-
-
-
-
-            // </Box>
-            // <Box component={Card}>
-            //     <Grid container columnSpacing={2} rowGap={0} component={CardContent}>
-            //         <Grid item xs={12}>
-            //             <Typography variant="h6">Create Permission</Typography>
-            //         </Grid>
-            //         <Grid item xs={12} md={3}>
-            //             {/* <Controller
-            //                 name="role_name"
-            //                 control={control}
-            //                 defaultValue=""
-            //                 rules={{ required: 'Role Name is required' }}
-            //                 render={({ field }) => (
-            //                     <TextField
-            //                         {...field}
-            //                         label="Role Name"
-            //                         variant="outlined"
-            //                         fullWidth
-            //                         margin="normal"
-            //                         error={!!errors.role_name}
-            //                         helperText={errors.role_name ? errors.role_name.message : ''}
-            //                     />
-            //                 )}
-            //             /> */}
-            //             <TextField
-            //                 label="Permission Name"
-            //                 variant="outlined"
-            //                 fullWidth
-            //                 margin="normal"
-            //             />
-            //         </Grid>
-
-
-            //         <Grid item xs={12} >
-            //             {/* <Controller
-            //                 name="role_description"
-            //                 control={control}
-            //                 defaultValue=""
-            //                 rules={{ required: 'Description is required' }}
-            //                 render={({ field }) => (
-            //                     <TextField
-            //                         multiline
-            //                         maxRows={10}
-            //                         minRows={4}
-            //                         {...field}
-            //                         label="Description"
-            //                         variant="outlined"
-            //                         fullWidth
-            //                         margin="normal"
-            //                         error={!!errors.role_description}
-            //                         helperText={errors.role_description ? errors.role_description.message : ''}
-            //                     />
-            //                 )}
-            //             /> */}
-            //             <TextField
-            //                 multiline
-            //                 maxRows={10}
-            //                 minRows={4}
-            //                 label="Description"
-            //                 variant="outlined"
-            //                 fullWidth
-            //                 margin="normal"
-            //             />
-            //         </Grid>
-
-
-            //         <Grid item xs={12}>
-            //             <Button
-            //                 variant="contained"
-            //                 color="primary"
-            //                 fullWidth
-            //                 sx={{ marginTop: 2 }}
-            //             >
-            //                 Create Permission
-            //             </Button>
-            //         </Grid>
-            //     </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
-            // </Box>
- 
 
 export default ProductSummary

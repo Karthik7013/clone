@@ -175,9 +175,6 @@ const theme = (customStyles: customStylesProps) => {
             },
             MuiChip: {
                 styleOverrides: {
-                    root: {
-                        borderRadius
-                    },
                     outlined: {
                         '&.MuiChip-colorPrimary': {
                             backgroundColor: alpha(theme.palette.primary.light, 0.15)

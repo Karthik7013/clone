@@ -120,7 +120,6 @@ const AgentTable = () => {
                         <GridToolbarQuickFilter />
                     </Box>
                     <Box>
-                        <Button size='small' startIcon={<GroupAddRounded />}>New Agent</Button>
                         <GridToolbarFilterButton />
                         <GridToolbarDensitySelector />
                         <GridToolbarExport />
