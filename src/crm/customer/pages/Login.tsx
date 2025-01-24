@@ -45,7 +45,7 @@ const Login = () => {
     };
 
     return (
-        <Box>
+        <Box sx={{ background: 'yellow' }}>
             <AlertBox alert={alert} onClose={closeAlertHandle} />
             <Container component="main" maxWidth="xs">
                 <Box

@@ -3,8 +3,6 @@ import { Avatar, Box, Button, Checkbox, Chip, Divider, Grid, IconButton, List, L
 
 import EmployeeTable from '../components/EmployeeTable';
 const EmployeeManagement = () => {
-
-
     return (
         <Box>
             <Box mt={3}>

@@ -80,8 +80,8 @@ const Settings = () => {
         <Divider />
 
 
-        <Grid container columnSpacing={2} rowSpacing={2} mt={1}>
-          <Grid item xs={12} lg={8}>
+        <Grid container columnSpacing={2} rowSpacing={2} mt={1} columns={16}>
+          <Grid item xs={12} lg={10}>
             <Card>
               <form onSubmit={handleSubmit(onSubmitHandler)}>
                 <List
@@ -274,7 +274,7 @@ const Settings = () => {
 
             </Card>
           </Grid>
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={12} lg={6}>
 
             <CustomerPayments />
           </Grid>

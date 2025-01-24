@@ -78,6 +78,11 @@ type dashboardProps = {
         loading: boolean,
         data: any,
         alert: alertProps
+    },
+    create_permission: {
+        loading: boolean,
+        alert: alertProps,
+        data: any
     }
 }
 
@@ -201,6 +206,14 @@ const initialState: dashboardProps = {
             type: undefined
         },
         data: null
+    },
+    create_permission: {
+        loading: false,
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        }, data: null
     }
 }
 
@@ -404,7 +417,21 @@ export const createNewEmployee = createAsyncThunk('employee/create-employee', as
 })
 
 
-
+export const createPermission = createAsyncThunk('employee/create-permission', async (payload: any, { rejectWithValue }) => {
+    try {
+        console.log(payload, 'reducer...add')
+        const res = await EmployeeResources.post('/create-permission', payload);
+        return { status: res.status, data: res.data.data };
+    } catch (error) {
+        const axiosError = error as AxiosError;
+        if (axiosError.message === 'Network Error') {
+            return rejectWithValue({ message: "Oops! Something went wrong" });
+        }
+        if (axiosError.response) {
+            return rejectWithValue({ status: axiosError.response.status, message: axiosError.response.data?.message });
+        }
+    }
+})
 
 
 
@@ -580,7 +607,29 @@ const dashboardSlice = createSlice({
                 };
             state.addEmployeeModal = false
         })
+        builder.addCase(createPermission.pending, (state) => {
+            state.create_permission.loading = true
+        }).addCase(createPermission.rejected, (state, action) => {
+            console.log(action.payload, 'failed-payload')
+            state.create_permission.loading = false;
+            state.create_permission.alert = {
+                message: 'Failed to create Permission',
+                state: true,
+                type: 'error'
+            }
+        }).addCase(createPermission.fulfilled, (state, action) => {
+            console.log(action.payload, 'success-payload')
+            state.create_permission.loading = false;
+            state.create_permission.data = action.payload?.data,
+                state.create_permission.alert = {
+                    message: 'Permission created',
+                    state: true,
+                    type: 'success'
+                };
+            state.addEmployeeModal = false
+        })
     }
 })
+
 export const { closeAlert, closeAddEmployeeAlert, handleAddEmployeeModal } = dashboardSlice.actions;
 export default dashboardSlice.reducer
