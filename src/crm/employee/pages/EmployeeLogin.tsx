@@ -1,15 +1,15 @@
 import { Box, Card, CardContent, CardMedia, CircularProgress, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootProps } from '../../../redux/store';
-import { loginEmployee } from '../../../redux/slice/authSlice';
+import { AppDispatch, RootState } from '../../../redux/store';
+import { closeAlert, loginEmployee } from '../../../redux/slice/authSlice';
 import { useForm, Controller } from 'react-hook-form'; // import react-hook-form
 import loginPanel from "/login-panel.svg";
 import logo from "/logo.jpg";
+import AlertBox from '../../../Framework/components/AlertBox';
 
 function Copyright(props: any) {
     return (
@@ -23,29 +23,34 @@ function Copyright(props: any) {
         </Typography>
     );
 }
-
+interface LoginProps {
+    mobile: string,
+    otp: string
+}
 const EmployeeLogin = () => {
     const dispatch: AppDispatch = useDispatch();
-    const isLoading = useSelector((state: RootProps) => state.auth.loading);
-
+    const isLoading = useSelector((state: RootState) => state.auth.loading);
+    const alert = useSelector((state: RootState) => state.auth.alert);
     const {
         control,
         handleSubmit,
         formState: { errors },
-    } = useForm({
+    } = useForm<LoginProps>({
         defaultValues: {
             mobile: '',
             otp: '',
         },
     });
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: LoginProps) => {
         const { mobile } = data;
         dispatch(loginEmployee({ phone: mobile }));
     };
+    const handleCloseAlert = () => dispatch(closeAlert());
 
     return (
         <Box>
+            <AlertBox variant='standard' alert={alert} onClose={handleCloseAlert} />
             <Grid container component="main" sx={{ height: "100dvh" }}>
                 <Grid
                     component={Stack}

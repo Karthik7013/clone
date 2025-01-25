@@ -120,7 +120,7 @@ const BussinessAnalytics = () => {
             <Stack direction='row' alignItems='center' mb={2}>
               <Typography gutterBottom variant="h6">Total Sales</Typography>
               <Box flexGrow={1} />
-              <Select startAdornment={<CalendarMonthRoundedIcon sx={{ mr: 1 }} fontSize="small" />} size="small" sx={{ maxWidth: 150 }} fullWidth>
+              <Select defaultValue={'weekly'} startAdornment={<CalendarMonthRoundedIcon sx={{ mr: 1 }} fontSize="small" />} size="small" sx={{ maxWidth: 150 }} fullWidth>
                 <MenuItem value="weekly">Weekly</MenuItem>
                 <MenuItem value="monthly">Monthly</MenuItem>
                 <MenuItem value="yearly">Yearly</MenuItem>

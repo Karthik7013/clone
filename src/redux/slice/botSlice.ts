@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BotResources } from "../../service/api";
+import { AxiosError } from "axios";
 
 
 
@@ -7,12 +8,45 @@ import { BotResources } from "../../service/api";
 export const makeQuery = createAsyncThunk('bot/ask', async (payload: any, { rejectWithValue }) => {
     try {
         const res = await BotResources.post('/ask', payload);
-        return { status: res.status, data: res.data.data };
-    } catch (error) {
-        if (error.message === 'Network Error') {
-            return rejectWithValue({ message: "Oops! Something went wrong" });
+        if (res.data.success) {
+            return {
+                success: res.data.success,
+                message: res.data.message,
+                status: res.data.status,
+                data: res.data.data,
+                timestamp: res.data.timestamp
+            };
         }
-        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+        return rejectWithValue({
+            success: false,
+            message: "Unexpected error occurred",
+            status: res.status,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            let errorMessage = "Something went wrong";
+            if (error.message === 'Network Error') {
+                errorMessage = "Network Error: Please check your connection";
+            } else if (error.response?.data?.message) {
+                errorMessage = error.response?.data?.message;
+            }
+            return rejectWithValue({
+                success: false,
+                message: errorMessage,
+                status: error.response?.status ?? 500,
+                data: null,
+                timestamp: new Date().toISOString(),
+            });
+        }
+        return rejectWithValue({
+            success: false,
+            message: "An unknown error occurred",
+            status: 500,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
     }
 })
 

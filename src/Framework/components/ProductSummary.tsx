@@ -29,15 +29,16 @@ const ProductSummary = () => {
         <Card>
             <ListItem secondaryAction={
                 <ButtonGroup sx={{ alignItems: 'center' }}>
-                    <Chip color="info" variant="outlined" onClick={reloadPermissions} icon={<CachedRoundedIcon fontSize="small" />} clickable sx={{ mr: 2 }} label="reload" />
+                    <Chip size="small" color="info" variant="outlined" onClick={reloadPermissions} icon={<CachedRoundedIcon fontSize="inherit" />} clickable sx={{ mr: 2 }} label="reload" />
                     <TextField placeholder="Search" size="small" />
                 </ButtonGroup>
             }>
                 <ListItemText primary={<Typography variant="subtitle2">Employee Permissions</Typography>} secondary={<Typography variant="caption" color='text.secondary'>Add or Manage your Employee Permissions</Typography>} />
             </ListItem>
+            {loadingPermissions && <LinearProgress />}
             <Divider />
             <List disablePadding dense sx={{ maxHeight: 500, overflow: 'auto' }}>
-                {loadingPermissions && <LinearProgress />}
+
                 {
                     permissions.map((permission: permissionProps) => {
                         return <ListItem divider key={permission.permission_id} secondaryAction={<Checkbox defaultChecked={myPermissions.includes(permission.permission_id)} title="read" />}>

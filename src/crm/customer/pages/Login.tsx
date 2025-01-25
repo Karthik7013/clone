@@ -14,7 +14,10 @@ import { closeAlert, loginCustomer } from '../../../redux/slice/authSlice';
 import { useForm } from "react-hook-form";
 import AlertBox from '../../../Framework/components/AlertBox';
 
-
+interface FormInput {
+    phone: string,
+    password: string
+}
 function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -33,19 +36,19 @@ const Login = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm<FormInput>();
     const dispatch: AppDispatch = useDispatch();
     const isLoading = useSelector((state: RootState) => state.auth.loading);
     const alert = useSelector((state: RootState) => state.auth.alert);
     const closeAlertHandle = () => dispatch(closeAlert());
 
-    const onSubmit = (data: { phone: number }) => {
-        const { phone } = data;
+    const onSubmit = (data: FormInput) => {
+        const { phone, password } = data;
         dispatch(loginCustomer({ phone }))
     };
 
     return (
-        <Box sx={{ background: 'yellow' }}>
+        <Box>
             <AlertBox alert={alert} onClose={closeAlertHandle} />
             <Container component="main" maxWidth="xs">
                 <Box

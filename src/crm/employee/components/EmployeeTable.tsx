@@ -23,7 +23,7 @@ const EmployeeTable = () => {
     useEffect(() => {
         if (employeeList.length === 0 && !loading)
             dispatch(getEmployeesList())
-    }, [dispatch, loading, employeeList])
+    }, [dispatch, loading])
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 

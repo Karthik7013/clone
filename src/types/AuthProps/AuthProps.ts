@@ -10,8 +10,7 @@ type authProps = {
     alert: alertProps,
     isLogin: boolean,
     authData: any
-    // profile: null | customerProfileProps | pospProfileProps | employeeProfileProps,
-    role: null | 'customer' | 'employee' | 'agent'
+    role: string | null
 }
 
 // new_

@@ -13,7 +13,7 @@ const dateFormatter = (): string => {
     return formattedDate
 }
 
-const getSessionToken = (item:string)=> sessionStorage.getItem(item)
+const getSessionToken = (item: string): string | null => sessionStorage.getItem(item)
 
 
-export { dateFormatter,getSessionToken }
+export { dateFormatter, getSessionToken }

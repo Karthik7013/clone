@@ -3,10 +3,20 @@ import { AgentResources, authService, CustomerResources, EmployeeResources, } fr
 import { createBrowserHistory, History } from 'history';
 import { authProps } from "../../types/AuthProps/AuthProps";
 
-
 const role = getSessionToken('role');
 export const history: History = createBrowserHistory();
 import { getSessionToken } from "../../utils/utils"
+import { AxiosError } from "axios";
+
+interface ApiResponse<T = any> {
+    success: boolean;
+    message: string;
+    status: number;
+    data?: T;
+    timestamp: string;
+}
+
+
 const initialState: authProps = {
     loading: false,
     alert: {
@@ -20,16 +30,48 @@ const initialState: authProps = {
 }
 
 // =============== | EMPLOYEE ACTIONS | ==============>
-export const loginEmployee = createAsyncThunk('login/user', async (payload: { phone: number }, { rejectWithValue }) => {
+export const loginEmployee = createAsyncThunk('login/user', async (payload: { phone: string }, { rejectWithValue }) => {
     try {
         const res = await authService.post('/employee/verify', { ...payload });
-        console.log(res.data, 'res through toolkit');
-        return { status: res.status, data: res.data };
-    } catch (error) {
-        if (error.message === 'Network Error') {
-            return rejectWithValue({ message: "Oops! Something went wrong" });
+        if (res.data.success) {
+            return {
+                success: res.data.success,
+                message: res.data.message,
+                status: res.data.status,
+                data: res.data.data,
+                timestamp: res.data.timestamp
+            };
         }
-        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+        return rejectWithValue({
+            success: false,
+            message: "Unexpected error occurred",
+            status: res.status,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            let errorMessage = "Something went wrong";
+            if (error.message === 'Network Error') {
+                errorMessage = "Network Error: Please check your connection";
+            } else if (error.response?.data?.message) {
+                errorMessage = error.response?.data?.message;
+            }
+            return rejectWithValue({
+                success: false,
+                message: errorMessage,
+                status: error.response?.status ?? 500,
+                data: null,
+                timestamp: new Date().toISOString(),
+            });
+        }
+        return rejectWithValue({
+            success: false,
+            message: "An unknown error occurred",
+            status: 500,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
     }
 }
 );
@@ -37,55 +79,227 @@ export const loginEmployee = createAsyncThunk('login/user', async (payload: { ph
 export const getEmployeeProfile = createAsyncThunk('profile/employee', async (payload: {}, { rejectWithValue }) => {
     try {
         const res = await EmployeeResources.get(`/profile`);
-        return { status: res.status, data: res.data.data }
+        if (res.data.success) {
+            return {
+                success: res.data.success,
+                message: res.data.message,
+                status: res.data.status,
+                data: res.data.data,
+                timestamp: res.data.timestamp
+            };
+        }
+        return rejectWithValue({
+            success: false,
+            message: "Unexpected error occurred",
+            status: res.status,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
     } catch (error) {
-        return rejectWithValue({ status: error.response.status, message: error.response.data });
+        if (error instanceof AxiosError) {
+            let errorMessage = "Something went wrong";
+            if (error.message === 'Network Error') {
+                errorMessage = "Network Error: Please check your connection";
+            } else if (error.response?.data?.message) {
+                errorMessage = error.response?.data?.message;
+            }
+            return rejectWithValue({
+                success: false,
+                message: errorMessage,
+                status: error.response?.status ?? 500,
+                data: null,
+                timestamp: new Date().toISOString(),
+            });
+        }
+        return rejectWithValue({
+            success: false,
+            message: "An unknown error occurred",
+            status: 500,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
     }
 })
 
 // =============== | CUSTOMER ACTIONS | ==============>
-export const loginCustomer = createAsyncThunk('login/customer', async (payload: { phone: number }, { rejectWithValue }) => {
+export const loginCustomer = createAsyncThunk('login/customer', async (payload: { phone: string }, { rejectWithValue }) => {
     try {
         const res = await authService.post('/customer/verify', payload);
-        return { status: res.status, data: res.data };
-    } catch (error) {
-        if (error.message === 'Network Error') {
-            return rejectWithValue({ message: "Oops! Something went wrong" });
+        if (res.data.success) {
+            return {
+                success: res.data.success,
+                message: res.data.message,
+                status: res.data.status,
+                data: res.data.data,
+                timestamp: res.data.timestamp
+            };
         }
-        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+        return rejectWithValue({
+            success: false,
+            message: "Unexpected error occurred",
+            status: res.status,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            let errorMessage = "Something went wrong";
+            if (error.message === 'Network Error') {
+                errorMessage = "Network Error: Please check your connection";
+            } else if (error.response?.data?.message) {
+                errorMessage = error.response?.data?.message;
+            }
+            return rejectWithValue({
+                success: false,
+                message: errorMessage,
+                status: error.response?.status ?? 500,
+                data: null,
+                timestamp: new Date().toISOString(),
+            });
+        }
+        return rejectWithValue({
+            success: false,
+            message: "An unknown error occurred",
+            status: 500,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
     }
 });
 
 export const getCustomerProfile = createAsyncThunk('profile/customer', async (payload: {}, { rejectWithValue }) => {
     try {
         const res = await CustomerResources.get(`/profile`);
-        return { status: res.status, data: res.data.data }
+        if (res.data.success) {
+            return {
+                success: res.data.success,
+                message: res.data.message,
+                status: res.data.status,
+                data: res.data.data,
+                timestamp: res.data.timestamp
+            };
+        }
+        return rejectWithValue({
+            success: false,
+            message: "Unexpected error occurred",
+            status: res.status,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
     } catch (error) {
-        return rejectWithValue({ status: error.response.status, message: error.response.data });
+        if (error instanceof AxiosError) {
+            let errorMessage = "Something went wrong";
+            if (error.message === 'Network Error') {
+                errorMessage = "Network Error: Please check your connection";
+            } else if (error.response?.data?.message) {
+                errorMessage = error.response?.data?.message;
+            }
+            return rejectWithValue({
+                success: false,
+                message: errorMessage,
+                status: error.response?.status ?? 500,
+                data: null,
+                timestamp: new Date().toISOString(),
+            });
+        }
+        return rejectWithValue({
+            success: false,
+            message: "An unknown error occurred",
+            status: 500,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
     }
 })
 
 export const logout = createAsyncThunk('logout', async (payload: {}, { rejectWithValue }) => {
     try {
         const res = await authService.post(`/signOut`);
-        return { status: res.status, data: res.data.data }
+        if (res.data.success) {
+            return {
+                success: res.data.success,
+                message: res.data.message,
+                status: res.data.status,
+                data: res.data.data,
+                timestamp: res.data.timestamp
+            };
+        }
+        return rejectWithValue({
+            success: false,
+            message: "Unexpected error occurred",
+            status: res.status,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
     } catch (error) {
-        return rejectWithValue({ status: error.response.status, message: error.response.data });
+        if (error instanceof AxiosError) {
+            let errorMessage = "Something went wrong";
+            if (error.message === 'Network Error') {
+                errorMessage = "Network Error: Please check your connection";
+            } else if (error.response?.data?.message) {
+                errorMessage = error.response?.data?.message;
+            }
+            return rejectWithValue({
+                success: false,
+                message: errorMessage,
+                status: error.response?.status ?? 500,
+                data: null,
+                timestamp: new Date().toISOString(),
+            });
+        }
+        return rejectWithValue({
+            success: false,
+            message: "An unknown error occurred",
+            status: 500,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
     }
 })
 
 // =============== | AGENT ACTIONS | ==============>
-export const loginAgent = createAsyncThunk('login/agent', async (payload: { phone: number }, { rejectWithValue }) => {
+export const loginAgent = createAsyncThunk('login/agent', async (payload: { phone: string }, { rejectWithValue }) => {
     try {
-        const res = await authService.post('/agent/verify', { ...payload });
-        console.log(res.data);
-
-        return { status: res.status, data: res.data };
-    } catch (error) {
-        if (error.message === 'Network Error') {
-            return rejectWithValue({ message: "Oops! Something went wrong" });
+        const res = await authService.post('/agent/verify', payload);
+        if (res.data.success) {
+            return {
+                success: res.data.success,
+                message: res.data.message,
+                status: res.data.status,
+                data: res.data.data,
+                timestamp: res.data.timestamp
+            };
         }
-        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+        return rejectWithValue({
+            success: false,
+            message: "Unexpected error occurred",
+            status: res.status,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            let errorMessage = "Something went wrong";
+            if (error.message === 'Network Error') {
+                errorMessage = "Network Error: Please check your connection";
+            } else if (error.response?.data?.message) {
+                errorMessage = error.response?.data?.message;
+            }
+            return rejectWithValue({
+                success: false,
+                message: errorMessage,
+                status: error.response?.status ?? 500,
+                data: null,
+                timestamp: new Date().toISOString(),
+            });
+        }
+        return rejectWithValue({
+            success: false,
+            message: "An unknown error occurred",
+            status: 500,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
     }
 }
 );
@@ -93,9 +307,45 @@ export const loginAgent = createAsyncThunk('login/agent', async (payload: { phon
 export const getAgentProfile = createAsyncThunk('profile/agent', async (payload: {}, { rejectWithValue }) => {
     try {
         const res = await AgentResources.get(`/profile`);
-        return { status: res.status, data: res.data.data }
+        if (res.data.success) {
+            return {
+                success: res.data.success,
+                message: res.data.message,
+                status: res.data.status,
+                data: res.data.data,
+                timestamp: res.data.timestamp
+            };
+        }
+        return rejectWithValue({
+            success: false,
+            message: "Unexpected error occurred",
+            status: res.status,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
     } catch (error) {
-        return rejectWithValue({ status: error.response.status, message: error.response.data });
+        if (error instanceof AxiosError) {
+            let errorMessage = "Something went wrong";
+            if (error.message === 'Network Error') {
+                errorMessage = "Network Error: Please check your connection";
+            } else if (error.response?.data?.message) {
+                errorMessage = error.response?.data?.message;
+            }
+            return rejectWithValue({
+                success: false,
+                message: errorMessage,
+                status: error.response?.status ?? 500,
+                data: null,
+                timestamp: new Date().toISOString(),
+            });
+        }
+        return rejectWithValue({
+            success: false,
+            message: "An unknown error occurred",
+            status: 500,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
     }
 })
 
@@ -118,22 +368,24 @@ const authSlice = createSlice({
         })
             .addCase(loginCustomer.rejected, (state, action: { payload: any }) => {
                 state.loading = false;
+                const { payload } = action;
                 state.alert = {
                     type: 'error',
-                    message: action.payload.message,
+                    message: payload.message,
                     state: true
                 }
             })
             .addCase(loginCustomer.fulfilled, (state, action) => {
-                state.loading = false
+                state.loading = false;
+                const { payload } = action
                 state.isLogin = true;
                 state.alert = {
-                    message: 'Login Success',
+                    message: payload.message,
                     state: true,
                     type: 'success'
                 }
-                state.role = action.payload.data.data.role
-                sessionStorage.setItem('role', action.payload.data.data.role);
+                state.role = payload.data.role
+                sessionStorage.setItem('role', payload.data.role);
             });
         builder.addCase(getCustomerProfile.pending, (state) => {
             state.loading = true;
@@ -159,29 +411,34 @@ const authSlice = createSlice({
                 state.isLogin = true;
                 state.authData = action.payload.data
             });
+
+
         // agent 
         builder.addCase(loginAgent.pending, (state) => {
             state.loading = true;
         })
             .addCase(loginAgent.rejected, (state, action: { payload: any }) => {
+                const { payload } = action
                 state.loading = false;
                 state.alert = {
                     type: 'error',
-                    message: action.payload.message,
+                    message: payload.message,
                     state: true
                 }
             })
             .addCase(loginAgent.fulfilled, (state, action) => {
+                const { payload } = action;
                 state.loading = false
                 state.isLogin = true;
                 state.alert = {
-                    message: 'Login Success',
+                    message: payload.message,
                     state: true,
                     type: 'success'
                 }
-                state.role = action.payload.data.data.role
-                sessionStorage.setItem('role', action.payload.data.data.role);
+                state.role = payload.data.role
+                sessionStorage.setItem('role', payload.data.role);
             });
+
         builder.addCase(getAgentProfile.pending, (state) => {
             state.loading = true;
         })
@@ -215,29 +472,41 @@ const authSlice = createSlice({
                 state.isLogin = true;
                 state.authData = action.payload.data
             });
+
+
+
+
+
+
+
+
         // employee
         builder.addCase(loginEmployee.pending, (state) => {
             state.loading = true
         })
             .addCase(loginEmployee.rejected, (state, action: { payload: any }) => {
                 state.loading = false;
+                const { payload } = action
                 state.alert = {
                     type: 'error',
-                    message: action.payload.message,
+                    message: payload.message,
                     state: true
                 }
             })
             .addCase(loginEmployee.fulfilled, (state, action) => {
+                console.log(action.payload, 'successRes');
+                const { payload } = action
                 state.loading = false
                 state.isLogin = true;
                 state.alert = {
-                    message: 'Login Success',
+                    message: payload.message,
                     state: true,
                     type: 'success'
                 }
-                state.role = action.payload.data.data.role
-                sessionStorage.setItem('role', action.payload.data.data.role);
+                state.role = payload.data.role
+                sessionStorage.setItem('role', payload.data.role);
             })
+
         builder.addCase(getEmployeeProfile.pending, (state) => {
             state.loading = true;
         })
@@ -271,6 +540,13 @@ const authSlice = createSlice({
                 state.isLogin = true;
                 state.authData = action.payload.data
             })
+
+
+
+
+
+
+
         // logout
         builder.addCase(logout.pending, (state) => {
             state.loading = true

@@ -255,6 +255,7 @@ const SideDrawer = () => {
                     >
                         <ListItemButton
                             component={Link} to={''}
+                            sx={{ bgcolor: currentPath.includes('dashboard') ? theme.palette.primary.main : 'inherit' }}
                             disableRipple>
                             <ListItemIcon>
                                 <Icon fontSize='small'>dashboard</Icon>
@@ -266,6 +267,7 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={'09b8583a'}>
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('service') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'service'}
                             disableRipple>
                             <ListItemIcon>
@@ -278,6 +280,7 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={'3dc29c59'}>
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('revenue') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'revenue'}
                             disableRipple>
                             <ListItemIcon>
@@ -290,6 +293,7 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={'f1940075'}>
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('claims') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'claims'}
                             disableRipple>
                             <ListItemIcon>
@@ -302,6 +306,7 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={'dc48f569'}>
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('income') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'income'}
                             disableRipple>
                             <ListItemIcon>
@@ -314,6 +319,7 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={'7b8d75a2'}>
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('employee-management') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'employee-management'}
                             disableRipple>
                             <ListItemIcon>
@@ -326,6 +332,7 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={'123535eb'}>
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('customer-management') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'customer-management'}
                             disableRipple>
                             <ListItemIcon>
@@ -338,6 +345,7 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={'3306c28c'}>
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('agent-management') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'agent-management'}
                             disableRipple>
                             <ListItemIcon>
@@ -350,6 +358,7 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={'3686ad02'}>
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('products') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'products'}
                             disableRipple>
                             <ListItemIcon>
@@ -362,6 +371,7 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={'4be3e5fb'}>
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('settings') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'settings'}
                             disableRipple>
                             <ListItemIcon>
@@ -374,6 +384,7 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='employee' requiredPermission={'4e971f7b'}>
                     <ListItem disablePadding>
                         <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('access-management') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'access-management'}
                             disableRipple>
                             <ListItemIcon>
