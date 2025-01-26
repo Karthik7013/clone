@@ -50,7 +50,7 @@ const EmployeeLogin = () => {
 
     return (
         <Box>
-            <AlertBox variant='standard' alert={alert} onClose={handleCloseAlert} />
+            <AlertBox variant='outlined' alert={alert} onClose={handleCloseAlert} />
             <Grid container component="main" sx={{ height: "100dvh" }}>
                 <Grid
                     component={Stack}
