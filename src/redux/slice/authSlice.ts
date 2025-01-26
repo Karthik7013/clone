@@ -359,6 +359,12 @@ const authSlice = createSlice({
                 message: '',
                 state: false
             }
+        },
+        pushPermission: (state, action) => {
+            state.authData.permissions?.push(action.payload)
+        },
+        popPermission: (state, action: { payload: string }) => {
+            state.authData.permissions = state.authData.permissions.filter((permission: string) => permission !== action.payload)
         }
     },
     extraReducers: (builder) => {
@@ -568,5 +574,5 @@ const authSlice = createSlice({
     }
 })
 
-export const { closeAlert } = authSlice.actions;
+export const { closeAlert, pushPermission, popPermission } = authSlice.actions;
 export default authSlice.reducer;

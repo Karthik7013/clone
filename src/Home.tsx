@@ -22,7 +22,7 @@ import ProviderLogo from "./Framework/components/ProviderLogo";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 const Home = () => {
     console.log('home renders')
     type navProps = {
@@ -111,7 +111,7 @@ const Home = () => {
     return <Box>
         <Container maxWidth='lg'>
             <Grid container spacing={2} mt={1} flexGrow={1}>
-                <Grid item xs={12} my={5}>
+                <Grid item xs={12} my={2}>
                     <Stack direction={'row'} justifyContent={'space-between'}>
                         <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                             <Typography variant="h4">Lets Find Your</Typography>
@@ -234,7 +234,7 @@ const Home = () => {
                 }
                 <Grid item xs={12}>
                     <Box minWidth={'100%'} display={'flex'} justifyContent={'center'}>
-                        <Chip variant="outlined" label="Explore more" size="small" />
+                        <Chip clickable onDelete={() => { }} deleteIcon={<ArrowDropDownRoundedIcon />} variant="outlined" label="Explore more" size="small" />
                     </Box>
                 </Grid>
 

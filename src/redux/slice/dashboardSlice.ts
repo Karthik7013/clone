@@ -882,6 +882,13 @@ const dashboardSlice = createSlice({
                 state: false,
                 type: undefined
             }
+        },
+        closeCreatePermissionAlert: (state) => {
+            state.create_permission.alert = {
+                message: '',
+                state: false,
+                type: undefined
+            }
         }
     },
     extraReducers: (builder) => {
@@ -1049,5 +1056,5 @@ const dashboardSlice = createSlice({
     }
 })
 
-export const { closeAlert, closeAddEmployeeAlert, handleAddEmployeeModal } = dashboardSlice.actions;
+export const { closeAlert, closeAddEmployeeAlert, handleAddEmployeeModal, closeCreatePermissionAlert } = dashboardSlice.actions;
 export default dashboardSlice.reducer

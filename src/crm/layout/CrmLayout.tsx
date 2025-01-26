@@ -13,6 +13,8 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 const drawerWidth = 260;
 import { AppDispatch, RootState } from "../../redux/store";
+import CustomScrollbarBoxComponent from "../../Framework/components/ScrollComponent";
+import CustomScrollbarBox from "../../Framework/components/ScrollComponent";
 const top100Films = [
     {
         "label": "The Shawshank Redemption",
@@ -464,19 +466,23 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
         height: 'calc( 100dvh - 65px)',
         border: `1px solid ${alpha(theme.palette.divider, 0.05)}`,
         backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.primary.dark, 0.05) : alpha(theme.palette.primary.main, 0.02),
-
         overflow: 'auto',
         '&::-webkit-scrollbar': {
-            width: '0.7em',
+            width: 12,
         },
         '&::-webkit-scrollbar-thumb': {
-            backgroundColor: theme.palette.primary.dark,
-            borderRadius: theme.shape.borderRadius / 2,
+            backgroundColor: theme.palette.primary.light,
+            borderRadius: 4,
+            border: `1px solid ${theme.palette.primary.light}`,
+        },
+        '&::-webkit-scrollbar-thumb:hover': {
+            backgroundColor: theme.palette.primary.main, // Darken thumb on hover using theme
+            border: `2px solid ${theme.palette.primary.main}`
         },
         '&::-webkit-scrollbar-track': {
-            backgroundColor: theme.palette.primary.light,
-            borderRadius: theme.shape.borderRadius / 2
-        },
+            borderRadius: 4,
+            backgroundColor: theme.palette.action.hover, // Track color from theme
+        }
     }));
 
     return <Box>
@@ -597,9 +603,10 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
             >
                 {crmLayoutProps.sideBar}
             </Drawer>
-            {desktopOpen && <Box minWidth={drawerWidth} maxWidth={drawerWidth} sx={{ display: { xs: 'none', md: 'block' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
+            {desktopOpen && <CustomScrollbarBox minWidth={drawerWidth} maxWidth={drawerWidth} sx={{ display: { xs: 'none', md: 'block' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
                 {crmLayoutProps.sideBar}
-            </Box>}
+            </CustomScrollbarBox>}
+
             <StyledCardContent>
                 <Suspense fallback={<LinearProgress />}>
                     <Outlet />

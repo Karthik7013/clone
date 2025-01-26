@@ -2,7 +2,8 @@ import { Box, Button, Card, CardContent, Grid, TextField, Typography } from "@mu
 import { Controller, useForm } from "react-hook-form"
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../redux/store";
-import { createPermission } from "../../../redux/slice/dashboardSlice";
+import { closeCreatePermissionAlert, createPermission } from "../../../redux/slice/dashboardSlice";
+import AlertBox from "../../../Framework/components/AlertBox";
 
 interface IFormInput {
     permission_name: string,
@@ -10,26 +11,18 @@ interface IFormInput {
 }
 
 const CreatePermission = () => {
-
     const alert = useSelector((state: RootState) => state.dashboard.create_permission.alert);
-
     const dispatch: AppDispatch = useDispatch()
-
     const loading = useSelector((state: RootState) => state.dashboard.create_permission.loading)
-
-    const { control, handleSubmit, formState: { errors } } = useForm<IFormInput>();
-
+    const { control, handleSubmit, formState: { errors }, reset } = useForm<IFormInput>();
     const onSubmit = (data: IFormInput) => {
-        console.log(data)
         dispatch(createPermission(data));
-
+        reset()
     }
-
+    const handleCloseAlert = () => dispatch(closeCreatePermissionAlert())
 
     return <Box component='form'>
-
-        {/* <AlertBox alert={alert} /> */}
-
+        <AlertBox alert={alert} onClose={handleCloseAlert} />
         <Box component={Card}>
             <Grid container columnSpacing={2} rowGap={0} component={CardContent}>
                 <Grid item xs={12}>
