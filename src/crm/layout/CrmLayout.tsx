@@ -15,6 +15,7 @@ const drawerWidth = 260;
 import { AppDispatch, RootState } from "../../redux/store";
 import CustomScrollbarBoxComponent from "../../Framework/components/ScrollComponent";
 import CustomScrollbarBox from "../../Framework/components/ScrollComponent";
+import { Helmet } from 'react-helmet';
 const top100Films = [
     {
         "label": "The Shawshank Redemption",
@@ -486,6 +487,10 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
     }));
 
     return <Box>
+        <Helmet>
+            <title>NameLix Dashboard </title>
+            <meta name="description" content="This is an awesome page using react-helmet!" />
+        </Helmet>
         <AppBar
             sx={{
                 position: 'static',

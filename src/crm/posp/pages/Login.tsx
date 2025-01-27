@@ -33,7 +33,7 @@ const Login = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm<FormInput>();
     const navigate = useNavigate()
     const dispatch: AppDispatch = useDispatch();
     const isLoading = useSelector((state: RootState) => state.auth.loading);
@@ -46,16 +46,19 @@ const Login = () => {
 
 
 
+    interface FormInput {
+        phone: string,
+        password:string
+    }
 
 
-
-    const onSubmit = (data) => {
+    const onSubmit = (data:FormInput) => {
         const { phone } = data;
         console.log({ phone })
         dispatch(loginAgent({ phone }))
     };
     return (
-        <Box>
+        <Box className="container">
             <AlertBox alert={alert} onClose={closeAlertHandle} />
             <Container component="main" maxWidth="xs">
                 <Box

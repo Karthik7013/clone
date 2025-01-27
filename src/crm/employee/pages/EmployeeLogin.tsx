@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia, CircularProgress, Stack, Typography } from '@mui/material';
+import { Box, useTheme, Card, CardContent, CardMedia, CircularProgress, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -10,6 +10,7 @@ import { useForm, Controller } from 'react-hook-form'; // import react-hook-form
 import loginPanel from "/login-panel.svg";
 import logo from "/logo.jpg";
 import AlertBox from '../../../Framework/components/AlertBox';
+
 
 function Copyright(props: any) {
     return (
@@ -28,6 +29,7 @@ interface LoginProps {
     otp: string
 }
 const EmployeeLogin = () => {
+    const theme = useTheme();
     const dispatch: AppDispatch = useDispatch();
     const isLoading = useSelector((state: RootState) => state.auth.loading);
     const alert = useSelector((state: RootState) => state.auth.alert);
@@ -48,8 +50,15 @@ const EmployeeLogin = () => {
     };
     const handleCloseAlert = () => dispatch(closeAlert());
 
+
+
     return (
-        <Box>
+        <Box className={theme.palette.mode === 'light' ? 'container-light' : 'container-dark'}>
+            <Box position={'absolute'} left={16} top={16} zIndex={100}>
+                <Link to='/'>
+                    <CardMedia component="img" height={60} image={logo} alt="company logo" />
+                </Link>
+            </Box>
             <AlertBox variant='outlined' alert={alert} onClose={handleCloseAlert} />
             <Grid container component="main" sx={{ height: "100dvh" }}>
                 <Grid
@@ -58,10 +67,10 @@ const EmployeeLogin = () => {
                     alignItems='center'
                     xs={false}
                     lg={7}
-                    sx={{ padding: 16 }}>
+                    sx={{ padding: 16, zIndex: 99 }}>
                     <CardMedia component='img' src={loginPanel} alt="alt" />
                 </Grid>
-                <Grid item xs={12} lg={5} component={Stack} alignItems='center' justifyContent={'center'}>
+                <Grid sx={{ zIndex: 99 }} item xs={12} lg={5} component={Stack} alignItems='center' justifyContent={'center'}>
                     <Box
                         sx={{
                             display: 'flex',
@@ -71,11 +80,11 @@ const EmployeeLogin = () => {
                             px: 5,
                         }}
                     >
-                        <Card elevation={10}>
+                        
                             <CardContent component={Stack} alignItems="center" my={5}>
-                                <Card elevation={0}>
+                                {/* <Card elevation={0}>
                                     <CardMedia component="img" height={60} image={logo} alt="company logo" />
-                                </Card>
+                                </Card> */}
                                 <Typography component="h1" variant="h5">
                                     Employee Sign in
                                 </Typography>
@@ -148,7 +157,7 @@ const EmployeeLogin = () => {
                                     <Copyright sx={{ mt: 5 }} />
                                 </Box>
                             </CardContent>
-                        </Card>
+           
                     </Box>
                 </Grid>
             </Grid>
