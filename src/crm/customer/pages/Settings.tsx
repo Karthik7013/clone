@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, ListSubheader, MenuItem, Switch, TextareaAutosize, TextField, Typography, useTheme } from "@mui/material"
+import { Alert, Avatar, Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, ListSubheader, MenuItem, Switch, TextareaAutosize, TextField, Typography, useTheme } from "@mui/material"
 import React from "react";
 import CakeRoundedIcon from '@mui/icons-material/CakeRounded';
 import LocalPoliceRoundedIcon from '@mui/icons-material/LocalPoliceRounded';
@@ -13,13 +13,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 
 import { Controller, useForm } from "react-hook-form";
-import { updateCustomerProfile } from "../../../redux/slice/dashboardSlice";
+import { closeUpdateProfileAlert, updateCustomerProfile } from "../../../redux/slice/dashboardSlice";
 import CustomerPayments from "../components/CustomerPayments";
+import AlertBox from "../../../Framework/components/AlertBox";
 const Settings = () => {
   const theme = useTheme();
   const isMobile = useSelector((state: RootState) => state.ui.isMobile)
   const authData = useSelector((state: RootState) => state.auth.authData);
   const loading = useSelector((state: RootState) => state.dashboard.updateProfile.loading);
+  const alert = useSelector((state: RootState) => state.dashboard.updateProfile.alert)
   const dispatch: AppDispatch = useDispatch();
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -40,10 +42,11 @@ const Settings = () => {
     dispatch(updateCustomerProfile(data))
   };
 
+  const closeUpdateAlert = () => dispatch(closeUpdateProfileAlert())
+
   return (
 
     <Box mt={3}>
-
       <ListItem
         disableGutters
       >
@@ -51,6 +54,7 @@ const Settings = () => {
           primary={<Typography gutterBottom variant='h4'>Settings</Typography>}
         />
       </ListItem>
+      <AlertBox alert={alert} onClose={closeUpdateAlert} />
       <Box>
         <List>
           <ListItem disablePadding sx={{ gap: 2 }}>

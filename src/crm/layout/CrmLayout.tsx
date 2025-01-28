@@ -1,4 +1,4 @@
-import { alpha, AppBar, Autocomplete, Avatar, Badge, Box, Button, CardContent, Chip, Drawer, IconButton, InputAdornment, LinearProgress, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, styled, TextField, Toolbar, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material"
+import { alpha, AppBar, Autocomplete, Avatar, Badge, Box, Button, CardContent, Chip, Divider, Drawer, IconButton, InputAdornment, LinearProgress, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, styled, TextField, Toolbar, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material"
 import React, { Suspense, useCallback, useEffect } from "react";
 import { NotesRounded } from '@mui/icons-material';
 import { Link, Outlet } from "react-router-dom";
@@ -615,6 +615,10 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
             <StyledCardContent>
                 <Suspense fallback={<LinearProgress />}>
                     <Outlet />
+                    <Box my={2}>
+                        <Divider />
+                    </Box>
+                    <Typography>Looking for something else?</Typography>
                 </Suspense>
             </StyledCardContent>
         </Stack>

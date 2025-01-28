@@ -11,7 +11,7 @@ import { AppDispatch, RootState } from '../../../redux/store';
 import AddEmployee from './AddEmployee';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AlertBox from '../../../Framework/components/AlertBox';
-
+import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 const EmployeeTable = () => {
     const alert = useSelector((state: RootState) => state.dashboard.create_new_employee.alert)
     const dispatch: AppDispatch = useDispatch();

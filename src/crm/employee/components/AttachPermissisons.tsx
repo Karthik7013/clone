@@ -98,7 +98,7 @@ const AttachPermissions = () => {
         <ListItem secondaryAction={
             <ButtonGroup sx={{ alignItems: 'center' }}>
                 <Chip size="small" color="info" variant="outlined" onClick={reloadPermissions} icon={<CachedRoundedIcon fontSize="inherit" />} clickable sx={{ mr: 2 }} label="reload" />
-                <TextField placeholder="Search" size="small" />
+
             </ButtonGroup>
         }>
             <ListItemText primary={<Typography variant="subtitle2">Employee Permissions</Typography>} secondary={<Typography variant="caption" color='text.secondary'>Add or Manage your Employee Permissions</Typography>} />

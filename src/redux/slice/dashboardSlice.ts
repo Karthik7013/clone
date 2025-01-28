@@ -889,6 +889,13 @@ const dashboardSlice = createSlice({
                 state: false,
                 type: undefined
             }
+        },
+        closeUpdateProfileAlert: (state) => {
+            state.updateProfile.alert = {
+                message: '',
+                state: false,
+                type: undefined
+            }
         }
     },
     extraReducers: (builder) => {
@@ -945,8 +952,9 @@ const dashboardSlice = createSlice({
             state.updateProfile.alert.type = 'error';
             state.updateProfile.alert.state = true
         }).addCase(updateCustomerProfile.fulfilled, (state, action) => {
+            console.log(action.payload.message)
             state.updateProfile.loading = false;
-            state.updateProfile.alert.message = action.payload.data.description;
+            state.updateProfile.alert.message = action.payload.message;
             state.updateProfile.alert.type = 'success';
             state.updateProfile.alert.state = true
         })
@@ -1056,5 +1064,5 @@ const dashboardSlice = createSlice({
     }
 })
 
-export const { closeAlert, closeAddEmployeeAlert, handleAddEmployeeModal, closeCreatePermissionAlert } = dashboardSlice.actions;
+export const { closeAlert, closeAddEmployeeAlert, handleAddEmployeeModal, closeCreatePermissionAlert, closeUpdateProfileAlert } = dashboardSlice.actions;
 export default dashboardSlice.reducer

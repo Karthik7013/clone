@@ -13,7 +13,7 @@ const CreateRole = () => {
 
     const onSubmit = (data: IFormInput) => {
         console.log(data)
-        
+
     }
 
     return (
@@ -21,7 +21,7 @@ const CreateRole = () => {
             <Box component={Card}>
                 <Grid container columnSpacing={2} rowGap={0} component={CardContent}>
                     <Grid item xs={12}>
-                        <Typography variant="h6">Create Role</Typography>
+                        <Typography variant="h6">Create New Role</Typography>
                     </Grid>
 
                     <Grid item xs={12} md={3}>

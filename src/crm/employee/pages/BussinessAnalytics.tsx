@@ -7,105 +7,176 @@ import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 const BussinessAnalytics = () => {
   const theme = useTheme();
+  const [pieState] = useState({
 
-  // const StatusCard = () => {
-  //   return <Grid item xs={12} sm={6} md={6} lg={3}>
-  //     <Card elevation={5} sx={{ display: 'flex', p: 2, gap: 2, justifyContent: 'space-between', overflow: 'initial', pb: 0, backgroundImage: 'linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%)' }}>
+    series: [44, 55, 41, 17, 15],
+    options: {
+      chart: {
+        type: 'donut',
+      },
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
+    },
+  });
+
+  const [state] = useState({
+    series: [{
+      name: "Desktops",
+      data: [0, 41, 10, 51, 49, 6, 69, 50, 148]
+    }],
+    options: {
+      chart: {
+        type: 'line',
+        zoom: {
+          enabled: false
+        },
+        toolbar: {
+          show: false // Hide the toolbar
+        }
+      },
+      colors: ['#fff'], // Custom colors for each series
+      dataLabels: {
+        enabled: false
+      },
+
+      stroke: {
+        curve: 'smooth',
+        width: 3 // Set the stroke width here
+      },
+      grid: {
+        borderColor: 'transparent', // Grid line color
+        row: {
+          colors: ['transparent', 'transparent']
+        },
+        yaxis: {
+          lines: {
+            show: false // Hide horizontal lines
+          }
+        },
+
+      },
+
+      xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        labels: {
+          show: false // Hide x-axis labels
+        },
+        axisBorder: {
+          show: false // Hide x-axis line
+        },
+        axisTicks: {
+          show: false // Hide x-axis ticks
+        }
+      },
+      yaxis: {
+        labels: {
+          show: false // Hide y-axis labels
+        },
+        axisBorder: {
+          show: false // Hide y-axis line
+        },
+        axisTicks: {
+          show: false // Hide y-axis ticks
+        }
+      },
+      tooltip: {
+        fixed: {
+          enabled: true,
+          position: 'topRight',
+          offsetX: 0,
+          offsetY: -60,
+        }
+      }
+    }
+  })
+  const [barState] = useState({
+
+    series: [{
+      name: 'Net Profit',
+      data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+    }, {
+      name: 'Revenue',
+      data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+    }, {
+      name: 'Free Cash Flow',
+      data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+    }],
+    options: {
+      chart: {
+        type: 'bar',
+        height: 350
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '55%',
+          borderRadius: 5,
+          borderRadiusApplication: 'end'
+        },
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+      },
+      xaxis: {
+        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+      },
+      yaxis: {
+        title: {
+          text: '$ (thousands)'
+        }
+      },
+      fill: {
+        opacity: 1
+      },
+      tooltip: {
+        y: {
+          formatter: function (val: string) {
+            return "$ " + val + " thousands"
+          }
+        }
+      }
+    },
+  });
+  const StatusCard = () => {
+    const theme = useTheme();
+    return <Card elevation={5} sx={{ display: 'flex', flexGrow: 1, p: 2, gap: 2, justifyContent: 'space-between', overflow: 'initial', pb: 0, backgroundImage: `linear-gradient(160deg, ${theme.palette.primary.light} 0%, ${theme.palette.primary.dark} 100%)` }}>
 
 
-  //       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-  //         <Box>
-  //           <Typography component="div" variant="h5" fontWeight={700}>
-  //             $ 15,300
-  //           </Typography>
-  //           <Typography variant="subtitle2" color="text.secondary" component="div">
-  //             Sales
-  //           </Typography>
-  //         </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Box>
+          <Typography component="div" variant="h5" fontWeight={700}>
+            $ 15,300
+          </Typography>
+          <Typography variant="subtitle2" color="text.secondary" component="div">
+            Sales
+          </Typography>
+        </Box>
 
-  //         <Stack>
-  //           <Typography variant="caption">Profits</Typography>
-  //           <Typography variant="caption">Loss</Typography>
-  //         </Stack>
+        <Stack>
+          <Typography variant="caption">Profits</Typography>
+          <Typography variant="caption">Loss</Typography>
+        </Stack>
 
-  //       </Box>
-  //       <Box>
-  //         <ReactApexChart options={state.options} series={state.series} type="line" height={100} width={120} />
-  //       </Box>
-  //     </Card>
-  //   </Grid>
-
-
-
-  // }
-  // const [state] = useState({
-  //   series: [{
-  //     name: "Desktops",
-  //     data: [0, 41, 10, 51, 49, 6, 69, 50, 148]
-  //   }],
-  //   options: {
-  //     chart: {
-  //       type: 'line',
-  //       zoom: {
-  //         enabled: false
-  //       },
-  //       toolbar: {
-  //         show: false // Hide the toolbar
-  //       }
-  //     },
-  //     dataLabels: {
-  //       enabled: false
-  //     },
-
-  //     stroke: {
-  //       curve: 'smooth',
-  //       width: 3 // Set the stroke width here
-  //     },
-  //     grid: {
-  //       borderColor: 'transparent', // Grid line color
-  //       row: {
-  //         colors: ['transparent', 'transparent']
-  //       },
-  //       yaxis: {
-  //         lines: {
-  //           show: false // Hide horizontal lines
-  //         }
-  //       }
-  //     },
-
-  //     xaxis: {
-  //       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-  //       labels: {
-  //         show: false // Hide x-axis labels
-  //       },
-  //       axisBorder: {
-  //         show: false // Hide x-axis line
-  //       },
-  //       axisTicks: {
-  //         show: false // Hide x-axis ticks
-  //       }
-  //     },
-  //     yaxis: {
-  //       labels: {
-  //         show: false // Hide y-axis labels
-  //       },
-  //       axisBorder: {
-  //         show: false // Hide y-axis line
-  //       },
-  //       axisTicks: {
-  //         show: false // Hide y-axis ticks
-  //       }
-  //     },
-  //     tooltip: {
-  //       fixed: {
-  //         enabled: true,
-  //         position: 'topRight',
-  //         offsetX: 0,
-  //         offsetY: -60,
-  //       }
-  //     }
-  //   }
-  // })
+      </Box>
+      <Box>
+        <ReactApexChart options={state.options} series={state.series} type="line" height={100} width={120} />
+      </Box>
+    </Card>
+  }
 
   return (<Box mt={3}>
     <ListItem disableGutters>
@@ -115,7 +186,7 @@ const BussinessAnalytics = () => {
     </ListItem>
     <Box>
       <Grid container columnSpacing={2} rowSpacing={2}>
-        <Grid item lg={8} xs={12}>
+        {/* <Grid item lg={8} xs={12}>
           <Box>
             <Stack direction='row' alignItems='center' mb={2}>
               <Typography gutterBottom variant="h6">Total Sales</Typography>
@@ -154,16 +225,23 @@ const BussinessAnalytics = () => {
               })}
             </Stack>
           </Box>
+        </Grid> */}
+        <Grid item xs={12} component={Stack} direction={'row'} columnGap={2}>
+          <StatusCard />
+          <StatusCard />
+          <StatusCard />
+          <StatusCard />
         </Grid>
-        <Grid item xs={12} lg={4}>
-          <Typography gutterBottom variant="h6">Trending Policies</Typography>
-          <Card>
+        <Grid xs={12} component={CardContent}>
+          <Box component={Card} id="chart">
             <CardContent>
-
+              <ReactApexChart options={barState.options} series={state.series} type="bar" height={350} />
             </CardContent>
-          </Card>
+          </Box>
         </Grid>
+
       </Grid>
+
     </Box>
   </Box >
   )

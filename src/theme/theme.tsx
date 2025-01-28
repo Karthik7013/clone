@@ -241,17 +241,24 @@ const theme = (customStyles: customStylesProps) => {
                     }
                 }
             },
-            MuiIconButton:{
-                styleOverrides:{
-                    root:{
+            MuiIconButton: {
+                styleOverrides: {
+                    root: {
                         borderRadius
                     }
                 }
             },
-            MuiSelect:{
-                styleOverrides:{
-                    root:{
+            MuiSelect: {
+                styleOverrides: {
+                    root: {
                         borderRadius
+                    }
+                }
+            },
+            MuiTextField: {
+                styleOverrides: {
+                    root: {
+                        backdropFilter: 'blur(2px)'
                     }
                 }
             }

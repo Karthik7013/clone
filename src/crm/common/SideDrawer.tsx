@@ -1,5 +1,5 @@
-import { Avatar, Box,Link, Button, Card, CardContent, Chip, CircularProgress, Divider, Icon, LinearProgress, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography } from '@mui/material';
-import {  useLocation } from 'react-router-dom';
+import { Avatar, Box, Button, Card, CardContent, Chip, Divider, Icon, LinearProgress, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography } from '@mui/material';
+import { useLocation, Link } from 'react-router-dom';
 import React from 'react';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import { useTheme } from '@mui/material';
@@ -16,7 +16,7 @@ const SideDrawer = () => {
 
     return (<Box maxWidth={drawerWidth}>
         <Toolbar sx={{ display: { xs: 'block', md: 'none' } }}>
-            <ListItem component={Link} to="/" disablePadding sx={{ mt: 4, width: 240 - 10, display: { xs: 'flex', md: 'none' } }}>
+            <ListItem disablePadding sx={{ mt: 4, width: 240 - 10, display: { xs: 'flex', md: 'none' } }}>
                 <ListItemIcon>
                     <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
                 </ListItemIcon>

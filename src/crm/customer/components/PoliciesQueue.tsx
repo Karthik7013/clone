@@ -14,8 +14,8 @@ const PoliciesQueue = () => {
     console.log('application')
 
     useEffect(() => {
-        if (applications.length === 0 && !loading) dispatch(getCustomerApplicationQueue())
-    }, [applications, loading, dispatch])
+        dispatch(getCustomerApplicationQueue())
+    }, [])
 
     const refreshApplications = () => dispatch(getCustomerApplicationQueue())
 
