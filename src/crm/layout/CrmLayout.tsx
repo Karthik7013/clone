@@ -1,4 +1,4 @@
-import { alpha, AppBar, Autocomplete, Avatar, Badge, Box, Button, CardContent, Chip, Divider, Drawer, IconButton, InputAdornment, LinearProgress, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, styled, TextField, Toolbar, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material"
+import { alpha, AppBar, Autocomplete, Avatar, Badge, Box, Button, CardContent, Chip, Divider, Drawer, IconButton, InputAdornment, LinearProgress, ListItem, ListItemIcon, ListItemText, Popover, Skeleton, Stack, styled, TextField, Toolbar, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material"
 import React, { Suspense, useCallback, useEffect } from "react";
 import { NotesRounded } from '@mui/icons-material';
 import { Link, Outlet } from "react-router-dom";
@@ -10,12 +10,15 @@ import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import SearchIcon from '@mui/icons-material/Search';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
+
 const drawerWidth = 260;
 import { AppDispatch, RootState } from "../../redux/store";
 import CustomScrollbarBoxComponent from "../../Framework/components/ScrollComponent";
 import CustomScrollbarBox from "../../Framework/components/ScrollComponent";
 import { Helmet } from 'react-helmet';
+import Notification from "../../Framework/components/Notification";
+
+
 const top100Films = [
     {
         "label": "The Shawshank Redemption",
@@ -427,7 +430,6 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const dispatch: AppDispatch = useDispatch();
     const profile = useSelector((state: RootState) => state.auth.authData);
-    console.log(profile, 'profile')
     const dark = useSelector((state: RootState) => state.ui.dark);
     const mobileOpen: boolean = useSelector((state: RootState) => state.ui.isMobile);
     const role = useSelector((state: RootState) => state.auth.role);
@@ -485,6 +487,8 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
             backgroundColor: theme.palette.action.hover, // Track color from theme
         }
     }));
+
+
 
     return <Box>
         <Helmet>
@@ -565,11 +569,8 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                         <Tooltip title={dark ? "light" : "dark"}>
                             <IconButton color="default" sx={{ mr: 2 }} onClick={handleTheme}>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
                         </Tooltip>
-                        <IconButton sx={{ mr: 2 }}>
-                            <Badge badgeContent={3} variant="dot">
-                                <NotificationsRoundedIcon color="inherit" />
-                            </Badge>
-                        </IconButton>
+                        
+                    <Notification />
                         <Button size="small" color="error" endIcon={<LogoutRoundedIcon fontSize="inherit" />} variant="outlined" onClick={handleOnclick}>Logout</Button>
 
                     </Stack>

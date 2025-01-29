@@ -66,6 +66,9 @@ const theme = (customStyles: customStylesProps) => {
         },
         typography: {
             fontFamily: fontFamily,
+   
+
+              
         },
         components: {
             MuiAccordion: {

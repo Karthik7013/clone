@@ -11,7 +11,7 @@ import { handleEditProfile } from "../../../redux/slice/uiSlice";
 import DangerousRoundedIcon from '@mui/icons-material/DangerousRounded';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
-
+import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
 import { Controller, useForm } from "react-hook-form";
 import { closeUpdateProfileAlert, updateCustomerProfile } from "../../../redux/slice/dashboardSlice";
 import CustomerPayments from "../components/CustomerPayments";
@@ -75,7 +75,7 @@ const Settings = () => {
 
         <ButtonGroup fullWidth variant="text" sx={{ mt: 3 }}>
           <Button variant="contained">Info</Button>
-          <Button>Payments</Button>
+          <Button variant="outlined" startIcon={<VpnKeyRoundedIcon />}>Security</Button>
           {/* <Button>Logs</Button>
           <Button>Referals</Button>
           <Button>Wallete</Button> */}

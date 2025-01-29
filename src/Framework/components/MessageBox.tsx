@@ -26,8 +26,9 @@ const MessageBox = (props: messageBoxProps) => {
         borderLeft: `6px solid`,
         borderLeftColor: props.type && theme.palette[props.type].main
     }))
+
     return (
-        <StyledAlert action={props.action && <IconButton color='inherit' onClick={props.action} size='small'><CloseRoundedIcon /></IconButton>} iconMapping={iconMapping} variant='outlined' severity={props.type}>
+        <StyledAlert action={props.action && <IconButton color='inherit' onClick={props.action} size='small'><CloseRoundedIcon fontSize='inherit' /></IconButton>} iconMapping={iconMapping} variant='outlined' severity={props.type}>
             <Typography variant='subtitle2'>{props.message}</Typography>
         </StyledAlert>
     )
