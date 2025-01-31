@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 //============ MUI IMPORTS ==============>
-import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Container, Divider, Fab, Grid, Grow, IconButton, keyframes, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Paper, Slide, Stack, styled, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardActionArea, CardContent, CardMedia, Chip, Container, Divider, Fab, Grid, Grow, IconButton, InputAdornment, keyframes, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Paper, Slide, Stack, styled, TextField, Typography, useTheme } from "@mui/material";
 import { Link as MuiLink } from "@mui/material";
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import { Link } from "react-router-dom";
@@ -23,7 +23,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
+import FiberNewRoundedIcon from '@mui/icons-material/FiberNewRounded';
 const Home = () => {
+    const theme = useTheme();
     console.log('home renders')
     type navProps = {
         imgUrl: string,
@@ -64,7 +66,68 @@ const Home = () => {
             imgUrl: loanLogo,
             name: "Loan",
             path: 'loan'
-        }]
+        },
+        {
+            imgUrl: carLogo,
+            name: "Car",
+            path: '/motor/car'
+        },
+        {
+            imgUrl: bikeLogo,
+            name: "Bike",
+            path: '/motor/bike'
+        },
+        {
+            imgUrl: commercialLogo,
+            name: "Commercial",
+            path: '/motor/commercial'
+        },
+        {
+            imgUrl: healthLogo,
+            name: "Health",
+            path: 'health'
+        },
+        {
+            imgUrl: travelLogo,
+            name: "Travel",
+            path: 'travel'
+        },
+        {
+            imgUrl: loanLogo,
+            name: "Loan",
+            path: 'loan'
+        },
+        {
+            imgUrl: carLogo,
+            name: "Car",
+            path: '/motor/car'
+        },
+        {
+            imgUrl: bikeLogo,
+            name: "Bike",
+            path: '/motor/bike'
+        },
+        {
+            imgUrl: commercialLogo,
+            name: "Commercial",
+            path: '/motor/commercial'
+        },
+        {
+            imgUrl: healthLogo,
+            name: "Health",
+            path: 'health'
+        },
+        {
+            imgUrl: travelLogo,
+            name: "Travel",
+            path: 'travel'
+        },
+        {
+            imgUrl: loanLogo,
+            name: "Loan",
+            path: 'loan'
+        }
+    ]
 
     const rotate = keyframes`
         0% {
@@ -109,19 +172,22 @@ const Home = () => {
 
 
     return <Box>
+
         <Container maxWidth='lg'>
             <Grid container spacing={2} mt={1} flexGrow={1}>
+
                 <Grid item xs={12} my={2}>
                     <Stack direction={'row'} justifyContent={'space-between'}>
-                        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                            <Typography variant="h4">Lets Find Your</Typography>
-                            <Typography variant="h4" fontWeight={600}>Best Insurance Plan</Typography>
-                            <Stack direction={'row'} gap={1} mt={2}>
+                        <Box sx={{ display: { xs: 'none', md: 'block', width: '100%' } }}>
+                           
+                            <Typography variant="h1">Lets Find Your</Typography>
+                            <Typography variant="h1" fontWeight={600}>Best Insurance Plan</Typography>
+                            <Stack direction={'row'} mt={2} maxWidth={500}>
                                 <ListItem disablePadding>
                                     <ListItemIcon sx={{ minWidth: 24 }}>
                                         <CardMedia sx={{ width: 16, height: 16 }} component={'img'} image={giftBox} alt="" /></ListItemIcon>
                                     <ListItemText>
-                                        <Typography variant="body2">
+                                        <Typography variant="caption">
                                             Quick, easy &
                                             hassle free</Typography>
                                     </ListItemText>
@@ -131,25 +197,33 @@ const Home = () => {
                                         <CardMedia sx={{ width: 16, height: 16 }} component={'img'} image={giftBox} alt="" />
                                     </ListItemIcon>
                                     <ListItemText>
-                                        <Typography variant="body2">
+                                        <Typography variant="caption">
                                             80+ Insurer Partners</Typography>
                                     </ListItemText>
                                 </ListItem>
                             </Stack>
-                            <ListItem disablePadding sx={{ mt: 2 }}>
+                            <ListItem disablePadding>
                                 <ListItemIcon sx={{ minWidth: 24 }}>
                                     <CardMedia sx={{ width: 16, height: 16 }} component={'img'} image={giftBox} alt="" /></ListItemIcon>
                                 <ListItemText>
-                                    <Typography variant="body2">
+                                    <Typography variant="caption">
                                         3X Faster quotes</Typography>
                                 </ListItemText>
                             </ListItem>
-                            <Stack direction='row' gap={2} mt={2}>
+                            <Stack direction='row' gap={2} my={2}>
                                 <Button variant="contained" endIcon={<ShakeIcon>
                                     <CallRoundedIcon />
                                 </ShakeIcon>}>Get Started</Button>
                                 <Button variant="outlined">Free Quotes</Button>
+                                {/* <TextField placeholder="Vehicle Number" InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="start">
+                                        <Button variant="contained">Click Here</Button>
+                                    </InputAdornment>
+                                ),
+                            }} /> */}
                             </Stack>
+   
                         </Box>
                         <Box>
 
@@ -185,47 +259,19 @@ const Home = () => {
                     products.map((nav: navProps, _: number) => {
                         return <Grid key={_} item xs={4} sm={3} md={3} lg={2}>
                             <MuiLink component={Link} to={nav.path}>
-                                <CardActionArea>
+                                <CardActionArea sx={{ overflow: 'hidden' }}>
                                     <CardContent component={Card}>
                                         <Stack alignItems={'center'}>
                                             <Avatar src={nav.imgUrl} sx={{ width: "28px", height: "28px", objectFit: 'cover' }} variant="square" />
-                                            <Typography variant="caption">{nav.name}</Typography>
-                                        </Stack>
+                                            <Box mb={2} />
+                                            <Box justifyContent={'center'} width={'100%'} bottom={0} bgcolor={theme.palette.primary.light} component={Stack} direction={'row'} position='absolute'>
+                                                <Typography variant="caption">{nav.name}</Typography>
 
-                                    </CardContent>
-                                </CardActionArea>
-                            </MuiLink>
-                        </Grid>
-                    })
-                }
-                {
-                    products.map((nav: navProps, _: number) => {
-                        return <Grid key={_} item xs={4} sm={3} md={3} lg={2}>
-                            <MuiLink component={Link} to={nav.path}>
-                                <CardActionArea>
-                                    <CardContent component={Card}>
-                                        <Stack alignItems={'center'}>
-                                            <Avatar src={nav.imgUrl} sx={{ width: "28px", height: "28px", objectFit: 'cover' }} variant="square" />
-                                            <Typography variant="caption">{nav.name}</Typography>
+                                            </Box>
+                                            <Box top={5} right={5} component={Stack} direction={'row'} position='absolute'>
+                                                <FiberNewRoundedIcon color="warning" />
+                                            </Box>
                                         </Stack>
-
-                                    </CardContent>
-                                </CardActionArea>
-                            </MuiLink>
-                        </Grid>
-                    })
-                }
-                {
-                    products.map((nav: navProps, _: number) => {
-                        return <Grid key={_} item xs={4} sm={3} md={3} lg={2}>
-                            <MuiLink component={Link} to={nav.path}>
-                                <CardActionArea>
-                                    <CardContent component={Card}>
-                                        <Stack alignItems={'center'}>
-                                            <Avatar src={nav.imgUrl} sx={{ width: "28px", height: "28px", objectFit: 'cover' }} variant="square" />
-                                            <Typography variant="caption">{nav.name}</Typography>
-                                        </Stack>
-
                                     </CardContent>
                                 </CardActionArea>
                             </MuiLink>
@@ -240,13 +286,13 @@ const Home = () => {
 
                 <Grid item xs={12} my={5}>
                     <Box>
-                        <Typography gutterBottom variant="h4" textAlign='center' fontWeight={600}>Our Products</Typography></Box>
+                        <Typography gutterBottom variant="h2" textAlign='center' fontWeight={600}>Our Products</Typography></Box>
                     <Stack sx={{ flexDirection: { md: 'row' }, width: '100%', gap: 5 }}>
                         <Box flexGrow={1} display={'flex'} flexDirection={'column'} justifyContent={'center'} maxWidth={600}>
-                            <Typography variant="h4" gutterBottom>
+                            <Typography variant="h3" gutterBottom>
                                 Protect Your Loan with Insurance
                             </Typography>
-                            <Typography component='abbr'>When life is unpredictable, Loan Insurance can provide the peace of mind you need. Whether you’re taking out a personal loan, mortgage, or car loan, loan insurance ensures that your payments are covered in the event of an unexpected situation, like illness, injury, or job loss.</Typography>
+                            <Typography component='abbr' variant="h6">When life is unpredictable, Loan Insurance can provide the peace of mind you need. Whether you’re taking out a personal loan, mortgage, or car loan, loan insurance ensures that your payments are covered in the event of an unexpected situation, like illness, injury, or job loss.</Typography>
                         </Box>
                         <Box flexGrow={1}>
                             <CardMedia
@@ -358,7 +404,6 @@ const Home = () => {
                 </Grid>
             </Grid>
         </Container>
-
         {cookiePrompt && <CookieCard />}
     </Box >
 }

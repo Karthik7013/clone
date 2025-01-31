@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import chat_bot from "../../assets/gemini_ai_.svg";
-import { alpha, Avatar, Box, CardActions, CardContent, Chip, CircularProgress, Divider, Fab, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Menu, Skeleton, Stack, styled, TextField, Toolbar, Typography, useTheme } from '@mui/material';
+import { alpha, Avatar, Box, Card, CardActions, CardContent, Chip, CircularProgress, Divider, Fab, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, Menu, Skeleton, Stack, styled, TextField, Toolbar, Typography, useTheme } from '@mui/material';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
 import { AppDispatch, RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -11,10 +11,9 @@ import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
 const ChatBot = () => {
     const dispatch: AppDispatch = useDispatch()
-    const { handleSubmit, control, reset } = useForm()
+    const { handleSubmit, control, reset } = useForm<BotSubmitType>()
     const conversation = useSelector((state: RootState) => state.bot.conversation);
     const loading = useSelector((state: RootState) => state.bot.loading)
-    const theme = useTheme()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -47,11 +46,11 @@ const ChatBot = () => {
                 </Box>
                 <Box order={candidate === 'bot' ? 1 : 0} flexGrow={1} display='flex' justifyContent={candidate === 'user' ? 'flex-end' : 'flex-start'}>
                     <Box position='relative'>
-                        <Box sx={{ bgcolor: alpha(theme.palette.divider, 0.07), padding: '0.7px 10px ', borderRadius: '10px', maxWidth: '220px' }}>
-                            <Typography variant='caption'>
+                        <Card sx={{ padding: '10px ', borderRadius: '10px', maxWidth: '220px', overflow: 'auto' }}>
+                            <Typography variant='caption' component='pre'>
                                 {response}
                             </Typography>
-                        </Box>
+                        </Card>
                         <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='caption' variant='caption' color='text.secondary'>{timeStamp.split('T')[0]}</Typography>
                     </Box>
                 </Box>
@@ -89,8 +88,8 @@ const ChatBot = () => {
                         <CardContent>
                             <ListItem disableGutters disablePadding
                                 secondaryAction={
-                                    <IconButton onClick={handleClose2} edge="end" aria-label="delete">
-                                        <CloseRoundedIcon />
+                                    <IconButton edge="end" aria-label="delete">
+                                        <OpenInNewRoundedIcon />
                                     </IconButton>
                                 }
                             >
@@ -98,8 +97,8 @@ const ChatBot = () => {
                                     <Avatar src={chat_bot} sx={{ width: '42px', height: '42px', mr: 2 }} />
                                 </ListItemIcon>
                                 <ListItemText
-                                    primary="AI Support"
-                                    secondary={"online"}
+                                    primary={<Typography variant='body2'>AI Support</Typography>}
+                                    secondary={<Typography variant='caption'>online</Typography>}
                                 />
                             </ListItem>
                         </CardContent>

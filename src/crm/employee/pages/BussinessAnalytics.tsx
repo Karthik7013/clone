@@ -226,7 +226,7 @@ const BussinessAnalytics = () => {
             </Stack>
           </Box>
         </Grid> */}
-        <Grid item xs={12} component={Stack} direction={'row'} columnGap={2}>
+        <Grid item xs={12} flexWrap={'wrap'} component={Stack} direction={'row'} rowGap={2} columnGap={2}>
           <StatusCard />
           <StatusCard />
           <StatusCard />

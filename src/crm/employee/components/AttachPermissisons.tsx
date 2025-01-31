@@ -17,10 +17,12 @@ interface permissionProps {
 }
 
 
+type AttachPermission = {
+    id?:string
+}
 
 
-
-const AttachPermissions = () => {
+const AttachPermissions = (props:AttachPermission) => {
     const profile = useSelector((state: RootState) => state.auth.authData);
     const employee_role_id = profile.employee_role_id
     const myPermissions = profile?.permissions;
