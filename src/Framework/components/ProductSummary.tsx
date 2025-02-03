@@ -9,12 +9,14 @@ import FmdGoodRoundedIcon from '@mui/icons-material/FmdGoodRounded';
 import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { useState } from "react";
+import ProtectedRoutes from "../../ProtectedRoute";
+import { MessageBox } from ".";
 
 
 
 const EmployeeCardPermission = () => {
     const [edit, setEdit] = useState<boolean>(false);
-    const toggleAttachPermission = ()=> setEdit((prev)=> !prev)
+    const toggleAttachPermission = () => setEdit((prev) => !prev)
     return <Grid item xs={12} sm={6} lg={4}>
         <Card>
             <ListItem secondaryAction={<IconButton><MoreVertRoundedIcon /></IconButton>}>
@@ -58,7 +60,7 @@ const ProductSummary = () => {
         <Card sx={{ p: 2 }}>
             <Typography gutterBottom variant="body1">Set Permissions</Typography>
             <Divider />
-            <Grid container spacing={2} mt={1}>
+            {/* <Grid container spacing={2} mt={1}>
                 {[1, 2, 3].map((card, _) => {
                     return <EmployeeCardPermission />
                 })}
@@ -95,11 +97,16 @@ const ProductSummary = () => {
                         </Grid>
                     })
                 }
-            </Grid>
+            </Grid> */}
+            <EmployeeCardPermission />
         </Card>
         <Stack rowGap={2} mt={2}>
-            <CreatePermission />
-            <CreateRole />
+            <ProtectedRoutes role="employee" fallback={<MessageBox type="warning" message="No permission to Create New Permission" />} requiredPermission="b5fd1ef7">
+                <CreatePermission />
+            </ProtectedRoutes>
+            <ProtectedRoutes role="employee" fallback={<MessageBox type="warning" message="No permission to Create New Role" />} requiredPermission="8af4fe19">
+                <CreateRole />
+            </ProtectedRoutes>
         </Stack>
     </Box>
 }

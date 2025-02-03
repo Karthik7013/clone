@@ -1,4 +1,4 @@
-import { Alert, Avatar, Box, Button, Card, CardContent, Chip, CircularProgress, Divider, Grid, IconButton, LinearProgress, List, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, Tab, Tabs, TextField, Toolbar, Typography } from '@mui/material'
+import { Alert, alpha, Avatar, Box, Button, Card, CardContent, Chip, CircularProgress, Divider, Grid, IconButton, LinearProgress, List, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, Tab, Tabs, TextField, Toolbar, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
@@ -10,7 +10,9 @@ import HomeWorkRoundedIcon from '@mui/icons-material/HomeWorkRounded';
 import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import PersonPinCircleRoundedIcon from '@mui/icons-material/PersonPinCircleRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import ProtectedRoutes from '../../../ProtectedRoute';
 const EmployeeProfile = () => {
+  const theme = useTheme();
   const navigate = useNavigate()
   const dummyState = {
     loading: true,
@@ -111,7 +113,21 @@ const EmployeeProfile = () => {
           </CardContent>
         </Card>
         <Box mt={2} />
-        <Button startIcon={<DeleteRoundedIcon />} variant='contained' fullWidth color='error'>Remove Account</Button>
+
+        <ProtectedRoutes requiredPermission={'8be46c4f'} role='employee'>
+          <Card>
+            <CardContent>
+              <Typography gutterBottom color='error' variant='h6' fontWeight={600}>Delete Account</Typography>
+              <Divider sx={{ mb: 2 }} />
+              <Typography sx={{ mb: 2 }} gutterBottom color='text.secondary' variant='body2'>
+                By clicking the "Confirm Delete" button, the selected employee's details will be permanently removed from the system. This action is irreversible, and all personal information, records, and data associated with the employee will be lost. Please ensure that you no longer need the employee’s details before confirming this deletion.
+              </Typography>
+              <Button startIcon={<DeleteRoundedIcon />} variant='contained' fullWidth color='error'>Remove Account</Button>
+
+            </CardContent>
+
+          </Card>
+        </ProtectedRoutes>
         {/* <CustomTabPanel value={value} index={0}>
           Item One
         </CustomTabPanel>

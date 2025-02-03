@@ -12,6 +12,7 @@ import AddEmployee from './AddEmployee';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AlertBox from '../../../Framework/components/AlertBox';
 import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
+import ProtectedRoutes from '../../../ProtectedRoute';
 const EmployeeTable = () => {
     const alert = useSelector((state: RootState) => state.dashboard.create_new_employee.alert)
     const dispatch: AppDispatch = useDispatch();
@@ -119,7 +120,9 @@ const EmployeeTable = () => {
                         <GridToolbarQuickFilter />
                     </Box>
                     <Box>
-                        <Button size='small' onClick={toggleEmployeeModal} startIcon={<GroupAddRounded />}>New Employee</Button>
+                        <ProtectedRoutes role='employee' requiredPermission={'a9709de8'}>
+                            <Button size='small' onClick={toggleEmployeeModal} startIcon={<GroupAddRounded />}>New Employee</Button>
+                        </ProtectedRoutes>
                         <GridToolbarFilterButton />
                         <GridToolbarDensitySelector />
                         <GridToolbarExport />
