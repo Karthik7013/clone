@@ -83,7 +83,13 @@ type dashboardProps = {
         loading: boolean,
         alert: alertProps,
         data: any
+    },
+    all_employee_permissions: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
     }
+
 }
 
 const initialState: dashboardProps = {
@@ -214,6 +220,15 @@ const initialState: dashboardProps = {
             state: false,
             type: undefined
         }, data: null
+    },
+    all_employee_permissions: {
+        loading: false,
+        data: [],
+        alert: {
+            message: '',
+            type: undefined,
+            state: false
+        }
     }
 }
 
@@ -715,9 +730,54 @@ export const getEmployeeRoles = createAsyncThunk('employee/roles', async (payloa
         });
     }
 })
-export const getEmployeePermissions = createAsyncThunk('employee/permissions', async (payload, { rejectWithValue }) => {
+export const getPermissions = createAsyncThunk('employee/permissions', async (payload, { rejectWithValue }) => {
     try {
         const res = await EmployeeResources.get('/get-permissions');
+        if (res.data.success) {
+            return {
+                success: res.data.success,
+                message: res.data.message,
+                status: res.data.status,
+                data: res.data.data,
+                timestamp: res.data.timestamp
+            };
+        }
+        return rejectWithValue({
+            success: false,
+            message: "Unexpected error occurred",
+            status: res.status,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            let errorMessage = "Something went wrong";
+            if (error.message === 'Network Error') {
+                errorMessage = "Network Error: Please check your connection";
+            } else if (error.response?.data?.message) {
+                errorMessage = error.response?.data?.message;
+            }
+            return rejectWithValue({
+                success: false,
+                message: errorMessage,
+                status: error.response?.status ?? 500,
+                data: null,
+                timestamp: new Date().toISOString(),
+            });
+        }
+        return rejectWithValue({
+            success: false,
+            message: "An unknown error occurred",
+            status: 500,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
+    }
+})
+
+export const getEmployeesPermissions = createAsyncThunk('employee/all-permissions', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await EmployeeResources.get('/employee-permissions');
         if (res.data.success) {
             return {
                 success: res.data.success,
@@ -1011,11 +1071,11 @@ const dashboardSlice = createSlice({
             state.employee_roles.loading = false;
             state.employee_roles.data = action.payload?.data
         })
-        builder.addCase(getEmployeePermissions.pending, (state) => {
+        builder.addCase(getPermissions.pending, (state) => {
             state.employee_permissions.loading = true
-        }).addCase(getEmployeePermissions.rejected, (state, action) => {
+        }).addCase(getPermissions.rejected, (state, action) => {
             state.employee_permissions.loading = false;
-        }).addCase(getEmployeePermissions.fulfilled, (state, action) => {
+        }).addCase(getPermissions.fulfilled, (state, action) => {
             state.employee_permissions.loading = false;
             state.employee_permissions.data = action.payload?.data
         })
@@ -1060,6 +1120,14 @@ const dashboardSlice = createSlice({
                     type: 'success'
                 };
             state.addEmployeeModal = false
+        })
+        builder.addCase(getEmployeesPermissions.pending, (state) => {
+            state.all_employee_permissions.loading = true
+        }).addCase(getEmployeesPermissions.rejected, (state, action) => {
+            state.all_employee_permissions.loading = false;
+        }).addCase(getEmployeesPermissions.fulfilled, (state, action) => {
+            state.all_employee_permissions.loading = false;
+            state.all_employee_permissions.data = action.payload?.data
         })
     }
 })

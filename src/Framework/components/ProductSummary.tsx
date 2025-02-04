@@ -8,13 +8,16 @@ import MailRoundedIcon from '@mui/icons-material/MailRounded';
 import FmdGoodRoundedIcon from '@mui/icons-material/FmdGoodRounded';
 import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProtectedRoutes from "../../ProtectedRoute";
 import { MessageBox } from ".";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { getEmployeesPermissions } from "../../redux/slice/dashboardSlice";
 
 
 
-const EmployeeCardPermission = () => {
+const EmployeeCardPermission = ({ permission }) => {
     const [edit, setEdit] = useState<boolean>(false);
     const toggleAttachPermission = () => setEdit((prev) => !prev)
     return <Grid item xs={12} sm={6} lg={4}>
@@ -23,7 +26,11 @@ const EmployeeCardPermission = () => {
                 <ListItemIcon>
                     <Avatar src="https://avatar.iran.liara.run/public"></Avatar>
                 </ListItemIcon>
-                <ListItemText primary={"karthi"} secondary={'Department'}></ListItemText>
+                <ListItemText primary={permission.firstname} secondary={
+                    <Stack sx={{ mt: 1, flexDirection: "row", gap: 2 }}>
+                        <Chip variant="outlined" color="success" size="small" label={<Typography fontSize={'0.7em'}>{permission.role_name}</Typography>} />
+                    </Stack>
+                }></ListItemText>
             </ListItem>
             <Divider />
             <Box mt={1} />
@@ -32,14 +39,14 @@ const EmployeeCardPermission = () => {
                 <Box component={Stack} gap={2} direction={'row'} my={2} flexWrap={'wrap'}>
                     <Chip
                         variant="outlined" size="small" icon={<LocalPhoneRoundedIcon
-                        />} label={<Typography fontSize={'0.7em'}> 91 7013140693</Typography>} />
+                        />} label={<Typography fontSize={'0.7em'}>{permission.phone}</Typography>} />
                     <Chip
 
                         variant="outlined" size="small" icon={<MailRoundedIcon
-                        />} label={<Typography fontSize={'0.7em'}>karthiktumala143@gmail.com</Typography>} />
+                        />} label={<Typography fontSize={'0.7em'}>{permission.email}</Typography>} />
                     <Chip
                         variant="outlined" size="small" icon={<FmdGoodRoundedIcon
-                        />} label={<Typography fontSize={'0.7em'}>Hyderabad,Telangana</Typography>} />
+                        />} label={<Typography fontSize={'0.7em'}>{permission.city},{" "}{permission.state}</Typography>} />
                 </Box>
                 <Divider />
                 <Box component={Stack} sx={{ flexDirection: { xs: "column", md: "row" } }} mt={2} gap={1}>
@@ -56,15 +63,23 @@ const EmployeeCardPermission = () => {
 
 
 const ProductSummary = () => {
+    const dispatch: AppDispatch = useDispatch();
+    const loading = useSelector((state: RootState) => state.dashboard.all_employee_permissions.loading)
+    const all_permissions = useSelector((state: RootState) => state.dashboard.all_employee_permissions.data);
+
+    useEffect(() => {
+        dispatch(getEmployeesPermissions())
+    }, [])
     return <Box sx={{ pt: 2 }}>
         <Card sx={{ p: 2 }}>
             <Typography gutterBottom variant="body1">Set Permissions</Typography>
             <Divider />
-            {/* <Grid container spacing={2} mt={1}>
-                {[1, 2, 3].map((card, _) => {
-                    return <EmployeeCardPermission />
+            <Grid container spacing={2} mt={1}>
+                {all_permissions.map((permission, _: number) => {
+                    return <EmployeeCardPermission permission={permission} key={_} />
                 })}
-                {
+
+                {loading &&
                     [1, 2, 3].map((loader) => {
                         return <Grid item xs={12} sm={6} lg={4}>
                             <Card>
@@ -95,10 +110,9 @@ const ProductSummary = () => {
                                 </CardContent>
                             </Card>
                         </Grid>
-                    })
-                }
-            </Grid> */}
-            <EmployeeCardPermission />
+                    })}
+            </Grid>
+            {/* <EmployeeCardPermission /> */}
         </Card>
         <Stack rowGap={2} mt={2}>
             <ProtectedRoutes role="employee" fallback={<MessageBox type="warning" message="No permission to Create New Permission" />} requiredPermission="b5fd1ef7">
