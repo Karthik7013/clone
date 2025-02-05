@@ -20,11 +20,9 @@ type AttachPermission = {
     id?: string
 }
 
-
 const AttachPermissions = (props) => {
-    const profile = useSelector((state: RootState) => state.auth.authData);
-    const employee_role_id = profile.employee_role_id
-    const myPermissions = profile?.permissions;
+    const employee_role_id = props.permission.employee_role_id
+    const myPermissions = props.permission.permissions;
     const permissions = useSelector((state: RootState) => state.dashboard.employee_permissions.data);
     const loadingPermissions = useSelector((state: RootState) => state.dashboard.employee_permissions.loading);
     const dispatch: AppDispatch = useDispatch()
@@ -35,6 +33,8 @@ const AttachPermissions = (props) => {
 
 
     const Permission = (permission: permissionProps) => {
+        console.log(permission, 'sehere')
+        const [hasPerm, setHasPerm] = useState(myPermissions.includes(permission.permission_id))
         const [loading, setLoading] = useState(false);
         const addPermission = async (payload: {
             employee_role_id: number,
@@ -44,7 +44,7 @@ const AttachPermissions = (props) => {
                 setLoading(true)
                 const res = await EmployeeResources.post('/attach-permissions', payload);
                 if (res.status === 200) {
-                    dispatch(pushPermission(payload.permission_id))
+                    setHasPerm(true)
                 }
             } catch (error) {
                 console.log('failed to add');
@@ -59,9 +59,9 @@ const AttachPermissions = (props) => {
             try {
                 setLoading(true)
                 const res = await EmployeeResources.post('/remove-permissions', payload);
-                // if (res.status === 200) {
-                //     dispatch(popPermission(payload.permission_id))
-                // }
+                if (res.status === 200) {
+                    setHasPerm(false)
+                }
             } catch (error) {
                 console.log('failed to add');
             } finally {
@@ -86,9 +86,9 @@ const AttachPermissions = (props) => {
         }
         return <ListItem divider key={permission.permission_id}>
             <ListItemIcon>
-            {loading ? <CircularProgress size={20} /> : <Checkbox
-            onChange={handlePermission}
-            defaultChecked={myPermissions.includes(permission.permission_id)} title={`ID : ${permission.permission_id}`} />}
+                {loading ? <CircularProgress size={20} /> : <Checkbox
+                    onChange={handlePermission}
+                    defaultChecked={hasPerm} title={`ID : ${permission.permission_id}`} />}
             </ListItemIcon>
 
 
@@ -103,7 +103,6 @@ const AttachPermissions = (props) => {
         <ListItem secondaryAction={
             <ButtonGroup sx={{ alignItems: 'center' }}>
                 <Chip size="small" color="info" variant="outlined" onClick={reloadPermissions} icon={<CachedRoundedIcon fontSize="inherit" />} clickable sx={{ mr: 2 }} label="reload" />
-
             </ButtonGroup>
         }>
             <ListItemText primary={<Typography variant="subtitle2">Employee Permissions</Typography>} secondary={<Typography variant="caption" color='text.secondary'>Add or Manage your Employee Permissions</Typography>} />

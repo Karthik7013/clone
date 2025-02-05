@@ -1,7 +1,7 @@
 import AttachPermissions from "../../crm/employee/components/AttachPermissisons";
 import CreatePermission from "../../crm/employee/components/CreatePermission";
 import CreateRole from "../../crm/employee/components/CreateRole";
-import { Avatar, Box, Button, Card, CardContent, Chip, Dialog, Divider, Grid, IconButton, LinearProgress, ListItem, ListItemButton, ListItemIcon, ListItemText, Pagination, Skeleton, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardContent, Chip, Dialog, Divider, Grid, IconButton, ListItem, ListItemIcon, ListItemText, Pagination, Skeleton, Stack, Typography } from "@mui/material";
 import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
@@ -14,8 +14,6 @@ import { MessageBox } from ".";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { getEmployeesPermissions } from "../../redux/slice/dashboardSlice";
-
-
 
 const EmployeeCardPermission = ({ permission }) => {
     const [edit, setEdit] = useState<boolean>(false);
@@ -73,7 +71,7 @@ const EmployeeCardPermission = ({ permission }) => {
                     </Box>
                 </CardContent>
                 <Dialog open={edit} onClose={toggleAttachPermission}>
-                    <AttachPermissions />
+                    <AttachPermissions permission={permission} />
                 </Dialog>
             </Card>
         </Grid>
@@ -86,11 +84,12 @@ const EmployeeCardPermission = ({ permission }) => {
 const ProductSummary = () => {
     const dispatch: AppDispatch = useDispatch();
     const loading = useSelector((state: RootState) => state.dashboard.all_employee_permissions.loading)
-    const all_permissions = useSelector((state: RootState) => state.dashboard.all_employee_permissions.data);
+    const all_permissions = useSelector((state: RootState) => state.dashboard.all_employee_permissions.data); // all employee permissions
 
     useEffect(() => {
         dispatch(getEmployeesPermissions())
     }, [])
+
     return <Box sx={{ pt: 2 }}>
         <ProtectedRoutes fallback={<MessageBox message="No Required Permissions" type="warning" />} requiredPermission='d65f295f' role="employee">
             <Card sx={{ p: 2 }}>
