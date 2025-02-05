@@ -1,5 +1,5 @@
 
-import { Box, ButtonGroup, Card, Checkbox, Chip, CircularProgress, Divider, LinearProgress, List, ListItem, ListItemText, Stack, TextField, Typography } from "@mui/material";
+import { Box, ButtonGroup, Card, Checkbox, Chip, CircularProgress, Divider, LinearProgress, List, ListItem, ListItemIcon, ListItemText, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import InfoIcon from '@mui/icons-material/Info';
@@ -86,9 +86,14 @@ const AttachPermissions = (props: AttachPermission) => {
                 })
             }
         }
-        return <ListItem divider key={permission.permission_id} secondaryAction={loading ? <CircularProgress size={20} /> : <Checkbox
+        return <ListItem divider key={permission.permission_id}>
+            <ListItemIcon>
+            {loading ? <CircularProgress size={20} /> : <Checkbox
             onChange={handlePermission}
-            defaultChecked={myPermissions.includes(permission.permission_id)} title={`ID : ${permission.permission_id}`} />}>
+            defaultChecked={myPermissions.includes(permission.permission_id)} title={`ID : ${permission.permission_id}`} />}
+            </ListItemIcon>
+
+
             <ListItemText
                 primary={permission.permission_name}
                 secondary={<Typography color='text.secondary' variant="caption" component={Stack} flexDirection='row' alignItems='center'><InfoIcon fontSize="inherit" sx={{ mr: 1 }} />{permission.permission_description}</Typography>}
