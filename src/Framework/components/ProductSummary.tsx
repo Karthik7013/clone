@@ -92,51 +92,53 @@ const ProductSummary = () => {
         dispatch(getEmployeesPermissions())
     }, [])
     return <Box sx={{ pt: 2 }}>
-        <Card sx={{ p: 2 }}>
-            <Typography gutterBottom variant="body1">Set Permissions</Typography>
-            <Divider />
-            <Grid container spacing={2} mt={1}>
-                {loading &&
-                    [1, 2, 3].map((loader, _: number) => {
-                        return <Grid item xs={12} sm={6} lg={4} key={_}>
-                            <Card>
-                                <ListItem>
-                                    <ListItemIcon>
-                                        <Skeleton variant="rounded" width={40} height={40}></Skeleton>
-                                    </ListItemIcon>
-                                    <Stack width="100%" rowGap={1}>
-                                        <Skeleton variant="rectangular" height={10} width="100%"></Skeleton>
-                                        <Skeleton variant="rectangular" height={10} width="100%"></Skeleton>
-                                    </Stack>
-                                </ListItem>
-                                <Divider />
-                                <CardContent>
-                                    <Skeleton variant="rectangular" />
-                                    <Box component={Stack} gap={2} direction={'row'} mt={2} flexWrap={'wrap'}>
-                                        {[1, 2, 3].map((chip, _: number) => {
-                                            return <Skeleton key={_} variant="rectangular" width={100} />
-                                        })}
-                                    </Box>
-                                </CardContent>
-                                <Divider />
-                                <CardContent >
-                                    <Box component={Stack} direction={'row'} gap={2}>
-                                        <Skeleton height={40} variant="rectangular" sx={{ flexGrow: 1 }}></Skeleton>
-                                        <Skeleton height={40} variant="rectangular" sx={{ flexGrow: 1 }}></Skeleton>
-                                    </Box>
-                                </CardContent>
-                            </Card>
-                        </Grid>
+        <ProtectedRoutes fallback={<MessageBox message="No Required Permissions" type="warning" />} requiredPermission='d65f295f' role="employee">
+            <Card sx={{ p: 2 }}>
+                <Typography gutterBottom variant="body1">Set Permissions</Typography>
+                <Divider />
+                <Grid container spacing={2} mt={1}>
+                    {loading &&
+                        [1, 2, 3].map((loader, _: number) => {
+                            return <Grid item xs={12} sm={6} lg={4} key={_}>
+                                <Card>
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <Skeleton variant="rounded" width={40} height={40}></Skeleton>
+                                        </ListItemIcon>
+                                        <Stack width="100%" rowGap={1}>
+                                            <Skeleton variant="rectangular" height={10} width="100%"></Skeleton>
+                                            <Skeleton variant="rectangular" height={10} width="100%"></Skeleton>
+                                        </Stack>
+                                    </ListItem>
+                                    <Divider />
+                                    <CardContent>
+                                        <Skeleton variant="rectangular" />
+                                        <Box component={Stack} gap={2} direction={'row'} mt={2} flexWrap={'wrap'}>
+                                            {[1, 2, 3].map((chip, _: number) => {
+                                                return <Skeleton key={_} variant="rectangular" width={100} />
+                                            })}
+                                        </Box>
+                                    </CardContent>
+                                    <Divider />
+                                    <CardContent >
+                                        <Box component={Stack} direction={'row'} gap={2}>
+                                            <Skeleton height={40} variant="rectangular" sx={{ flexGrow: 1 }}></Skeleton>
+                                            <Skeleton height={40} variant="rectangular" sx={{ flexGrow: 1 }}></Skeleton>
+                                        </Box>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        })}
+                    {all_permissions.map((permission, _: number) => {
+                        return <EmployeeCardPermission permission={permission} key={_} />
                     })}
-                {all_permissions.map((permission, _: number) => {
-                    return <EmployeeCardPermission permission={permission} key={_} />
-                })}
-                <Stack direction={'row'} width={'100%'} mt={2}>
-                    <Box flexGrow={1} />
-                    <Pagination variant="text" color="primary" count={3}></Pagination>
-                </Stack>
-            </Grid>
-        </Card>
+                    <Stack direction={'row'} width={'100%'} mt={2}>
+                        <Box flexGrow={1} />
+                        <Pagination variant="text" color="primary" count={3}></Pagination>
+                    </Stack>
+                </Grid>
+            </Card>
+        </ProtectedRoutes>
         <Stack rowGap={2} mt={2}>
             <ProtectedRoutes role="employee" fallback={<MessageBox type="warning" message="No permission to Create New Permission" />} requiredPermission="b5fd1ef7">
                 <CreatePermission />
