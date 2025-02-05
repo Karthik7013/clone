@@ -52,8 +52,8 @@ const Notification: React.FC = (): React.JSX.Element => {
                 <Divider />
                 <CustomScrollbarBox component={List} sx={{ pb: 1, maxHeight: 400, overflow: 'auto' }}>
 
-                    {[1, 2, 3, 4].map((notification) => {
-                        return <ListItem divider alignItems="flex-start">
+                    {[1, 2, 3, 4].map((notification,_:number) => {
+                        return <ListItem divider alignItems="flex-start" key={_}>
                             <ListItemAvatar>
                                 <Avatar alt="Remy Sharp" src="https://avatar.iran.liara.run/public" />
                             </ListItemAvatar>

@@ -7,7 +7,6 @@ import CachedRoundedIcon from '@mui/icons-material/CachedRounded';
 import { AppDispatch, RootState } from "../../../redux/store";
 import { getPermissions } from "../../../redux/slice/dashboardSlice";
 import CustomScrollbarBox from "../../../Framework/components/ScrollComponent";
-import axios from "axios";
 import { EmployeeResources } from "../../../service/api";
 import { popPermission, pushPermission } from "../../../redux/slice/authSlice";
 interface permissionProps {
@@ -22,7 +21,7 @@ type AttachPermission = {
 }
 
 
-const AttachPermissions = (props: AttachPermission) => {
+const AttachPermissions = (props) => {
     const profile = useSelector((state: RootState) => state.auth.authData);
     const employee_role_id = profile.employee_role_id
     const myPermissions = profile?.permissions;
@@ -30,9 +29,9 @@ const AttachPermissions = (props: AttachPermission) => {
     const loadingPermissions = useSelector((state: RootState) => state.dashboard.employee_permissions.loading);
     const dispatch: AppDispatch = useDispatch()
     useEffect(() => {
-        if (!permissions.length) dispatch(getPermissions())
+        if (!permissions.length) dispatch(getPermissions()) // all the available permissions
     }, []);
-    const reloadPermissions = () => dispatch(getPermissions());
+    const reloadPermissions = () => dispatch(getPermissions()); // all the available permissions
 
 
     const Permission = (permission: permissionProps) => {
@@ -69,7 +68,6 @@ const AttachPermissions = (props: AttachPermission) => {
                 setLoading(false)
             }
         }
-
 
         const handlePermission = (event: React.ChangeEvent<HTMLInputElement>) => {
             const check: boolean = event.target.checked;
