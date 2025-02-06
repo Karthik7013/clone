@@ -279,7 +279,10 @@ const theme = (customStyles: customStylesProps) => {
             MuiIconButton: {
                 styleOverrides: {
                     root: {
-                        borderRadius
+                        backgroundColor:alpha(theme.palette.primary.light,0.1),
+                     '&:hover':{
+                        backgroundColor: theme.palette.primary.main
+                     }
                     }
                 }
             },
