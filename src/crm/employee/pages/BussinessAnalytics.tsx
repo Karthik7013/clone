@@ -151,7 +151,7 @@ const BussinessAnalytics = () => {
       }
     },
   });
-  const StatusCard = () => {
+  const StatusCard = React.memo(() => {
     const theme = useTheme();
     return <Card elevation={5} sx={{ display: 'flex', flexGrow: 1, p: 2, gap: 2, justifyContent: 'space-between', overflow: 'initial', pb: 0, backgroundImage: `linear-gradient(160deg, ${theme.palette.primary.light} 0%, ${theme.palette.primary.dark} 100%)` }}>
 
@@ -176,7 +176,7 @@ const BussinessAnalytics = () => {
         <ReactApexChart options={state.options} series={state.series} type="line" height={100} width={120} />
       </Box>
     </Card>
-  }
+  })
 
   return (<Box mt={3}>
     <ListItem disableGutters>

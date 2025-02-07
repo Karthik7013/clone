@@ -26,6 +26,7 @@ import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import ProductPannel from './ProductPannel';
 import { logout } from '../../redux/slice/authSlice';
 import { AppDispatch, RootState } from '../../redux/store';
+import { Helmet } from 'react-helmet';
 
 const Header = () => {
     console.log('header renders');
@@ -56,6 +57,10 @@ const Header = () => {
 
     return (
         <CustomAppBar>
+            <Helmet>
+                <title>NameLix 360° Insurance | Smart Insurance for a Secure Tomorrow </title>
+                <meta name="description" content="This is an awesome page using react-helmet!" />
+            </Helmet>
             <Container maxWidth="lg">
                 <Toolbar disableGutters>
                     <Box component={'a'} href='/' sx={{ background: 'white', borderRadius: '0.45rem', padding: 0.5, display: { xs: 'none', md: 'block' } }}>

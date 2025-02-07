@@ -56,7 +56,8 @@ CustomerResources.interceptors.response.use(
           await authService.post('/generate-access-token');
           return CustomerResources(originalRequest);
         } catch (refreshError) {
-          console.error('Token refresh failed', refreshError);
+          window.location.href = '/customer/signin';
+          // console.error('Token refresh failed', refreshError);
         }
       }
     }
@@ -75,7 +76,8 @@ AgentResources.interceptors.response.use(
           await authService.post('/generate-access-token');
           return AgentResources(originalRequest);
         } catch (refreshError) {
-          console.error('Token refresh failed', refreshError);
+          window.location.href = '/agent/signin';
+          // console.error('Token refresh failed', refreshError);
         }
       }
     }
@@ -94,7 +96,7 @@ EmployeeResources.interceptors.response.use(
           await authService.post('/generate-access-token');
           return EmployeeResources(originalRequest);
         } catch (refreshError) {
-          console.error('Token refresh failed', refreshError);
+          window.location.href = '/employee/signin';
         }
       }
     }
