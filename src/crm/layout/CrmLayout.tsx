@@ -569,8 +569,8 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                         <Tooltip title={dark ? "light" : "dark"}>
                             <IconButton color="default" sx={{ mr: 2 }} onClick={handleTheme}>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
                         </Tooltip>
-                        
-                    <Notification />
+
+                        <Notification />
                         <Button size="small" color="error" endIcon={<LogoutRoundedIcon fontSize="inherit" />} variant="outlined" onClick={handleOnclick}>Logout</Button>
 
                     </Stack>
@@ -609,9 +609,9 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
             >
                 {crmLayoutProps.sideBar}
             </Drawer>
-            {desktopOpen && <CustomScrollbarBox minWidth={drawerWidth} maxWidth={drawerWidth} sx={{ display: { xs: 'none', md: 'block' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
+            <CustomScrollbarBox sx={{ display: { xs: 'none', md: 'block', minWidth: 'fit-content' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
                 {crmLayoutProps.sideBar}
-            </CustomScrollbarBox>}
+            </CustomScrollbarBox>
 
             <StyledCardContent>
                 <Suspense fallback={<LinearProgress />}>

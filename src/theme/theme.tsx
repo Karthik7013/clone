@@ -180,7 +180,7 @@ const theme = (customStyles: customStylesProps) => {
                 styleOverrides: {
                     root: {
                         minWidth: '24px',
-                        marginRight: '0.9rem'
+                        marginRight: 0
                     }
                 }
             },
@@ -188,9 +188,11 @@ const theme = (customStyles: customStylesProps) => {
                 styleOverrides: {
                     root: {
                         borderRadius,
+                        backgroundColor: alpha(theme.palette.success.main, 0.1),
+                        color: theme.palette.success.main,
                         "&:hover": {
-                            backgroundColor: theme.palette.primary.main,
-                            color: theme.palette.common.white
+                            backgroundColor: theme.palette.success.main,
+                            color: theme.palette.common.white,
                         },
                         textDecoration: 'none',
                         marginBottom: 3,
@@ -297,6 +299,7 @@ const theme = (customStyles: customStylesProps) => {
                     }
                 }
             },
+
 
         }
     })

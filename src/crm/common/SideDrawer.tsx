@@ -7,14 +7,15 @@ import ProtectedRoutes from '../../ProtectedRoute';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
-const drawerWidth = 260;
+
 const SideDrawer = () => {
     const currentPath = useLocation().pathname.split('/').splice(-1);
     const theme = useTheme();
     const loading = useSelector((state: RootState) => state.auth.loading);
     const authData = useSelector((state: RootState) => state.auth.authData);
+    const desktopOpen: boolean = useSelector((state: RootState) => state.ui.isDesktop);
 
-    return (<Box maxWidth={drawerWidth}>
+    return (<Box>
         <Toolbar sx={{ display: { xs: 'block', md: 'none' } }}>
             <ListItem disablePadding sx={{ mt: 4, width: 240 - 10, display: { xs: 'flex', md: 'none' } }}>
                 <ListItemIcon>
@@ -24,7 +25,7 @@ const SideDrawer = () => {
             </ListItem>
         </Toolbar>
         {loading ? <LinearProgress /> :
-            <List component={Stack} sx={{ px: 1 }} subheader={<Typography variant='caption' color='text.secondary'>Menu</Typography>}>
+            <List component={Stack} sx={{ px: 1 }}>
                 <Divider sx={{ mb: 1 }} />
 
                 {/* 
@@ -247,11 +248,7 @@ const SideDrawer = () => {
                 --------------- employee ------------------------------
                  */}
                 <ProtectedRoutes role='employee' requiredPermission={'21c01c0a'}>
-                    <ListItem disablePadding
-                        secondaryAction={
-                            <Chip label="new" size="small" color="success" />
-                        }
-                    >
+                    <ListItem disablePadding>
                         <ListItemButton
                             component={Link} to={''}
                             sx={{ bgcolor: currentPath.includes('dashboard') ? theme.palette.primary.main : 'inherit' }}
@@ -259,7 +256,7 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>dashboard</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Dashboard'}</Typography>} />
+                            {!desktopOpen && <ListItemText primary={<Typography variant='body2' noWrap>{'Dashboard'}</Typography>} />}
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -272,7 +269,9 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>manage_accounts</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Service'}</Typography>} />
+                            {!desktopOpen && <ListItemText primary={
+                                <Typography variant='body2' noWrap>{'Service'}</Typography>
+                            } />}
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -285,7 +284,7 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>currency_rupee_circle</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Revenue'}</Typography>} />
+                            {!desktopOpen && <ListItemText primary={<Typography variant='body2' noWrap>{'Revenue'}</Typography>} />}
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -298,7 +297,7 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>payments</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Claims'}</Typography>} />
+                            {!desktopOpen && <ListItemText primary={<Typography variant='body2' noWrap>{'Claims'}</Typography>} />}
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -311,7 +310,7 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>currency_exchange</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Income'}</Typography>} />
+                            {!desktopOpen && <ListItemText primary={<Typography variant='body2' noWrap>{'Income'}</Typography>} />}
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -324,7 +323,7 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>admin_panel_settings</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Employee Management'}</Typography>} />
+                            {!desktopOpen && <ListItemText primary={<Typography variant='body2' noWrap>{'Employee Management'}</Typography>} />}
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -337,7 +336,7 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>manage_accounts</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Customer Management'}</Typography>} />
+                            {!desktopOpen && <ListItemText primary={<Typography variant='body2' noWrap>{'Customer Management'}</Typography>} />}
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -350,7 +349,7 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>assignment_ind</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Agent Management'}</Typography>} />
+                            {!desktopOpen && <ListItemText primary={<Typography variant='body2' noWrap>{'Agent Management'}</Typography>} />}
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -363,7 +362,7 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>category</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Products'}</Typography>} />
+                            {!desktopOpen && <ListItemText primary={<Typography variant='body2' noWrap>{'Products'}</Typography>} />}
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -376,7 +375,7 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>settings</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                            {!desktopOpen && <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />}
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -389,7 +388,7 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>checklist_rtl</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography color='inherit' variant='body2' noWrap>{'Access Management'}</Typography>} />
+                            {!desktopOpen && <ListItemText primary={<Typography color='inherit' variant='body2' noWrap>{'Access Management'}</Typography>} />}
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -397,36 +396,36 @@ const SideDrawer = () => {
             </List>
         }
 
-        <Stack gap={1} px={1}>
+        {/* <Stack gap={1} px={1}>
             <Card>
                 <CardContent>
                     <Stack direction='row' alignItems='center'>
                         <ListItemIcon>
                             <AutoAwesomeRoundedIcon color='warning' fontSize='small' />
                         </ListItemIcon>
-                        <ListItemText primary={<Typography fontWeight={600} variant='subtitle2' component="h1">Trail ends in 6 days !</Typography>} />
+                        {!desktopOpen && <ListItemText primary={<Typography fontWeight={600} variant='subtitle2' component="h1">Trail ends in 6 days !</Typography>} />}
                     </Stack>
-                    <Box mb={1}>
+                    {!desktopOpen && <Box mb={1}>
                         <Typography variant='caption' fontSize='12px'>You are on a free premium trail plain on monthly billing</Typography>
-                    </Box>
-                    <Button fullWidth variant='contained'>View more details</Button>
+                    </Box>}
+                    {!desktopOpen && <Button fullWidth variant='contained'>View more details</Button>}
                 </CardContent>
             </Card>
             <Card>
                 <ListItem>
                     <ListItemAvatar><Avatar src='https://avatar.iran.liara.run/public' alt="" /></ListItemAvatar>
-                    <ListItemText primary={<Typography variant='subtitle2'>{authData?.firstname + " " + authData?.lastname}</Typography>} secondary={<Typography noWrap={false} variant='caption'>{authData?.email}</Typography>} />
+                    {!desktopOpen && <ListItemText primary={<Typography variant='subtitle2'>{authData?.firstname + " " + authData?.lastname}</Typography>} secondary={<Typography noWrap={false} variant='caption'>{authData?.email}</Typography>} />}
                 </ListItem>
             </Card>
-        </Stack>
+        </Stack> */}
 
-        <Box sx={{
+        {/* <Box sx={{
             pb: theme.spacing(2)
         }}>
             <Typography flexWrap='wrap' color='text.secondary' variant='subtitle2' textAlign='center' mt={1}>
                 <Chip color='warning' icon={<InfoRoundedIcon fontSize='small' />} label="Version v.1" size='small' />
             </Typography>
-        </Box>
+        </Box> */}
     </Box>
     )
 }

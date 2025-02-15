@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Chip, Divider, Grid, IconButton, ListItemIcon, Menu, MenuItem, Stack, styled, Link as MuiLink } from '@mui/material'
+import { Avatar, Box, Button, Chip, Divider, Grid, IconButton, ListItemIcon, Menu, MenuItem, Stack, styled, Link as MuiLink, LinearProgress } from '@mui/material'
 import React, { useCallback, useEffect } from 'react'
 import { DataGrid, GridColDef, GridRowsProp, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridToolbarQuickFilter } from '@mui/x-data-grid'
 import { GroupAddRounded } from '@mui/icons-material';
@@ -8,11 +8,12 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeAddEmployeeAlert, getEmployeesList, handleAddEmployeeModal } from '../../../redux/slice/dashboardSlice';
 import { AppDispatch, RootState } from '../../../redux/store';
-import AddEmployee from './AddEmployee';
+import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AlertBox from '../../../Framework/components/AlertBox';
-import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
 import ProtectedRoutes from '../../../ProtectedRoute';
+const AddEmployee = React.lazy(() => import('./AddEmployee'));
+
 const EmployeeTable = () => {
     const alert = useSelector((state: RootState) => state.dashboard.create_new_employee.alert)
     const dispatch: AppDispatch = useDispatch();
@@ -38,9 +39,13 @@ const EmployeeTable = () => {
 
 
     const columns: GridColDef[] = [
-        { field: 'employee_id', headerName: 'Employee ID', width: 150 },
+        {
+            field: 'employee_id', headerName: 'Employee ID', width: 150,
+            disableColumnMenu: true
+        },
         {
             field: 'firstname', headerName: 'Employee Name', width: 150,
+            disableColumnMenu: true,
             renderCell: (params) => (
                 <Stack gap={2} alignItems={'center'} direction='row'>
                     <Avatar src={`https://avatar.iran.liara.run/username?username=${params.value[0]}`}>{params.value[0]}</Avatar>
@@ -48,20 +53,20 @@ const EmployeeTable = () => {
                 </Stack>
             )
         },
-        { field: 'phone', headerName: 'Contact', width: 150 },
-        { field: 'email', headerName: 'Email', width: 150 },
-        { field: 'gender', headerName: 'Gender', width: 150 },
-        { field: 'dob', headerName: 'Date of Birth', width: 150, renderCell: (param) => param.value.split('T')[0] },
-        { field: 'address', headerName: 'Address', width: 150 },
-        { field: 'state', headerName: 'State', width: 150 },
-        { field: 'city', headerName: 'City', width: 150 },
-        { field: 'pincode', headerName: 'Pincode', width: 150 },
-        { field: 'country', headerName: 'Country', width: 150 },
-        { field: 'department', headerName: 'Department', width: 150 },
-        { field: 'role_name', headerName: 'Designation', width: 150, renderCell: (params) => <Chip size='small' label={params.value} /> },
-        { field: 'salary', headerName: 'Salary (INR)', width: 150 },
-        { field: 'status', headerName: 'Status', width: 150, renderCell: (params) => <Chip size='small' color={params.value === 'Active' ? 'success' : 'error'} variant='outlined' label={params.value} clickable /> },
-        { field: 'joinedate', headerName: 'Join Date', width: 150, renderCell: (param) => param.value.split('T')[0] },
+        { field: 'phone', headerName: 'Contact', width: 150, disableColumnMenu: true },
+        { field: 'email', headerName: 'Email', width: 150, disableColumnMenu: true },
+        { field: 'gender', headerName: 'Gender', width: 150, disableColumnMenu: true },
+        { field: 'dob', headerName: 'Date of Birth', width: 150, renderCell: (param) => param.value.split('T')[0], disableColumnMenu: true },
+        { field: 'address', headerName: 'Address', width: 150, disableColumnMenu: true },
+        { field: 'state', headerName: 'State', width: 150, disableColumnMenu: true },
+        { field: 'city', headerName: 'City', width: 150, disableColumnMenu: true },
+        { field: 'pincode', headerName: 'Pincode', width: 150, disableColumnMenu: true },
+        { field: 'country', headerName: 'Country', width: 150, disableColumnMenu: true },
+        { field: 'department', headerName: 'Department', width: 150, disableColumnMenu: true },
+        { field: 'role_name', headerName: 'Designation', width: 150, renderCell: (params) => <Chip size='small' label={params.value} />, disableColumnMenu: true },
+        { field: 'salary', headerName: 'Salary (INR)', width: 150, disableColumnMenu: true },
+        { field: 'status', headerName: 'Status', width: 150, renderCell: (params) => <Chip size='small' color={params.value === 'Active' ? 'success' : 'error'} variant='outlined' label={params.value} clickable />, disableColumnMenu: true },
+        { field: 'joinedate', headerName: 'Join Date', width: 150, renderCell: (param) => param.value.split('T')[0], disableColumnMenu: true },
     ];
 
 
@@ -149,9 +154,12 @@ const EmployeeTable = () => {
                         loading={loading}
                         getRowId={(row) => row.employee_id}
                         rows={employeeList} columns={columns} checkboxSelection
+
                         disableRowSelectionOnClick />
                 </Box>
-                <AddEmployee open={addEmployeeModalOpen} handleClose={toggleEmployeeModal} />
+                <React.Suspense fallback={<LinearProgress />}>
+                    <AddEmployee open={addEmployeeModalOpen} handleClose={toggleEmployeeModal} />
+                </React.Suspense>
             </Grid>
             <AlertBox alert={alert} onClose={handleCloseAlert} />
         </Grid>

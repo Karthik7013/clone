@@ -179,7 +179,7 @@ const Home = () => {
                 <Grid item xs={12} my={2}>
                     <Stack direction={'row'} justifyContent={'space-between'}>
                         <Box sx={{ display: { xs: 'none', md: 'block', width: '100%' } }}>
-                           
+
                             <Typography variant="h1">Lets Find Your</Typography>
                             <Typography variant="h1" fontWeight={600}>Best Insurance Plan</Typography>
                             <Stack direction={'row'} mt={2} maxWidth={500}>
@@ -223,30 +223,30 @@ const Home = () => {
                                 ),
                             }} /> */}
                             </Stack>
-   
+
                         </Box>
                         <Box>
 
-                            <Box sx={{ width: '100%', maxWidth: 360, mx: 'auto', mt: 4 }}>
+                            <Box sx={{ width: '100%', maxWidth: 300, mt: 4 }}>
                                 <Slider {...settings}>
                                     <Box sx={{ position: 'relative' }}>
-                                        <Card elevation={0} sx={{ maxWidth: 380 }}>
+                                        <Card elevation={0} sx={{ maxWidth: 300 }}>
                                             <CardMedia component={'img'} image="https://img.freepik.com/free-vector/business-insurance-template-blog-banner_53876-117981.jpg" />
                                         </Card>
 
                                     </Box>
                                     <Box sx={{ position: 'relative' }}>
-                                        <Card elevation={0} sx={{ maxWidth: 400 }}>
+                                        <Card elevation={0} sx={{ maxWidth: 300 }}>
                                             <CardMedia component={'img'} image="https://img.freepik.com/free-vector/blog-banner-template-vector-life-insurance_53876-126524.jpg" />
                                         </Card>
                                     </Box>
                                     <Box sx={{ position: 'relative' }}>
-                                        <Card elevation={0} sx={{ maxWidth: 400 }}>
+                                        <Card elevation={0} sx={{ maxWidth: 300 }}>
                                             <CardMedia component={'img'} image="https://img.freepik.com/free-vector/editable-template-vector-covid-19-travel-medical-insurance-presentation_53876-140961.jpg" />
                                         </Card>
                                     </Box>
                                     <Box sx={{ position: 'relative' }}>
-                                        <Card elevation={0} sx={{ maxWidth: 400 }}>
+                                        <Card elevation={0} sx={{ maxWidth: 300 }}>
                                             <CardMedia component={'img'} image="https://img.freepik.com/free-vector/health-insurance-template-vector-blog-banner_53876-111243.jpg" />
                                         </Card>
                                     </Box>
