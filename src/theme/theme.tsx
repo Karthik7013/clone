@@ -188,10 +188,8 @@ const theme = (customStyles: customStylesProps) => {
                 styleOverrides: {
                     root: {
                         borderRadius,
-                        backgroundColor: alpha(theme.palette.success.main, 0.1),
-                        color: theme.palette.success.main,
                         "&:hover": {
-                            backgroundColor: theme.palette.success.main,
+                            backgroundColor: theme.palette.primary.main,
                             color: theme.palette.common.white,
                         },
                         textDecoration: 'none',
