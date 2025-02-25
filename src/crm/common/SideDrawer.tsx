@@ -17,7 +17,7 @@ const SideDrawer = () => {
 
     return (<Box>
         <Toolbar sx={{ display: { xs: 'block', md: 'none' } }}>
-            <ListItem disablePadding sx={{ mt: 4, width: 240 - 10, display: { xs: 'flex', md: 'none' } }}>
+            <ListItem disablePadding sx={{ mt: 4, display: { xs: 'flex', md: 'none' } }}>
                 <ListItemIcon>
                     <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
                 </ListItemIcon>
@@ -28,16 +28,16 @@ const SideDrawer = () => {
 
         {loading ? <LinearProgress /> :
             <List component={Stack} sx={{ px: 1 }}>
-                <Divider sx={{ mb: 1 }} />
+
 
                 {/* 
                 ---------------- customer ----------------------
                 */}
                 <ProtectedRoutes role="customer" requiredPermission={1000}>
                     <ListItem disablePadding
-                        secondaryAction={
-                            <Chip variant="outlined" label="new" size="small" color="primary" />
-                        }
+                    // secondaryAction={
+                    //     <Chip variant="outlined" label="new" size="small" color="primary" />
+                    // }
                     >
                         <ListItemButton
                             sx={{ bgcolor: currentPath.includes('dashboard') ? theme.palette.primary.main : 'inherit' }}
@@ -48,7 +48,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize="small">dashboard</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant="body2" noWrap>{'Dashboard'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant="body2" noWrap>{'Dashboard'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
 
@@ -64,7 +67,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>receipt_long</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'My Policies'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'My Policies'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
 
@@ -79,7 +85,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>verified_user</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
 
@@ -94,7 +103,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>assignment_add</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Register Claim'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'Register Claim'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
 
@@ -109,7 +121,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>settings</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
 
@@ -117,9 +132,9 @@ const SideDrawer = () => {
                 <ProtectedRoutes role='customer' requiredPermission={1005}>
 
                     <ListItem disablePadding
-                        secondaryAction={
-                            <Chip variant='outlined' label="3" size="small" color="success" />
-                        }
+                    // secondaryAction={
+                    //     <Chip variant='outlined' label="3" size="small" color="success" />
+                    // }
                     >
                         <ListItemButton
 
@@ -129,7 +144,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>support</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Help'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'Help'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -139,9 +157,9 @@ const SideDrawer = () => {
                  */}
                 <ProtectedRoutes role='agent' requiredPermission={2000}>
                     <ListItem disablePadding
-                        secondaryAction={
-                            <Chip label="new" size="small" color="success" />
-                        }
+                    // secondaryAction={
+                    //     <Chip label="new" size="small" color="success" />
+                    // }
                     >
                         <ListItemButton
                             sx={{ bgcolor: currentPath.includes('dashboard') ? theme.palette.primary.main : 'inherit' }}
@@ -150,7 +168,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>app_registration</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Overview'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'Overview'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -163,7 +184,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>post_add</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Bookings'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'Bookings'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -176,7 +200,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>assignment_add</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Add Policy'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'Add Policy'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -189,7 +216,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>receipt_long</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'Policy Claims'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -203,7 +233,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>settings</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'Settings'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -216,7 +249,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>support</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Helpline'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'Helpline'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -229,7 +265,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>checklist_rtl</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Examination'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'Examination'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>
@@ -242,7 +281,10 @@ const SideDrawer = () => {
                             <ListItemIcon>
                                 <Icon fontSize='small'>local_library</Icon>
                             </ListItemIcon>
-                            <ListItemText primary={<Typography variant='body2' noWrap>{'Study Material'}</Typography>} />
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography variant='body2' noWrap>{'Study Material'}</Typography>} />
+                            </Collapse>
+
                         </ListItemButton>
                     </ListItem>
                 </ProtectedRoutes>

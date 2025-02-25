@@ -26,9 +26,7 @@ const OtpModal = (props: otpModalProps) => {
     const [loading, setLoading] = useState(false);
     const [otp, setOtp] = useState(['', '', '', '']);
     const { open, setOpen } = props;
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const handleClose = () => setOpen(false)
 
     return (
         <Dialog
@@ -51,6 +49,7 @@ const OtpModal = (props: otpModalProps) => {
                             {[1, 2, 3, 4].map((digit, index) => (
                                 <Grid item xs={3}>
                                     <TextField
+                                        focused={false}
                                         key={index}
                                         id={`otp-input-${index}`}
                                         variant="outlined"
@@ -62,7 +61,7 @@ const OtpModal = (props: otpModalProps) => {
                                         }}
                                         onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
                                             if (!/^\d$/.test(e.target.value)) {
-                                                e.target.value = '';
+                                                e.target.value = '.';
                                             }
                                         }}
                                         sx={{

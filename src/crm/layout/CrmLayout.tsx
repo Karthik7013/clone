@@ -505,7 +505,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
             }}
         >
             <Toolbar>
-                <ListItem component={Link} to="/" disablePadding sx={{ width: drawerWidth - 10, display: { xs: 'none', md: 'flex' } }}>
+                <ListItem component={Link} to="/" disablePadding sx={{ width: drawerWidth - 80, display: { xs: 'none', md: 'flex' } }}>
                     <ListItemIcon>
                         <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
                     </ListItemIcon>

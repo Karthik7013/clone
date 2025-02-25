@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 //============ PROJECT IMPORTS ==============>
 import App from './App';
-import ErrorBoundary from './Framework/components/ErrorBoundary';
+import ErrorBoundary, { ErrorComponent } from './Framework/components/ErrorBoundary';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 if (import.meta.env.VITE_NODE_ENV === 'PRODUCTION') {
@@ -16,9 +16,9 @@ if (import.meta.env.VITE_NODE_ENV === 'PRODUCTION') {
 }
 
 root.render(
-  // <ErrorBoundary>
+  <ErrorBoundary fallback={<ErrorComponent />}>
     <Provider store={store}>
       <App />
     </Provider>
-  // </ErrorBoundary>
+  </ErrorBoundary>
 )

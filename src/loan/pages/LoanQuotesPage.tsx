@@ -148,18 +148,18 @@ const LoanQuotesPage = () => {
                     <Grid container columns={18} spacing={2} px={1} sx={{ py: { xs: 1, md: 3 } }}>
                         <Grid item xs={18}>
                             <Grid container rowGap={3}>
-                                <MessageBox type="warning">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero eius ea veniam consectetur cumque non vero illo numquam? Earum quod aut corporis repellendus, error a quis commodi at sunt excepturi ipsum neque.
+                                <MessageBox action={() => true} type="warning" message="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente libero eius ea veniam consectetur cumque non vero illo numquam? Earum quod aut corporis repellendus, error a quis commodi at sunt excepturi ipsum neque." />
+
+
+                                <MessageBox type="error" message="We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time." action={() => true} />
+
+
+                                <MessageBox type="info" message="We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time." action={() => true}>
+
                                 </MessageBox>
-                                <MessageBox type="error">
-                                    We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
-                                </MessageBox>
-                                <MessageBox type="info">
-                                    We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
-                                </MessageBox>
-                                <MessageBox type="success">
-                                    We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time.
-                                </MessageBox>
+                                <MessageBox action={() => true} type="success" message="We’ve tried searching for insurance quotes based on your request, but unfortunately, we weren’t able to find any results at this time." />
+
+
 
                                 {/* quote cards */}
                                 {[1, 2, 3, 4, 5].map((e: number) => (
@@ -260,7 +260,7 @@ const LoanQuotesPage = () => {
                         </Grid>
                     </Grid>
                 </Box>
-                <Stack width={300} rowGap={3} py={3} pr={3} sx={{ display: { xs: 'none', md: 'flex' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'scroll', ...scrollBarHidden }}>
+                <Stack width={300} rowGap={3} py={3} pr={3} sx={{ display: { xs: 'none', lg: 'flex' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'scroll', ...scrollBarHidden }}>
                     {
                         [1, 2, 3].map((e: number) => {
                             return <Card>
@@ -269,7 +269,7 @@ const LoanQuotesPage = () => {
                         })
                     }
                 </Stack>
-            </Stack>
+            </Stack >
 
             {Boolean(compareProducts.length) && <Paper
                 role="dialog"

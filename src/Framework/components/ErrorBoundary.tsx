@@ -9,26 +9,24 @@ interface ErrorBoundaryState {
 }
 
 interface ErrorBoundaryProps {
+    fallback?: React.ReactNode; // Define the type for the fallback component
     children: React.ReactNode;
 }
 
-const ErrorComponent = ({ onRetry }: { onRetry: () => void }) => {
+export const ErrorComponent = () => {
     return (
-        <Dialog open={true} maxWidth="lg">
+        <Dialog hideBackdrop open={true} maxWidth="sm">
             <DialogTitle>
                 <CardMedia
                     component="img"
-                    height="194"
+                    width={'20%'}
                     image={Working}
                     alt="Working"
                 />
             </DialogTitle>
             <DialogContent>
-                <Typography variant="h6">Oops! Something Went Wrong</Typography>
+                <Typography color='error.dark' variant="subtitle2">Oops! Something Went Wrong</Typography>
                 <Typography>We encountered an error while trying to load. Try again.</Typography>
-                <Button fullWidth variant="contained" onClick={onRetry}>
-                    Try Again
-                </Button>
             </DialogContent>
         </Dialog>
     );
@@ -63,9 +61,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
     render() {
         if (this.state.hasError) {
-            return (
-                <ErrorComponent onRetry={this.handleRetry} />
-            );
+            return this.props.fallback;
         }
 
         // If no error, render the children as usual
