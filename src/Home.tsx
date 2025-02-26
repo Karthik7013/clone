@@ -279,7 +279,7 @@ const Home = () => {
                     })
                 }
                 <Grid item xs={12}>
-                    <Box minWidth={'100%'} display={'flex'} justifyContent={'center'}>
+                    <Box mt={3} minWidth={'100%'} display={'flex'} justifyContent={'center'}>
                         <Chip clickable onDelete={() => { }} deleteIcon={<ArrowDropDownRoundedIcon />} variant="outlined" label="Explore more" size="small" />
                     </Box>
                 </Grid>

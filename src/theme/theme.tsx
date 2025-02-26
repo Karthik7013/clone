@@ -224,6 +224,9 @@ const theme = (customStyles: customStylesProps) => {
                             backgroundColor: alpha(theme.palette.success.light, 0.15)
                         }
                     },
+                    root: {
+                        // fontSize: '0.1em'
+                    }
 
                 }
             },
