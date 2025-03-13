@@ -9,11 +9,8 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { makeQuery, pushMessage } from '../../redux/slice/botSlice';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
-const ChatBot = () => {
-    const dispatch: AppDispatch = useDispatch()
-    const { handleSubmit, control, reset } = useForm<BotSubmitType>()
-    const conversation = useSelector((state: RootState) => state.bot.conversation);
-    const loading = useSelector((state: RootState) => state.bot.loading)
+
+export const ChatMiniWrapper = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -22,6 +19,40 @@ const ChatBot = () => {
     const handleClose2 = () => {
         setAnchorEl(null);
     };
+    return <Box sx={{ right: '16px', position: 'fixed', bottom: '16px' }}>
+        <Fab
+            onClick={handleClick}
+            size="small"
+            sx={{ ml: 2, borderRadius: '16px' }}
+            aria-controls={open ? 'account-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            aria-label="add">
+            <Avatar src={chat_bot} sx={{ width: '100%', height: '100%' }} />
+        </Fab>
+
+        <Menu
+            anchorEl={anchorEl}
+            id="account-menu"
+            open={open}
+            onClose={handleClose2}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        >
+            <Box sx={{ width: 320, height: 560, overflow: 'auto' }} component={Stack}
+            >
+                <ChatBot />
+            </Box>
+        </Menu >
+    </Box >
+}
+
+export const ChatBot = () => {
+    const dispatch: AppDispatch = useDispatch()
+    const { handleSubmit, control, reset } = useForm<BotSubmitType>()
+    const conversation = useSelector((state: RootState) => state.bot.conversation);
+    const loading = useSelector((state: RootState) => state.bot.loading)
+
 
     interface BotSubmitType {
         t: string
@@ -46,9 +77,10 @@ const ChatBot = () => {
                 </Box>
                 <Box order={candidate === 'bot' ? 1 : 0} flexGrow={1} display='flex' justifyContent={candidate === 'user' ? 'flex-end' : 'flex-start'}>
                     <Box position='relative'>
-                        <Card sx={{ padding: '10px ', borderRadius: '10px', maxWidth: '220px', overflow: 'auto' }}>
-                            <Typography variant='caption' component='pre'>
-                                {response}
+                        <Card sx={{ padding: '10px ', borderRadius: '10px', overflow: 'auto' }}>
+                            {/* <Box dangerouslySetInnerHTML={{ __html: response }}></Box> */}
+                            <Typography dangerouslySetInnerHTML={{ __html: response }} variant='caption'>
+                                {/* {response} */}
                             </Typography>
                         </Card>
                         <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='caption' variant='caption' color='text.secondary'>{timeStamp.split('T')[0]}</Typography>
@@ -58,101 +90,75 @@ const ChatBot = () => {
         </ListItem>
     }
 
-
     return (
-        <Box sx={{ right: '16px', position: 'fixed', bottom: '16px' }}>
-            <Fab
+        <>
+            <Box>
+                <CardContent>
+                    <ListItem disableGutters disablePadding
+                        secondaryAction={
+                            <IconButton edge="end" aria-label="delete">
+                                <OpenInNewRoundedIcon />
+                            </IconButton>
+                        }
+                    >
+                        <ListItemIcon>
+                            <Avatar src={chat_bot} sx={{ width: '42px', height: '42px', mr: 2 }} />
+                        </ListItemIcon>
+                        <ListItemText
+                            primary={<Typography variant='body2'>AI Support</Typography>}
+                            secondary={<Typography variant='caption'>online</Typography>}
+                        />
+                    </ListItem>
+                </CardContent>
+                <Divider />
+            </Box>
+            <Box flexGrow={1} overflow={'auto'}>
+                <List>
+                    {conversation.map((content, _) => {
+                        return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
+                    })}
 
-                onClick={handleClick}
-                size="small"
-                sx={{ ml: 2, borderRadius: '16px' }}
-                aria-controls={open ? 'account-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                aria-label="add">
-                <Avatar src={chat_bot} sx={{ width: '100%', height: '100%' }} />
-            </Fab>
+                </List>
 
-            <Menu
-                anchorEl={anchorEl}
-                id="account-menu"
-                open={open}
-                onClose={handleClose2}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            >
 
-                <Box sx={{ width: 320, height: 560, overflow: 'auto' }} component={Stack}
-                >
-                    <Box>
-                        <CardContent>
-                            <ListItem disableGutters disablePadding
-                                secondaryAction={
-                                    <IconButton edge="end" aria-label="delete">
-                                        <OpenInNewRoundedIcon />
-                                    </IconButton>
-                                }
-                            >
-                                <ListItemIcon>
-                                    <Avatar src={chat_bot} sx={{ width: '42px', height: '42px', mr: 2 }} />
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={<Typography variant='body2'>AI Support</Typography>}
-                                    secondary={<Typography variant='caption'>online</Typography>}
+
+            </Box>
+            <Box>
+                <Divider />
+                <form onSubmit={handleSubmit(onHandleSubmit)}>
+                    <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
+                        <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} />
+                        <Controller
+                            defaultValue=''
+                            name="t"
+                            control={control}
+                            rules={{ required: 'Ask Something !' }}
+                            render={({ field }) => (
+                                <TextField
+                                    sx={{ flex: 1 }} size='small'
+                                    placeholder='Enter your message'
+                                    {...field}
+                                    multiline
+                                    maxRows={4}
+                                    variant="outlined"
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton disableRipple disableTouchRipple disableFocusRipple type='submit' disabled={loading} color='default'>
+                                                    {loading ? <StopCircleRoundedIcon color='action' /> : <AutoAwesomeRoundedIcon color='warning' />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
-                            </ListItem>
-                        </CardContent>
-                        <Divider />
-                    </Box>
-                    <Box flexGrow={1} overflow={'auto'}>
-                        <List>
-                            {conversation.map((content, _) => {
-                                return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
-                            })}
+                            )}
+                        />
 
-                        </List>
-
-
-
-                    </Box>
-                    <Box>
-                        <Divider />
-                        <form onSubmit={handleSubmit(onHandleSubmit)}>
-                            <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
-                                <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} />
-                                <Controller
-                                    defaultValue=''
-                                    name="t"
-                                    control={control}
-                                    rules={{ required: 'Ask Something !' }}
-                                    render={({ field }) => (
-                                        <TextField
-                                            sx={{ flex: 1 }} size='small'
-                                            placeholder='Enter your message'
-                                            {...field}
-                                            multiline
-                                            maxRows={4}
-                                            variant="outlined"
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton disableRipple disableTouchRipple disableFocusRipple type='submit' disabled={loading} color='default'>
-                                                            {loading ? <StopCircleRoundedIcon color='action' /> : <AutoAwesomeRoundedIcon color='warning' />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                ),
-                                            }}
-                                        />
-                                    )}
-                                />
-
-                            </CardActions>
-                        </form>
-                    </Box>
-                </Box>
-            </Menu >
-        </Box >
+                    </CardActions>
+                </form>
+            </Box>
+        </>
     )
 }
 
-export default React.memo(ChatBot)
+export default React.memo(ChatMiniWrapper)
