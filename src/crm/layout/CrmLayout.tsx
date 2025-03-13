@@ -17,6 +17,7 @@ import CustomScrollbarBoxComponent from "../../Framework/components/ScrollCompon
 import CustomScrollbarBox from "../../Framework/components/ScrollComponent";
 import { Helmet } from 'react-helmet';
 import Notification from "../../Framework/components/Notification";
+import LoadingModal from "../../Framework/components/LoadingModal";
 
 
 const top100Films = [
@@ -434,6 +435,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
     const dark = useSelector((state: RootState) => state.ui.dark);
     const mobileOpen: boolean = useSelector((state: RootState) => state.ui.isMobile);
     const role = useSelector((state: RootState) => state.auth.role);
+    const loading = useSelector((state: RootState) => state.auth.loading);
     const desktopOpen: boolean = useSelector((state: RootState) => state.ui.isDesktop);
     const handleDrawerClose = useCallback(() => {
         dispatch(handleIsMobile())
@@ -492,6 +494,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
 
 
     return <Box>
+        {loading && <LoadingModal />}
         <Helmet>
             <title>NameLix Dashboard | </title>
             <meta name="description" content="This is an awesome page using react-helmet!" />
@@ -570,7 +573,6 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                         <Tooltip title={dark ? "light" : "dark"}>
                             <IconButton color="default" sx={{ mr: 2 }} onClick={handleTheme}>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
                         </Tooltip>
-
                         <Notification />
                         <Button size="small" color="error" endIcon={<LogoutRoundedIcon fontSize="inherit" />} variant="outlined" onClick={handleOnclick}>Logout</Button>
 

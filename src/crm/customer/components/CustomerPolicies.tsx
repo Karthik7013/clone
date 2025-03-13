@@ -75,8 +75,8 @@ const CustomerPolicies = () => {
   }
 
   useEffect(() => {
-    if (policies.length === 0 && !loading) dispatch(getCustomerPolicies())
-  }, [policies, loading, dispatch])
+    if (!policies.length && !loading) dispatch(getCustomerPolicies())
+  }, [])
 
   return (
     <div style={{ height: 550, width: '100%' }}>

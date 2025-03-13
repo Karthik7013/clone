@@ -7,14 +7,19 @@ import { getCustomerApplicationQueue } from "../../../redux/slice/dashboardSlice
 import { Link } from "react-router-dom";
 import CachedRoundedIcon from '@mui/icons-material/CachedRounded';
 
+import loanLogo from "../../../assets/navAssets/Loan.svg";
+import healthLogo from "../../../assets/navAssets/Health.svg";
+import carLogo from "../../../assets/navAssets/car.svg";
+import travelLogo from "../../../assets/navAssets/plane.svg";
+import commercialLogo from "../../../assets/navAssets/commercial.svg"
+import bikeLogo from "../../../assets/navAssets/Bike.svg";
+import giftBox from '../../../assets/spark.svg';
 const PoliciesQueue = () => {
     const dispatch: AppDispatch = useDispatch();
     const loading = useSelector((state: RootState) => state.dashboard.applicationQueue.loading);
     const applications = useSelector((state: RootState) => state.dashboard.applicationQueue.data)
-    console.log('application')
-
     useEffect(() => {
-        dispatch(getCustomerApplicationQueue())
+        if (!applications.length && !loading) dispatch(getCustomerApplicationQueue())
     }, [])
 
     const refreshApplications = () => dispatch(getCustomerApplicationQueue())
@@ -54,8 +59,8 @@ const PoliciesQueue = () => {
                             <ListItemAvatar>
                                 <CardMedia
                                     component="img"
-                                    sx={{ borderRadius: '0.4em', mr: 2, width: { xs: 40, md: 60 } }}
-                                    image={'https://e7.pngegg.com/pngimages/748/512/png-clipart-hdfc-logo-bank-logos.png'}
+                                    sx={{ borderRadius: '0.4em', mr: 2, width: { xs: 16, md: 32 } }}
+                                    image={carLogo}
                                     alt=""
                                 />
                             </ListItemAvatar>

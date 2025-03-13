@@ -106,9 +106,9 @@ const Quotes = () => {
 
 
     return (
-        <Box>
+        <Box position='relative'>
             <Stack direction='row'>
-                <Box sx={{ borderRight: '1px solid #0000001f' }}>
+                <Box sx={{ borderRight: '1px solid #0000001f', position: 'sticky', top: 0, left: 0 }}>
                     <Drawer
                         sx={{
                             '& .MuiDrawer-paper': {

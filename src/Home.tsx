@@ -24,6 +24,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 import FiberNewRoundedIcon from '@mui/icons-material/FiberNewRounded';
+import PoliciesQueue from "./crm/customer/components/PoliciesQueue";
 const Home = () => {
     const theme = useTheme();
     console.log('home renders')

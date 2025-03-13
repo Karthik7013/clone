@@ -15,9 +15,13 @@ const CustomerPayments = () => {
     console.log(myPayments)
     const loading = useSelector((state: RootState) => state.dashboard.myPayments.loading);
     const dispatch: AppDispatch = useDispatch()
+    // useEffect(() => {
+    //     dispatch(getCustomerPayments())
+    // }, [refresh])
+    const refreshCustomerPayments = () => dispatch(getCustomerPayments())
     useEffect(() => {
-        dispatch(getCustomerPayments())
-    }, [refresh])
+        if (myPayments.length === 0 && !loading) { dispatch(getCustomerPayments()) }
+    }, [])
 
     const iconvariant = {
         completed: {
@@ -41,7 +45,7 @@ const CustomerPayments = () => {
                 <ListSubheader>
                     <ListItem disableGutters
                         secondaryAction={
-                            <IconButton onClick={() => setRefresh((prev) => !prev)} size='small' title='refresh' color='primary'>
+                            <IconButton onClick={refreshCustomerPayments} size='small' title='refresh' color='primary'>
                                 <CachedRoundedIcon fontSize='inherit' />
                             </IconButton>
                         }
@@ -58,8 +62,8 @@ const CustomerPayments = () => {
             <CardContent>
                 {myPayments.map((payment, index: number) =>
                     <Card key={index} sx={{ mb: 1 }}>
-              
-                        <Accordion key={index} sx={{width:'100%'}}>
+
+                        <Accordion key={index} sx={{ width: '100%' }}>
                             <AccordionSummary>
                                 <ListItem disableGutters disablePadding
                                     secondaryAction={<Chip size="small" icon={iconvariant[payment.status].icon} variant="outlined" color={iconvariant[payment.status].variant} label={payment.status} />}
@@ -86,11 +90,11 @@ const CustomerPayments = () => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Divider />
-                                <Typography variant='caption'>Payment Method : <b style={{fontStyle:'italic'}}>{payment?.payment_method}</b></Typography>
+                                <Typography variant='caption'>Payment Method : <b style={{ fontStyle: 'italic' }}>{payment?.payment_method}</b></Typography>
                                 <Typography ml={5} variant='caption'>Payment Amount : <Typography fontWeight={600} variant='caption' component='a' color='success.main'>{payment.amount}</Typography></Typography>
                             </AccordionDetails>
                         </Accordion>
-                   
+
                     </Card>
                 )}
             </CardContent>

@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Modal, Typography } from '@mui/material'
+import { Box, CircularProgress, LinearProgress, Modal, Typography } from '@mui/material'
 import React from 'react';
 const LoadingModal = () => {
     const style = {
@@ -7,7 +7,7 @@ const LoadingModal = () => {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: 'fit-content',
-        bgcolor: 'background.paper',
+        // bgcolor: 'background.paper',
         p: 4,
         borderRadius: '1em',
         display: 'flex',
@@ -16,12 +16,10 @@ const LoadingModal = () => {
         alignItems: 'center'
     };
     return (
-
         <Modal open={true}>
-
             <Box sx={style}>
-                <CircularProgress size='1.5rem' />
-                <Typography >Please Wait...</Typography>
+                <CircularProgress color='inherit' size='1.5rem' />
+                {/* <Typography >Please Wait...</Typography> */}
             </Box>
         </Modal>
     )

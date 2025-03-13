@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { Avatar, CardMedia, ListItemIcon, ListItemText, Stack, } from '@mui/material';
+import { Avatar, CardMedia, Collapse, ListItemIcon, ListItemText, Stack, } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LogoutRoundedIcon from '@mui/icons-material/Logout';
@@ -27,12 +27,14 @@ import ProductPannel from './ProductPannel';
 import { logout } from '../../redux/slice/authSlice';
 import { AppDispatch, RootState } from '../../redux/store';
 import { Helmet } from 'react-helmet';
+import LoadingModal from './LoadingModal';
 
 const Header = () => {
     console.log('header renders');
     const dark = useSelector((state: RootState) => state.ui.dark);
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
     const profile = useSelector((state: RootState) => state.auth.authData);
+    const loading = useSelector((state: RootState) => state.auth.loading);
     const role = useSelector((state: RootState) => state.auth.role);
 
     const dispatch: AppDispatch = useDispatch();
@@ -172,6 +174,7 @@ const Header = () => {
                     </Box>
                 </Toolbar>
             </Container>
+            {loading && <LoadingModal />}
         </CustomAppBar>
     )
 }
