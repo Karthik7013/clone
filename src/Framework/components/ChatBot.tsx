@@ -9,6 +9,8 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { makeQuery, pushMessage } from '../../redux/slice/botSlice';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutlined';
 
 export const ChatMiniWrapper = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -78,12 +80,9 @@ export const ChatBot = () => {
                 <Box order={candidate === 'bot' ? 1 : 0} flexGrow={1} display='flex' justifyContent={candidate === 'user' ? 'flex-end' : 'flex-start'}>
                     <Box position='relative'>
                         <Card sx={{ padding: '10px ', borderRadius: '10px', overflow: 'auto' }}>
-                            {/* <Box dangerouslySetInnerHTML={{ __html: response }}></Box> */}
-                            <Typography dangerouslySetInnerHTML={{ __html: response }} variant='caption'>
-                                {/* {response} */}
-                            </Typography>
+                            <Typography dangerouslySetInnerHTML={{ __html: response }} variant='caption' />
                         </Card>
-                        <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='caption' variant='caption' color='text.secondary'>{timeStamp.split('T')[0]}</Typography>
+                        <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='div' variant='caption' color='text.secondary'>{timeStamp.split('T')[0]}</Typography>
                     </Box>
                 </Box>
             </Stack>
@@ -117,12 +116,25 @@ export const ChatBot = () => {
                     {conversation.map((content, _) => {
                         return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
                     })}
-
+                    {loading && < ListItem alignItems="flex-start">
+                        <Stack direction='row' width='100%' gap={1} mb={2}>
+                            <Box order={0}>
+                                <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />
+                            </Box>
+                            <Box order={1} flexGrow={1} display='flex' justifyContent={'flex-start'}>
+                                <Box position='relative'>
+                                    <Stack>
+                                        <Skeleton animation="wave" width={160} />
+                                        <Skeleton animation="wave" width={180} />
+                                        <Skeleton animation="wave" width={200} />
+                                    </Stack>
+                                </Box>
+                            </Box>
+                        </Stack>
+                    </ListItem>}
                 </List>
 
-
-
-            </Box>
+            </Box >
             <Box>
                 <Divider />
                 <form onSubmit={handleSubmit(onHandleSubmit)}>

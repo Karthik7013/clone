@@ -622,7 +622,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                     <Box my={2}>
                         <Divider />
                     </Box>
-                    <Typography>Looking for something else?</Typography>
+                    <Typography>Looking for support ? <Link to="/support">Ask AI ?</Link></Typography>
                 </Suspense>
             </StyledCardContent>
         </Stack>

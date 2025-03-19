@@ -8,11 +8,23 @@ import CachedRoundedIcon from '@mui/icons-material/CachedRounded';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { getCustomerPayments } from '../../../redux/slice/dashboardSlice';
+type paymentProps = {
+    payment_id: number;
+    application_id: string;
+    amount: string;
+    payment_method: string;
+    payment_date: string;
+    status: "completed" | "pending" | "failed";
+    transaction_id: string;
+    product_type: string;
+    description: string;
+    created_at: string;
+}
 const CustomerPayments = () => {
     const theme = useTheme();
     const [refresh, setRefresh] = useState<Boolean>(false);
     const myPayments = useSelector((state: RootState) => state.dashboard.myPayments.data);
-    console.log(myPayments)
+    console.log(myPayments, 'myPayments')
     const loading = useSelector((state: RootState) => state.dashboard.myPayments.loading);
     const dispatch: AppDispatch = useDispatch()
     // useEffect(() => {
@@ -60,13 +72,13 @@ const CustomerPayments = () => {
             <Divider />
             {loading && <LinearProgress />}
             <CardContent>
-                {myPayments.map((payment, index: number) =>
+                {myPayments.map((payment: paymentProps, index: number) =>
                     <Card key={index} sx={{ mb: 1 }}>
 
                         <Accordion key={index} sx={{ width: '100%' }}>
                             <AccordionSummary>
                                 <ListItem disableGutters disablePadding
-                                    secondaryAction={<Chip size="small" icon={iconvariant[payment.status].icon} variant="outlined" color={iconvariant[payment.status].variant} label={payment.status} />}
+                                    secondaryAction={<Chip size="small" icon={iconvariant[payment.status].icon} variant="outlined" label={payment.status} />}
                                     alignItems="flex-start">
                                     <ListItemAvatar>
                                         <DescriptionIcon />

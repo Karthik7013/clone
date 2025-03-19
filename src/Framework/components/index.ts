@@ -7,8 +7,7 @@ const ProductSummary = React.lazy(() => import('./ProductSummary'))
 const OtpModal = React.lazy(() => import('./OtpModal'));
 const PageNotFound = React.lazy(() => import('./PageNotFound'));
 const ProviderLogo = React.lazy(() => import('./ProviderLogo'));
-const ViewProducts = React.lazy(() => import('./ViewProducts'));
 const ErrorBoundary = React.lazy(() => import('./ErrorBoundary'));
 const CompareQuotes = React.lazy(() => import('./CompareQuotes'));
 
-export { AlertBox, ChatBot, ErrorBoundary, Header, MessageBox, OtpModal, PageNotFound, ProductSummary, ProviderLogo, ViewProducts, CompareQuotes }
+export { AlertBox, ChatBot, ErrorBoundary, Header, MessageBox, OtpModal, PageNotFound, ProductSummary, ProviderLogo, CompareQuotes }
