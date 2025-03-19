@@ -8,6 +8,7 @@ import MessageBox from "../../../Framework/components/MessageBox";
 import ProtectedRoutes from "../../../ProtectedRoute";
 import CustomerManagement from "../pages/CustomerManagement";
 import AgentManagement from "../pages/AgentManagement";
+import ErrorManagement from "../pages/ErrorManagement";
 const EmployeeLogin = lazy(() => import('../pages/EmployeeLogin'));
 const AccessManagement = React.lazy(() => import("../pages/AccessManagement"));
 const AdminService = React.lazy(() => import("../pages/AdminService"));
@@ -159,6 +160,14 @@ export const employeeRoutes = () => {
                             fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
                             requiredPermission={'4e971f7b'}>
                             <AccessManagement />
+                        </ProtectedRoutes>
+                    },
+                    {
+                        path: 'error-management',
+                        element: <ProtectedRoutes role="employee"
+                            fallback={<MessageBox type="warning" message="You do not have the required permissions." />}
+                            requiredPermission={'d9d21ae8'}>
+                            <ErrorManagement />
                         </ProtectedRoutes>
                     },
                     {

@@ -275,7 +275,8 @@ const theme = (customStyles: customStylesProps) => {
             MuiCardActionArea: {
                 styleOverrides: {
                     root: {
-                        borderRadius
+                        borderRadius,
+                        overflow:'hidden'
                     }
                 }
             },

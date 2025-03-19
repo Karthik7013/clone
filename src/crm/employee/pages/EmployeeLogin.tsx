@@ -102,6 +102,7 @@ const EmployeeLogin = () => {
                                         render={({ field }) => (
                                             <TextField
                                                 {...field}
+                                                disabled={isLoading}
                                                 margin="normal"
                                                 required
                                                 fullWidth
@@ -124,7 +125,7 @@ const EmployeeLogin = () => {
                                         render={({ field }) => (
                                             <TextField
                                                 {...field}
-                                                // disabled
+                                                disabled={isLoading}
                                                 margin="normal"
                                                 required
                                                 fullWidth

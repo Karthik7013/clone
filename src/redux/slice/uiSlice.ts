@@ -11,7 +11,7 @@ const initialState: uiProps = {
     customizePalleteOpen: false,
     cookieConsent: false,
     customerEditProfile: false,
-    isMobile: false,
+    isMobile: true,
     isDesktop: true,
     productsCompare: [0],
     otpModal: false,
@@ -64,5 +64,5 @@ const uiSlice = createSlice({
 })
 
 export const { handleIsDesktop, handleEditProfile, toggleTheme, changeBorderRadius, changeFontFamily, handleCookieConsent, handlePallete, handleIsMobile,
-    handleOtpModal, handleAddtoCompare, handleEmptyCompare, toggleAddEmployeeModal } = uiSlice.actions
+    handleOtpModal, handleAddtoCompare, handleEmptyCompare } = uiSlice.actions
 export default uiSlice.reducer

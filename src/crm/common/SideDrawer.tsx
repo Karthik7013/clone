@@ -7,7 +7,7 @@ import ProtectedRoutes from '../../ProtectedRoute';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
-
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 const SideDrawer = () => {
     const currentPath = useLocation().pathname.split('/').splice(-1);
     const theme = useTheme();
@@ -463,6 +463,21 @@ const SideDrawer = () => {
                             </ListItemIcon>
                             <Collapse orientation="horizontal" in={!desktopOpen}>
                                 <ListItemText primary={<Typography color='inherit' variant='body2' noWrap>{'Access Management'}</Typography>} />
+                            </Collapse>
+                        </ListItemButton>
+                    </ListItem>
+                </ProtectedRoutes>
+                <ProtectedRoutes role='employee' requiredPermission={'d9d21ae8'}>
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            sx={{ bgcolor: currentPath.includes('error-management') ? theme.palette.primary.main : 'inherit' }}
+                            component={Link} to={'error-management'}
+                            disableRipple>
+                            <ListItemIcon>
+                                <Icon fontSize='small'>error</Icon>
+                            </ListItemIcon>
+                            <Collapse orientation="horizontal" in={!desktopOpen}>
+                                <ListItemText primary={<Typography color='inherit' variant='body2' noWrap>{'Error Logs'}</Typography>} />
                             </Collapse>
                         </ListItemButton>
                     </ListItem>

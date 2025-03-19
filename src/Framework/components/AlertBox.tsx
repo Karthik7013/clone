@@ -21,7 +21,7 @@ type props = {
     variant?: "filled" | "outlined" | "standard"
 }
 
-const AlertBox = ({ alert, onClose, variant = "outlined" }: props) => {
+const AlertBox = ({ alert, onClose, variant = "filled" }: props) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.up('md'));
     const dispatch = useDispatch();
@@ -34,12 +34,12 @@ const AlertBox = ({ alert, onClose, variant = "outlined" }: props) => {
     }
 
     const CustomAlert = styled(Alert)(({ theme }) => ({
-        borderRadius: theme.shape.borderRadius,
+        // borderRadius: theme.shape.borderRadius,
         // boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
-        backgroundColor: alert.type && alpha(theme.palette[alert.type].main, 0.1),
-        borderLeft: '4px solid',
-        borderLeftColor: alert.type && theme.palette[alert.type].main,
-        fontWeight: 'bolder'
+        // backgroundColor: alert.type && alpha(theme.palette[alert.type].main, 0.1),
+        // borderLeft: '4px solid',
+        // borderLeftColor: alert.type && theme.palette[alert.type].main,
+        // fontWeight: 'bolder'
     }));
 
     const AlertIcon = (type: 'info' | 'error' | 'warning' | 'success' | undefined) => {
@@ -64,7 +64,11 @@ const AlertBox = ({ alert, onClose, variant = "outlined" }: props) => {
             onClose={handleClose}
             anchorOrigin={{ vertical: 'bottom', horizontal: isMobile ? 'right' : 'center' }}
         >
-            <CustomAlert action={<IconButton color='inherit' onClick={handleClose} size='small'><ClearRoundedIcon fontSize='inherit' /></IconButton>} variant={variant} icon={AlertIcon(alert.type)} severity={alert.type}>
+            <CustomAlert
+                action={<IconButton color='inherit' onClick={handleClose} size='small'>
+                    <ClearRoundedIcon fontSize='inherit' />
+                </IconButton>}
+                variant={variant} icon={AlertIcon(alert.type)} severity={alert.type}>
                 <Typography variant='caption'>{alert.message}</Typography>
             </CustomAlert>
         </Snackbar>

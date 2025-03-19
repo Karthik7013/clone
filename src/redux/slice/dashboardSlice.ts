@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomerResources, EmployeeResources } from "../../service/api";
 import { alertProps } from "../../types/UiProps/uiProps";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { boolean } from "yup";
 interface ErrorResponse {
     status?: number;
@@ -85,6 +85,11 @@ type dashboardProps = {
         data: any
     },
     all_employee_permissions: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
+    },
+    error_logs: {
         loading: boolean,
         data: any,
         alert: alertProps
@@ -229,6 +234,15 @@ const initialState: dashboardProps = {
             type: undefined,
             state: false
         }
+    },
+    error_logs: {
+        loading: false,
+        alert: {
+            message: "",
+            type: undefined,
+            state: false
+        },
+        data: null
     }
 }
 
@@ -869,7 +883,6 @@ export const createNewEmployee = createAsyncThunk('employee/create-employee', as
 
 export const createPermission = createAsyncThunk('employee/create-permission', async (payload: any, { rejectWithValue }) => {
     try {
-        console.log(payload, 'reducer...add')
         const res = await EmployeeResources.post('/create-permission', payload);
         if (res.data.success) {
             return {
@@ -913,7 +926,56 @@ export const createPermission = createAsyncThunk('employee/create-permission', a
     }
 })
 
-
+export const getErrorLogs = createAsyncThunk('employee/errorLog', async (payload: {
+    page: number,
+    limit: number,
+    fromDate: string,
+    toDate: string
+}, { rejectWithValue }) => {
+    try {
+        const res = await EmployeeResources.post('/errorlog', payload);
+        console.log('reserrorr', res.data)
+        if (res.data.success) {
+            return {
+                success: res.data.success,
+                message: res.data.message,
+                status: res.data.status,
+                data: res.data.data,
+                timestamp: res.data.timestamp
+            };
+        }
+        return rejectWithValue({
+            success: false,
+            message: "Unexpected error occurred",
+            status: res.status,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        if (error instanceof AxiosError) {
+            let errorMessage = "Something went wrong";
+            if (error.message === 'Network Error') {
+                errorMessage = "Network Error: Please check your connection";
+            } else if (error.response?.data?.message) {
+                errorMessage = error.response?.data?.message;
+            }
+            return rejectWithValue({
+                success: false,
+                message: errorMessage,
+                status: error.response?.status ?? 500,
+                data: null,
+                timestamp: new Date().toISOString(),
+            });
+        }
+        return rejectWithValue({
+            success: false,
+            message: "An unknown error occurred",
+            status: 500,
+            data: null,
+            timestamp: new Date().toISOString()
+        });
+    }
+})
 
 const dashboardSlice = createSlice({
     name: 'dashboard',
@@ -1128,6 +1190,14 @@ const dashboardSlice = createSlice({
         }).addCase(getEmployeesPermissions.fulfilled, (state, action) => {
             state.all_employee_permissions.loading = false;
             state.all_employee_permissions.data = action.payload?.data
+        })
+        builder.addCase(getErrorLogs.pending, (state) => {
+            state.error_logs.loading = true;
+        }).addCase(getErrorLogs.rejected, (state, action) => {
+            state.error_logs.loading = false;
+        }).addCase(getErrorLogs.fulfilled, (state, action) => {
+            state.error_logs.loading = false;
+            state.error_logs.data = action.payload?.data;
         })
     }
 })
