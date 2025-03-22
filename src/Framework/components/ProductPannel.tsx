@@ -70,8 +70,14 @@ const ProductPannel = () => {
             }
         ]
     }
-
-    const Category = ({ group }) => {
+    type GroupProps ={
+        category: string;
+        products: {
+            name: string;
+            url: string;
+        }[];
+    }
+    const Category = (group:GroupProps) => {
         return <List
             dense
             sx={{ width: '100dvw' }}
@@ -81,7 +87,7 @@ const ProductPannel = () => {
                 </Typography>
             }
         >
-            {group?.products.map((each, _) => <ListItem key={_}>
+            {group?.products.map((each:{name:string}, _:number) => <ListItem key={_}>
                 <ListItemIcon><CircleRoundedIcon sx={{ fontSize: '0.5em' }} /></ListItemIcon>
                 <ListItemText primary={<Link variant='caption' component="a" href='#'>{each.name}</Link>} />
             </ListItem>)}
@@ -112,7 +118,7 @@ const ProductPannel = () => {
                     <Divider />
                     <Grid container mt={1}>
                         {product.dropdown.map((group, _) => {
-                            return <Grid key={_} item xs={12} md={4}><Category group={group} /></Grid>
+                            return <Grid key={_} item xs={12} md={4}><Category {...group} /></Grid>
                         })}
                     </Grid>
                 </CardContent>

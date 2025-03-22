@@ -11,7 +11,7 @@ interface IFormInput {
 }
 
 const CreatePermission = () => {
-    const alert = useSelector((state: RootState) => state.dashboard.create_permission.alert);
+    const alert:any = useSelector((state: RootState) => state.dashboard.create_permission.alert);
     const dispatch: AppDispatch = useDispatch()
     const loading = useSelector((state: RootState) => state.dashboard.create_permission.loading)
     const { control, handleSubmit, formState: { errors }, reset } = useForm<IFormInput>();

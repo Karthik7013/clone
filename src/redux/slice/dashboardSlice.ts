@@ -1,14 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CustomerResources, EmployeeResources } from "../../service/api";
-import { alertProps } from "../../types/UiProps/uiProps";
 import axios, { AxiosError } from "axios";
-import { boolean } from "yup";
-interface ErrorResponse {
-    status?: number;
-    message: string;
-}
-interface CustomerPoliciesResponse {
-
+type alertProps = {
+    message: string,
+    state: boolean,
+    type?: 'error' | 'success' | 'warning'
 }
 
 type dashboardProps = {

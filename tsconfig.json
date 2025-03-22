@@ -1,16 +1,28 @@
 {
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "moduleResolution": "node",
-        "strict": true,
-        "jsx": "react-jsx",
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
+      "outDir": "./dist/",
+      "rootDir": "./src/",
+      "target": "esnext",
+      "module": "esnext",
+      "moduleResolution": "node",
+      "strict": true,
+      "jsx": "react-jsx",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "typeRoots": [
+        "./node_modules/@types", 
+        "./types"  // If you have a custom types folder
+      ],
+      "types": [
+        "node", 
+        "react", 
+        "react-dom"  // Add other relevant libraries here if needed
+      ]
     },
     "include": [
-        "src/**/*.ts",
-        "src/**/*.tsx"
+      "src/**/*.ts",
+      "src/**/*.tsx"
     ]
-}
+  }
+  

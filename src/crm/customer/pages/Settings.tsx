@@ -21,7 +21,7 @@ const Settings = () => {
   const isMobile = useSelector((state: RootState) => state.ui.isMobile)
   const authData = useSelector((state: RootState) => state.auth.authData);
   const loading = useSelector((state: RootState) => state.dashboard.updateProfile.loading);
-  const alert = useSelector((state: RootState) => state.dashboard.updateProfile.alert)
+  const alert:any = useSelector((state: RootState) => state.dashboard.updateProfile.alert)
   const dispatch: AppDispatch = useDispatch();
   const { control, handleSubmit } = useForm({
     defaultValues: {

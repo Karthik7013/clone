@@ -15,7 +15,7 @@ import ProtectedRoutes from '../../../ProtectedRoute';
 const AddEmployee = React.lazy(() => import('./AddEmployee'));
 
 const EmployeeTable = () => {
-    const alert = useSelector((state: RootState) => state.dashboard.create_new_employee.alert)
+    const alert:any = useSelector((state: RootState) => state.dashboard.create_new_employee.alert)
     const dispatch: AppDispatch = useDispatch();
     const loading = useSelector((state: RootState) => state.dashboard.employeesList.loading);
     const addEmployeeModalOpen = useSelector((state: RootState) => state.dashboard.addEmployeeModal);

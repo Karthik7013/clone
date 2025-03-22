@@ -39,7 +39,7 @@ const Login = () => {
     } = useForm<FormInput>();
     const dispatch: AppDispatch = useDispatch();
     const isLoading = useSelector((state: RootState) => state.auth.loading);
-    const alert = useSelector((state: RootState) => state.auth.alert);
+    const alert:any = useSelector((state: RootState) => state.auth.alert);
     const closeAlertHandle = () => dispatch(closeAlert());
 
     const onSubmit = (data: FormInput) => {

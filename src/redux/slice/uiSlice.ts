@@ -1,7 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { uiProps } from "../../types/UiProps/uiProps";
-
-
+type uiProps = {
+    dark: boolean,
+    borderRadius: number,
+    fontFamily: string,
+    customizePalleteOpen: boolean,
+    cookieConsent: boolean,
+    customerEditProfile: boolean,
+    isMobile: boolean,
+    isDesktop: boolean,
+    productsCompare: number[],
+    otpModal: boolean
+}
 const getPreference = () => localStorage.getItem('dark') || 'light'
 
 const initialState: uiProps = {

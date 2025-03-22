@@ -5,6 +5,12 @@ import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
 import { useTheme } from "@mui/material";
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
+import { ApexOptions } from "apexcharts";
+
+interface BarState {
+  options: ApexOptions;   // Type for the options object
+  series: { data: number[] }[];  // Series should be an array of objects with `data` as a number array
+}
 const BussinessAnalytics = () => {
   const theme = useTheme();
   const [pieState] = useState({
@@ -28,9 +34,8 @@ const BussinessAnalytics = () => {
     },
   });
 
-  const [state] = useState({
+  const [state] = useState<BarState>({
     series: [{
-      name: "Desktops",
       data: [0, 41, 10, 51, 49, 6, 69, 50, 148]
     }],
     options: {
@@ -98,21 +103,21 @@ const BussinessAnalytics = () => {
       }
     }
   })
-  const [barState] = useState({
+  const [barState] = useState<BarState>({
 
     series: [{
-      name: 'Net Profit',
+     
       data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
     }, {
-      name: 'Revenue',
+     
       data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
     }, {
-      name: 'Free Cash Flow',
+    
       data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
     }],
     options: {
       chart: {
-        type: 'bar',
+        type: 'bar',  // This must be one of the allowed values, such as 'bar'
         height: 350
       },
       plotOptions: {
@@ -143,11 +148,7 @@ const BussinessAnalytics = () => {
         opacity: 1
       },
       tooltip: {
-        y: {
-          formatter: function (val: string) {
-            return "$ " + val + " thousands"
-          }
-        }
+       
       }
     },
   });

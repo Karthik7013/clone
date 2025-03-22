@@ -21,16 +21,17 @@ const ProviderLogo = (props: ProviderLogoProps) => {
         }}>
             <CardMedia
                 component="img"
-                sx={{
-                    position: 'absolute',
-                    top: 42,
-                    transform: "scale(10)",
-                    left: 60,
-                    filter: props.grayScale && "grayscale(100%)",
-                    '&:hover': {
-                        filter: 'grayscale(0%)',
-                    },
-                }}
+                // sx={{
+                //     position: 'absolute',
+                //     top: 42,
+                //     transform: "scale(10)",
+                //     left: 60,
+                //     filter: props.grayScale && "grayscale(100%)",
+                //     '&:hover': {
+                //         filter: 'grayscale(0%)',
+                //     },
+                // }}
+                alt={props.name}
                 image={productsImg}
             />
         </Card>

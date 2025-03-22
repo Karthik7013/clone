@@ -1,6 +1,6 @@
 import { Box, Button, CircularProgress, Grid, List, ListItem, ListItemText, ListSubheader, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import { useDispatch, useSelector } from "react-redux";
@@ -9,17 +9,39 @@ import { AppDispatch, RootState } from "../../../redux/store";
 import { closeAlert } from "../../../redux/slice/dashboardSlice";
 import { registerCustomerPolicies } from "../../../redux/slice/dashboardSlice";
 
+interface RegisterClaimForm {
+  first_name: string,
+  last_name: string,
+  dob: string,
+  gender: string,
+  phone: string,
+  email: string,
+  address: string,
+  city: string,
+  state: string,
+  pincode: string,
+  policy_number: string,
+  policy_type: string,
+  policy_issue_date: string,
+  claim_nature: string,
+  incident_date: string,
+  support_docs: string,
+  description: string,
+  additional_description: string
+
+}
+
 const RegisterClaims = () => {
   const loading = useSelector((state: RootState) => state.dashboard.registerClaim.loading)
-  const { control, formState: { errors }, handleSubmit, reset } = useForm();
+  const { control, formState: { errors }, handleSubmit, reset } = useForm<RegisterClaimForm>();
   const dispatch: AppDispatch = useDispatch();
   const closeAlertHandle = () => dispatch(closeAlert());
-  const onSubmitHandle = (data) => {
+  const onSubmitHandle: SubmitHandler<RegisterClaimForm> = (data) => {
     console.log(data)
     dispatch(registerCustomerPolicies(data))
     reset();
   }
-  const alert = useSelector((state: RootState) => state.dashboard.registerClaim.alert)
+  const alert:any = useSelector((state: RootState) => state.dashboard.registerClaim.alert)
 
   return (
     <Box mt={3} component='form' onSubmit={handleSubmit(onSubmitHandle)}>

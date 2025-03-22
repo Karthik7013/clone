@@ -1,19 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AgentResources, authService, CustomerResources, EmployeeResources, } from "../../service/api";
 import { createBrowserHistory, History } from 'history';
-import { authProps } from "../../types/AuthProps/AuthProps";
+// import { authProps } from "../../types/AuthProps/AuthProps";
 
 const role = getSessionToken('role');
 export const history: History = createBrowserHistory();
 import { getSessionToken } from "../../utils/utils"
 import { AxiosError } from "axios";
 
-interface ApiResponse<T = any> {
-    success: boolean;
-    message: string;
-    status: number;
-    data?: T;
-    timestamp: string;
+type authProps = {
+    loading: boolean,
+    alert: {
+        type: string | undefined,
+        message: string,
+        state: boolean
+    },
+    isLogin: boolean,
+    authData: any,
+    role: string | null
 }
 
 

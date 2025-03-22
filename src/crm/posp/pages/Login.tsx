@@ -38,7 +38,7 @@ const Login = () => {
     const dispatch: AppDispatch = useDispatch();
     const isLoading = useSelector((state: RootState) => state.auth.loading);
     const isLogin = useSelector((state: RootState) => state.auth.isLogin);
-    const alert = useSelector((state: RootState) => state.auth.alert);
+    const alert:any = useSelector((state: RootState) => state.auth.alert);
     const closeAlertHandle = () => dispatch(closeAlert())
 
 

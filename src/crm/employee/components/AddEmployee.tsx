@@ -172,7 +172,7 @@ const AddEmployee = (props: addEmployeeProps) => {
                                     <InputLabel>Department</InputLabel>
                                     <Select {...field} label="Department">
                                         <MenuItem value="" disabled><em>Select Department</em></MenuItem>
-                                        {[...new Set(empRoles.map((dep) => dep.department))].map((department, index: number) => <MenuItem key={index} value={department} >{department}</MenuItem>)}
+                                        {[...new Set(empRoles.map((dep:{department:string}) => dep.department))].map((department:any, index: number) => <MenuItem key={index} value={department} >{department}</MenuItem>)}
                                     </Select>
                                     <FormHelperText>{errors.department?.message}</FormHelperText>
                                 </FormControl>
@@ -190,12 +190,9 @@ const AddEmployee = (props: addEmployeeProps) => {
                                     <InputLabel>Role</InputLabel>
                                     <Select {...field} label="Role">
                                         <MenuItem value="" disabled><em>Select Role</em></MenuItem>
-
                                         {
-                                            [...empRoles.filter((role) => role.department === department)].map((item, index) => <MenuItem key={index} value={item.role_id}>{item.role_name}</MenuItem>)
+                                            [...empRoles.filter((role:{department:string}) => role.department === department)].map((item, index) => <MenuItem key={index} value={item.role_id}>{item.role_name}</MenuItem>)
                                         }
-
-
                                     </Select>
                                     <FormHelperText>{errors.role?.message}</FormHelperText>
                                 </FormControl>

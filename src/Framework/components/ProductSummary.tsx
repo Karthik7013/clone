@@ -15,7 +15,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { getEmployeesPermissions } from "../../redux/slice/dashboardSlice";
 
-const EmployeeCardPermission = ({ permission }) => {
+const EmployeeCardPermission = ({ name,role,firstname,bio,city,email,lastname,permission,phone,role_name,state }:{
+    name:string,
+    role:string,  
+    firstname: string,
+    lastname: string,
+    bio: string,
+    phone: string,
+    email: string,
+    city: string,
+    state: string,
+    role_name: string,
+    permission: {
+        phone: string,
+        email: string,
+        city: string,
+        state: string,
+        bio: string
+    }
+}) => {
     const [edit, setEdit] = useState<boolean>(false);
     const toggleAttachPermission = () => setEdit((prev) => !prev);
 
@@ -27,14 +45,14 @@ const EmployeeCardPermission = ({ permission }) => {
                         <Avatar src="https://avatar.iran.liara.run/public" />
                     </ListItemIcon>
                     <ListItemText
-                        primary={permission.firstname}
+                        primary={firstname}
                         secondary={
                             <Stack sx={{ mt: 1, flexDirection: "row", gap: 2 }}>
                                 <Chip
                                     variant="outlined"
                                     color="success"
                                     size="small"
-                                    label={<span style={{ fontSize: '0.7em' }}>{permission.role_name}</span>}
+                                    label={<span style={{ fontSize: '0.7em' }}>{role_name}</span>}
                                 />
                             </Stack>
                         }
@@ -71,7 +89,7 @@ const EmployeeCardPermission = ({ permission }) => {
                     </Box>
                 </CardContent>
                 <Dialog open={edit} onClose={toggleAttachPermission}>
-                    <AttachPermissions permission={permission} />
+                    <AttachPermissions {...permission} />
                 </Dialog>
             </Card>
         </Grid>
@@ -128,8 +146,8 @@ const ProductSummary = () => {
                                 </Card>
                             </Grid>
                         })}
-                    {all_permissions.map((permission, _: number) => {
-                        return <EmployeeCardPermission permission={permission} key={_} />
+                    {all_permissions.map((permission:any, _: number) => {
+                        return <EmployeeCardPermission {...permission} key={_} />
                     })}
                     <Stack direction={'row'} width={'100%'} mt={2}>
                         <Box flexGrow={1} />

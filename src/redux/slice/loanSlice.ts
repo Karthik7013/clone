@@ -16,7 +16,7 @@ export const sendOtp = createAsyncThunk('auth/sendOtp', async (payload: string, 
         }
         const res = await authService.post('/sendOtp', reqObject);
         return { status: res.status, data: res.data.data };
-    } catch (error) {
+    } catch (error: any) {
         if (error.message === 'Network Error') {
             return rejectWithValue({ message: "Oops! Something went wrong" });
         }

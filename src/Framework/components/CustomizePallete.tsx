@@ -40,7 +40,7 @@ const CustomizePallete = () => {
     }));
 
 
-    function valuetext(value) {
+    function valuetext(value:string | number) {
         return `${value}px`;
     }
     const handleBorderRadius = (event: any) => {

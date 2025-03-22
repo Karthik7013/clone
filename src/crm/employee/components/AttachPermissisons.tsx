@@ -20,7 +20,7 @@ type AttachPermission = {
     id?: string
 }
 
-const AttachPermissions = (props) => {
+const AttachPermissions = (props:any) => {
     const employee_role_id = props.permission.employee_role_id
     const myPermissions = props.permission.permissions;
     const permissions = useSelector((state: RootState) => state.dashboard.employee_permissions.data);
