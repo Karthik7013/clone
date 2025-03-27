@@ -50,7 +50,6 @@ const Login = () => {
     return (
         <Box position='relative'>
             <AlertBox alert={alert} onClose={closeAlertHandle} />
-            {/* maxWidth="xs" component={Stack} */}
             <Box height={'100dvh'} overflow={'hidden'} >
                 <Container component={Stack} alignItems='center' maxWidth="xs">
                     <Box
@@ -72,12 +71,6 @@ const Login = () => {
                             <Typography component="h1" textAlign='center' variant="h5">
                                 Sign in <br />  Customer
                             </Typography>
-
-
-
-
-
-
                             <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
                                 <TextField
                                     label="Phone Number"

@@ -230,6 +230,13 @@ const theme = (customStyles: customStylesProps) => {
 
                 }
             },
+            MuiAlert: {
+                styleOverrides: {
+                    root: {
+                        color: theme.palette.background.paper
+                    }
+                }
+            },
             MuiList: {
                 styleOverrides: {
                     root: {
@@ -276,7 +283,7 @@ const theme = (customStyles: customStylesProps) => {
                 styleOverrides: {
                     root: {
                         borderRadius,
-                        overflow:'hidden'
+                        overflow: 'hidden'
                     }
                 }
             },

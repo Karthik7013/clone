@@ -34,7 +34,7 @@ const EmployeeProfile = () => {
 
   return (
     <Box mt={3}>
-      <MessageBox action={() => { alert('close') }} type='success' message='Details Updated Successfully' />
+      <MessageBox variant='filled' action={() => { alert('close') }} type='success' message='Details Updated Successfully' />
       <ListItem disablePadding disableGutters sx={{ mt: 2 }}>
         <Box mr={2} component={IconButton} onClick={navigateBack}>
           <ArrowBackRoundedIcon />

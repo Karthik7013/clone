@@ -106,7 +106,7 @@ const Quotes = () => {
 
 
     return (
-        <Box position='relative'>
+        <Box component={Container} position='relative'>
             <Stack direction='row'>
                 <Box sx={{ borderRight: '1px solid #0000001f', position: 'sticky', top: 0, left: 0 }}>
                     <Drawer
@@ -150,7 +150,10 @@ const Quotes = () => {
                     <Grid container columns={18} spacing={2} px={1} sx={{ py: { xs: 1, md: 3 } }}>
                         <Grid item xs={18}>
                             <Grid container rowGap={3}>
-                                <MessageBox action={() => true} type="warning" message="Lorem ipsum dolor sit amet consectetur adipisici error a quis commodi at sunt excepturi ipsum neque." />
+                                <MessageBox variant="filled" action={() => true} type="warning" message="Lorem ipsum dolor sit amet consectetur adipisici error a quis commodi at sunt excepturi ipsum neque." />
+                                <MessageBox variant="filled" action={() => true} type="success" message="Lorem ipsum dolor sit amet consectetur adipisici error a quis commodi at sunt excepturi ipsum neque." />
+                                <MessageBox variant="filled" action={() => true} type="error" message="Lorem ipsum dolor sit amet consectetur adipisici error a quis commodi at sunt excepturi ipsum neque." />
+                                <MessageBox variant="filled" action={() => true} type="info" message="Lorem ipsum dolor sit amet consectetur adipisici error a quis commodi at sunt excepturi ipsum neque Lorem ipsum dolor sit amet consectetur adipisici error a quis commodi at sunt excepturi ipsum nequeLorem ipsum dolor sit amet consectetur adipisici error a quis commodi at sunt excepturi ipsum nequeLorem ipsum dolor sit amet consectetur adipisici error a quis commodi at sunt excepturi ipsum neque." />
 
 
                                 {/* quote cards */}
@@ -196,10 +199,10 @@ const Quotes = () => {
                         </Grid>
                     </Grid>
                 </Box>
-                <Stack width={300} rowGap={3} py={3} pr={3} sx={{ display: { xs: 'none', lg: 'flex' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'scroll', ...scrollBarHidden }}>
+                <Stack width={300} rowGap={3} py={3} sx={{ display: { xs: 'none', lg: 'flex' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'scroll', ...scrollBarHidden }}>
                     <Advertisement />
                 </Stack>
-            </Stack >
+            </Stack>
 
             {Boolean(compareProducts.length) && <Paper
                 role="dialog"

@@ -1,4 +1,4 @@
-import { Avatar, Box, ButtonGroup, Card, Chip, Divider, Grid, IconButton, Stack, styled, TextField, Typography } from '@mui/material'
+import { Avatar, Box, ButtonGroup, Card, Chip, Divider, Grid, IconButton, Stack, styled, TextField, Tooltip, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridToolbarQuickFilter } from '@mui/x-data-grid'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,9 +23,13 @@ const ErrorTable = () => {
         {
             field: 'StackTrace', headerName: 'Stack Trace', flex: 1,
             renderCell: (params) => {
-                return <Typography color='error' component='div' dangerouslySetInnerHTML={{
+                return <Tooltip title={<Typography dangerouslySetInnerHTML={{
                     __html: params.value
-                }} />
+                }} />}>
+                    <Typography color='error' component='div' dangerouslySetInnerHTML={{
+                        __html: params.value
+                    }} />
+                </Tooltip>
             }
         },
         { field: 'ErrorCode', headerName: 'Error Code', flex: 1 },
