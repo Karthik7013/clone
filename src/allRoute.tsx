@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 
 //============ MUI IMPORTS ==============>
-import { Box, Container, Toolbar } from "@mui/material";
+import { Box, Chip, Container, Toolbar, Typography } from "@mui/material";
 
 //============ PROJECT IMPORTS ==============>
 import Header from "./Framework/components/Header";
@@ -27,18 +27,19 @@ import { employeeRoutes } from "./crm/employee/routes/employee.routes";
 //============ FRAMEWORK IMPORTS ==============>
 import { CompareQuotes, ChatBot, PageNotFound } from "./Framework/components/index";
 import { ChatBot as Chat } from "./Framework/components/ChatBot";
+import AuthProvider from "./Framework/components/AuthProvider";
 
 export const allRouter = () => {
     let commonRoutes = [
         {
             path: "/",
-            element: <>
+            element: <AuthProvider>
                 <Header />
                 <Toolbar />
                 <Outlet />
                 <ChatBot />
                 <Footer />
-            </>,
+            </AuthProvider>,
             children: [
                 {
                     index: true,

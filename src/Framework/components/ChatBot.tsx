@@ -11,7 +11,7 @@ import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutlined';
-
+import CircleIcon from '@mui/icons-material/Circle';
 export const ChatMiniWrapper = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -105,7 +105,7 @@ export const ChatBot = () => {
                         </ListItemIcon>
                         <ListItemText
                             primary={<Typography variant='body2'>AI Support</Typography>}
-                            secondary={<Typography variant='caption'>online</Typography>}
+                            secondary={<Typography variant='caption'><CircleIcon fontSize='inherit' sx={{ mr: 1 }} color='success' />Online</Typography>}
                         />
                     </ListItem>
                 </CardContent>

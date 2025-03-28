@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy } from 'react';
 import ProtectedRoutes from '../../../ProtectedRoute';
 import MessageBox from '../../../Framework/components/MessageBox';
 import { useSelector } from 'react-redux';

@@ -30,27 +30,22 @@ import { Helmet } from 'react-helmet';
 import LoadingModal from './LoadingModal';
 
 const Header = () => {
-    console.log('header renders');
     const dark = useSelector((state: RootState) => state.ui.dark);
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
     const profile = useSelector((state: RootState) => state.auth.authData);
     const loading = useSelector((state: RootState) => state.auth.loading);
     const role = useSelector((state: RootState) => state.auth.role);
-
     const dispatch: AppDispatch = useDispatch();
-
     const [anchorElSignIn, setAnchorElSignIn] = useState<HTMLElement | null>(null);
     const navigate = useNavigate();
-
+    console.log(profile, 'profile123')
 
     // functions for sign-menu-dropdown open/close
-    const handleOpenSignInMenu = (event: any) => {
-        setAnchorElSignIn(event.currentTarget)
-    }
+    const handleOpenSignInMenu = (event: any) => setAnchorElSignIn(event.currentTarget)
 
-    const handleCloseSignInMenu = () => {
-        setAnchorElSignIn(null);
-    };
+
+    const handleCloseSignInMenu = () => setAnchorElSignIn(null);
+
 
     // function for toggle theme
     const toggleMode = () => dispatch(toggleTheme())
@@ -74,11 +69,7 @@ const Header = () => {
                         />
                     </Box>
 
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href="/"
+                    <Typography variant="h5" noWrap component="a" href="/"
                         sx={{
                             ml: 1,
                             display: { xs: 'flex', md: 'none' },
@@ -106,7 +97,7 @@ const Header = () => {
                                     Logout
                                 </CustomButton>
                             </Tooltip>
-
+                            <Typography mx={1} variant='h6' fontStyle={'italic'}>Welcom {profile.firstname} !</Typography>
                             <Tooltip title={profile?.email}>
                                 <IconButton
                                     sx={{ ml: 2 }}

@@ -27,7 +27,11 @@ const App = () => {
         <CustomThemeProvider>
             <CssBaseline />
             <React.Suspense fallback={<LinearProgress />} >
-                <RouterProvider router={allRouter()} />
+                <RouterProvider future={{
+                    v7_startTransition: true,
+                    v7_relativeSplatPath: true
+                } as any
+                } router={allRouter()} />
             </React.Suspense>
             <CustomizePallete />
         </CustomThemeProvider>

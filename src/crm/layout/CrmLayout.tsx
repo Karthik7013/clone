@@ -431,7 +431,6 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const dispatch: AppDispatch = useDispatch();
     const profile = useSelector((state: RootState) => state.auth.authData);
-    // console.log(profile, 'profilexxxx')
     const dark = useSelector((state: RootState) => state.ui.dark);
     const mobileOpen: boolean = useSelector((state: RootState) => state.ui.isMobile);
     const role = useSelector((state: RootState) => state.auth.role);
@@ -496,7 +495,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
     return <Box>
         {loading && <LoadingModal />}
         <Helmet>
-            <title>NameLix Dashboard | </title>
+            <title>NameLix Dashboard | {role}</title>
             <meta name="description" content="This is an awesome page using react-helmet!" />
         </Helmet>
         <AppBar
