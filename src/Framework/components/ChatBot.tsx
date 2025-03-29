@@ -45,7 +45,7 @@ export const ChatMiniWrapper = () => {
             >
                 <ChatBot />
             </Box>
-        </Menu >
+        </Menu>
     </Box >
 }
 

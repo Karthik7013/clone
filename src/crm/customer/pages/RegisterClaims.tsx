@@ -1,5 +1,5 @@
 import { Box, Button, CircularProgress, Grid, List, ListItem, ListItemText, ListSubheader, MenuItem, Stack, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
@@ -29,16 +29,15 @@ interface RegisterClaimForm {
   additional_description: string
 }
 const RegisterClaims = () => {
+  const alert = useSelector((state: RootState) => state.dashboard.registerClaim.alert)
   const loading = useSelector((state: RootState) => state.dashboard.registerClaim.loading)
   const { control, formState: { errors }, handleSubmit, reset } = useForm<RegisterClaimForm>();
   const dispatch: AppDispatch = useDispatch();
-  const closeAlertHandle = () => dispatch(closeAlert());
+  const closeAlertHandle = useCallback(() => dispatch(closeAlert()), [dispatch]);
   const onSubmitHandle = (data: RegisterClaimForm) => {
-    console.log(data)
     dispatch(registerCustomerPolicies(data))
     reset();
   }
-  const alert = useSelector((state: RootState) => state.dashboard.registerClaim.alert)
 
   return (
     <Box mt={3} component='form' onSubmit={handleSubmit(onSubmitHandle)}>

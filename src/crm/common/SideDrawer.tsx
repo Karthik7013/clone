@@ -23,11 +23,10 @@ const SideDrawer = () => {
                 </ListItemIcon>
                 <ListItemText primary={<Typography color="text.primary">Namelix</Typography>} />
             </ListItem>
-
         </Toolbar>
 
-        {loading ? <LinearProgress /> :
-            <List component={Stack} sx={{ px: 1 }}>
+        {loading ? null :
+            <List component={Stack} sx={{ px: 1, width: '100%' }}>
 
 
                 {/* 

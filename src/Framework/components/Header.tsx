@@ -141,7 +141,7 @@ const Header = () => {
                                     </MenuItem>
                                 </Box> :
                                     <Box>
-                                        <MenuItem onClick={() => navigate('/customer/signin')}>
+                                        <MenuItem onClick={() => navigate('/customer')}>
                                             <Stack direction={'row'} gap={1} >
                                                 <AccountCircleRoundedIcon fontSize='small' />
                                                 <Typography textAlign="center" >cusotmer</Typography>

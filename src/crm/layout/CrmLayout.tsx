@@ -1,7 +1,7 @@
 import { alpha, AppBar, Autocomplete, Avatar, Badge, Box, Button, CardContent, Chip, Divider, Drawer, IconButton, InputAdornment, LinearProgress, ListItem, ListItemIcon, ListItemText, Popover, Skeleton, Stack, styled, TextField, Toolbar, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material"
 import React, { Suspense, useCallback, useEffect } from "react";
 import { NotesRounded } from '@mui/icons-material';
-import { Link, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleIsDesktop, handleIsMobile, toggleTheme } from "../../redux/slice/uiSlice";
 import { getAgentProfile, getCustomerProfile, getEmployeeProfile, logout } from "../../redux/slice/authSlice";
@@ -13,7 +13,6 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 
 const drawerWidth = 260;
 import { AppDispatch, RootState } from "../../redux/store";
-import CustomScrollbarBoxComponent from "../../Framework/components/ScrollComponent";
 import CustomScrollbarBox from "../../Framework/components/ScrollComponent";
 import { Helmet } from 'react-helmet';
 import Notification from "../../Framework/components/Notification";
@@ -435,7 +434,24 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
     const mobileOpen: boolean = useSelector((state: RootState) => state.ui.isMobile);
     const role = useSelector((state: RootState) => state.auth.role);
     const loading = useSelector((state: RootState) => state.auth.loading);
-    const desktopOpen: boolean = useSelector((state: RootState) => state.ui.isDesktop);
+
+    useEffect(() => {
+        switch (role) {
+            case 'customer':
+                dispatch(getCustomerProfile({}));
+                break;
+            // case 'agent':
+            //     dispatch(getAgentProfile({}));
+            //     break;
+            // case 'employee':
+            //     dispatch(getEmployeeProfile({}));
+            //     break;
+            default:
+                break;
+        }
+    }, [role]);
+
+
     const handleDrawerClose = useCallback(() => {
         dispatch(handleIsMobile())
     }, [dispatch]);
@@ -473,9 +489,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
             backgroundColor: theme.palette.action.hover, // Track color from theme
         }
     }));
-
-
-
+    if (!role) return <Navigate to='/' />
     return <Box>
         {loading && <LoadingModal />}
         <Helmet>
@@ -502,7 +516,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                     disableTouchRipple
                     aria-label="open drawer"
                     edge="start"
-                    onClick={handleDrawerToggle}
+                    // onClick={handleDrawerToggle}
                     sx={{ mr: 2, borderRadius: '8px' }}
                 >
                     <NotesRounded />
@@ -586,13 +600,13 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
             </Toolbar>
         </AppBar>
         <Stack direction='row'>
-            <Drawer
+            {/* <Drawer
                 open={mobileOpen}
                 variant="temporary"
                 onClose={handleDrawerClose}
             >
                 {crmLayoutProps.sideBar}
-            </Drawer>
+            </Drawer> */}
             <CustomScrollbarBox sx={{ display: { xs: 'none', md: 'block', minWidth: 'fit-content' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
                 {crmLayoutProps.sideBar}
             </CustomScrollbarBox>

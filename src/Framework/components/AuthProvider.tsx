@@ -10,21 +10,22 @@ interface authProps {
 const AuthProvider = (props: authProps) => {
     const dispatch: AppDispatch = useDispatch();
     const role = useSelector((state: RootState) => state.auth.role);
-    useEffect(() => {
-        switch (role) {
-            case 'customer':
-                dispatch(getCustomerProfile({}));
-                break;
-            case 'agent':
-                dispatch(getAgentProfile({}));
-                break;
-            case 'employee':
-                dispatch(getEmployeeProfile({}));
-                break;
-            default:
-                break;
-        }
-    }, [role]);
+    console.log(role, 'role')
+    // useEffect(() => {
+    //     switch (role) {
+    //         case 'customer':
+    //             dispatch(getCustomerProfile({}));
+    //             break;
+    //         case 'agent':
+    //             dispatch(getAgentProfile({}));
+    //             break;
+    //         case 'employee':
+    //             dispatch(getEmployeeProfile({}));
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }, [role]);
     return props.children
 }
 export default AuthProvider;
