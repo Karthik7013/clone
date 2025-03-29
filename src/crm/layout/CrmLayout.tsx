@@ -448,21 +448,21 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
     const handleTheme = useCallback(() => dispatch(toggleTheme()), [dispatch]);
     const handleToggleDrawer = () => dispatch(handleIsDesktop())
 
-    useEffect(() => {
-        switch (role) {
-            case 'customer':
-                dispatch(getCustomerProfile({}));
-                break;
-            case 'agent':
-                dispatch(getAgentProfile({}));
-                break;
-            case 'employee':
-                dispatch(getEmployeeProfile({}));
-                break;
-            default:
-                break;
-        }
-    }, [role]);
+    // useEffect(() => {
+    //     switch (role) {
+    //         case 'customer':
+    //             dispatch(getCustomerProfile({}));
+    //             break;
+    //         case 'agent':
+    //             dispatch(getAgentProfile({}));
+    //             break;
+    //         case 'employee':
+    //             dispatch(getEmployeeProfile({}));
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }, [role]);
 
     const StyledCardContent = styled(CardContent)(({ theme }) => ({
         padding: theme.spacing(2),
