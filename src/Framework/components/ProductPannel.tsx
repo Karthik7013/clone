@@ -2,7 +2,6 @@ import { Button, CardContent, Divider, Grid, Link, List, ListItem, ListItemIcon,
 import React, { useState } from 'react'
 import CircleRoundedIcon from '@mui/icons-material/CircleRounded';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import theme from '../../theme/theme';
 const ProductPannel = () => {
     const [anchorElProducts, setAnchorElProducts] = useState<HTMLElement | null>(null);
     // functions for product-menu-dropdown open/close
@@ -71,7 +70,7 @@ const ProductPannel = () => {
         ]
     }
 
-    const Category = ({ group }) => {
+    const Category = ({ group }: { group: { category: string, products: { name: string, url: string }[] } }) => {
         return <List
             dense
             sx={{ width: '100dvw' }}
@@ -81,7 +80,7 @@ const ProductPannel = () => {
                 </Typography>
             }
         >
-            {group?.products.map((each, _) => <ListItem key={_}>
+            {group?.products.map((each: { name: string }, _: number) => <ListItem key={_}>
                 <ListItemIcon><CircleRoundedIcon sx={{ fontSize: '0.5em' }} /></ListItemIcon>
                 <ListItemText primary={<Link variant='caption' component="a" href='#'>{each.name}</Link>} />
             </ListItem>)}

@@ -91,7 +91,7 @@ const Header = () => {
                     <Box sx={{ flexGrow: { xs: 1, md: 0 }, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                         <IconButton sx={{ mr: 2 }} onClick={toggleMode} color='inherit'>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
 
-                        {islogin ? <>
+                        {profile ? <>
                             <Tooltip title="Logout">
                                 <CustomButton variant='outlined' size='small' onClick={handleOnclick} startIcon={<LogoutRoundedIcon />} sx={{ color: 'white' }}>
                                     Logout
