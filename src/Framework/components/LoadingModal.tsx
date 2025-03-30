@@ -1,8 +1,9 @@
-import { Box, CircularProgress, LinearProgress, Modal, Typography } from '@mui/material'
+import { Box, CircularProgress, LinearProgress, Modal, Typography, useTheme } from '@mui/material'
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 const LoadingModal = () => {
+    const theme = useTheme()
     const borderRadius = useSelector((state: RootState) => state.ui.borderRadius)
     const style = {
         position: 'absolute',
@@ -10,13 +11,14 @@ const LoadingModal = () => {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: 'fit-content',
-        bgcolor: 'background.paper',
-        p: 4,
-        borderRadius: borderRadius,
+        // bgcolor: 'background.paper',
+        p: 2,
+        // borderRadius: borderRadius,
         display: 'flex',
         flexDirection: 'column',
         gap: 2,
-        alignItems: 'center'
+        alignItems: 'center',
+        // color: theme.palette.background.default
     };
     return (
         <Modal open={true}>

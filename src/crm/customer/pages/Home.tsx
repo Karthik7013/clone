@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, Divider, Grid, List, ListItem, ListItemText, ListSubheader, Stack, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Collapse, Divider, Grid, IconButton, List, ListItem, ListItemText, ListSubheader, Stack, Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { useTheme } from '@mui/material';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
@@ -10,8 +10,9 @@ import ReactApexChart from 'react-apexcharts';
 import ProductClaims from '../components/ProductClaims';
 
 const Home = () => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   console.log('customer home renders');
-  const theme = useTheme();
 
   const options: ApexCharts.ApexOptions = {
     chart: {
@@ -76,14 +77,18 @@ const Home = () => {
       <ListItem
         disableGutters
         secondaryAction={
-          <Stack direction="row" gap={1}>
-            <Button size="small" variant="outlined" startIcon={<FilterListRoundedIcon />}>
-              Filter
-            </Button>
-            <Button size="small" variant="outlined" startIcon={<FileUploadRoundedIcon />}>
-              Export
-            </Button>
-          </Stack>
+          <>
+            <Collapse in={!isMobile} orientation='horizontal'>
+              <Stack direction="row" gap={1}>
+                <Button size="small" variant="outlined" startIcon={<FilterListRoundedIcon />}>
+                  Filter
+                </Button>
+                <Button size="small" variant="outlined" startIcon={<FileUploadRoundedIcon />}>
+                  Export
+                </Button>
+              </Stack>
+            </Collapse>
+          </>
         }
       >
         <ListItemText primary={<Typography gutterBottom variant="h4">Overview</Typography>} />
@@ -94,15 +99,14 @@ const Home = () => {
         </Grid>
 
         <Grid item xs={12} md={7}>
-          {/* <StatusBarGraph /> */}
+          <StatusBarGraph />
         </Grid>
 
         <Grid item xs={12} md={7}>
           <PoliciesQueue />
         </Grid>
-        {/* claims */}
         <Grid item xs={12} md={5}>
-          {/* <ProductClaims /> */}
+          <ProductClaims />
         </Grid>
       </Grid>
     </Box>

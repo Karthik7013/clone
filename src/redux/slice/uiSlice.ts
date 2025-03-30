@@ -11,7 +11,7 @@ const initialState: uiProps = {
     customizePalleteOpen: false,
     cookieConsent: false,
     customerEditProfile: false,
-    isMobile: true,
+    isMobile: false,
     isDesktop: true,
     productsCompare: [0],
     otpModal: false,
@@ -41,7 +41,9 @@ const uiSlice = createSlice({
             state.customerEditProfile = !state.customerEditProfile
         },
         handleIsDesktop: (state) => {
+
             state.isDesktop = !state.isDesktop
+
         },
         handleIsMobile: (state) => {
             state.isMobile = !state.isMobile

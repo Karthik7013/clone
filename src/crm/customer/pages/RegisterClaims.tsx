@@ -33,7 +33,7 @@ const RegisterClaims = () => {
   const loading = useSelector((state: RootState) => state.dashboard.registerClaim.loading)
   const { control, formState: { errors }, handleSubmit, reset } = useForm<RegisterClaimForm>();
   const dispatch: AppDispatch = useDispatch();
-  const closeAlertHandle = useCallback(() => dispatch(closeAlert()), [dispatch]);
+  const closeAlertHandle =() => dispatch(closeAlert());
   const onSubmitHandle = (data: RegisterClaimForm) => {
     dispatch(registerCustomerPolicies(data))
     reset();

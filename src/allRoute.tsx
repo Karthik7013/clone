@@ -33,13 +33,14 @@ export const allRouter = () => {
     let commonRoutes = [
         {
             path: "/",
-            element: <AuthProvider>
-                <Header />
-                <Toolbar />
-                <Outlet />
-                <ChatBot />
-                <Footer />
-            </AuthProvider>,
+            element:
+                <AuthProvider>
+                    <Header />
+                    <Toolbar />
+                    <Outlet />
+                    <ChatBot />
+                    <Footer />
+                </AuthProvider>,
             children: [
                 {
                     index: true,

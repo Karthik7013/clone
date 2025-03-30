@@ -51,7 +51,7 @@ const CustomerPayments = () => {
     }
 
 
-    return (<Card>
+    return (<Card sx={{ width: '100%' }}>
         <List
             subheader={
                 <ListSubheader>

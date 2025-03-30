@@ -1,33 +1,27 @@
-import { Avatar, Box, Button, Card, CardContent, Chip, Collapse, Divider, Icon, LinearProgress, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Button, Card, CardContent, Chip, Collapse, Divider, Icon, LinearProgress, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography, useMediaQuery } from '@mui/material';
 import { useLocation, Link } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect } from 'react';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import { useTheme } from '@mui/material';
 import ProtectedRoutes from '../../ProtectedRoute';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { handleIsDesktop } from '../../redux/slice/uiSlice';
 const SideDrawer = () => {
+    const dispatch: AppDispatch = useDispatch()
     const currentPath = useLocation().pathname.split('/').splice(-1);
     const theme = useTheme();
     const loading = useSelector((state: RootState) => state.auth.loading);
     const authData = useSelector((state: RootState) => state.auth.authData);
     const desktopOpen: boolean = useSelector((state: RootState) => state.ui.isDesktop);
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     return (<Box>
-        <Toolbar sx={{ display: { xs: 'block', md: 'none' } }}>
-            <ListItem disablePadding sx={{ mt: 4, display: { xs: 'flex', md: 'none' } }}>
-                <ListItemIcon>
-                    <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
-                </ListItemIcon>
-                <ListItemText primary={<Typography color="text.primary">Namelix</Typography>} />
-            </ListItem>
-        </Toolbar>
 
         {loading ? null :
-            <List component={Stack} sx={{ px: 1, width: '100%' }}>
-
+            <List component={Stack} sx={{ px: 1 }}>
 
                 {/* 
                 ---------------- customer ----------------------
@@ -44,7 +38,7 @@ const SideDrawer = () => {
                             component={Link}
                             to=""
                         >
-                            <ListItemIcon>
+                            <ListItemIcon sx={{ mr: 1 }}>
                                 <Icon fontSize="small">dashboard</Icon>
                             </ListItemIcon>
                             <Collapse orientation="horizontal" in={!desktopOpen}>
@@ -56,14 +50,13 @@ const SideDrawer = () => {
 
                 </ProtectedRoutes>
                 <ProtectedRoutes role='customer' requiredPermission={1001}>
-
                     <ListItem disablePadding>
                         <ListItemButton
                             sx={{ bgcolor: currentPath.includes('policies') ? theme.palette.primary.main : 'inherit' }}
                             component={Link}
                             to="policies"
                             disableRipple>
-                            <ListItemIcon>
+                            <ListItemIcon sx={{ mr: 1 }}>
                                 <Icon fontSize='small'>receipt_long</Icon>
                             </ListItemIcon>
                             <Collapse orientation="horizontal" in={!desktopOpen}>
@@ -81,7 +74,7 @@ const SideDrawer = () => {
                             sx={{ bgcolor: currentPath.includes('claims') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'claims'}
                             disableRipple>
-                            <ListItemIcon>
+                            <ListItemIcon sx={{ mr: 1 }}>
                                 <Icon fontSize='small'>verified_user</Icon>
                             </ListItemIcon>
                             <Collapse orientation="horizontal" in={!desktopOpen}>
@@ -99,7 +92,7 @@ const SideDrawer = () => {
                             sx={{ bgcolor: currentPath.includes('register') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'register'}
                             disableRipple>
-                            <ListItemIcon>
+                            <ListItemIcon sx={{ mr: 1 }}>
                                 <Icon fontSize='small'>assignment_add</Icon>
                             </ListItemIcon>
                             <Collapse orientation="horizontal" in={!desktopOpen}>
@@ -117,7 +110,7 @@ const SideDrawer = () => {
                             sx={{ bgcolor: currentPath.includes('settings') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'settings'}
                             disableRipple>
-                            <ListItemIcon>
+                            <ListItemIcon sx={{ mr: 1 }}>
                                 <Icon fontSize='small'>settings</Icon>
                             </ListItemIcon>
                             <Collapse orientation="horizontal" in={!desktopOpen}>
@@ -140,7 +133,7 @@ const SideDrawer = () => {
                             sx={{ bgcolor: currentPath.includes('helpline') ? theme.palette.primary.main : 'inherit' }}
                             component={Link} to={'helpline'}
                             disableRipple>
-                            <ListItemIcon>
+                            <ListItemIcon sx={{ mr: 1 }}>
                                 <Icon fontSize='small'>support</Icon>
                             </ListItemIcon>
                             <Collapse orientation="horizontal" in={!desktopOpen}>

@@ -1,4 +1,4 @@
-import { alpha, AppBar, Autocomplete, Avatar, Badge, Box, Button, CardContent, Chip, Divider, Drawer, IconButton, InputAdornment, LinearProgress, ListItem, ListItemIcon, ListItemText, Popover, Skeleton, Stack, styled, TextField, Toolbar, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material"
+import { alpha, AppBar, Autocomplete, Avatar, Badge, Box, Button, Card, CardContent, Chip, Collapse, Divider, Drawer, IconButton, InputAdornment, LinearProgress, ListItem, ListItemIcon, ListItemText, Popover, Skeleton, Stack, styled, TextField, Toolbar, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material"
 import React, { Suspense, useCallback, useEffect } from "react";
 import { NotesRounded } from '@mui/icons-material';
 import { Link, Navigate, Outlet } from "react-router-dom";
@@ -17,6 +17,7 @@ import CustomScrollbarBox from "../../Framework/components/ScrollComponent";
 import { Helmet } from 'react-helmet';
 import Notification from "../../Framework/components/Notification";
 import LoadingModal from "../../Framework/components/LoadingModal";
+import SideDrawer from "../common/SideDrawer";
 
 
 const top100Films = [
@@ -490,6 +491,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
         }
     }));
     if (!role) return <Navigate to='/' />
+
     return <Box>
         {loading && <LoadingModal />}
         <Helmet>
@@ -505,22 +507,25 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
             }}
         >
             <Toolbar>
-                <ListItem component={Link} to="/" disablePadding sx={{ width: drawerWidth - 80, display: { xs: 'none', md: 'flex' } }}>
-                    <ListItemIcon>
-                        <Avatar sx={{ mr: 1, width: 38, height: 38 }} src={'/brand.ico'} />
-                    </ListItemIcon>
-                    <ListItemText primary={
-                        <Typography color="text.primary">Namelix</Typography>} />
-                </ListItem>
+                <Collapse component={Box} in={!isMobile} orientation="horizontal">
+                    <ListItem component={Link} to="/" disablePadding sx={{ width: drawerWidth - 80, display: { xs: 'none', md: 'flex' } }}>
+                        <ListItemIcon>
+                            <Avatar sx={{ mr: 2, width: 38, height: 38 }} src={'/brand.ico'} />
+                        </ListItemIcon>
+                        <ListItemText primary={
+                            <Typography color="text.primary">Namelix</Typography>} />
+                    </ListItem>
+                </Collapse>
                 {isMobile && <IconButton
                     disableTouchRipple
                     aria-label="open drawer"
                     edge="start"
-                    // onClick={handleDrawerToggle}
+                    onClick={handleDrawerToggle}
                     sx={{ mr: 2, borderRadius: '8px' }}
                 >
                     <NotesRounded />
                 </IconButton>}
+
                 {!isMobile && <IconButton
                     disableTouchRipple
                     aria-label="open drawer"
@@ -536,82 +541,62 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                         <Typography variant="h6">
                             Hellow {profile.firstname} !
                         </Typography>
-                    </> : <>
-                        <Skeleton width={120} height={40}></Skeleton>
-                    </>
+                    </> : <Skeleton width={120} height={40}></Skeleton>
                 }
-                <Box flex={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Autocomplete
-                        fullWidth
-                        disablePortal
-                        options={top100Films}
-                        size="small"
-                        sx={{ maxWidth: 400, display: { lg: 'block', xs: 'none' } }}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                placeholder="Search"
-                                InputProps={{
-                                    ...params.InputProps,
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <SearchIcon sx={{ ml: 0.5, mt: 0.2 }} />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                        )}
-                    />
-                </Box>
+                <Box flex={1} sx={{ display: 'flex', justifyContent: 'center' }} />
 
                 <Stack direction="row" gap={2} alignItems='center'>
-                    <Chip sx={{ display: { xs: 'none', md: 'flex' } }} color="primary" size="small" icon={<LocationOnRoundedIcon fontSize="inherit" />} label={profile?.city} />
-                    <Stack direction={'row'} sx={{ display: { xs: 'none', md: 'block' } }}>
-                        <Tooltip title={dark ? "light" : "dark"}>
-                            <IconButton color="default" sx={{ mr: 2 }} onClick={handleTheme}>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
-                        </Tooltip>
-                        <Notification />
-                        <Button size="small" color="error" endIcon={<LogoutRoundedIcon fontSize="inherit" />} variant="outlined" onClick={handleOnclick}>Logout</Button>
-
-                    </Stack>
-                    {
-                        profile ?
-                            <Tooltip
-                                sx={{ maxWidth: '100%' }}
-                                title="check"
-                            >
-                                <IconButton
-
-                                    size="small"
-                                    sx={{ ml: 2 }}
-                                >
-                                    <Avatar
-                                        src="https://avatar.iran.liara.run/public"
-                                        sx={{ width: 36, height: 36 }}
-                                    >
-                                    </Avatar>
-                                </IconButton>
+                    <Collapse in={!isMobile} orientation="horizontal">
+                        <Stack direction={'row'} alignItems={'center'}>
+                            <Chip sx={{ display: { xs: 'none', md: 'flex' } }} color="primary" size="small" icon={<LocationOnRoundedIcon fontSize="inherit" />} label={profile?.city} />
+                            <Tooltip title={dark ? "light" : "dark"}>
+                                <IconButton color="default" sx={{ mr: 2 }} onClick={handleTheme}>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
                             </Tooltip>
-                            :
-                            <Skeleton sx={{ borderRadius: 999 }} variant="circular" width={42} height={42} />
-
+                            <Notification />
+                            <Button size="small" color="error" endIcon={<LogoutRoundedIcon fontSize="inherit" />} variant="outlined" onClick={handleOnclick}>Logout</Button>
+                        </Stack>
+                    </Collapse>
+                    {profile && <Tooltip title={profile.role}>
+                        <IconButton size="small">
+                            <Avatar
+                                src="https://avatar.iran.liara.run/public"
+                                sx={{ width: 36, height: 36 }}
+                                alt="profile_logo"
+                            >
+                            </Avatar>
+                        </IconButton>
+                    </Tooltip>
                     }
                 </Stack>
             </Toolbar>
         </AppBar>
         <Stack direction='row'>
-            {/* <Drawer
+            <Drawer
                 open={mobileOpen}
                 variant="temporary"
                 onClose={handleDrawerClose}
             >
                 {crmLayoutProps.sideBar}
-            </Drawer> */}
-            <CustomScrollbarBox sx={{ display: { xs: 'none', md: 'block', minWidth: 'fit-content' }, maxHeight: 'calc(100dvh - 65px)', overflowY: 'auto' }}>
-                {crmLayoutProps.sideBar}
-            </CustomScrollbarBox>
+            </Drawer>
 
-            <StyledCardContent>
+            <Box sx={{
+                display: {
+                    md: 'block',
+                    xs: "none"
+                }
+            }}>
+                <Collapse sx={{
+                    display: {
+                        md: 'block',
+                        xs: "none"
+                    }
+                }} component={Box} orientation="horizontal" in={!isMobile}>
+                    {crmLayoutProps.sideBar}
+                </Collapse>
+            </Box>
+
+
+            <Card sx={{ p: 2, flexGrow: 1, height: 'calc(100dvh - 65px)', overflow: 'auto' }}>
                 <Suspense fallback={<LinearProgress />}>
                     <Outlet />
                     <Box my={2}>
@@ -619,9 +604,9 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                     </Box>
                     <Typography>Looking for support ? <Link to="/support">Ask AI ?</Link></Typography>
                 </Suspense>
-            </StyledCardContent>
+            </Card>
         </Stack>
-    </Box>
+    </Box >
 }
 
 export default React.memo(CrmLayout);

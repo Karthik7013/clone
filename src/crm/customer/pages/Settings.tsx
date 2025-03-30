@@ -85,7 +85,7 @@ const Settings = () => {
 
 
         <Grid container columnSpacing={2} rowSpacing={2} mt={1} columns={16}>
-          <Grid item xs={12} lg={10}>
+          <Grid item xs={16} lg={10}>
             <Card>
               <form onSubmit={handleSubmit(onSubmitHandler)}>
                 <List
@@ -278,15 +278,10 @@ const Settings = () => {
 
             </Card>
           </Grid>
-          <Grid item xs={12} lg={6}>
-
+          <Grid item xs={16} lg={6}>
             <CustomerPayments />
           </Grid>
-
-          <Grid item xs={12}>
-
-          </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={16}>
             <Card>
               <List
                 subheader={
@@ -326,7 +321,7 @@ const Settings = () => {
               </List>
             </Card>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={16}>
             <Card>
               <List
                 subheader={

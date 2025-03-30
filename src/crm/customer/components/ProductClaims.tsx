@@ -39,7 +39,7 @@ const ProductClaims = () => {
                         options={donutOptions}
                         series={donutSeries}
                         type="donut"
-                        height={300} />
+                        height={250} />
                 </Box>
             </List>
         </Card>
