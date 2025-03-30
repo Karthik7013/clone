@@ -6,71 +6,16 @@ import FileUploadRoundedIcon from '@mui/icons-material/FileUploadRounded';
 
 import PoliciesQueue from '../components/PoliciesQueue';
 import CustomerStats from '../components/CustomerStats';
-import ReactApexChart from 'react-apexcharts';
 import ProductClaims from '../components/ProductClaims';
+import StatusBarGraph from '../components/StatusBarGraph';
+
+
+
+
 
 const Home = () => {
-  const theme = useTheme()
+  const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  console.log('customer home renders');
-
-  const options: ApexCharts.ApexOptions = {
-    chart: {
-      type: 'bar', // No need for 'as const', ApexCharts already understands 'bar' as a valid type
-      height: 350,
-    },
-    plotOptions: {
-      bar: {
-        columnWidth: '45%',
-
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    title: {
-      text: '',
-      align: 'center', // Ensure it's 'center', 'left', or 'right'
-      style: {
-        fontSize: '20px',
-        fontWeight: 'bold',
-        fontFamily: 'inherit',
-      },
-    },
-    xaxis: {
-      categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    },
-    fill: {
-      opacity: 1,
-    },
-    colors: [theme.palette.primary.main], // Custom bar color
-  };
-
-  const series = [
-    {
-      name: 'Sales',
-      data: [30, 40, 45, 50, 49, 60, 70],
-    },
-  ];
-
-
-
-
-
-  const StatusBarGraph = React.memo(() => {
-    return (
-      <Card>
-        <List subheader={<ListSubheader component="div">Montly Renewals</ListSubheader>}>
-          <Divider />
-          <Box>
-            <div id="chart">
-              <ReactApexChart options={options} series={series} type="bar" height={350} />
-            </div>
-          </Box>
-        </List>
-      </Card>
-    );
-  });
 
   return (
     <Box mt={3}>

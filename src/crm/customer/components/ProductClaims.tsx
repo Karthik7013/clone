@@ -1,8 +1,11 @@
 import { Box, Card, CardContent, Divider, List, ListSubheader } from '@mui/material'
 import React from 'react'
 import ReactApexChart from 'react-apexcharts'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../redux/store'
 
 const ProductClaims = () => {
+    const donutSeries = useSelector((state: RootState) => state.dashboard.pieChart.data)
     const donutOptions: ApexCharts.ApexOptions = {
         chart: {
             type: 'donut' as const,
@@ -28,7 +31,6 @@ const ProductClaims = () => {
             fontSize: '14px',
         },
     };
-    const donutSeries = [1, 2, 5, 6]
 
     return (
         <Card>
@@ -46,4 +48,4 @@ const ProductClaims = () => {
     )
 }
 
-export default ProductClaims
+export default React.memo(ProductClaims);

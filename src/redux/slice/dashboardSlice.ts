@@ -17,6 +17,16 @@ type dashboardProps = {
         alert: alertProps,
         loading: boolean
     },
+    barGraph: {
+        data: any,
+        alert: alertProps,
+        loading: boolean
+    },
+    pieChart: {
+        data: any,
+        alert: alertProps,
+        loading: boolean
+    },
     policies: {
         loading: boolean,
         data: any,
@@ -101,6 +111,29 @@ const initialState: dashboardProps = {
     policies: {
         loading: false,
         data: [],
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        }
+    },
+    barGraph: {
+        data: [
+            {
+                name: 'Sales',
+                data: [30, 40, 45, 50, 49, 60, 70],
+            }
+        ],
+        loading: false,
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        }
+    },
+    pieChart: {
+        data: [1, 2, 5, 6],
+        loading: false,
         alert: {
             message: '',
             state: false,
