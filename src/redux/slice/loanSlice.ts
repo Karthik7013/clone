@@ -1,55 +1,111 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { authService } from "../../service/api";
+import { smsService } from "../../service/api";
+import { alertProps } from "../../types/UiProps/uiProps";
 
 
 
-
-export const sendOtp = createAsyncThunk('auth/sendOtp', async (payload: string, { rejectWithValue }) => {
+const initialState: {
+    otpModal: boolean,
+    sendOtp: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
+    },
+    verifyOtp: {
+        loading: boolean,
+        data: any,
+        alert: alertProps
+    },
+} = {
+    otpModal: false,
+    sendOtp: {
+        loading: false,
+        data: [],
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        }
+    },
+    verifyOtp: {
+        loading: false,
+        data: [],
+        alert: {
+            message: '',
+            state: false,
+            type: undefined
+        }
+    },
+}
+export const sendOtp = createAsyncThunk('sms/sendOtp', async (payload: {
+    email: string,
+    name: string,
+    method: "SEND",
+    phone: string,
+    referBy: string | null,
+    refered_by_employee: string | null,
+    refered_by_agent: string | null
+}, { rejectWithValue }) => {
     try {
-        const reqObject = {
-            sendTo: {
-                "mobile": payload,
-                "email": ""
-            },
-            "lob": "sample"
+        const res = await smsService.post('/sendOtp', payload);
+        return { status: res.status, data: res.data.message };
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            if (error.message === 'Network Error') {
+                return rejectWithValue({ message: "Oops! Something went wrong" });
+            }
+            const status = error.response?.status ?? 500;
+            const message = error.response?.data?.message ?? "Unexpected error occurred";
+
+            return rejectWithValue({ status, message });
         }
-        const res = await authService.post('/sendOtp', reqObject);
-        return { status: res.status, data: res.data.data };
-    } catch (error) {
-        if (error.message === 'Network Error') {
-            return rejectWithValue({ message: "Oops! Something went wrong" });
+
+        // Fallback for non-Axios errors
+        return rejectWithValue({ message: "An unknown error occurred" });
+    }
+})
+
+export const verifyOtp = createAsyncThunk('sms/verifyOtp', async (payload: {
+    otp: number,
+    email: string,
+    method: "VERIFY"
+}, { rejectWithValue }) => {
+    try {
+        const res = await smsService.post('/verifyOtp', payload);
+        console.log(res)
+        // return { status: res.status, data: res.data.message };
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            if (error.message === 'Network Error') {
+                return rejectWithValue({ message: "Oops! Something went wrong" });
+            }
+            const status = error.response?.status ?? 500;
+            const message = error.response?.data?.message ?? "Unexpected error occurred";
+
+            return rejectWithValue({ status, message });
         }
-        return rejectWithValue({ status: error.response.status, message: error.response.data.message });
+
+        // Fallback for non-Axios errors
+        return rejectWithValue({ message: "An unknown error occurred" });
     }
 })
 
 
 const loanSlice = createSlice({
     name: 'loan',
-    initialState: {
-        otpModal: false,
-        sendOtp: {
-            loading: false,
-            data: [],
-            alert: {
-                message: '',
-                state: false,
-                type: undefined
-            }
-        },
-        verifyOtp: {
-            loading: false,
-            data: [],
-            alert: {
-                message: '',
-                state: false,
-                type: undefined
-            }
-        },
-    },
+    initialState,
     reducers: {
-
+        closeOtpModal: (state) => {
+            state.otpModal = false;
+        },
+        closeSuccessOtp: (state) => {
+            state.sendOtp.alert = {
+                message: '',
+                state: false,
+                type: undefined
+            }
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(sendOtp.pending, (state) => {
@@ -60,9 +116,16 @@ const loanSlice = createSlice({
         })
         builder.addCase(sendOtp.fulfilled, (state, action) => {
             state.sendOtp.loading = false;
+            state.sendOtp.alert = {
+                message: 'Otp Send Successfull',
+                state: true,
+                type: 'success'
+            }
             state.otpModal = true
         })
     }
 })
+
+export const { closeOtpModal, closeSuccessOtp } = loanSlice.actions
 
 export default loanSlice.reducer;

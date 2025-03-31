@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, Collapse, Divider, Grid, IconButton, List, ListItem, ListItemText, ListSubheader, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Box, Button, Collapse, Grid, ListItem, ListItemText, Stack, Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { useTheme } from '@mui/material';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
@@ -9,14 +9,9 @@ import CustomerStats from '../components/CustomerStats';
 import ProductClaims from '../components/ProductClaims';
 import StatusBarGraph from '../components/StatusBarGraph';
 
-
-
-
-
 const Home = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
   return (
     <Box mt={3}>
       <ListItem

@@ -1,10 +1,7 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import { Box, CardMedia, CircularProgress, Grid, IconButton, Stack, TextField, Typography } from '@mui/material';
@@ -20,13 +17,13 @@ const Transition = React.forwardRef(function Transition(
 });
 type otpModalProps = {
     open: boolean,
-    setOpen: (value: boolean) => void
+    setClose: () => void
 }
 const OtpModal = (props: otpModalProps) => {
     const [loading, setLoading] = useState(false);
     const [otp, setOtp] = useState(['', '', '', '']);
-    const { open, setOpen } = props;
-    const handleClose = () => setOpen(false)
+    const { open, setClose } = props;
+    const handleClose = () => setClose();
 
     return (
         <Dialog

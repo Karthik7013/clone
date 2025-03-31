@@ -119,7 +119,7 @@ const Login = () => {
                     <Copyright sx={{ mt: 8, mb: 4 }} />
                 </Container>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#0099ff" fill-opacity="0.88" d="M0,224L1440,128L1440,320L0,320Z"></path>
+                    <path fill="#0099ff" fillOpacity="0.88" d="M0,224L1440,128L1440,320L0,320Z"></path>
                 </svg>
             </Box>
         </Box>

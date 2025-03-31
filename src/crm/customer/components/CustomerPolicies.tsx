@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppDispatch, RootState } from '../../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCustomerPolicies } from '../../../redux/slice/dashboardSlice';
-import { DataGrid, GridColDef, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridToolbarQuickFilter } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridPaginationModel, GridToolbarContainer, GridToolbarDensitySelector, GridToolbarExport, GridToolbarFilterButton, GridToolbarQuickFilter } from '@mui/x-data-grid';
 import { Box, Button, Chip, Stack } from '@mui/material';
 import CachedRoundedIcon from '@mui/icons-material/CachedRounded';
 
 const CustomerPolicies = () => {
+  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
+    page: 0,
+    pageSize: 100,
+  });
   const dispatch: AppDispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.dashboard.policies.loading)
   const policies = useSelector((state: RootState) => state.dashboard.policies.data) || [];
@@ -86,9 +90,11 @@ const CustomerPolicies = () => {
         }}
         loading={loading}
         rows={policies}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        pageSizeOptions={[10, 20, 50, 100]}
         columns={columns}
         checkboxSelection
-        pageSizeOptions={[10, 20, 50]} // Options for selecting page size
         getRowId={(row) => row.application_id}
       />
     </div>

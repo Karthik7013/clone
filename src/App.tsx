@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { BrowserRouter, Outlet, Route, RouterProvider, Routes } from 'react-router-dom';
 
 //============ MUI IMPORTS ==============>
-import { CssBaseline, LinearProgress, Toolbar } from '@mui/material';
+import { Container, CssBaseline, LinearProgress, Toolbar } from '@mui/material';
 
 //============ REDUX IMPORTS ==============>
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ import CustomizePallete from './Framework/components/CustomizePallete';
 import CustomThemeProvider from './theme/CustomThemeProvider';
 import { handleCookieConsent } from './redux/slice/uiSlice';
 import { AppDispatch, RootState } from './redux/store';
-import { MessageBox, PageNotFound } from './Framework/components';
+import { CompareQuotes, MessageBox, PageNotFound } from './Framework/components';
 import AuthProvider from './Framework/components/AuthProvider';
 import Header from './Framework/components/Header';
 import ChatBot from './Framework/components/ChatBot';
@@ -32,6 +32,7 @@ import MyClaims from './crm/customer/pages/MyClaims';
 import RegisterClaims from './crm/customer/pages/RegisterClaims';
 import Settings from './crm/customer/pages/Settings';
 import HelpLine from './crm/customer/pages/HelpLine';
+import { FailedPage, LoanLandingPage, LoanQuotesPage, ThankYouPage } from './loan/pages';
 
 
 const App = () => {
@@ -49,7 +50,13 @@ const App = () => {
         <CustomThemeProvider>
             <CssBaseline />
             <React.Suspense fallback={<LinearProgress />} >
-                <BrowserRouter>
+                <BrowserRouter
+                    future={{
+                        v7_relativeSplatPath: true,
+
+                        v7_startTransition: true, // 👈 Add this line
+                    }}
+                >
                     <Routes>
                         <Route path='customer' element={<Outlet />}>
                             <Route index={!islogin} element={<Login />} />
@@ -105,6 +112,16 @@ const App = () => {
                             <Footer />
                         </AuthProvider>}>
                             <Route index element={<Home />} />
+                            <Route path='loan' element={<Outlet />}>
+                                <Route index element={<LoanLandingPage />}></Route>
+                                <Route path='quotes' element={<Outlet />}>
+                                    <Route index element={<LoanQuotesPage />}></Route>
+                                    <Route path='compare/:id' element={<CompareQuotes />}></Route>
+                                    <Route path='success' element={<ThankYouPage />}></Route>
+                                    <Route path='FailedPage' element={<FailedPage />}></Route>
+                                </Route>
+                            </Route>
+
                         </Route>
                         <Route path='*' element={<PageNotFound />} />
                     </Routes>
