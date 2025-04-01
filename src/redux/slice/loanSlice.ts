@@ -17,6 +17,7 @@ const initialState: {
         data: any,
         alert: alertProps
     },
+    reqObject: null | any
 } = {
     otpModal: false,
     sendOtp: {
@@ -37,6 +38,7 @@ const initialState: {
             type: undefined
         }
     },
+    reqObject: null
 }
 export const sendOtp = createAsyncThunk('sms/sendOtp', async (payload: {
     email: string,
@@ -111,6 +113,14 @@ const loanSlice = createSlice({
                 state: false,
                 type: undefined
             }
+        },
+
+        setReqObject: (state, action) => {
+            const { payload } = action;
+            state.reqObject = payload
+        },
+        updateReqObject: (state, action) => {
+            const { payload } = action;
         }
     },
     extraReducers: (builder) => {
@@ -157,6 +167,6 @@ const loanSlice = createSlice({
     }
 })
 
-export const { closeOtpModal, resetSendOtpAlert, resetVerifyOtpAlert } = loanSlice.actions
+export const { closeOtpModal, resetSendOtpAlert, resetVerifyOtpAlert,setReqObject } = loanSlice.actions
 
 export default loanSlice.reducer;

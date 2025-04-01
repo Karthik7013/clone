@@ -29,14 +29,13 @@ type otpModalProps = {
 const OtpModal = (props: otpModalProps) => {
     const verifyLoading = useSelector((state: RootState) => state.loan.verifyOtp.loading);
     const verifyAlert = useSelector((state: RootState) => state.loan.verifyOtp.alert);
-    const phone = '';
-    const email = '';
+    const loanReqObject = useSelector((state: RootState) => state.loan.reqObject);
     const dispatch: AppDispatch = useDispatch();
     const [otpValues, setOtpValues] = useState(["", "", "", ""]); // Stores the OTP input
     const otp = Array.from({ length: 4 }, () => useRef<HTMLInputElement | null>(null));
     const { open, setClose } = props;
     const handleClose = () => setClose();
-    const closeErrorAlert = ()=> dispatch(resetVerifyOtpAlert());
+    const closeErrorAlert = () => dispatch(resetVerifyOtpAlert());
 
 
 
@@ -49,7 +48,7 @@ const OtpModal = (props: otpModalProps) => {
             method: "VERIFY"
         } = {
             otp: otp,
-            email: 'karthiktumala143@gmail.com',
+            email: loanReqObject.email,
             method: "VERIFY"
         }
         dispatch(verifyOtp(body))

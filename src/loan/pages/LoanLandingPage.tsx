@@ -242,7 +242,7 @@ import OtpModal from '../../Framework/components/OtpModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { closeOtpModal, resetSendOtpAlert,resetVerifyOtpAlert, sendOtp } from '../../redux/slice/loanSlice';
+import { closeOtpModal, resetSendOtpAlert, resetVerifyOtpAlert, sendOtp, setReqObject } from '../../redux/slice/loanSlice';
 import axios from 'axios';
 import AlertBox from '../../Framework/components/AlertBox';
 import LoanLandingLogo from "../../assets/Manage money-cuate.svg"
@@ -257,6 +257,8 @@ interface LoanFormData {
     employmentStatus: string;
     coverageType: string;
     premiumPaymentOption: string;
+    email: string;
+    name: string;
 }
 
 const LoanLandingPage = () => {
@@ -265,14 +267,15 @@ const LoanLandingPage = () => {
     const dispatch: AppDispatch = useDispatch();
     const otpModal = useSelector((state: RootState) => state.loan.otpModal); // otp modal state
     const handleOtpModalClose = useCallback(() => dispatch(closeOtpModal()), []) // close otp modal
-
-
+    const role: "AGENT" | "EMPLOYEE" = 'EMPLOYEE'
+    const empID: string = "E001"
 
     const [searchParams] = useSearchParams();
     const quoteID = searchParams.get('quoteID');
     const { handleSubmit, formState: { errors }, control } = useForm<LoanFormData>({
         defaultValues: {
             mobile: '7013140693',
+            name: 'Karthik Tumala',
             loanAmount: 7000,
             loanTerm: 2,
             loanType: 'mortgage',
@@ -281,6 +284,7 @@ const LoanLandingPage = () => {
             employmentStatus: 'employed',
             coverageType: 'full',
             premiumPaymentOption: 'annually',
+            email: 'karthiktumala143@gmail.com'
         },
     });
     // closeSuccessOtp
@@ -302,27 +306,36 @@ const LoanLandingPage = () => {
 
     const handleFormSubmit: SubmitHandler<LoanFormData> = (data) => {
         console.log('Form Submitted:', data);
+        dispatch(setReqObject(data))
         /**
          * call send otp
          * call verify otp
          * if(verify === success) => call quote api
          */
+        // console.log(data)
+        // console.log({
+        //     email: data.email,
+        //     method: 'SEND',
+        //     name: data.name,
+        //     phone: data.mobile,
+        //     referBy: role,
+        //     refered_by_agent: null,
+        //     refered_by_employee: empID
+        // })
         dispatch(sendOtp({
-            email: "karthiktumala143@gmail.com",
+            email: data.email,
             method: 'SEND',
-            name: "Karthik Tumala",
-            phone: "",
-            referBy: null,
+            name: data.name,
+            phone: data.mobile,
+            referBy: role,
             refered_by_agent: null,
-            refered_by_employee: null
+            refered_by_employee: empID
         }));
         // toggleOtpModal(true);
     };
 
     return (
         <Box component={Container}>
-            <Typography variant="h4">Loan Home</Typography>
-            <Link to="/loan/quotes">Get Quotes</Link>
             <Grid container rowSpacing={2}>
                 <Grid item xs={12} md={6}>
                     <Box height={'100%'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
@@ -346,6 +359,26 @@ const LoanLandingPage = () => {
                             {/* Mobile Number */}
                             <Grid item xs={12} md={4}>
                                 <Controller
+                                    name="name"
+                                    control={control}
+                                    rules={{
+                                        required: 'Name is required',
+                                    }}
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            fullWidth
+                                            error={!!errors?.name}
+                                            helperText={errors?.name?.message}
+                                            label="Full Name"
+                                            inputProps={{ maxLength: 10 }}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+                            {/* Mobile Number */}
+                            <Grid item xs={12} md={4}>
+                                <Controller
                                     name="mobile"
                                     control={control}
                                     rules={{
@@ -363,6 +396,30 @@ const LoanLandingPage = () => {
                                             helperText={errors?.mobile?.message}
                                             label="Mobile Number"
                                             inputProps={{ maxLength: 10 }}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+                            {/* Email */}
+                            <Grid item xs={12} md={6}>
+                                <Controller
+                                    name="email"
+                                    control={control}
+                                    rules={{
+                                        required: "Email is required",
+                                        pattern: {
+                                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                            message: "Enter a valid email",
+                                        },
+                                    }}
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            fullWidth
+                                            label="Email Address"
+                                            type="email"
+                                            error={!!errors?.email}
+                                            helperText={errors?.email?.message}
                                         />
                                     )}
                                 />
@@ -528,11 +585,9 @@ const LoanLandingPage = () => {
                         </Grid>
                     </Box>
                 </Grid>
-                {/* <Grid item xs={12}>
-                    <MessageBox type='info' variant='filled' message='Get Instant Loan in 2min'></MessageBox>
-                </Grid> */}
             </Grid>
-
+            <Typography variant="h4">Loan Home</Typography>
+            <Link to="/loan/quotes">Get Quotes</Link>
 
             <AlertBox alert={sendOtpAlert} onClose={resetSendOtpAlert} />
             {/* OTP Modal */}
