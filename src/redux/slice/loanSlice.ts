@@ -73,8 +73,7 @@ export const verifyOtp = createAsyncThunk('sms/verifyOtp', async (payload: {
 }, { rejectWithValue }) => {
     try {
         const res = await smsService.post('/verifyOtp', payload);
-        console.log(res)
-        // return { status: res.status, data: res.data.message };
+        return { status: res.status, data: res.data.message };
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
             if (error.message === 'Network Error') {
@@ -99,8 +98,15 @@ const loanSlice = createSlice({
         closeOtpModal: (state) => {
             state.otpModal = false;
         },
-        closeSuccessOtp: (state) => {
+        resetSendOtpAlert: (state) => {
             state.sendOtp.alert = {
+                message: '',
+                state: false,
+                type: undefined
+            }
+        },
+        resetVerifyOtpAlert: (state) => {
+            state.verifyOtp.alert = {
                 message: '',
                 state: false,
                 type: undefined
@@ -113,6 +119,11 @@ const loanSlice = createSlice({
         })
         builder.addCase(sendOtp.rejected, (state, action) => {
             state.sendOtp.loading = false
+            state.sendOtp.alert = {
+                message: 'Otp Send Failed',
+                state: true,
+                type: 'error'
+            }
         })
         builder.addCase(sendOtp.fulfilled, (state, action) => {
             state.sendOtp.loading = false;
@@ -123,9 +134,29 @@ const loanSlice = createSlice({
             }
             state.otpModal = true
         })
+        builder.addCase(verifyOtp.pending, (state) => {
+            state.verifyOtp.loading = true
+        })
+        builder.addCase(verifyOtp.rejected, (state, action) => {
+            state.verifyOtp.loading = false
+            state.verifyOtp.alert = {
+                message: "invalid/expired Otp",
+                state: true,
+                type: 'error'
+            }
+        })
+        builder.addCase(verifyOtp.fulfilled, (state, action) => {
+            state.verifyOtp.loading = false;
+            state.verifyOtp.alert = {
+                message: 'Otp Verified Successfull',
+                state: true,
+                type: 'success'
+            }
+            // state.otpModal = false
+        })
     }
 })
 
-export const { closeOtpModal, closeSuccessOtp } = loanSlice.actions
+export const { closeOtpModal, resetSendOtpAlert, resetVerifyOtpAlert } = loanSlice.actions
 
 export default loanSlice.reducer;

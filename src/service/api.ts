@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const localURL = 'http://localhost:8000/api/v1'
-// const localURL = 'https://clone-api.onrender.com/api/v1'
+// export const localURL = 'http://localhost:8000/api/v1'
+const localURL = 'https://clone-api.onrender.com/api/v1'
 
 export const authService = axios.create({
   baseURL: `${localURL}/auth`,

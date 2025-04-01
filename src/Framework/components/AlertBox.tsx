@@ -34,7 +34,9 @@ const AlertBox = ({ alert, onClose, variant = "filled" }: props) => {
     }
 
     const CustomAlert = styled(Alert)(({ theme }) => ({
+
         // borderRadius: theme.shape.borderRadius,
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)" /* Box Shadow */
         // boxShadow: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
         // backgroundColor: alert.type && alpha(theme.palette[alert.type].main, 0.1),
         // borderLeft: '4px solid',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, InputHTMLAttributes } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -7,6 +7,10 @@ import { TransitionProps } from '@mui/material/transitions';
 import { Box, CardMedia, CircularProgress, Grid, IconButton, Stack, TextField, Typography } from '@mui/material';
 import otpBanner from "../../assets/otp-banner.svg"
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
+import { resetVerifyOtpAlert, verifyOtp } from '../../redux/slice/loanSlice';
+import AlertBox from './AlertBox';
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
         children: React.ReactElement<any, any>;
@@ -19,11 +23,53 @@ type otpModalProps = {
     open: boolean,
     setClose: () => void
 }
+
+
+
 const OtpModal = (props: otpModalProps) => {
-    const [loading, setLoading] = useState(false);
-    const [otp, setOtp] = useState(['', '', '', '']);
+    const verifyLoading = useSelector((state: RootState) => state.loan.verifyOtp.loading);
+    const verifyAlert = useSelector((state: RootState) => state.loan.verifyOtp.alert);
+    const phone = '';
+    const email = '';
+    const dispatch: AppDispatch = useDispatch();
+    const [otpValues, setOtpValues] = useState(["", "", "", ""]); // Stores the OTP input
+    const otp = Array.from({ length: 4 }, () => useRef<HTMLInputElement | null>(null));
     const { open, setClose } = props;
     const handleClose = () => setClose();
+    const closeErrorAlert = ()=> dispatch(resetVerifyOtpAlert());
+
+
+
+    const verifyOtpSubmit = () => {
+        const otp = Number(otpValues.join(''));
+
+        const body: {
+            otp: number,
+            email: string,
+            method: "VERIFY"
+        } = {
+            otp: otp,
+            email: 'karthiktumala143@gmail.com',
+            method: "VERIFY"
+        }
+        dispatch(verifyOtp(body))
+    }
+    const handleFocus = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+
+        // Ensure only numeric input
+        if (!/^\d$/.test(value)) {
+            event.target.value = "";
+            return;
+        }
+        const newOtpValues = [...otpValues];
+        newOtpValues[index] = value;
+        setOtpValues(newOtpValues);
+        // Move focus to the next input field
+        if (index < otp.length - 1) {
+            otp[index + 1].current?.focus();
+        }
+    }
 
     return (
         <Dialog
@@ -32,22 +78,23 @@ const OtpModal = (props: otpModalProps) => {
             TransitionComponent={Transition}
             keepMounted
             aria-describedby="alert-dialog-slide-description"
+            sx={{
+                cursor: verifyLoading ? 'not-allowed' : "default"
+            }}
         >
             <Grid container>
                 <Grid item xs={12} lg={6}>
                     <DialogContent sx={{ width: '100%', alignItems: 'flex-end' }}>
                         <Box>
-                            <Typography variant='h6'>
+                            <Typography variant='h5'>
                                 Verify your Account
                             </Typography>
                             <Typography variant='caption'>Enter the verification code send to your phone</Typography>
                         </Box>
                         <Grid container mt={3} columnSpacing={2} maxWidth={'300px'}>
-                            {[1, 2, 3, 4].map((digit, index) => (
-                                <Grid item xs={3}>
+                            {otp.map((digit, index) => (
+                                <Grid item xs={3} key={index}>
                                     <TextField
-                                        focused={false}
-                                        key={index}
                                         id={`otp-input-${index}`}
                                         variant="outlined"
                                         inputProps={{
@@ -56,11 +103,8 @@ const OtpModal = (props: otpModalProps) => {
                                             pattern: '[0-9]*',
                                             inputMode: 'numeric',
                                         }}
-                                        onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                            if (!/^\d$/.test(e.target.value)) {
-                                                e.target.value = '.';
-                                            }
-                                        }}
+                                        inputRef={(el) => (otp[index].current = el)}
+                                        onChange={handleFocus(index)}
                                         sx={{
                                             width: 50,
                                             height: 50,
@@ -71,11 +115,12 @@ const OtpModal = (props: otpModalProps) => {
                                         }}
                                     />
                                 </Grid>
+
                             ))}
                             {/* </Box> */}
                         </Grid>
                         <Stack mt={4} rowGap={1}>
-                            <Button disabled={loading} variant='contained' fullWidth onClick={handleClose}>{loading ? <CircularProgress size={20} /> : 'Submit'}</Button>
+                            <Button disabled={verifyLoading} variant='contained' fullWidth onClick={verifyOtpSubmit}>{verifyLoading && <CircularProgress sx={{ mr: 2 }} size={16} />} Submit</Button>
                             <Button variant='outlined' fullWidth onClick={handleClose}>Resend</Button>
                             <Typography color={'error'} variant='caption' textAlign={'center'}>3:54 sec </Typography>
                         </Stack>
@@ -90,6 +135,7 @@ const OtpModal = (props: otpModalProps) => {
                     </Box>
 
                 </Grid>
+                <AlertBox alert={verifyAlert} onClose={closeErrorAlert} />
             </Grid>
 
         </Dialog>

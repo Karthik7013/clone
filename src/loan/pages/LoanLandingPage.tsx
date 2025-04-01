@@ -242,7 +242,7 @@ import OtpModal from '../../Framework/components/OtpModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { closeOtpModal, closeSuccessOtp, sendOtp } from '../../redux/slice/loanSlice';
+import { closeOtpModal, resetSendOtpAlert,resetVerifyOtpAlert, sendOtp } from '../../redux/slice/loanSlice';
 import axios from 'axios';
 import AlertBox from '../../Framework/components/AlertBox';
 import LoanLandingLogo from "../../assets/Manage money-cuate.svg"
@@ -534,7 +534,7 @@ const LoanLandingPage = () => {
             </Grid>
 
 
-            <AlertBox alert={sendOtpAlert} onClose={closeSuccessOtp} />
+            <AlertBox alert={sendOtpAlert} onClose={resetSendOtpAlert} />
             {/* OTP Modal */}
             <OtpModal open={otpModal} setClose={handleOtpModalClose} />
         </Box>
