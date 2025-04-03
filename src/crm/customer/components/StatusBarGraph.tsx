@@ -1,15 +1,12 @@
 import { Card, Divider, List, ListSubheader, useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
 
 const StatusBarGraph = () => {
+    const [eventData, setEventData] = useState([{ "name": "Sales", "data": [] }]);
     const theme = useTheme();
-    const series = useSelector((state: RootState) => state.dashboard.barGraph.data);
-    console.log(series, 'series123')
-    const loading = useSelector((state: RootState) => state.dashboard.barGraph.loading)
+
     const options: ApexCharts.ApexOptions = {
         chart: {
             type: 'bar', // No need for 'as const', ApexCharts already understands 'bar' as a valid type
@@ -41,12 +38,22 @@ const StatusBarGraph = () => {
         colors: [theme.palette.primary.main], // Custom bar color
     };
 
+    useEffect(() => {
+        const eventSource = new EventSource(`https://clone-api.onrender.com/event`);
+        eventSource.onmessage = (event) => {
+            setEventData(JSON.parse(event.data))
+        }
+        return () => {
+            eventSource.close();
+        }
+    }, [])
+
     return <Card>
         <List subheader={<ListSubheader component="div">Montly Renewals</ListSubheader>}>
             <Divider />
             <Box>
                 <div id="chart">
-                    <ReactApexChart options={options} series={series} type="bar" height={350} />
+                    <ReactApexChart options={options} series={eventData} type="bar" height={350} />
                 </div>
             </Box>
         </List>

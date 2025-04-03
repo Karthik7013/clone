@@ -73,19 +73,15 @@ const Login = () => {
                             </Typography>
                             <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
                                 <TextField
-                                    label="Phone Number"
+                                    label="Phone/User Name"
                                     variant="outlined"
                                     fullWidth
                                     margin="normal"
                                     {...register('phone', {
-                                        required: 'Phone number is required',
-                                        pattern: {
-                                            value: /^\d{10}$/,
-                                            message: 'Phone number must be 10 digits',
-                                        },
+                                        required: 'Phone/Email name is required'
                                     })}
                                     disabled={isLoading}
-                                    inputMode='numeric'
+                                    // inputMode='numeric'
                                     error={!!errors.phone}
                                     helperText={errors.phone ? errors.phone.message : ''}
                                 />

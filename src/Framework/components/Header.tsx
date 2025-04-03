@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { Avatar, CardMedia, Collapse, ListItemIcon, ListItemText, Stack, } from '@mui/material';
+import { Avatar, CardMedia, Collapse, ListItemIcon, ListItemText, Stack, useMediaQuery, useTheme, } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LogoutRoundedIcon from '@mui/icons-material/Logout';
@@ -30,6 +30,8 @@ import { Helmet } from 'react-helmet';
 import LoadingModal from './LoadingModal';
 
 const Header = () => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const dark = useSelector((state: RootState) => state.ui.dark);
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
     const profile = useSelector((state: RootState) => state.auth.authData);
@@ -79,6 +81,7 @@ const Header = () => {
                             <img src="/logo.jpg" alt="logo" />
                         </Stack>
                     </Typography>
+
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
                         <ProductPannel />
                         <Button sx={{ color: 'white', display: 'block' }}>
@@ -88,17 +91,17 @@ const Header = () => {
                             Talk to Expert
                         </Button>
                     </Box>
+
                     <Box sx={{ flexGrow: { xs: 1, md: 0 }, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                         <IconButton sx={{ mr: 2 }} onClick={toggleMode} color='inherit'>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>
 
-                        {profile ? <>
+                        {role ? <>
                             <Tooltip title="Logout">
                                 <CustomButton variant='outlined' size='small' onClick={handleOnclick} startIcon={<LogoutRoundedIcon />} sx={{ color: 'white' }}>
                                     Logout
                                 </CustomButton>
                             </Tooltip>
-                            <Typography mx={1} variant='h6' fontStyle={'italic'}>Welcom {profile.firstname} !</Typography>
-                            <Tooltip title={profile?.email}>
+                            <Tooltip title={profile?.email || 'No Title'}>
                                 <IconButton
                                     sx={{ ml: 2 }}
                                     size='small'
