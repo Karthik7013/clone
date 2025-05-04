@@ -50,7 +50,7 @@ export const sendOtp = createAsyncThunk('sms/sendOtp', async (payload: {
     refered_by_agent: string | null
 }, { rejectWithValue }) => {
     try {
-        const res = await smsService.post('/sendOtp', payload);
+        const res = await smsService.post('/send', payload);
         return { status: res.status, data: res.data.message };
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -70,11 +70,10 @@ export const sendOtp = createAsyncThunk('sms/sendOtp', async (payload: {
 
 export const verifyOtp = createAsyncThunk('sms/verifyOtp', async (payload: {
     otp: number,
-    email: string,
     method: "VERIFY"
 }, { rejectWithValue }) => {
     try {
-        const res = await smsService.post('/verifyOtp', payload);
+        const res = await smsService.post('/verify', payload);
         return { status: res.status, data: res.data.message };
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -83,7 +82,6 @@ export const verifyOtp = createAsyncThunk('sms/verifyOtp', async (payload: {
             }
             const status = error.response?.status ?? 500;
             const message = error.response?.data?.message ?? "Unexpected error occurred";
-
             return rejectWithValue({ status, message });
         }
 
@@ -167,6 +165,6 @@ const loanSlice = createSlice({
     }
 })
 
-export const { closeOtpModal, resetSendOtpAlert, resetVerifyOtpAlert,setReqObject } = loanSlice.actions
+export const { closeOtpModal, resetSendOtpAlert, resetVerifyOtpAlert, setReqObject } = loanSlice.actions
 
 export default loanSlice.reducer;

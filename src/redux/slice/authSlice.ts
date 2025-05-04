@@ -24,6 +24,7 @@ const initialState: authProps = {
         message: '',
         state: false
     },
+    otpModal: false,
     isLogin: role ? true : false,
     authData: null,
     role: role,
@@ -122,9 +123,9 @@ export const getEmployeeProfile = createAsyncThunk('profile/employee', async (pa
 })
 
 // =============== | CUSTOMER ACTIONS | ==============>
-export const loginCustomer = createAsyncThunk('login/customer', async (payload: { phone: string }, { rejectWithValue }) => {
+export const loginCustomer = createAsyncThunk('login/customer', async (payload: { user: string, method: string }, { rejectWithValue }) => {
     try {
-        const res = await authService.post('/customer/verify', payload);
+        const res = await authService.post('/customer', payload);
         if (res.data.success) {
             return {
                 success: res.data.success,
@@ -360,6 +361,9 @@ const authSlice = createSlice({
                 state: false
             }
         },
+        closeOtpModal: (state) => {
+            state.otpModal = false;
+        },
         pushPermission: (state, action) => {
             state.authData.permissions?.push(action.payload)
         },
@@ -384,14 +388,15 @@ const authSlice = createSlice({
             .addCase(loginCustomer.fulfilled, (state, action) => {
                 state.loading = false;
                 const { payload } = action
-                state.isLogin = true;
+                state.otpModal = true;
+                // state.isLogin = true;
                 state.alert = {
                     message: payload.message,
                     state: true,
                     type: 'success'
                 }
-                state.role = payload.data.role
-                sessionStorage.setItem('role', payload.data.role);
+                // state.role = payload.data.role
+                // sessionStorage.setItem('role', payload.data.role);
             });
         builder.addCase(getCustomerProfile.pending, (state) => {
             state.loading = true;
@@ -574,5 +579,5 @@ const authSlice = createSlice({
     }
 })
 
-export const { closeAlert, pushPermission, popPermission } = authSlice.actions;
+export const { closeAlert, pushPermission, popPermission, closeOtpModal } = authSlice.actions;
 export default authSlice.reducer;

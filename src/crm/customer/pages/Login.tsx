@@ -1,6 +1,5 @@
 import { Box, Card, CardContent, CircularProgress, Stack, Typography } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
-import * as React from 'react';
+import { Link } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -10,13 +9,13 @@ import Container from '@mui/material/Container';
 import AgentAvatar from '../../../assets/agent-svgrepo-com.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/store';
-import { closeAlert, loginCustomer } from '../../../redux/slice/authSlice';
+import { closeAlert, closeOtpModal, loginCustomer } from '../../../redux/slice/authSlice';
 import { useForm } from "react-hook-form";
 import AlertBox from '../../../Framework/components/AlertBox';
-
+import { OtpModal } from '../../../Framework/components';
+import { useState } from 'react';
 interface FormInput {
-    phone: string,
-    password: string
+    phone: string
 }
 function Copyright(props: any) {
     return (
@@ -32,6 +31,7 @@ function Copyright(props: any) {
 }
 
 const Login = () => {
+    const showOtpModal = useSelector((state: RootState) => state.auth.otpModal);
     const {
         register,
         handleSubmit,
@@ -43,14 +43,15 @@ const Login = () => {
     const closeAlertHandle = () => dispatch(closeAlert());
 
     const onSubmit = (data: FormInput) => {
-        const { phone, password } = data;
-        dispatch(loginCustomer({ phone }))
+        const { phone: user } = data;
+        dispatch(loginCustomer({ user, method: "SEND" }))
     };
+    const handleOtpModal = () => dispatch(closeOtpModal());
 
     return (
         <Box position='relative'>
             <AlertBox alert={alert} onClose={closeAlertHandle} />
-            <Box height={'100dvh'} overflow={'hidden'} >
+            <Box height={'100dvh'} overflow={'hidden'}>
                 <Container component={Stack} alignItems='center' maxWidth="xs">
                     <Box
                         flexGrow={1}
@@ -73,7 +74,7 @@ const Login = () => {
                             </Typography>
                             <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
                                 <TextField
-                                    label="Phone/User Name"
+                                    label="Phone/Email"
                                     variant="outlined"
                                     fullWidth
                                     margin="normal"
@@ -84,17 +85,6 @@ const Login = () => {
                                     // inputMode='numeric'
                                     error={!!errors.phone}
                                     helperText={errors.phone ? errors.phone.message : ''}
-                                />
-                                <TextField
-                                    label="Password"
-                                    variant="outlined"
-                                    fullWidth
-                                    margin="normal"
-                                    type="password"
-                                    disabled={isLoading}
-                                    {...register('password', { required: 'Password is required' })}
-                                    error={!!errors.password}
-                                    helperText={errors.password ? errors.password.message : ''}
                                 />
                                 <FormControlLabel
                                     control={<Checkbox value="remember" color="primary" />}
@@ -107,7 +97,7 @@ const Login = () => {
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
                                 >
-                                    {isLoading ? <CircularProgress size={24} /> : "Login"}
+                                    {isLoading && <CircularProgress sx={{ mr: 1 }} size={18} />} Login
                                 </Button>
                             </Box>
                         </CardContent>
@@ -118,6 +108,8 @@ const Login = () => {
                     <path fill="#0099ff" fillOpacity="0.88" d="M0,224L1440,128L1440,320L0,320Z"></path>
                 </svg>
             </Box>
+
+            <OtpModal open={showOtpModal} setClose={handleOtpModal} ></OtpModal>
         </Box>
     )
 }

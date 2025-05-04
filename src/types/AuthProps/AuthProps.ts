@@ -10,7 +10,8 @@ type authProps = {
     alert: alertProps,
     isLogin: boolean,
     authData: any
-    role: string | null
+    role: string | null,
+    otpModal: boolean
 }
 
 // new_

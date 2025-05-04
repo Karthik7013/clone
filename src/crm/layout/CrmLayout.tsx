@@ -144,7 +144,7 @@ const CrmLayout = (crmLayoutProps: crmLayoutPropType) => {
                 <Stack direction="row" gap={2} alignItems='center'>
                     <Collapse in={!isMobile} orientation="horizontal">
                         <Stack direction={'row'} alignItems={'center'}>
-                            {profile.city && <Chip sx={{ display: { xs: 'none', md: 'flex' } }} color="primary" size="small" icon={<LocationOnRoundedIcon fontSize="inherit" />} label={profile?.city} />
+                            {profile?.city && <Chip sx={{ display: { xs: 'none', md: 'flex' } }} color="primary" size="small" icon={<LocationOnRoundedIcon fontSize="inherit" />} label={profile?.city} />
                             }
                             <Tooltip title={dark ? "light" : "dark"}>
                                 <IconButton color="default" sx={{ mr: 2 }} onClick={handleTheme}>{dark ? <LightModeIcon /> : < NightlightRoundIcon />}</IconButton>

@@ -26,7 +26,7 @@ const Settings = () => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       email: authData.email,
-      dob: authData.dob.split('T')[0], // format to 'YYYY-MM-DD'
+      dob: authData.dob?.split('T')[0], // format to 'YYYY-MM-DD'
       gender: authData.gender,
       address: authData.address,
       city: authData.city,

@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { allRouter } from "./allRoute"
 import CustomizePallete from './Framework/components/CustomizePallete';
 import CustomThemeProvider from './theme/CustomThemeProvider';
-import { handleCookieConsent } from './redux/slice/uiSlice';
 import { AppDispatch, RootState } from './redux/store';
 import { CompareQuotes, MessageBox, PageNotFound } from './Framework/components';
 import AuthProvider from './Framework/components/AuthProvider';
@@ -39,12 +38,7 @@ const App = () => {
     const islogin = useSelector((state: RootState) => state.auth.isLogin);
     const role = useSelector((state: RootState) => state.auth.role);
     const dispatch: AppDispatch = useDispatch();
-    useEffect(() => {
-        const cookieConsentState = document.cookie.split('; ').find(row => row.startsWith('cookie-accept'));
-        if (!cookieConsentState) {
-            dispatch(handleCookieConsent(true))
-        }
-    }, []);
+
 
     return (
         <CustomThemeProvider>
@@ -53,7 +47,6 @@ const App = () => {
                 <BrowserRouter
                     future={{
                         v7_relativeSplatPath: true,
-
                         v7_startTransition: true, // 👈 Add this line
                     }}
                 >
@@ -104,16 +97,18 @@ const App = () => {
                         <Route path='employee' element={<Outlet />}>
 
                         </Route>
-                        <Route path='/' element={<AuthProvider>
-                            <Header />
-                            <Toolbar />
-                            <Outlet />
-                            <ChatBot />
-                            <Footer />
-                        </AuthProvider>}>
+                        <Route path='/' element={
+                            <>
+                                <Header />
+                                <Toolbar />
+                                <Outlet />
+                                <ChatBot />
+                                <Footer />
+                            </>
+                        }>
                             <Route index element={<Home />} />
                             <Route path='loan' element={<Outlet />}>
-                                <Route index element={<LoanLandingPage />}></Route>
+                                <Route index element={<LoanLandingPage />} />
                                 <Route path='quotes' element={<Outlet />}>
                                     <Route index element={<LoanQuotesPage />}></Route>
                                     <Route path='compare/:id' element={<CompareQuotes />}></Route>
@@ -121,7 +116,6 @@ const App = () => {
                                     <Route path='FailedPage' element={<FailedPage />}></Route>
                                 </Route>
                             </Route>
-
                         </Route>
                         <Route path='*' element={<PageNotFound />} />
                     </Routes>

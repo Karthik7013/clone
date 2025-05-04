@@ -29,9 +29,8 @@ type otpModalProps = {
 const OtpModal = (props: otpModalProps) => {
     const verifyLoading = useSelector((state: RootState) => state.loan.verifyOtp.loading);
     const verifyAlert = useSelector((state: RootState) => state.loan.verifyOtp.alert);
-    const loanReqObject = useSelector((state: RootState) => state.loan.reqObject);
     const dispatch: AppDispatch = useDispatch();
-    const [otpValues, setOtpValues] = useState(["", "", "", ""]); // Stores the OTP input
+    const [otpValues, setOtpValues] = useState(["", "", "", ""]);
     const otp = Array.from({ length: 4 }, () => useRef<HTMLInputElement | null>(null));
     const { open, setClose } = props;
     const handleClose = () => setClose();
@@ -41,21 +40,18 @@ const OtpModal = (props: otpModalProps) => {
 
     const verifyOtpSubmit = () => {
         const otp = Number(otpValues.join(''));
-
         const body: {
             otp: number,
-            email: string,
             method: "VERIFY"
         } = {
             otp: otp,
-            email: loanReqObject.email,
             method: "VERIFY"
         }
         dispatch(verifyOtp(body))
+        
     }
     const handleFocus = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-
         // Ensure only numeric input
         if (!/^\d$/.test(value)) {
             event.target.value = "";
@@ -95,7 +91,7 @@ const OtpModal = (props: otpModalProps) => {
                                 <Grid item xs={3} key={index}>
                                     <TextField
                                         id={`otp-input-${index}`}
-                                        variant="outlined"
+
                                         inputProps={{
                                             maxLength: 1,
                                             style: { textAlign: 'center' },
@@ -108,9 +104,6 @@ const OtpModal = (props: otpModalProps) => {
                                             width: 50,
                                             height: 50,
                                             fontSize: '1.5rem',
-                                            '& .MuiOutlinedInput-root': {
-                                                borderRadius: 2,
-                                            },
                                         }}
                                     />
                                 </Grid>

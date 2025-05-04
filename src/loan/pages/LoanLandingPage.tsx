@@ -312,6 +312,8 @@ const LoanLandingPage = () => {
          * call verify otp
          * if(verify === success) => call quote api
          */
+        // create a applicationID attach the request 
+        
         // console.log(data)
         // console.log({
         //     email: data.email,
