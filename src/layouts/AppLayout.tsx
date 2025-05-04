@@ -4,12 +4,14 @@ import Footer from "../components/Footer/Footer";
 import AuthProvider from "../providers/AuthProvider";
 import Hero from "../components/Hero/Hero";
 import { Toolbar } from "@mui/material";
+import Products from "../components/Products/Products";
 
 const AppLayout = () => {
     return <AuthProvider>
         <AppHeader />
         <Toolbar />
         <Hero />
+        <Products />
         <Outlet />
         <Footer />
     </AuthProvider>
