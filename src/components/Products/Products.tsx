@@ -4,11 +4,16 @@ import carLogo from "../../assets/icons/car.svg";
 import travelLogo from "../../assets/icons/plane.svg";
 import commercialLogo from "../../assets/icons/commercial.svg"
 import bikeLogo from "../../assets/icons/Bike.svg";
-import { Avatar, Box, CardActionArea, CardContent, Container, Grid, Stack, Typography, useTheme } from "@mui/material";
+import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
+import { Avatar, Box, CardActionArea, CardContent, Chip, Container, Grid, Modal, Stack, Tab, Tabs, Toolbar, Typography, useTheme } from "@mui/material";
 import { Link as MuiLink } from "@mui/material"
 import { Link } from "react-router-dom";
 import Card from "../ui/Card/Card";
+import { useState } from "react";
+import StyledIconButton from "../ui/IconButton/IconButton";
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 const Products = () => {
+    const [viewMore, setViewMore] = useState<boolean>(false)
     const theme = useTheme();
     type navProps = {
         imgUrl: string,
@@ -107,7 +112,52 @@ const Products = () => {
             path: 'loan'
         }
     ]
-    return <Container sx={{mt:3 }}>
+    const toggleViewMore = () => {
+        setViewMore((prev) => !prev);
+    }
+    const AllProducts = (): React.JSX.Element => {
+        const theme = useTheme();
+        console.log('view more modal');
+        const style = {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            width: '70%',
+            borderRadius: theme.shape.borderRadius
+        };
+        return <Modal
+            open={viewMore}
+
+            aria-labelledby="modal-modal-products"
+            aria-describedby="modal-modal-description"
+        >
+            <Box sx={style}>
+                <Toolbar>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        More Products
+                    </Typography>
+                    <Box flexGrow={1}></Box>
+                    <StyledIconButton onClick={toggleViewMore}><CloseRoundedIcon /></StyledIconButton>
+
+                </Toolbar>
+                <CardContent>
+                    <Tabs variant="standard" value={1}>
+                        <Tab label="Personal Insurance" value={1} />
+                        <Tab label="Business Insurance" value={2} />
+                    </Tabs>
+                    <Typography>Hellow</Typography>
+                </CardContent>
+
+
+
+            </Box>
+        </Modal>
+    }
+
+    return <Container sx={{ mt: 3 }}>
         <Typography fontWeight={600} variant="h6" textAlign='center'>Our Products</Typography>
         <Grid container spacing={2} mt={1} flexGrow={1}>
             {
@@ -131,6 +181,12 @@ const Products = () => {
                     </Grid>
                 })
             }
+            <Grid item xs={12}>
+                <Box mt={3} minWidth={'100%'} display={'flex'} justifyContent={'center'}>
+                    <Chip clickable onClick={toggleViewMore} deleteIcon={<ArrowDropDownRoundedIcon />} variant="outlined" label="View all products" />
+                </Box>
+            </Grid>
+            <AllProducts />
         </Grid>
     </Container>
 }

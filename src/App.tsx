@@ -1,13 +1,12 @@
 
 import './App.css'
-import AppLayout from './layouts/AppLayout'
 import ThemeProvider from './providers/ThemeProvider'
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter } from "react-router-dom"
 import { Suspense } from "react"
 import Loader from './components/Loader/Loader'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
-  console.log("app render")
   return (
     <ThemeProvider>
       <Suspense fallback={<Loader />}>
@@ -16,9 +15,7 @@ function App() {
           v7_startTransition: true, // 👈 Add this line
         }}
         >
-          <Routes>
-            <Route path='/' element={<AppLayout />} />
-          </Routes>
+          <AppRoutes />
         </BrowserRouter>
       </Suspense>
     </ThemeProvider>
