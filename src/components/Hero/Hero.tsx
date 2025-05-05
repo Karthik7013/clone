@@ -1,12 +1,10 @@
-import { Box, Card, CardMedia, Container, Grid, ListItem, ListItemIcon, ListItemText, Stack, Typography } from "@mui/material";
+import { Box, CardMedia, Container, Grid, ListItem, ListItemIcon, ListItemText, Stack, Typography } from "@mui/material";
 import Button from "../ui/Button/Button";
 import giftBox from '../../assets/icons/spark.svg'
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-type SliderItemProps = {
-    url: string
-}
+import Carousel from "../Carousel/Carousel";
+import CarouselItem from "../Carousel/CarouselItem";
+
+
 const Hero = () => {
     const settings = {
         infinite: true, // Infinite scrolling
@@ -18,27 +16,21 @@ const Hero = () => {
         arrows: false, // Disable next and previous arrows
         dots: true
     };
-    const banners: string[] = [
-        "https://img.freepik.com/free-vector/business-insurance-template-blog-banner_53876-117981.jpg",
-        "https://img.freepik.com/free-vector/blog-banner-template-vector-life-insurance_53876-126524.jpg",
-        "https://img.freepik.com/free-vector/editable-template-vector-covid-19-travel-medical-insurance-presentation_53876-140961.jpg",
-        "https://img.freepik.com/free-vector/health-insurance-template-vector-blog-banner_53876-111243.jpg"
+    const banners: { link: string, src: string }[] = [
+        { link: "#", src: "https://img.freepik.com/free-vector/business-insurance-template-blog-banner_53876-117981.jpg" },
+        { link: "#", src: "https://img.freepik.com/free-vector/blog-banner-template-vector-life-insurance_53876-126524.jpg" },
+        { link: "#", src: "https://img.freepik.com/free-vector/editable-template-vector-covid-19-travel-medical-insurance-presentation_53876-140961.jpg" },
+        { link: "#", src: "https://img.freepik.com/free-vector/health-insurance-template-vector-blog-banner_53876-111243.jpg" }
     ];
 
-    const SliderItem = (props: SliderItemProps) => {
-        return <Box sx={{ position: 'relative' }}>
-            <Card elevation={0} sx={{ maxWidth: { md: 300 } }}>
-                <CardMedia component={'img'} image={props.url} />
-            </Card>
-        </Box>
-    }
+
     return <Container maxWidth='lg'>
         <Grid container spacing={2} mt={1} flexGrow={1}>
             <Grid item xs={12}>
                 <Stack direction={'row'} justifyContent={'space-between'}>
                     <Box sx={{ display: { xs: 'none', md: 'block', width: '100%' } }}>
-                        <Typography variant="h1">Lets Find Your</Typography>
-                        <Typography variant="h1" fontWeight={600}>Best Insurance Plan</Typography>
+                        <Typography variant="h4">Lets Find Your</Typography>
+                        <Typography variant="h4" fontWeight={600}>Best Insurance Plan</Typography>
                         <Stack direction={'row'} mt={2} maxWidth={500}>
                             <ListItem disablePadding>
                                 <ListItemIcon sx={{ minWidth: 24 }}>
@@ -78,21 +70,17 @@ const Hero = () => {
                                 ),
                             }} /> */}
                         </Stack>
-
                     </Box>
 
                     <Box sx={{ flexGrow: 1, width: '100%', maxWidth: { md: 300 }, mt: { md: 4 }, mx: 'auto' }}>
-                        <Slider {...settings}>
+                        <Carousel {...settings}>
                             {
-                                banners.map((url, i: number) => {
-                                    return <SliderItem key={i} url={url} />
-                                })
+                                banners.map((item, i) => <CarouselItem key={i} src={item.src} link={item.link} />)
                             }
-                        </Slider>
+                        </Carousel>
                     </Box>
                 </Stack>
             </Grid>
-
         </Grid>
     </Container>
 }

@@ -1,10 +1,12 @@
+import React from "react";
 import { Outlet } from "react-router-dom";
 import AppHeader from "../components/AppHeader/AppHeader";
 import Footer from "../components/Footer/Footer";
 import AuthProvider from "../providers/AuthProvider";
-import Hero from "../components/Hero/Hero";
 import { Toolbar } from "@mui/material";
-import Products from "../components/Products/Products";
+const Hero = React.lazy(()=> import('../components/Hero/Hero'))
+const Products = React.lazy(()=> import('../components/Products/Products'))
+
 
 const AppLayout = () => {
     return <AuthProvider>
