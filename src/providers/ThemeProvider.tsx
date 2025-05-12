@@ -6,7 +6,7 @@ type props = {
 const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element => {
     const theme = createTheme({
         palette: {
-            mode: "dark"
+            mode: "light"
         },
         typography: {
             fontFamily: "Poppins",
