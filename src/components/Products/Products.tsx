@@ -5,7 +5,7 @@ import travelLogo from "../../assets/icons/plane.svg";
 import commercialLogo from "../../assets/icons/commercial.svg"
 import bikeLogo from "../../assets/icons/Bike.svg";
 import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
-import { Avatar, Box, CardActionArea, CardContent, Chip, Container, Grid, Modal, Stack, Tab, Tabs, Toolbar, Typography, useTheme } from "@mui/material";
+import { Avatar, Box, CardActionArea, CardContent, Chip, Container, Grid, Modal, Stack, Tab, Tabs, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Link as MuiLink } from "@mui/material"
 import { Link } from "react-router-dom";
 import Card from "../ui/Card/Card";
@@ -117,6 +117,7 @@ const Products = () => {
     }
     const AllProducts = (): React.JSX.Element => {
         const theme = useTheme();
+        const isMobile = useMediaQuery(theme.breakpoints.down('md'));
         console.log('view more modal');
         const style = {
             position: 'absolute',
@@ -125,7 +126,7 @@ const Products = () => {
             transform: 'translate(-50%, -50%)',
             bgcolor: 'background.paper',
             boxShadow: 24,
-            width: '70%',
+            width: isMobile ? '90%' : '70%',
             borderRadius: theme.shape.borderRadius
         };
         return <Modal
@@ -150,9 +151,6 @@ const Products = () => {
                     </Tabs>
                     <Typography>Hellow</Typography>
                 </CardContent>
-
-
-
             </Box>
         </Modal>
     }
