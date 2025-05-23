@@ -15,12 +15,12 @@ const ProviderLogo = (props: ProviderLogoProps) => {
             overflow: 'hidden',
             position: 'relative',
             width: '120px',
-            height: '70px'
+            height: '65px'
         }}>
             <CardMedia
                 sx={{
                     position: 'absolute',
-                    top: 42,
+                    top: 45,
                     transform: "scale(10)",
                     left: 60,
                     filter: props.grayScale ? 'grayscale(100%)' : undefined,
