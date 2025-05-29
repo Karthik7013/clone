@@ -26,7 +26,7 @@ interface BotSubmitType {
 
 const Chatbot = () => {
     const dispatch: AppDispatch = useDispatch()
-    const { handleSubmit, control, formState: { errors }, reset } = useForm<BotSubmitType>({
+    const { handleSubmit, control, reset } = useForm<BotSubmitType>({
         defaultValues: {
             t: ''
         }
@@ -135,8 +135,8 @@ const Chatbot = () => {
                                 size='small'
                                 maxRows={4}
                                 variant="outlined"
-                                error={!!errors.t}
-                                helperText={errors.t?.message}
+                                // error={!!errors.t}
+                                // helperText={errors.t?.message}
                                 value={field.value}
                                 onChange={field.onChange}
                                 onBlur={field.onBlur}
