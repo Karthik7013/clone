@@ -39,6 +39,7 @@ const Chatbot = () => {
             canditate: 'user',
             t: data.t
         }));
+        reset();
         try {
             const result = await handleSendMessage(data).unwrap();
             dispatch(pushMessage({
@@ -46,8 +47,8 @@ const Chatbot = () => {
                 t: result.data.response,
                 timeStamp: result.data.timeStamp
             }));
-        } finally {
-            reset(); // ensure it's always called
+        } catch (err) {
+            console.log(err)
         }
     };
 
