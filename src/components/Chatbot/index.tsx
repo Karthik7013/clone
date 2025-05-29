@@ -1,6 +1,6 @@
 import React from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import {  Avatar, Box, Card, CardActions, CardContent, Divider, IconButton, InputAdornment, List, ListItem, ListItemIcon, ListItemText,Skeleton, Stack,  TextField,Typography} from '@mui/material';
+import { Avatar, Box, Card, CardActions, CardContent, Divider, IconButton, InputAdornment, List, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, TextField, Typography } from '@mui/material';
 // import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
 import { AppDispatch, RootState } from '../../store/store';
@@ -26,7 +26,11 @@ interface BotSubmitType {
 
 const Chatbot = () => {
     const dispatch: AppDispatch = useDispatch()
-    const { handleSubmit, control, formState: { errors } } = useForm<BotSubmitType>()
+    const { handleSubmit, control, formState: { errors }, reset } = useForm<BotSubmitType>({
+        defaultValues: {
+            t: ''
+        }
+    })
     const conversation = useSelector((state: RootState) => state.chatbotReducer.conversation);
     const [handleSendMessage, { isLoading }] = useSendMessageMutation();
 
@@ -34,15 +38,19 @@ const Chatbot = () => {
         dispatch(pushMessage({
             canditate: 'user',
             t: data.t
-        }))
-        const result = await handleSendMessage(data).unwrap();
-        console.log(result)
-        dispatch(pushMessage({
-            canditate: 'bot',
-            t: result.data.response,
-            timeStamp: result.data.timeStamp
-        }))
-    }
+        }));
+        try {
+            const result = await handleSendMessage(data).unwrap();
+            dispatch(pushMessage({
+                canditate: 'bot',
+                t: result.data.response,
+                timeStamp: result.data.timeStamp
+            }));
+        } finally {
+            reset(); // ensure it's always called
+        }
+    };
+
 
 
     const Conversation = ({ candidate, response, timeStamp }: conversationProps) => {
@@ -116,33 +124,48 @@ const Chatbot = () => {
                 <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
                     <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} />
                     <Controller
-                        defaultValue=''
                         name="t"
                         control={control}
                         rules={{ required: 'Ask Something !' }}
                         render={({ field }) => (
                             <TextField
                                 sx={{ flex: 1 }}
-                                placeholder='Enter your message'
-                                {...field}
+                                placeholder='Ask anything'
                                 multiline
                                 size='small'
                                 maxRows={4}
                                 variant="outlined"
                                 error={!!errors.t}
+                                helperText={errors.t?.message}
+                                value={field.value}
+                                onChange={field.onChange}
+                                onBlur={field.onBlur}
+                                name={field.name}
+                                inputRef={field.ref}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
-                                            <IconButton disableRipple disableTouchRipple disableFocusRipple type='submit' disabled={isLoading} color='default'>
-                                                {isLoading ? <StopCircleRoundedIcon color='action' /> : <AutoAwesomeRoundedIcon color='warning' />}
+                                            <IconButton
+                                                disableRipple
+                                                disableTouchRipple
+                                                disableFocusRipple
+                                                type='submit'
+                                                disabled={isLoading}
+                                                color='default'
+                                            >
+                                                {isLoading ? (
+                                                    <StopCircleRoundedIcon color='action' />
+                                                ) : (
+                                                    <AutoAwesomeRoundedIcon color='warning' />
+                                                )}
                                             </IconButton>
                                         </InputAdornment>
                                     ),
                                 }}
                             />
+
                         )}
                     />
-
                 </CardActions>
             </Box>
         </>
