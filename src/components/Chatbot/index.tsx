@@ -62,10 +62,10 @@ const Chatbot = () => {
                 </Box>
                 <Box order={candidate === 'bot' ? 1 : 0} flexGrow={1} display='flex' justifyContent={candidate === 'user' ? 'flex-end' : 'flex-start'}>
                     <Box position='relative'>
-                        <Card sx={{ padding: '10px ', borderRadius: '10px', overflow: 'auto' }}>
-                            <Typography dangerouslySetInnerHTML={{ __html: response }} variant='caption' />
+                        <Card sx={{ padding: '10px ', borderRadius: '10px', overflowY: 'auto', textWrap: 'wrap' }}>
+                            <Typography fontSize={'0.8rem'} noWrap={false} dangerouslySetInnerHTML={{ __html: response }} variant='caption' />
                         </Card>
-                        <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='div' variant='caption' color='text.secondary'>{timeStamp.split('T')[0]}</Typography>
+                        {/* <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='div' variant='caption' color='text.secondary'>{timeStamp.split('T')[0]}</Typography> */}
                     </Box>
                 </Box>
             </Stack>
@@ -91,8 +91,8 @@ const Chatbot = () => {
 
 
     return (
-        <>
-            <Box>
+        <Stack height={"100%"} position={'relative'}>
+            <Box position={'sticky'} top={0} left={0}>
                 <CardContent>
                     <ListItem disableGutters disablePadding
                         secondaryAction={
@@ -120,7 +120,7 @@ const Chatbot = () => {
                     {isLoading && <ChatLoader />}
                 </List>
             </Box>
-            <Box component='form' onSubmit={handleSubmit(onHandleSubmit)}>
+            <Box position={'sticky'} bottom={0} left={0} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
                 <Divider />
                 <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
                     <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} />
@@ -168,7 +168,7 @@ const Chatbot = () => {
                     />
                 </CardActions>
             </Box>
-        </>
+        </Stack>
     )
 }
 

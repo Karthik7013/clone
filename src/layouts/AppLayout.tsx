@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import AppHeader from "../components/AppHeader/AppHeader";
 import Footer from "../components/Footer/Footer";
 import AuthProvider from "../providers/AuthProvider";
-import { Container, Toolbar } from "@mui/material";
+import { AppBar, Avatar, Button, Card, Container, Dialog, Divider, Fab, IconButton, List, ListItemButton, ListItemText, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Partners from "../components/Partners/Partners";
 import Providers from "../components/Providers/Providers";
 const Hero = React.lazy(() => import('../components/Hero/Hero'))
@@ -12,6 +12,8 @@ const ProductSummary = React.lazy(() => import('../components/ProductSummary/Pro
 import Chatbot from '../components/Chatbot';
 
 const AppLayout = () => {
+    const [state, setState] = useState<boolean>(false);
+    const handleState = () => setState((prev) => !prev)
     return <AuthProvider>
         <AppHeader />
         <Toolbar />
@@ -21,9 +23,14 @@ const AppLayout = () => {
         <Partners />
         <Providers />
         <Outlet />
-        <Container>
-            <Chatbot />
-        </Container>
+        <Button variant="outlined" onClick={handleState}>Ask Anything</Button>
+        {state && <Dialog
+            fullScreen
+            open={true}>
+            <Container sx={{ minHeight: '100dvh' }}>
+                <Chatbot />
+            </Container>
+        </Dialog>}
         <Footer />
     </AuthProvider>
 }
