@@ -65,7 +65,7 @@ const Chatbot = () => {
                         <Card sx={{ padding: '10px ', borderRadius: '10px', overflowY: 'auto', textWrap: 'wrap' }}>
                             <Typography fontSize={'0.8rem'} noWrap={false} dangerouslySetInnerHTML={{ __html: response }} variant='caption' />
                         </Card>
-                        {/* <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='div' variant='caption' color='text.secondary'>{timeStamp.split('T')[0]}</Typography> */}
+                        <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='div' variant='caption' color='text.secondary'>{timeStamp.split('T')[0]}</Typography>
                     </Box>
                 </Box>
             </Stack>

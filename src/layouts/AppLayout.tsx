@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import AppHeader from "../components/AppHeader/AppHeader";
 import Footer from "../components/Footer/Footer";
 import AuthProvider from "../providers/AuthProvider";
-import { AppBar, Avatar, Button, Card, Container, Dialog, Divider, Fab, IconButton, List, ListItemButton, ListItemText, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Button, Container, Dialog, Toolbar } from "@mui/material";
 import Partners from "../components/Partners/Partners";
 import Providers from "../components/Providers/Providers";
 const Hero = React.lazy(() => import('../components/Hero/Hero'))
