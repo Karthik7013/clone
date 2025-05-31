@@ -10,7 +10,7 @@ import ContextProvider from './providers/ContextProvider'
 function App() {
   return (
     <ContextProvider>
-      < ThemeProvider >
+      <ThemeProvider>
         <Suspense fallback={<Loader />}>
           <BrowserRouter future={{
             v7_relativeSplatPath: true,
@@ -20,7 +20,7 @@ function App() {
             <AppRoutes />
           </BrowserRouter>
         </Suspense>
-      </ThemeProvider >
+      </ThemeProvider>
     </ContextProvider>
   )
 }

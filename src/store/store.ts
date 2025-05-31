@@ -1,13 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { chatbotApi } from '../features/chatbot/chatbotApi'
 import chartbotReducer from '../features/chatbot/chatbotSlice';
+import themeReducer from "../features/theme/themeSlice";
+
 export const store = configureStore({
     reducer: {
         chatbotReducer: chartbotReducer,
+        themeReducer: themeReducer,
         [chatbotApi.reducerPath]: chatbotApi.reducer,
     },
-    // Adding the api middleware enables caching, invalidation, polling,
-    // and other useful features of `rtk-query`.
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
             .concat(chatbotApi.middleware)

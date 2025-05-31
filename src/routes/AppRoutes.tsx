@@ -6,7 +6,6 @@ const AppRoutes = () => {
     return <Routes>
         <Route path='/' element={<AppLayout />} />
         <Route path='*' element={<PageNotFound />} />
-
     </Routes>
 }
 export default AppRoutes;

@@ -1,18 +1,21 @@
 import { createTheme, ThemeProvider, CssBaseline, alpha, useTheme } from "@mui/material";
+import { RootState } from "../store/store";
+import { useSelector } from "react-redux";
 
 type props = {
     children: React.ReactNode
 }
+const getSystemMode = (): 'light' | 'dark' => "dark"
 const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element => {
     const theme = useTheme();
-    const borderRadius = 5;
-    const dark = false;
+    const { borderRadius, fontFamily, mode } = useSelector((state: RootState) => state.themeReducer);
+    const newMode: 'light' | 'dark' = mode === 'system' ? getSystemMode() : mode
     const newtheme = createTheme({
         palette: {
-            mode: "light"
+            mode: newMode
         },
         typography: {
-            fontFamily: "Poppins",
+            fontFamily: fontFamily,
             caption: {
                 margin: 0,
                 fontSize: '0.65rem',  // Increased slightly for readability,
@@ -47,7 +50,6 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
             body2: {
                 fontSize: '0.9rem'
             }
-
         },
         components: {
             MuiAccordion: {
@@ -83,7 +85,7 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
             MuiCard: {
                 styleOverrides: {
                     root: {
-                        border: `1px solid ${dark ? '#ffffff21' : theme.palette.divider}`,
+                        border: `1px solid ${newMode ? '#ffffff21' : theme.palette.divider}`,
                         boxShadow: 'none',
                         borderRadius,
                         overflow: 'hidden'
@@ -254,9 +256,7 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
                         backdropFilter: 'blur(2px)'
                     }
                 }
-            },
-
-
+            }
         }
     })
     return <ThemeProvider theme={newtheme}>
