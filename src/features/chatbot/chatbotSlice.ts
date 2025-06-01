@@ -13,13 +13,7 @@ type initialProps = {
 
 const initialState: initialProps = {
     loading: false,
-    conversation: [
-        {
-            response: 'Hi ! How can i help you ?',
-            candidate: 'bot',
-            timeStamp: new Date().toISOString()
-        },
-    ]
+    conversation: []
 }
 
 const chatbotSlice = createSlice({

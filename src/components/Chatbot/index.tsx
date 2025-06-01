@@ -1,16 +1,12 @@
 import React from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Avatar, Box, Card, CardActions, CardContent, Divider, IconButton, InputAdornment, List, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, TextField, Typography } from '@mui/material';
-// import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import { Avatar, Box, Card, CardActions, CardContent, Divider, IconButton, InputAdornment, List, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-// import { makeQuery, pushMessage } from '../../redux/slice/botSlice';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
-// import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
-// import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutlined';
 import CircleIcon from '@mui/icons-material/Circle';
 import { useSendMessageMutation } from '../../features/chatbot/chatbotApi';
 import { pushMessage } from '../../features/chatbot/chatbotSlice';
@@ -63,7 +59,9 @@ const Chatbot = () => {
                 <Box order={candidate === 'bot' ? 1 : 0} flexGrow={1} display='flex' justifyContent={candidate === 'user' ? 'flex-end' : 'flex-start'}>
                     <Box position='relative'>
                         <Card sx={{ padding: '10px ', borderRadius: '10px', overflowY: 'auto', textWrap: 'wrap' }}>
-                            <Typography fontSize={'0.8rem'} noWrap={false} dangerouslySetInnerHTML={{ __html: response }} variant='caption' />
+                            <Box overflow={"auto"}>
+                                <Box component='div' fontSize={'0.8rem'} dangerouslySetInnerHTML={{ __html: response }} />
+                            </Box>
                         </Card>
                         <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='div' variant='caption' color='text.secondary'>{timeStamp.split('T')[0]}</Typography>
                     </Box>
@@ -112,8 +110,18 @@ const Chatbot = () => {
                 </CardContent>
                 <Divider />
             </Box>
-            <Box flexGrow={1} overflow={'auto'}>
-                <List>
+            <Box flexGrow={1} overflow={'auto'} >
+                {!conversation.length && <Box height={'100%'} display='flex' alignItems='center' flexDirection='column' justifyContent='space-between'>
+                    <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1} >
+                        <Typography variant='h4' fontWeight={600} textAlign='center'>Hi sara<br /> how can i help you today ?</Typography>
+                        <Typography variant='caption' fontWeight={600} textAlign='center'>caption</Typography>
+                    </Stack>
+                    <Toolbar sx={{ justifyItems: 'flex-start', gap: 2, flexWrap: 'wrap' }}>
+                    </Toolbar>
+                </Box>}
+
+
+                <List disablePadding>
                     {conversation.map((content, _) => {
                         return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
                     })}
@@ -168,7 +176,7 @@ const Chatbot = () => {
                     />
                 </CardActions>
             </Box>
-        </Stack>
+        </Stack >
     )
 }
 
