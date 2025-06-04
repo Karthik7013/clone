@@ -1,6 +1,6 @@
 import React from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Avatar, Box, Card, CardActions, CardContent, Divider, IconButton, InputAdornment, List, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Button, Card, CardActions, CardContent, Divider, IconButton, InputAdornment, List, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -129,52 +129,64 @@ const Chatbot = () => {
                 </List>
             </Box>
             <Box position={'sticky'} bottom={0} left={0} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
-                <Divider />
-                <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
-                    <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} />
-                    <Controller
-                        name="t"
-                        control={control}
-                        rules={{ required: 'Ask Something !' }}
-                        render={({ field }) => (
-                            <TextField
-                                sx={{ flex: 1 }}
-                                placeholder='Ask anything'
-                                multiline
-                                size='small'
-                                maxRows={4}
-                                variant="outlined"
-                                // error={!!errors.t}
-                                // helperText={errors.t?.message}
-                                value={field.value}
-                                onChange={field.onChange}
-                                onBlur={field.onBlur}
-                                name={field.name}
-                                inputRef={field.ref}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                disableRipple
-                                                disableTouchRipple
-                                                disableFocusRipple
-                                                type='submit'
-                                                disabled={isLoading}
-                                                color='default'
-                                            >
-                                                {isLoading ? (
-                                                    <StopCircleRoundedIcon color='action' />
-                                                ) : (
-                                                    <AutoAwesomeRoundedIcon color='warning' />
-                                                )}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                        )}
-                    />
-                </CardActions>
+                <Box component={Card}>
+                    <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
+                        <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} />
+                        <Controller
+                            name="t"
+                            control={control}
+                            rules={{ required: 'Ask Something !' }}
+                            render={({ field }) => (
+                                <TextField
+                                    sx={{
+                                        flex: 1,
+                                        '& .MuiInputBase-root': {
+                                            border: 'none',
+                                        },
+                                        '& .MuiInput-root:before, & .MuiInput-root:after': {
+                                            display: 'none', // removes default underline from 'standard' variant
+                                        },
+                                    }}
+                                    placeholder='Ask anything'
+                                    multiline
+                                    size='small'
+                                    maxRows={4}
+
+                                    variant="standard"
+                                    // error={!!errors.t}
+                                    // helperText={errors.t?.message}
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    onBlur={field.onBlur}
+                                    name={field.name}
+                                    inputRef={field.ref}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    disableRipple
+                                                    disableTouchRipple
+                                                    disableFocusRipple
+                                                    type='submit'
+                                                    disabled={isLoading}
+                                                    color='default'
+                                                >
+                                                    {isLoading ? (
+                                                        <StopCircleRoundedIcon color='action' />
+                                                    ) : (
+                                                        <AutoAwesomeRoundedIcon color='warning' />
+                                                    )}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            )}
+                        />
+                    </CardActions>
+                    <Button>Search</Button>
+                    <Button>Research</Button>
+                </Box>
             </Box>
         </Stack >
     )
