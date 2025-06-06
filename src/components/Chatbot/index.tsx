@@ -22,7 +22,7 @@ interface BotSubmitType {
     t: string
 }
 
-function speakText(text:string) {
+function speakText(text: string) {
     const speech = new SpeechSynthesisUtterance(text);
 
     // Optional: set voice, pitch, and rate
@@ -68,40 +68,35 @@ const Chatbot = () => {
 
         return <ListItem alignItems="flex-start">
             <Stack direction='row' width='100%' gap={1} mb={2}>
-                <Box order={candidate === 'bot' ? 1 : 0} flexGrow={1} display='flex' justifyContent={candidate === 'user' ? 'flex-end' : 'flex-start'}>
-                    <Box position='relative'>
-                        <Card sx={{ padding: '10px', borderRadius: '10px', overflowY: 'auto', textWrap: 'wrap' }}>
-                            {!(candidate === 'user') && <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />}
-                            <Box overflow={"auto"}>
-                                <Box component='div' fontSize={'0.8rem'} dangerouslySetInnerHTML={{ __html: response }} />
-                            </Box>
-                            <Stack direction='row'>
-                                <IconButton size='small' onClick={()=> speakText(response)}>
-                                    <VolumeUpRoundedIcon fontSize='inherit' />
-                                </IconButton>
-                            </Stack>
-                        </Card>
+
+                <Card sx={{ padding: '10px', borderRadius: '10px', overflowY: 'auto', maxWidth: '100%' }}>
+                    {!(candidate === 'user') && <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />}
+                    <Box overflow={"hidden"}>
+                        <Box component='div' fontSize={'0.8rem'} dangerouslySetInnerHTML={{ __html: response }} />
                     </Box>
-                </Box>
+                    <Stack direction='row'>
+                        <IconButton size='small' onClick={() => speakText(response)}>
+                            <VolumeUpRoundedIcon fontSize='inherit' />
+                        </IconButton>
+                    </Stack>
+                </Card>
+
             </Stack>
         </ListItem>
     }
 
-    const ChatLoader = () => < ListItem alignItems="flex-start">
-        <Stack direction='row' width='100%' gap={1} mb={2}>
-            <Box order={0}>
-                <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />
+    const ChatLoader = () => <ListItem alignItems="flex-start">
+        <Card sx={{ padding: '10px', borderRadius: '10px', overflowY: 'auto', width: '100%' }}>
+            {<Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />}
+            <Box position='relative'>
+                <Stack>
+                    <Skeleton animation="wave" width={'25%'} />
+                    <Skeleton animation="wave" width={'50%'} />
+                    <Skeleton animation="wave" width={'70%'} />
+                </Stack>
             </Box>
-            <Box order={1} flexGrow={1} display='flex' justifyContent={'flex-start'}>
-                <Box position='relative'>
-                    <Stack>
-                        <Skeleton animation="wave" width={160} />
-                        <Skeleton animation="wave" width={180} />
-                        <Skeleton animation="wave" width={200} />
-                    </Stack>
-                </Box>
-            </Box>
-        </Stack>
+        </Card>
+
     </ListItem>
 
 
@@ -148,8 +143,6 @@ const Chatbot = () => {
             <Box position={'sticky'} bottom={0} left={0} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
                 <Box component={Card} sx={{ borderRadius }}>
                     <CardContent>
-
-
                         <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
                             {/* <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} /> */}
                             <Controller
