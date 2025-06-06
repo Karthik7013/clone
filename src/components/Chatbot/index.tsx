@@ -11,6 +11,8 @@ import CircleIcon from '@mui/icons-material/Circle';
 import { useSendMessageMutation } from '../../features/chatbot/chatbotApi';
 import { pushMessage } from '../../features/chatbot/chatbotSlice';
 import MicRoundedIcon from '@mui/icons-material/MicRounded';
+
+import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded';
 type conversationProps = {
     candidate: 'user' | 'bot',
     response: string,
@@ -18,6 +20,17 @@ type conversationProps = {
 }
 interface BotSubmitType {
     t: string
+}
+
+function speakText(text) {
+    const speech = new SpeechSynthesisUtterance(text);
+
+    // Optional: set voice, pitch, and rate
+    speech.pitch = 1;  // Range: 0 to 2
+    speech.rate = 1;   // Range: 0.1 to 10
+    speech.lang = 'en-US'; // Set language
+
+    window.speechSynthesis.speak(speech);
 }
 
 const Chatbot = () => {
@@ -51,20 +64,23 @@ const Chatbot = () => {
 
 
 
-    const Conversation = ({ candidate, response, timeStamp }: conversationProps) => {
+    const Conversation = ({ candidate, response }: conversationProps) => {
+
         return <ListItem alignItems="flex-start">
             <Stack direction='row' width='100%' gap={1} mb={2}>
-                <Box order={candidate === 'bot' ? 0 : 1}>
-                    <Avatar sx={{ width: '26px', height: '26px' }} src={candidate === 'user' ? 'https://avatar.iran.liara.run/public' : chat_bot} alt="Remy Sharp" />
-                </Box>
                 <Box order={candidate === 'bot' ? 1 : 0} flexGrow={1} display='flex' justifyContent={candidate === 'user' ? 'flex-end' : 'flex-start'}>
                     <Box position='relative'>
-                        <Card sx={{ padding: '10px ', borderRadius: '10px', overflowY: 'auto', textWrap: 'wrap' }}>
+                        <Card sx={{ padding: '10px', borderRadius: '10px', overflowY: 'auto', textWrap: 'wrap' }}>
+                            {!(candidate === 'user') && <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />}
                             <Box overflow={"auto"}>
                                 <Box component='div' fontSize={'0.8rem'} dangerouslySetInnerHTML={{ __html: response }} />
                             </Box>
+                            <Stack direction='row'>
+                                <IconButton size='small' onClick={()=> speakText(response)}>
+                                    <VolumeUpRoundedIcon fontSize='inherit' />
+                                </IconButton>
+                            </Stack>
                         </Card>
-                        <Typography position='absolute' left={2} fontSize='0.6em' bottom={'-20px'} component='div' variant='caption' color='text.secondary'>{timeStamp.split('T')[0]}</Typography>
                     </Box>
                 </Box>
             </Stack>

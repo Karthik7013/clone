@@ -27,7 +27,7 @@ const AppLayout = () => {
         {state && <Dialog
             fullScreen
             open={true}>
-            <Container sx={{ minHeight: '100dvh', padding: 0 }}>
+            <Container maxWidth={'lg'} sx={{ minHeight: '100dvh', padding: 0 }}>
                 <Chatbot />
             </Container>
         </Dialog>}
