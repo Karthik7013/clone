@@ -22,7 +22,7 @@ interface BotSubmitType {
     t: string
 }
 
-function speakText(text) {
+function speakText(text:string) {
     const speech = new SpeechSynthesisUtterance(text);
 
     // Optional: set voice, pitch, and rate
