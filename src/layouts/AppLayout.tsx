@@ -13,7 +13,7 @@ import Chatbot from '../components/Chatbot';
 
 const AppLayout = () => {
     const [state, setState] = useState<boolean>(false);
-    const handleState = () => setState((prev) => !prev)
+    const handleState = () => setState((prev) => !prev);
     return <AuthProvider>
         <AppHeader />
         <Toolbar />
@@ -27,7 +27,7 @@ const AppLayout = () => {
         {state && <Dialog
             fullScreen
             open={true}>
-            <Container sx={{ minHeight: '100dvh' }}>
+            <Container sx={{ minHeight: '100dvh', padding: 0 }}>
                 <Chatbot />
             </Container>
         </Dialog>}

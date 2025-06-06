@@ -1,6 +1,6 @@
 import React from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Avatar, Box, Button, Card, CardActions, CardContent, Divider, IconButton, InputAdornment, List, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardActions, CardContent, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
 import CircleIcon from '@mui/icons-material/Circle';
 import { useSendMessageMutation } from '../../features/chatbot/chatbotApi';
 import { pushMessage } from '../../features/chatbot/chatbotSlice';
-
+import MicRoundedIcon from '@mui/icons-material/MicRounded';
 type conversationProps = {
     candidate: 'user' | 'bot',
     response: string,
@@ -21,6 +21,7 @@ interface BotSubmitType {
 }
 
 const Chatbot = () => {
+    const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius)
     const dispatch: AppDispatch = useDispatch()
     const { handleSubmit, control, reset } = useForm<BotSubmitType>({
         defaultValues: {
@@ -103,7 +104,7 @@ const Chatbot = () => {
                             <Avatar src={chat_bot} sx={{ width: '42px', height: '42px', mr: 2 }} />
                         </ListItemIcon>
                         <ListItemText
-                            primary={<Typography variant='body2'>AI Support</Typography>}
+                            primary={<Typography variant='body2'>Groot AI</Typography>}
                             secondary={<Typography variant='caption'><CircleIcon fontSize='inherit' sx={{ mr: 1 }} color='success' />Online</Typography>}
                         />
                     </ListItem>
@@ -129,63 +130,60 @@ const Chatbot = () => {
                 </List>
             </Box>
             <Box position={'sticky'} bottom={0} left={0} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
-                <Box component={Card}>
-                    <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
-                        <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} />
-                        <Controller
-                            name="t"
-                            control={control}
-                            rules={{ required: 'Ask Something !' }}
-                            render={({ field }) => (
-                                <TextField
-                                    sx={{
-                                        flex: 1,
-                                        '& .MuiInputBase-root': {
-                                            border: 'none',
-                                        },
-                                        '& .MuiInput-root:before, & .MuiInput-root:after': {
-                                            display: 'none', // removes default underline from 'standard' variant
-                                        },
-                                    }}
-                                    placeholder='Ask anything'
-                                    multiline
-                                    size='small'
-                                    maxRows={4}
+                <Box component={Card} sx={{ borderRadius }}>
+                    <CardContent>
 
-                                    variant="standard"
-                                    // error={!!errors.t}
-                                    // helperText={errors.t?.message}
-                                    value={field.value}
-                                    onChange={field.onChange}
-                                    onBlur={field.onBlur}
-                                    name={field.name}
-                                    inputRef={field.ref}
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    disableRipple
-                                                    disableTouchRipple
-                                                    disableFocusRipple
-                                                    type='submit'
-                                                    disabled={isLoading}
-                                                    color='default'
-                                                >
-                                                    {isLoading ? (
-                                                        <StopCircleRoundedIcon color='action' />
-                                                    ) : (
-                                                        <AutoAwesomeRoundedIcon color='warning' />
-                                                    )}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
-                            )}
-                        />
-                    </CardActions>
-                    <Button>Search</Button>
-                    <Button>Research</Button>
+
+                        <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
+                            {/* <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} /> */}
+                            <Controller
+                                name="t"
+                                control={control}
+                                rules={{ required: 'Ask Something !' }}
+                                render={({ field }) => (
+                                    <TextField
+                                        sx={{
+                                            flex: 1,
+                                            '& .MuiInputBase-root': {
+                                                border: 'none',
+                                            },
+                                            '& .MuiInput-root:before, & .MuiInput-root:after': {
+                                                display: 'none', // removes default underline from 'standard' variant
+                                            },
+                                        }}
+                                        placeholder='Ask anything'
+                                        multiline
+                                        size='small'
+                                        maxRows={4}
+                                        variant="standard"
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        onBlur={field.onBlur}
+                                        name={field.name}
+                                        inputRef={field.ref}
+                                    />
+                                )}
+                            />
+                        </CardActions>
+                        <Stack direction={'row'}>
+                            <Box flexGrow={1} />
+                            <IconButton><MicRoundedIcon /></IconButton>
+                            <IconButton
+                                disableRipple
+                                disableTouchRipple
+                                disableFocusRipple
+                                type='submit'
+                                disabled={isLoading}
+                                color='default'
+                            >
+                                {isLoading ? (
+                                    <StopCircleRoundedIcon color='action' />
+                                ) : (
+                                    <AutoAwesomeRoundedIcon color='warning' />
+                                )}
+                            </IconButton>
+                        </Stack>
+                    </CardContent>
                 </Box>
             </Box>
         </Stack >

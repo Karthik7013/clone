@@ -52,6 +52,13 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
             }
         },
         components: {
+            MuiButton: {
+                styleOverrides:{
+                    root:{
+                        borderRadius
+                    }
+                }
+            },
             MuiAccordion: {
                 styleOverrides: {
                     root: {
