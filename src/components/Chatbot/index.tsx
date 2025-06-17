@@ -69,8 +69,10 @@ const Chatbot = () => {
 
         return <ListItem alignItems="flex-start">
             <Stack direction='row' width='100%' gap={1} mb={2}>
+                <Card sx={{
+                    padding: '10px', borderRadius: '10px', overflowY: 'auto', width: '100%',
 
-                <Card sx={{ padding: '10px', borderRadius: '10px', overflowY: 'auto', width: '100%' }}>
+                }}>
                     {!(candidate === 'user') && <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />}
                     <Box overflow={"hidden"}>
                         <Box component='pre' fontSize={'0.8rem'} fontFamily={fontFamily} dangerouslySetInnerHTML={{ __html: response }} />
@@ -123,7 +125,13 @@ const Chatbot = () => {
                 </CardContent>
                 <Divider />
             </Box>
-            <Box flexGrow={1} overflow={'auto'} >
+            <Box flexGrow={1} overflow={'auto'} sx={{
+                '&::-webkit-scrollbar': {
+                    display: 'none',
+                },
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+            }}>
                 {!conversation.length && <Box height={'100%'} display='flex' alignItems='center' flexDirection='column' justifyContent='space-between'>
                     <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1} >
                         <Typography variant='h4' fontWeight={600} textAlign='center'>Hi sara<br /> how can i help you today ?</Typography>
