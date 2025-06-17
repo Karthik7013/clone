@@ -35,6 +35,7 @@ function speakText(text: string) {
 
 const Chatbot = () => {
     const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius)
+    const fontFamily = useSelector((state: RootState) => state.themeReducer.fontFamily)
     const dispatch: AppDispatch = useDispatch()
     const { handleSubmit, control, reset } = useForm<BotSubmitType>({
         defaultValues: {
@@ -69,10 +70,10 @@ const Chatbot = () => {
         return <ListItem alignItems="flex-start">
             <Stack direction='row' width='100%' gap={1} mb={2}>
 
-                <Card sx={{ padding: '10px', borderRadius: '10px', overflowY: 'auto', maxWidth: '100%' }}>
+                <Card sx={{ padding: '10px', borderRadius: '10px', overflowY: 'auto', width: '100%' }}>
                     {!(candidate === 'user') && <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />}
                     <Box overflow={"hidden"}>
-                        <Box component='div' fontSize={'0.8rem'} dangerouslySetInnerHTML={{ __html: response }} />
+                        <Box component='pre' fontSize={'0.8rem'} fontFamily={fontFamily} dangerouslySetInnerHTML={{ __html: response }} />
                     </Box>
                     <Stack direction='row'>
                         <IconButton size='small' onClick={() => speakText(response)}>
