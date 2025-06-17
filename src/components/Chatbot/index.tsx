@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Avatar, Box, Card, CardActions, CardContent, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardActions, CardContent, CircularProgress, Divider, IconButton, InputAdornment, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, TextField, Toolbar, Tooltip, Typography } from '@mui/material';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,8 +11,12 @@ import CircleIcon from '@mui/icons-material/Circle';
 import { useSendMessageMutation } from '../../features/chatbot/chatbotApi';
 import { pushMessage } from '../../features/chatbot/chatbotSlice';
 import MicRoundedIcon from '@mui/icons-material/MicRounded';
-
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
 import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded';
+import { useUploadFileMutation } from '../../features/upload/uploadApi';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
 type conversationProps = {
     candidate: 'user' | 'bot',
     response: string,
@@ -34,6 +38,10 @@ function speakText(text: string) {
 }
 
 const Chatbot = () => {
+
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [uploadFile, { isLoading: isUploading }] = useUploadFileMutation()
+    const [file, setFile] = useState<File | null>(null)
     const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius)
     const fontFamily = useSelector((state: RootState) => state.themeReducer.fontFamily)
     const dispatch: AppDispatch = useDispatch()
@@ -102,6 +110,40 @@ const Chatbot = () => {
 
     </ListItem>
 
+
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files?.length) {
+
+            setFile(event.target.files[0]);
+            console.log(event.target.files[0]);
+        }
+    }
+    const handleUpload = async () => {
+        if (!file) return alert("Please select a file.");
+        const formData = new FormData();
+        formData.append('image', file);
+
+        try {
+            const response = await uploadFile(formData).unwrap();
+            alert(`File uploaded: ${response}`);
+            setFile(null);
+        } catch (err) {
+            alert('Upload failed');
+            console.error(err);
+        } finally {
+            if (fileInputRef.current?.value) {
+                fileInputRef.current.value = '';
+            }
+        }
+    };
 
     return (
         <Stack height={"100%"} position={'relative'}>
@@ -184,8 +226,37 @@ const Chatbot = () => {
                             />
                         </CardActions>
                         <Stack direction={'row'}>
+                            <Box sx={{ position: 'relative' }}>
+                                <IconButton
+                                    id="basic-button"
+                                    aria-controls={open ? 'basic-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    onClick={handleClick}
+                                >
+                                    <AddCircleOutlineRoundedIcon />
+                                </IconButton>
+                                <Menu
+                                    anchorOrigin={{
+                                        horizontal: 'right',
+                                        vertical: 'top'
+                                    }}
+                                    id="basic-menu"
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={handleClose}>
+                                        <InsertDriveFileRoundedIcon fontSize='small' sx={{ mr: 1 }} />
+                                        Files
+                                    </MenuItem>
+                                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                                </Menu>
+                            </Box>
                             <Box flexGrow={1} />
-                            <IconButton><MicRoundedIcon /></IconButton>
+                            <IconButton>
+                                <MicRoundedIcon />
+                            </IconButton>
                             <IconButton
                                 disableRipple
                                 disableTouchRipple
@@ -201,6 +272,30 @@ const Chatbot = () => {
                                 )}
                             </IconButton>
                         </Stack>
+                        <TextField
+                            inputRef={fileInputRef}
+                            onChange={handleFileChange}
+                            type='file'
+                            InputProps={{
+                                readOnly: true,
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        {isUploading ? (
+                                            <CircularProgress size={24} />
+                                        ) :
+                                            <Tooltip title="Upload">
+                                                <IconButton
+                                                    onClick={handleUpload}
+                                                    disabled={!file}
+                                                    edge="end"
+                                                >
+                                                    <CloudUploadIcon />
+                                                </IconButton>
+                                            </Tooltip>}
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
                     </CardContent>
                 </Box>
             </Box>
