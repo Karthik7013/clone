@@ -13,10 +13,9 @@ import { pushMessage } from '../../features/chatbot/chatbotSlice';
 import MicRoundedIcon from '@mui/icons-material/MicRounded';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
-import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded';
 import { useUploadFileMutation } from '../../features/upload/uploadApi';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-
+import Markdown from 'react-markdown';
 type conversationProps = {
     candidate: 'user' | 'bot',
     response: string,
@@ -26,24 +25,11 @@ interface BotSubmitType {
     t: string
 }
 
-function speakText(text: string) {
-    const speech = new SpeechSynthesisUtterance(text);
-
-    // Optional: set voice, pitch, and rate
-    speech.pitch = 1;  // Range: 0 to 2
-    speech.rate = 1;   // Range: 0.1 to 10
-    speech.lang = 'en-US'; // Set language
-
-    window.speechSynthesis.speak(speech);
-}
-
 const Chatbot = () => {
-
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [uploadFile, { isLoading: isUploading }] = useUploadFileMutation()
     const [file, setFile] = useState<File | null>(null)
     const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius)
-    const fontFamily = useSelector((state: RootState) => state.themeReducer.fontFamily)
     const dispatch: AppDispatch = useDispatch()
     const { handleSubmit, control, reset } = useForm<BotSubmitType>({
         defaultValues: {
@@ -78,20 +64,17 @@ const Chatbot = () => {
         return <ListItem alignItems="flex-start">
             <Stack direction='row' width='100%' gap={1} mb={2}>
                 <Card sx={{
-                    padding: '10px', borderRadius: '10px', overflowY: 'auto', width: '100%',
+                    borderRadius, overflowY: 'auto', width: '100%',
 
                 }}>
-                    {!(candidate === 'user') && <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />}
-                    <Box overflow={"hidden"}>
-                        <Box component='pre' fontSize={'0.8rem'} fontFamily={fontFamily} dangerouslySetInnerHTML={{ __html: response }} />
-                    </Box>
-                    <Stack direction='row'>
-                        <IconButton size='small' onClick={() => speakText(response)}>
-                            <VolumeUpRoundedIcon fontSize='inherit' />
-                        </IconButton>
-                    </Stack>
+                    <CardContent>
+                        <Box sx={{ display: 'inline-flex', position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
+                            <CircularProgress variant='indeterminate' />
+                            {!(candidate === 'user') && <Avatar sx={{ width: '26px', height: '26px', position: 'absolute' }} src={chat_bot} alt="Remy Sharp" />}
+                        </Box>
+                        <Markdown>{response}</Markdown>
+                    </CardContent>
                 </Card>
-
             </Stack>
         </ListItem>
     }
@@ -147,6 +130,7 @@ const Chatbot = () => {
 
     return (
         <Stack height={"100%"} position={'relative'}>
+            {/* header */}
             <Box position={'sticky'} top={0} left={0}>
                 <CardContent>
                     <ListItem disableGutters disablePadding
@@ -167,6 +151,7 @@ const Chatbot = () => {
                 </CardContent>
                 <Divider />
             </Box>
+            {/* body */}
             <Box flexGrow={1} overflow={'auto'} sx={{
                 '&::-webkit-scrollbar': {
                     display: 'none',
@@ -191,6 +176,7 @@ const Chatbot = () => {
                     {isLoading && <ChatLoader />}
                 </List>
             </Box>
+            {/* footer */}
             <Box position={'sticky'} bottom={0} left={0} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
                 <Box component={Card} sx={{ borderRadius }}>
                     <CardContent>

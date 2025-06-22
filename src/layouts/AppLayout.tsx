@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import AppHeader from "../components/AppHeader/AppHeader";
 import Footer from "../components/Footer/Footer";
 import AuthProvider from "../providers/AuthProvider";
-import { Button, Container, Dialog, Toolbar } from "@mui/material";
+import { Box, Button, Container, Dialog, Toolbar } from "@mui/material";
 import Partners from "../components/Partners/Partners";
 import Providers from "../components/Providers/Providers";
 const Hero = React.lazy(() => import('../components/Hero/Hero'))
@@ -24,13 +24,14 @@ const AppLayout = () => {
         <Providers />
         <Outlet />
         <Button variant="outlined" onClick={handleState}>Ask Anything</Button>
-        {state && <Dialog
+        {!state && <Dialog
             fullScreen
             open={true}>
             <Container maxWidth={'md'} sx={{ minHeight: '100dvh', padding: 0 }}>
                 <Chatbot />
             </Container>
         </Dialog>}
+ 
         <Footer />
     </AuthProvider>
 }
