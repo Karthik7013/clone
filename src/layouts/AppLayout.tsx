@@ -10,6 +10,7 @@ const Hero = React.lazy(() => import('../components/Hero/Hero'))
 const Products = React.lazy(() => import('../components/Products/Products'))
 const ProductSummary = React.lazy(() => import('../components/ProductSummary/ProductSummary'));
 import Chatbot from '../components/Chatbot';
+import Upload from "../components/Upload";
 
 const AppLayout = () => {
     const [state, setState] = useState<boolean>(false);
@@ -23,16 +24,19 @@ const AppLayout = () => {
         <Partners />
         <Providers />
         <Outlet />
+        <Upload />
         <Button variant="outlined" onClick={handleState}>Ask Anything</Button>
-        {!state && <Dialog
-            fullScreen
-            open={true}>
-            <Container maxWidth={'md'} sx={{ minHeight: '100dvh', padding: 0 }}>
-                <Chatbot />
-            </Container>
-        </Dialog>}
- 
+        {
+            state && <Dialog
+                fullScreen
+                open={true}>
+                <Container maxWidth={'md'} sx={{ minHeight: '100dvh', padding: 0 }}>
+                    <Chatbot />
+                </Container>
+            </Dialog>
+        }
+
         <Footer />
-    </AuthProvider>
+    </AuthProvider >
 }
 export default AppLayout;

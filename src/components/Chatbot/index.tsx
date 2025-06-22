@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Avatar, Box, Card, CardActions, CardContent, CircularProgress, Divider, IconButton, InputAdornment, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, TextField, Toolbar, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardActions, CardContent, CircularProgress, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,8 +13,7 @@ import { pushMessage } from '../../features/chatbot/chatbotSlice';
 import MicRoundedIcon from '@mui/icons-material/MicRounded';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
-import { useUploadFileMutation } from '../../features/upload/uploadApi';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
 import Markdown from 'react-markdown';
 type conversationProps = {
     candidate: 'user' | 'bot',
@@ -26,9 +25,6 @@ interface BotSubmitType {
 }
 
 const Chatbot = () => {
-    const fileInputRef = useRef<HTMLInputElement>(null);
-    const [uploadFile, { isLoading: isUploading }] = useUploadFileMutation()
-    const [file, setFile] = useState<File | null>(null)
     const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius)
     const dispatch: AppDispatch = useDispatch()
     const { handleSubmit, control, reset } = useForm<BotSubmitType>({
@@ -65,13 +61,9 @@ const Chatbot = () => {
             <Stack direction='row' width='100%' gap={1} mb={2}>
                 <Card sx={{
                     borderRadius, overflowY: 'auto', width: '100%',
-
                 }}>
                     <CardContent>
-                        <Box sx={{ display: 'inline-flex', position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
-                            <CircularProgress variant='indeterminate' />
-                            {!(candidate === 'user') && <Avatar sx={{ width: '26px', height: '26px', position: 'absolute' }} src={chat_bot} alt="Remy Sharp" />}
-                        </Box>
+                        {!(candidate === 'user') && <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />}
                         <Markdown>{response}</Markdown>
                     </CardContent>
                 </Card>
@@ -81,7 +73,10 @@ const Chatbot = () => {
 
     const ChatLoader = () => <ListItem alignItems="flex-start">
         <Card sx={{ padding: '10px', borderRadius: '10px', overflowY: 'auto', width: '100%' }}>
-            {<Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />}
+            <Box sx={{ display: 'inline-flex', position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
+                <CircularProgress variant='indeterminate' />
+                {<Avatar sx={{ width: '26px', height: '26px', position: 'absolute' }} src={chat_bot} alt="Remy Sharp" />}
+            </Box>
             <Box position='relative'>
                 <Stack>
                     <Skeleton animation="wave" width={'25%'} />
@@ -102,31 +97,7 @@ const Chatbot = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files?.length) {
 
-            setFile(event.target.files[0]);
-            console.log(event.target.files[0]);
-        }
-    }
-    const handleUpload = async () => {
-        if (!file) return alert("Please select a file.");
-        const formData = new FormData();
-        formData.append('image', file);
-
-        try {
-            const response = await uploadFile(formData).unwrap();
-            alert(`File uploaded: ${response}`);
-            setFile(null);
-        } catch (err) {
-            alert('Upload failed');
-            console.error(err);
-        } finally {
-            if (fileInputRef.current?.value) {
-                fileInputRef.current.value = '';
-            }
-        }
-    };
 
     return (
         <Stack height={"100%"} position={'relative'}>
@@ -258,30 +229,7 @@ const Chatbot = () => {
                                 )}
                             </IconButton>
                         </Stack>
-                        <TextField
-                            inputRef={fileInputRef}
-                            onChange={handleFileChange}
-                            type='file'
-                            InputProps={{
-                                readOnly: true,
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        {isUploading ? (
-                                            <CircularProgress size={24} />
-                                        ) :
-                                            <Tooltip title="Upload">
-                                                <IconButton
-                                                    onClick={handleUpload}
-                                                    disabled={!file}
-                                                    edge="end"
-                                                >
-                                                    <CloudUploadIcon />
-                                                </IconButton>
-                                            </Tooltip>}
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
+
                     </CardContent>
                 </Box>
             </Box>
