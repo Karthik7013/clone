@@ -11,7 +11,7 @@ type initialProps = {
 }
 
 const initialState: initialProps = {
-    fontFamily: 'Poppins',
+    fontFamily: 'Montserrat, sans-serif',
     borderRadius: 4,
     mode: 'dark',
     variant: 'middle',
@@ -22,9 +22,12 @@ const themeSlice = createSlice({
     name: 'theme',
     initialState,
     reducers: {
-
+        toggleMode: (state, action: { payload: 'light' | 'dark' | 'system', type: string }) => {
+            const { payload } = action
+            state.mode = payload
+        }
     }
 })
 
-// export const { } = themeSlice.actions;
+export const { toggleMode } = themeSlice.actions;
 export default themeSlice.reducer;

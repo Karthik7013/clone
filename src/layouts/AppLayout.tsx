@@ -29,8 +29,21 @@ const AppLayout = () => {
         {
             state && <Dialog
                 fullScreen
-                open={true}>
-                <Container maxWidth={'md'} sx={{ minHeight: '100dvh', padding: 0 }}>
+                open={true}
+                PaperProps={{
+                    sx: {
+                        width: '100%',
+                        maxWidth: '100%',
+                        height: '100%',
+                        maxHeight: '100%',
+                        margin: 0,
+                        padding: 0,
+                    },
+                }}
+            >
+                <Container
+                    maxWidth={'md'}
+                    sx={{ minHeight: '100dvh', padding: 0, bgcolor: 'background.paper' }}>
                     <Chatbot />
                 </Container>
             </Dialog>

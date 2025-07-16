@@ -9,52 +9,81 @@ const getSystemMode = (): 'light' | 'dark' => "dark"
 const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element => {
     const theme = useTheme();
     const { borderRadius, fontFamily, mode } = useSelector((state: RootState) => state.themeReducer);
-    const newMode: 'light' | 'dark' = mode === 'system' ? getSystemMode() : mode
+    const newMode: 'light' | 'dark' | 'system' = mode === 'system' ? getSystemMode() : mode
     const newtheme = createTheme({
         palette: {
             mode: newMode
         },
+
         typography: {
             fontFamily: fontFamily,
-            caption: {
-                margin: 0,
-                fontSize: '0.65rem',  // Increased slightly for readability,
-            },
-            h6: {
-                fontSize: '0.95rem',  // Making h5 slightly larger than h6 for hierarchy,
-                fontWeight: 300
-            },
-            h5: {
-                fontSize: '1rem',  // Making h5 slightly larger than h6 for hierarchy,
-                fontWeight: 300
-            },
-            h4: {
-                fontSize: '1.25rem',  // A bit more prominent for heading structure,
-                fontWeight: 300
-            },
-            h3: {
-                fontSize: '1.5rem',  // Increased for better visual importance,
-                fontWeight: 300
+            fontWeightLight: 300,
+            fontWeightRegular: 400,
+            fontWeightMedium: 500,
+            fontWeightBold: 600,
+
+            h1: {
+                fontSize: '3.5rem',
+                fontWeight: 500,
+                lineHeight: 1.2,
             },
             h2: {
-                fontSize: '1.85rem',  // A large enough size to stand out,
-                fontWeight: 400
+                fontSize: '2.75rem',
+                fontWeight: 500,
+                lineHeight: 1.3,
             },
-            h1: {
-                fontSize: '2rem',  // Largest for main titles,
-                fontWeight: 500
+            h3: {
+                fontSize: '2.25rem',
+                fontWeight: 500,
+                lineHeight: 1.4,
+            },
+            h4: {
+                fontSize: '1.75rem',
+                fontWeight: 500,
+                lineHeight: 1.5,
+            },
+            h5: {
+                fontSize: '1.5rem',
+                fontWeight: 400,
+                lineHeight: 1.5,
+            },
+            h6: {
+                fontSize: '1.25rem',
+                fontWeight: 400,
+                lineHeight: 1.5,
             },
             body1: {
-                fontSize: '1rem'
+                fontSize: '1rem',
+                fontWeight: 400,
+                lineHeight: 1.6,
             },
             body2: {
-                fontSize: '0.9rem'
-            }
+                fontSize: '0.875rem',
+                fontWeight: 400,
+                lineHeight: 1.6,
+            },
+            caption: {
+                fontSize: '0.75rem',
+                fontWeight: 400,
+                lineHeight: 1.4,
+            },
+            overline: {
+                fontSize: '0.75rem',
+                fontWeight: 400,
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+            },
+            button: {
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                textTransform: 'uppercase',
+            },
         },
+
         components: {
             MuiButton: {
-                styleOverrides:{
-                    root:{
+                styleOverrides: {
+                    root: {
                         borderRadius
                     }
                 }

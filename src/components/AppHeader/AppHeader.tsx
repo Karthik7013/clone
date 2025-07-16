@@ -3,6 +3,7 @@ import Button from "../ui/Button/Button";
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import AppBar from "../ui/AppBar/AppBar";
 import Title from "../Title/Title";
+import Darkmode from "../Darkmode";
 
 const AppHeader = () => {
     return <AppBar>
@@ -38,6 +39,7 @@ const AppHeader = () => {
                         </Button>
                     </Tooltip>
                 </Box>
+                <Darkmode />
             </Toolbar>
         </Container>
     </AppBar>
