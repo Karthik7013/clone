@@ -96,8 +96,8 @@ const Chatbot = () => {
                     </CardContent>
                 </Card>}
                 {(candidate === 'user') &&
-                    <Paper>
-                        <Typography sx={{ p: 1.5, borderRadius, borderTopRightRadius: 0 }} component={'pre'}>{response}</Typography>
+                    <Paper sx={{ p: 1.5, borderRadius, borderTopRightRadius: 0 }}>
+                        <Typography component={'pre'}>{response}</Typography>
                     </Paper>
                 }
             </ListItem>
