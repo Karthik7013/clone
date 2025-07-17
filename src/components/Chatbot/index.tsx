@@ -22,7 +22,6 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import AnimatedWrapper from '../AnimatedWrapper/AnimatedWrapper';
 import Title from '../Title/Title';
-import 'highlight.js/styles/github.css'; // theme
 type conversationProps = {
     candidate: 'user' | 'bot',
     response: string,
@@ -45,6 +44,15 @@ function isFetchBaseQueryError(
 }
 
 const Chatbot = () => {
+    const theme = useSelector((state: RootState) => state.themeReducer.mode)
+    useEffect(() => {
+        if (theme === 'dark') {
+            import('highlight.js/styles/github-dark.css');
+        } else {
+            import('highlight.js/styles/github.css');
+        }
+    }, [theme]);
+
     const [errorVisible, setErrorVisible] = React.useState<undefined | FetchBaseQueryError | SerializedError | undefined>(undefined);
     const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius)
     const dispatch: AppDispatch = useDispatch()
@@ -1067,7 +1075,7 @@ const Chatbot = () => {
 
 
                 </Collapse>
-                <Card elevation={1} sx={{ borderRadius, borderBottomLeftRadius: 0, borderBottomRightRadius: 0,borderBottomColor:'transparent' }}>
+                <Card elevation={1} sx={{ borderRadius, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderBottomColor: 'transparent' }}>
                     <CardContent sx={{ borderRadius }}>
                         <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
                             {/* <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} /> */}
