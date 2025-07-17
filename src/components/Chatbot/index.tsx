@@ -1066,7 +1066,7 @@ const Chatbot = () => {
 
 
                 </Collapse>
-                <Card elevation={1} sx={{ borderRadius, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}>
+                <Card elevation={1} sx={{ borderRadius, borderBottomLeftRadius: 0, borderBottomRightRadius: 0,borderBottomColor:'transparent' }}>
                     <CardContent sx={{ borderRadius }}>
                         <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
                             {/* <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} /> */}
