@@ -122,7 +122,7 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
             MuiCard: {
                 styleOverrides: {
                     root: {
-                        border: `1px solid ${newMode ? '#fff1' : theme.palette.divider}`,
+                        border: `1px solid #807b7b85`,
                         boxShadow: 'none',
                         borderRadius,
                         overflow: 'hidden'

@@ -81,20 +81,21 @@ const Chatbot = () => {
     const Conversation = ({ candidate, response }: conversationProps) => {
         return (
             <ListItem sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-                {!(candidate === 'user') && <Card sx={{
-                    borderRadius: '10px', overflow: 'auto',
-                    //  maxWidth: '320px',
-                    width: '100%',
-                    padding: '0 10px'
-                }}>
-                    <CardContent>
-                        <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />
-                        <Markdown
-                            remarkPlugins={[remarkGfm]}
-                            rehypePlugins={[rehypeRaw, rehypeHighlight]}
-                        >{response}</Markdown>
-                    </CardContent>
-                </Card>}
+                {!(candidate === 'user') &&
+                    <Box sx={{
+                        borderRadius: '10px', overflow: 'auto',
+                        //  maxWidth: '320px',
+                        width: '100%',
+                        padding: '0 10px'
+                    }}>
+                        <CardContent>
+                            <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />
+                            <Markdown
+                                remarkPlugins={[remarkGfm]}
+                                rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                            >{response}</Markdown>
+                        </CardContent>
+                    </Box>}
                 {(candidate === 'user') &&
                     <Paper sx={{ p: 1.5, borderRadius, borderTopRightRadius: 0, maxWidth: '320px' }}>
                         <Typography variant='body2'>{response}</Typography>
