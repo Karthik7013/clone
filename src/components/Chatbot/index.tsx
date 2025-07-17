@@ -96,7 +96,7 @@ const Chatbot = () => {
                     </CardContent>
                 </Card>}
                 {(candidate === 'user') &&
-                    <Paper sx={{ p: 1.5, borderRadius, borderTopRightRadius: 0, width: '100%', maxWidth: '320px', textWrap: 'wrap' }}>
+                    <Paper sx={{ p: 1.5, borderRadius, borderTopRightRadius: 0, maxWidth: '320px' }}>
                         <Typography variant='body2'>{response}</Typography>
                     </Paper>
                 }
