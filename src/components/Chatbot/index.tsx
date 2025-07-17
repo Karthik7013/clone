@@ -22,6 +22,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import AnimatedWrapper from '../AnimatedWrapper/AnimatedWrapper';
 import Title from '../Title/Title';
+import 'highlight.js/styles/github.css'; // theme
 type conversationProps = {
     candidate: 'user' | 'bot',
     response: string,
