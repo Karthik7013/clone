@@ -47,9 +47,9 @@ const Chatbot = () => {
     const theme = useSelector((state: RootState) => state.themeReducer.mode)
     useEffect(() => {
         if (theme === 'dark') {
-            import('highlight.js/styles/github-dark.css');
-        } else {
             import('highlight.js/styles/github.css');
+        } else {
+            import('highlight.js/styles/github-dark.css');
         }
     }, [theme]);
 
