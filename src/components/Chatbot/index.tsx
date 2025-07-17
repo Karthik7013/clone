@@ -21,6 +21,7 @@ import Markdown from 'react-markdown';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import AnimatedWrapper from '../AnimatedWrapper/AnimatedWrapper';
+import Title from '../Title/Title';
 type conversationProps = {
     candidate: 'user' | 'bot',
     response: string,
@@ -308,6 +309,12 @@ const Chatbot = () => {
     return (
         <Stack height={"100%"} position={'relative'} bgcolor={'background.paper'} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
             {/* header */}
+            <Title
+                title='Gemini AI | Chatbot-model'
+                description='An intelligent, conversational AI designed to understand user intent, provide accurate responses, and deliver seamless, human-like interactions across a variety of topics and services.'
+                metacontent="Google AI Pro &amp; Ultra — get access to Gemini 2.5 Pro &amp; more"
+                icon='https://gemini.google/images/spark_4c.png'
+            />
             <Box position={'sticky'} top={0} left={0}>
                 <CardContent>
                     <ListItem disableGutters disablePadding
@@ -358,9 +365,19 @@ const Chatbot = () => {
                 msOverflowStyle: 'none',
             }}>
                 {!conversation.length && <Box height={'100%'} display='flex' alignItems='center' flexDirection='column' justifyContent='space-between'>
-                    <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1} >
-                        <Typography variant='h4' textAlign='center'>🖐 Hi there<br /> how can i help you today ?</Typography>
-                        <Typography variant='caption' fontWeight={600} textAlign='center'>Ready to help.</Typography>
+                    <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
+                        <Typography
+                            variant="h5"
+                            fontWeight={600}
+                            textAlign="center"
+                            sx={{
+                                background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent'
+                            }}
+                        >
+                            🖐 Hi there<br /> how can I help you today?
+                        </Typography>
                     </Stack>
                 </Box>}
                 <List>
