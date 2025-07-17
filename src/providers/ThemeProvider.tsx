@@ -23,42 +23,42 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
             fontWeightBold: 600,
 
             h1: {
-                fontSize: '3.5rem',
+                fontSize: '2rem',
                 fontWeight: 500,
-                lineHeight: 1.2,
+                lineHeight: 1.25,
             },
             h2: {
-                fontSize: '2.75rem',
+                fontSize: '1.75rem',
                 fontWeight: 500,
                 lineHeight: 1.3,
             },
             h3: {
-                fontSize: '2.25rem',
+                fontSize: '1.5rem',
+                fontWeight: 500,
+                lineHeight: 1.35,
+            },
+            h4: {
+                fontSize: '1.25rem',
                 fontWeight: 500,
                 lineHeight: 1.4,
             },
-            h4: {
-                fontSize: '1.75rem',
-                fontWeight: 500,
-                lineHeight: 1.5,
-            },
             h5: {
-                fontSize: '1.5rem',
+                fontSize: '1.125rem',
                 fontWeight: 400,
-                lineHeight: 1.5,
+                lineHeight: 1.45,
             },
             h6: {
-                fontSize: '1.25rem',
+                fontSize: '1rem',
                 fontWeight: 400,
                 lineHeight: 1.5,
             },
             body1: {
-                fontSize: '1rem',
+                fontSize: '0.9375rem', // ~15px
                 fontWeight: 400,
                 lineHeight: 1.6,
             },
             body2: {
-                fontSize: '0.875rem',
+                fontSize: '0.8125rem', // ~13px
                 fontWeight: 400,
                 lineHeight: 1.6,
             },
@@ -68,17 +68,18 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
                 lineHeight: 1.4,
             },
             overline: {
-                fontSize: '0.75rem',
+                fontSize: '0.6875rem',
                 fontWeight: 400,
                 textTransform: 'uppercase',
-                letterSpacing: '1px',
+                letterSpacing: '0.8px',
             },
             button: {
-                fontSize: '0.875rem',
+                fontSize: '0.8125rem',
                 fontWeight: 500,
                 textTransform: 'uppercase',
             },
         },
+
 
         components: {
             MuiButton: {
@@ -121,7 +122,7 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
             MuiCard: {
                 styleOverrides: {
                     root: {
-                        border: `1px solid ${newMode ? '#ffffff21' : theme.palette.divider}`,
+                        border: `1px solid ${newMode ? '#fff1' : theme.palette.divider}`,
                         boxShadow: 'none',
                         borderRadius,
                         overflow: 'hidden'

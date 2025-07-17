@@ -16,7 +16,7 @@ import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRound
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
-
+// import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import Markdown from 'react-markdown';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
@@ -76,7 +76,6 @@ const Chatbot = () => {
 
 
     useEffect(() => {
-        console.log('error', error)
         setErrorVisible(error);
     }, [error]);
     const Conversation = ({ candidate, response }: conversationProps) => {
@@ -97,15 +96,15 @@ const Chatbot = () => {
                     </CardContent>
                 </Card>}
                 {(candidate === 'user') &&
-                    <Paper sx={{ p: 1.5, borderRadius, borderTopRightRadius: 0 }}>
-                        <Typography component={'pre'}>{response}</Typography>
+                    <Paper sx={{ p: 1.5, borderRadius, borderTopRightRadius: 0, width: '100%', maxWidth: '320px', textWrap: 'wrap' }}>
+                        <Typography variant='body2'>{response}</Typography>
                     </Paper>
                 }
             </ListItem>
         )
     }
 
-    const ChatLoader = () => <ListItem disableGutters>
+    const ChatLoader = () => <ListItem>
         <Card sx={{ padding: '10px', borderRadius: '10px', overflowY: 'auto', width: '100%' }}>
             <Box sx={{ display: 'inline-flex', position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
                 <CircularProgress variant='indeterminate' />
@@ -996,6 +995,8 @@ const Chatbot = () => {
                         <ListItemIcon>
                             <AnimatedWrapper animation={rotate} duration="2s" timingFunction="ease-in-out" sx={{ mr: 2 }}>
                                 <Avatar src={chat_bot} sx={{ width: '42px', height: '42px' }} />
+
+                                {/* <CardMedia src='https://storage.googleapis.com/gweb-gemini-cdn/gemini/uploads/a21a64fe0131928e76bc9924aed2da8fccd5dfad.mp4' component='video' autoPlay loop sx={{ width: '42px', height: '42px', mr: 2 }} /> */}
                             </AnimatedWrapper>
                         </ListItemIcon>
                         <ListItemText
@@ -1008,9 +1009,11 @@ const Chatbot = () => {
             </Box>
             {/* body */}
             <Box flexGrow={1} overflow={'auto'} sx={{
+                position: 'relative',
                 '&::-webkit-scrollbar': {
                     display: 'none',
                 },
+
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
             }}>
@@ -1036,6 +1039,7 @@ const Chatbot = () => {
                     })}
                     {isLoading && <ChatLoader />}
                 </List>
+
             </Box>
             {/* footer */}
             <Box position={'sticky'} bottom={0} left={0}>
