@@ -16,7 +16,6 @@ import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRound
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
-// import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import Markdown from 'react-markdown';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
@@ -70,7 +69,9 @@ const Chatbot = () => {
             canditate: 'user',
             t: data.t
         }));
-        reset();
+        reset({
+            model: data.model
+        })
         try {
             const result = await handleSendMessage(data).unwrap();
             dispatch(pushMessage({
@@ -1078,7 +1079,6 @@ const Chatbot = () => {
                 <Card elevation={1} sx={{ borderRadius, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderBottomColor: 'transparent' }}>
                     <CardContent sx={{ borderRadius }}>
                         <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
-                            {/* <Avatar src='https://avatar.iran.liara.run/public' sx={{ width: '32px', height: '32px' }} /> */}
                             <Controller
                                 name="t"
                                 control={control}
@@ -1156,7 +1156,7 @@ const Chatbot = () => {
                     </CardContent>
                 </Card>
             </Box>
-        </Stack >
+        </Stack>
     )
 }
 
