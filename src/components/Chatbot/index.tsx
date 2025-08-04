@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Alert, Avatar, Box, Button, Card, CardActions, CardContent, CircularProgress, Collapse, Divider, FormControl, IconButton, keyframes, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Select, Skeleton, Stack, TextField, Typography } from '@mui/material';
+import { Alert, Avatar, Box, Button, Card, CardActions, CardContent, Collapse, Divider, FormControl, IconButton, keyframes, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Select, Skeleton, Stack, TextField, Typography } from '@mui/material';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -94,9 +94,7 @@ const Chatbot = () => {
                 {!(candidate === 'user') &&
                     <Box sx={{
                         borderRadius: '10px', overflow: 'auto',
-                        //  maxWidth: '320px',
-                        width: '100%',
-                        padding: '0 10px'
+                        width: '100%'
                     }}>
                         <CardContent>
                             <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />
@@ -116,11 +114,10 @@ const Chatbot = () => {
     }
 
     const ChatLoader = () => <ListItem>
-        <Card sx={{ padding: '10px', borderRadius: '10px', overflowY: 'auto', width: '100%' }}>
-            <Box sx={{ display: 'inline-flex', position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
-                <CircularProgress variant='indeterminate' />
-                {<Avatar sx={{ width: '26px', height: '26px', position: 'absolute' }} src={chat_bot} alt="Remy Sharp" />}
-            </Box>
+        <Box sx={{ padding: '10px', borderRadius: '10px', overflowY: 'auto', width: '100%' }}>
+            <AnimatedWrapper animation={rotate} duration="2s" timingFunction="ease-in-out" sx={{ mr: 2 }}>
+                <Avatar src={chat_bot} sx={{ width: '26px', height: '26px' }} />
+            </AnimatedWrapper>
             <Box position='relative' mb={1}>
                 <Stack>
                     <Skeleton animation="wave" width={'25%'} />
@@ -128,7 +125,7 @@ const Chatbot = () => {
                     <Skeleton animation="wave" width={'70%'} />
                 </Stack>
             </Box>
-        </Card>
+        </Box>
     </ListItem>
 
     const handleClose = () => {
@@ -1004,11 +1001,7 @@ const Chatbot = () => {
                         }
                     >
                         <ListItemIcon>
-                            <AnimatedWrapper animation={rotate} duration="2s" timingFunction="ease-in-out" sx={{ mr: 2 }}>
-                                <Avatar src={chat_bot} sx={{ width: '42px', height: '42px' }} />
-
-                                {/* <CardMedia src='https://storage.googleapis.com/gweb-gemini-cdn/gemini/uploads/a21a64fe0131928e76bc9924aed2da8fccd5dfad.mp4' component='video' autoPlay loop sx={{ width: '42px', height: '42px', mr: 2 }} /> */}
-                            </AnimatedWrapper>
+                            <Avatar src={chat_bot} sx={{ width: '42px', height: '42px', mr: 2 }} />
                         </ListItemIcon>
                         <ListItemText
                             primary={<Typography variant='body2'>Groot AI</Typography>}
