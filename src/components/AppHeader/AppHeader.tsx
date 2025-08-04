@@ -4,6 +4,7 @@ import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import AppBar from "../ui/AppBar/AppBar";
 import Title from "../Title/Title";
 import Darkmode from "../Darkmode";
+import LoginButton from "../GoogleButton";
 
 const AppHeader = () => {
     return <AppBar>
@@ -38,6 +39,7 @@ const AppHeader = () => {
                             Signin
                         </Button>
                     </Tooltip>
+                    <LoginButton />
                 </Box>
                 <Darkmode />
             </Toolbar>
