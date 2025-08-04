@@ -15,16 +15,20 @@ const LoginButton = () => {
     };
     return <div>
         {!isAuthenticated ? (
-            <Button onClick={() => loginWithRedirect()} startIcon={<LoginRoundedIcon />}>
+            <Button
+                variant="contained"
+                onClick={() => loginWithRedirect()} startIcon={<LoginRoundedIcon />}>
                 Signin
             </Button>
         ) : (
             <Stack direction="row">
                 <Avatar src={user?.picture} alt="pic" />
                 <Button
+                    variant="outlined"
+                    color="error"
                     onClick={handleLogout}
                     startIcon={<LoginRoundedIcon />}>
-                    Signin
+                    Logout
                 </Button>
             </Stack>
         )}
