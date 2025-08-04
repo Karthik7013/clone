@@ -1,24 +1,33 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Avatar } from "@mui/material";
-
+import { Avatar, Stack } from "@mui/material";
+import Button from "../ui/Button/Button";
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 
 const LoginButton = () => {
-    const { loginWithRedirect, isAuthenticated, user } = useAuth0();
+    const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
     console.log(user);
+    const handleLogout = () => {
+        logout({
+            logoutParams: {
+                returnTo: window.location.origin
+            }
+        });
+    };
     return <div>
         {!isAuthenticated ? (
-            <button onClick={() => loginWithRedirect()}>Log In</button>
+            <Button onClick={() => loginWithRedirect()} startIcon={<LoginRoundedIcon />}>
+                Signin
+            </Button>
         ) : (
-            <div>
-                <img src={user?.picture} alt={user?.name} />
-                <h2>{user?.name}</h2>
-                <p>{user?.email}</p>
+            <Stack direction="row">
                 <Avatar src={user?.picture} alt="pic" />
-                {/* <button onClick={() => logout({ returnTo: window.location.origin })}>
-                    Log Out
-                </button> */}
-            </div>
+                <Button
+                    onClick={handleLogout}
+                    startIcon={<LoginRoundedIcon />}>
+                    Signin
+                </Button>
+            </Stack>
         )}
-    </div>
+    </div >
 };
 export default LoginButton;

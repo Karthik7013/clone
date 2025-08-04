@@ -1,6 +1,5 @@
-import { Box, CardMedia, Container, Stack, Toolbar, Tooltip, Typography } from "@mui/material";
-import Button from "../ui/Button/Button";
-import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
+import { Box, CardMedia, Container, Stack, Toolbar, Typography } from "@mui/material";
+
 import AppBar from "../ui/AppBar/AppBar";
 import Title from "../Title/Title";
 import Darkmode from "../Darkmode";
@@ -34,11 +33,6 @@ const AppHeader = () => {
 
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }} />
                 <Box sx={{ flexGrow: { xs: 1, md: 0 }, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                    <Tooltip title="Signin">
-                        <Button startIcon={<LoginRoundedIcon />}>
-                            Signin
-                        </Button>
-                    </Tooltip>
                     <LoginButton />
                 </Box>
                 <Darkmode />
