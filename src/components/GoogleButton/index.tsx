@@ -4,7 +4,7 @@ import Button from "../ui/Button/Button";
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 
 const LoginButton = () => {
-    const { isAuthenticated, user, logout, isLoading, error, loginWithPopup } = useAuth0();
+    const { loginWithRedirect, isAuthenticated, user, logout, isLoading } = useAuth0();
     console.log(user);
     const handleLogout = () => {
         logout({
@@ -16,14 +16,12 @@ const LoginButton = () => {
     if (isLoading) {
         return <CircularProgress size={10} />
     }
-    if (error) {
-        return <>oops</>
-    }
+  
     return <div>
         {!isAuthenticated ? (
             <Button
                 variant="contained"
-                onClick={() => loginWithPopup()} startIcon={<LoginRoundedIcon />}>
+                onClick={() => loginWithRedirect()} startIcon={<LoginRoundedIcon />}>
                 Signin
             </Button>
         ) : (
