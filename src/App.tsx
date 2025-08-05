@@ -12,8 +12,8 @@ function App() {
   return (
     <ContextProvider>
       <Auth0Provider
-        domain="dev-7clw25wzfrrsgust.us.auth0.com"
-        clientId="pqzqxXnb7QZ6wFvKAijQ4f4zOVso0mgC"
+        domain={import.meta.env.VITE_DOMAIN}
+        clientId={import.meta.env.VITE_CLIENT_ID}
         authorizationParams={{
           redirect_uri: window.location.origin
         }}
@@ -34,14 +34,4 @@ function App() {
   )
 }
 
-export default App
-
-
-
-
-
-
-
-
-
-
+export default App;

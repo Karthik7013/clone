@@ -1,10 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Avatar, Stack } from "@mui/material";
+import { Avatar, CircularProgress, Stack } from "@mui/material";
 import Button from "../ui/Button/Button";
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 
 const LoginButton = () => {
-    const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
+    const { isAuthenticated, user, logout, isLoading, error, loginWithPopup } = useAuth0();
     console.log(user);
     const handleLogout = () => {
         logout({
@@ -13,11 +13,17 @@ const LoginButton = () => {
             }
         });
     };
+    if (isLoading) {
+        return <CircularProgress size={10} />
+    }
+    if (error) {
+        return <>oops</>
+    }
     return <div>
         {!isAuthenticated ? (
             <Button
                 variant="contained"
-                onClick={() => loginWithRedirect()} startIcon={<LoginRoundedIcon />}>
+                onClick={() => loginWithPopup()} startIcon={<LoginRoundedIcon />}>
                 Signin
             </Button>
         ) : (
