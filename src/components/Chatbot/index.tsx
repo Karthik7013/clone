@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Alert, Avatar, Box, Button, Card, CardActions, CardContent, Collapse, IconButton, keyframes, List, ListItem, ListItemIcon, Menu, MenuItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Alert, Avatar, Box, Button, Card, CardActions, CardContent, Chip, Collapse, IconButton, keyframes, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Menu, MenuItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
-import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';import { useSendMessageMutation } from '../../features/chatbot/chatbotApi';
+import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded'; import { useSendMessageMutation } from '../../features/chatbot/chatbotApi';
 import { pushMessage } from '../../features/chatbot/chatbotSlice';
 import MicRoundedIcon from '@mui/icons-material/MicRounded';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
@@ -20,6 +20,8 @@ import { SerializedError } from '@reduxjs/toolkit';
 import AnimatedWrapper from '../AnimatedWrapper/AnimatedWrapper';
 import ScheduleRoundedIcon from '@mui/icons-material/ScheduleRounded';
 import Title from '../Title/Title';
+import FlashOnRoundedIcon from '@mui/icons-material/FlashOnRounded';
+import Scrollbar from '../ui/Scrollbar/Scrollbar';
 type conversationProps = {
     candidate: 'user' | 'bot',
     response: string,
@@ -151,10 +153,7 @@ const Chatbot = () => {
     return (
         <Stack sx={{ height: "100dvh" }} direction={'row'}>
             <Collapse orientation='horizontal' in={isMd} >
-
-                <Box sx={{ width: 300 }}>
-
-
+                <Scrollbar sx={{ width: 280, height: '100%', overflowY: 'scroll' }}>
                     <Box>
                         <Toolbar>
                             <ListItem disableGutters disablePadding
@@ -170,7 +169,23 @@ const Chatbot = () => {
                             </ListItem>
                         </Toolbar>
                     </Box>
-                </Box >
+                    <List>
+                        <ListItem>
+                            <Button startIcon={<AddCircleOutlineRoundedIcon />} fullWidth variant='contained'>New Chat</Button>
+                        </ListItem>
+                    </List>
+                    <List
+                        sx={{ width: '100%', bgcolor: 'background.paper' }}
+                        subheader={<ListSubheader>Chats</ListSubheader>}
+                    >
+                        <ListItem>
+                            <ListItemText id="switch-list-label-wifi" primary="Wi-Fi" />
+                        </ListItem>
+                        <ListItem>
+                            <ListItemText id="switch-list-label-bluetooth" primary="Bluetooth" />
+                        </ListItem>
+                    </List>
+                </Scrollbar>
             </Collapse>
             <Stack sx={{ flexGrow: 1 }}>
                 <Title
@@ -189,10 +204,12 @@ const Chatbot = () => {
                         <ListItemIcon>
                             <Avatar src={chat_bot} sx={{ width: '28px', height: '28px', mr: 2 }} />
                         </ListItemIcon>
-
+                        <Box width={'100%'} textAlign={'center'}>
+                            <Chip icon={<FlashOnRoundedIcon color='warning' fontSize='small' />} label={<Typography>Groot GPT</Typography>} />
+                        </Box>
                     </ListItem>
                 </Toolbar>
-                <Stack height={"100%"} sx={{ margin: 'auto',width: {xs:'100%', md: '80%' } }} position={'relative'} bgcolor={'background.paper'} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
+                <Stack height={"100%"} sx={{ margin: 'auto', width: { xs: '100%', md: '80%' } }} position={'relative'} bgcolor={'background.paper'} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
                     {/* body */}
                     <Box flexGrow={1} overflow={'auto'} sx={{
                         position: 'relative',
