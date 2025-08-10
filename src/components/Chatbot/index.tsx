@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
 import { Alert, Avatar, Box, Button, Card, CardActions, CardContent, Collapse, FormControl, IconButton, keyframes, List, ListItem, Menu, MenuItem, Paper, Select, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import { AppDispatch, RootState } from '../../store/store';
@@ -42,6 +42,7 @@ function isFetchBaseQueryError(
 }
 
 const Chatbot = () => {
+    const messagesEndRef = useRef<HTMLDivElement>(null);
     const theme = useSelector((state: RootState) => state.themeReducer.mode)
     useEffect(() => {
         if (theme === 'dark') {
@@ -82,8 +83,14 @@ const Chatbot = () => {
             console.log(err)
         }
     };
-
-
+    const scrollToBottom = () => {
+        if (messagesEndRef?.current?.scrollIntoView) {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+    useEffect(() => {
+        scrollToBottom();
+    }, [conversation]);
     useEffect(() => {
         setErrorVisible(error);
     }, [error]);
@@ -127,9 +134,8 @@ const Chatbot = () => {
         </Box>
     </ListItem>
 
-    const handleClose = () => {
-        setErrorVisible(undefined);
-    }
+    const handleClose = () => setErrorVisible(undefined)
+
 
     const rotate = keyframes`
   0% {
@@ -973,7 +979,7 @@ const Chatbot = () => {
             />
             <Box position={'sticky'} top={0} left={0}>
                 <Toolbar>
-                    <Avatar src={chat_bot} sx={{ width: '28px', height: '28px',mr:2 }} />
+                    <Avatar src={chat_bot} sx={{ width: '28px', height: '28px', mr: 2 }} />
                     <Typography textAlign='center' variant='h6'>Gemini AI</Typography>
                     <Box flexGrow={1}>
 
@@ -1035,6 +1041,7 @@ const Chatbot = () => {
                         return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
                     })}
                     {isLoading && <ChatLoader />}
+                    <Box ref={messagesEndRef} />
                 </List>
 
             </Box>
