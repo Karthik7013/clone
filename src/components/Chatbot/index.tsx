@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Alert, Avatar, Box, Button, Card, CardActions, CardContent, Collapse, Divider, FormControl, IconButton, keyframes, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Select, Skeleton, Stack, TextField, Typography } from '@mui/material';
+import { Alert, Avatar, Box, Button, Card, CardActions, CardContent, Collapse, Divider, FormControl, IconButton, keyframes, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Select, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -973,43 +973,37 @@ const Chatbot = () => {
                 icon='https://gemini.google/images/spark_4c.png'
             />
             <Box position={'sticky'} top={0} left={0}>
-                <CardContent>
-                    <ListItem disableGutters disablePadding
-                        secondaryAction={
-                            <FormControl size="small">
-                                <Controller
-                                    name="model"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Select
-                                            size='small'
-                                            sx={{ width: '200px', borderRadius }}
-                                            labelId="Model-label"
-                                            {...field}
-                                        >
-                                            {
-                                                models.map((models) => {
-                                                    return <MenuItem key={models.name} value={models.name}>
-                                                        {models.displayName}
-                                                    </MenuItem>
-                                                })
-                                            }
-                                        </Select>
-                                    )}
-                                />
-                            </FormControl>
-                        }
-                    >
-                        <ListItemIcon>
-                            <Avatar src={chat_bot} sx={{ width: '42px', height: '42px', mr: 2 }} />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={<Typography variant='body2'>Groot AI</Typography>}
-                            secondary={<Typography variant='caption'><CircleIcon fontSize='inherit' sx={{ mr: 1 }} color='success' />Online</Typography>}
+                <Toolbar>
+                    <Avatar src={chat_bot} sx={{ width: '28px', height: '28px',mr:2 }} />
+                    <Typography textAlign='center' variant='h6'>Gemini AI</Typography>
+                    <Box flexGrow={1}>
+
+                    </Box>
+                    <FormControl size="small">
+                        <Controller
+                            name="model"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    size='small'
+                                    sx={{ width: '200px', borderRadius }}
+                                    labelId="Model-label"
+                                    {...field}
+                                >
+                                    {
+                                        models.map((models) => {
+                                            return <MenuItem key={models.name} value={models.name}>
+                                                {models.displayName}
+                                            </MenuItem>
+                                        })
+                                    }
+                                </Select>
+                            )}
                         />
-                    </ListItem>
-                </CardContent>
-                <Divider />
+                    </FormControl>
+
+                </Toolbar>
+
             </Box>
             {/* body */}
             <Box flexGrow={1} overflow={'auto'} sx={{
