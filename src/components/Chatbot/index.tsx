@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Alert, Avatar, Box, Button, Card, CardActions, CardContent, Collapse, Divider, FormControl, IconButton, keyframes, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Select, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
+import { Alert, Avatar, Box, Button, Card, CardActions, CardContent, Collapse, FormControl, IconButton, keyframes, List, ListItem, Menu, MenuItem, Paper, Select, Skeleton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
-import CircleIcon from '@mui/icons-material/Circle';
 import { useSendMessageMutation } from '../../features/chatbot/chatbotApi';
 import { pushMessage } from '../../features/chatbot/chatbotSlice';
 import MicRoundedIcon from '@mui/icons-material/MicRounded';
