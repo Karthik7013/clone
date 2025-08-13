@@ -21,6 +21,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import AnimatedWrapper from '../AnimatedWrapper/AnimatedWrapper';
 import Title from '../Title/Title';
+import Helmet from "react-helmet";
 type conversationProps = {
     candidate: 'user' | 'bot',
     response: string,
@@ -167,6 +168,9 @@ const Chatbot = () => {
                     metacontent="Google AI Pro &amp; Ultra — get access to Gemini 2.5 Pro &amp; more"
                     icon='https://gemini.google/images/spark_4c.png'
                 />
+   <Helmet>
+     <meta name="theme-color" content="#23a8fa">
+    </Helmet>
                 <Box position={'sticky'} top={0} left={0}>
                     <Toolbar sx={{ borderRadius: muiTheme.shape.borderRadius }}>
                         <Avatar src={chat_bot} sx={{ width: '28px', height: '28px', mr: 2 }} />
