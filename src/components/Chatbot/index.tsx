@@ -22,7 +22,6 @@ import { SerializedError } from '@reduxjs/toolkit';
 import AnimatedWrapper from '../AnimatedWrapper/AnimatedWrapper';
 import Title from '../Title/Title';
 import Helmet from "react-helmet";
-import Helmet from "react-helmet";
 type conversationProps = {
     candidate: 'user' | 'bot',
     response: string,
