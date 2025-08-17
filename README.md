@@ -28,3 +28,5 @@ If you are developing a production application, we recommend updating the config
 
 
 added auth/login/signup pages with basic functionality
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/db5d6dc2-77eb-42fa-9743-ff9dbab8246e/deploy-status)](https://app.netlify.com/projects/cipherbot/deploys)
