@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Alert, Avatar, Box, Button, Card, CardActions, CardContent, Collapse, Container, IconButton, keyframes, List, ListItem, Menu, MenuItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography, useTheme } from '@mui/material';
+import { Alert, Avatar, Box, Button, Card, CardActions, CardContent, Chip, Collapse, Container, Divider, IconButton, InputAdornment, keyframes, List, ListItem, ListItemIcon, ListItemText, Paper, Skeleton, Stack, TextField, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -8,11 +8,13 @@ import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
 import { useSendMessageMutation } from '../../features/chatbot/chatbotApi';
 import { pushMessage } from '../../features/chatbot/chatbotSlice';
-import MicRoundedIcon from '@mui/icons-material/MicRounded';
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
-import FullscreenRoundedIcon from '@mui/icons-material/FullscreenRounded';
-import FullscreenExitRoundedIcon from '@mui/icons-material/FullscreenExitRounded';
+import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
+import LocalDiningRoundedIcon from '@mui/icons-material/LocalDiningRounded';
+import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
+import MovieRoundedIcon from '@mui/icons-material/MovieRounded';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
@@ -22,6 +24,10 @@ import { SerializedError } from '@reduxjs/toolkit';
 import AnimatedWrapper from '../AnimatedWrapper/AnimatedWrapper';
 import Title from '../Title/Title';
 import Helmet from "react-helmet";
+import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded';
+import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
+import Scrollbar from '../Scrollbar/Scrollbar';
+import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded';
 type conversationProps = {
     candidate: 'user' | 'bot',
     response: string,
@@ -44,8 +50,8 @@ function isFetchBaseQueryError(
 }
 
 const Chatbot = () => {
-    const [isFullScreen, setFullScreen] = useState<boolean>(false)
     const muiTheme = useTheme();
+    const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));  // sm = 600px
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const theme = useSelector((state: RootState) => state.themeReducer.mode)
     useEffect(() => {
@@ -92,7 +98,6 @@ const Chatbot = () => {
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
     };
-    const toggleScreen = () => setFullScreen(prev => !prev)
     useEffect(() => {
         scrollToBottom();
     }, [conversation]);
@@ -156,11 +161,93 @@ const Chatbot = () => {
     transform: rotate(360deg);
   }
 `;
+
+    const Sidebar = () => {
+        const [minWid, setMinwid] = useState(false)
+        const minWidthx = () => setMinwid((prev) => !prev);
+        return <Stack height={'100%'} sx={{ transition: 'all .1s linear' }} minWidth={minWid ? 240 : 0}>
+            <List dense sx={{ background: muiTheme.palette.background.paper, zIndex: 9999 }}>
+                <ListItem sx={{ justifyContent: "space-between" }}>
+                    <ListItemIcon onClick={minWidthx}>
+                        <Avatar src={chat_bot} sx={{ width: 34, height: 34 }} />
+                    </ListItemIcon>
+                    {
+                        minWid &&
+                        (<IconButton size='small' onClick={minWidthx}><MenuOpenRoundedIcon /></IconButton>
+                        )
+                    }
+                </ListItem>
+            </List>
+            <Box flexGrow={1}>
+                <List sx={{ mt: 2, position: 'sticky', top: 0, zIndex: 99 }}>
+                    <ListItem>
+                        <ListItemIcon>
+                            <BorderColorRoundedIcon sx={{ width: 18, height: 18 }} />
+                        </ListItemIcon>
+                        <Collapse in={minWid} orientation='horizontal'>
+                            <ListItemText sx={{ textWrap: 'nowrap' }} primary="New Chat" />
+                        </Collapse>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemIcon>
+                            <SearchRoundedIcon sx={{ width: 18, height: 18 }} />
+                        </ListItemIcon>
+                        <Collapse in={minWid} orientation='horizontal'>
+                            <ListItemText sx={{ textWrap: 'nowrap' }} primary="Search" />
+                        </Collapse>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemIcon>
+                            <CategoryRoundedIcon sx={{ width: 18, height: 18 }} />
+                        </ListItemIcon>
+                        <Collapse in={minWid} orientation='horizontal'>
+                            <ListItemText sx={{ textWrap: 'nowrap' }} primary="Products" />
+                        </Collapse>
+                    </ListItem>
+                </List>
+                {minWid && <List sx={{ mt: 2 }} subheader={<Typography variant='caption' sx={{ textIndent: 16 }}>Chats</Typography>}>
+                    {
+                        [1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map(() => {
+                            return (<ListItem>
+
+                                <Collapse in={minWid} orientation='horizontal'>
+                                    <ListItemText sx={{ textWrap: 'nowrap' }} primary="New Chat" />
+                                </Collapse>
+                            </ListItem>)
+                        })
+
+                    }
+                </List>}
+            </Box>
+            {minWid && <Divider variant='middle' />}
+            <List sx={{ position: 'sticky', bottom: 0, zIndex: 999, bgcolor: 'background.paper' }}>
+                <ListItem>
+                    <ListItemIcon>
+                        <Avatar src={'https://avatar.iran.liara.run/public'} sx={{ width: 34, height: 34 }} />
+                    </ListItemIcon>
+                    <Collapse in={minWid} orientation='horizontal'>
+                        <ListItemText sx={{ textWrap: 'nowrap', textIndent: 13 }} primary="Karthik" />
+                    </Collapse>
+                </ListItem>
+            </List>
+        </Stack>
+    }
+
     return (
-        <Container
-            maxWidth={isFullScreen ? 'xl' : 'md'}
-            sx={{ height: '100dvh', padding: 0, transition: 'all .1s linear' }}>
-            <Stack height={"100%"} position={'relative'} bgcolor={'background.paper'} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
+        <Box
+            sx={{ height: '100dvh', padding: 0, transition: 'all .1s linear', display: 'flex' }}>
+
+
+            {/* <Drawer open>
+                <Sidebar />
+            </Drawer> */}
+            {/* <Box height={'100%'} sx={{ overflowY: 'scroll' }}> */}
+            {!isMobile && <Scrollbar>
+                <Sidebar />
+            </Scrollbar>}
+
+            {/* </Box> */}
+            <Stack height={"100%"} flexGrow={1} position={'relative'} bgcolor={'background.paper'} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
                 {/* header */}
                 <Title
                     title='Gemini AI | Chatbot-model'
@@ -172,18 +259,15 @@ const Chatbot = () => {
                     <meta name="theme-color" content={muiTheme.palette.background.paper} />
                 </Helmet>
                 <Box position={'sticky'} top={0} left={0}>
-                    <Toolbar sx={{ borderRadius: muiTheme.shape.borderRadius }}>
-                        <Avatar src={chat_bot} sx={{ width: '28px', height: '28px', mr: 2 }} />
+                    <Toolbar>
 
                         <Box flexGrow={1}>
                             <Typography variant='h6' fontWeight={500}>Gemini AI</Typography>
                         </Box>
-                        <IconButton onClick={toggleScreen}>
-                            {isFullScreen ? <FullscreenExitRoundedIcon />
-                                : <FullscreenRoundedIcon />}
+                        <IconButton>
+                            <MenuRoundedIcon />
                         </IconButton>
                     </Toolbar>
-
                 </Box>
                 {/* body */}
                 <Box flexGrow={1} overflow={'auto'} sx={{
@@ -195,33 +279,41 @@ const Chatbot = () => {
                     scrollbarWidth: 'none',
                     msOverflowStyle: 'none',
                 }}>
-                    {!conversation.length && <Box height={'100%'} display='flex' alignItems='center' flexDirection='column' justifyContent='space-between'>
-                        <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
-                            <Typography
-                                variant="h5"
-                                fontWeight={600}
-                                textAlign="center"
-                                sx={{
-                                    background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent'
-                                }}
-                            >
-                                🖐 Hi there<br /> how can I help you today?
-                            </Typography>
-                        </Stack>
-                    </Box>}
-                    <List>
-                        {conversation.map((content, _) => {
-                            return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
-                        })}
-                        {isLoading && <ChatLoader />}
-                        <Box ref={messagesEndRef} />
-                    </List>
-
+                    <Container maxWidth="md" sx={{ height: "100%",overflow:'hidden' }}>
+                        {!conversation.length && <Box height={'100%'} display='flex' alignItems='center' flexDirection='column' justifyContent='space-between'>
+                            <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
+                                <Typography
+                                    variant="h5"
+                                    fontWeight={600}
+                                    textAlign="center"
+                                    sx={{
+                                        background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
+                                        WebkitBackgroundClip: 'text',
+                                        WebkitTextFillColor: 'transparent'
+                                    }}
+                                >
+                                    🖐 Hi there<br /> how can I help you today?
+                                </Typography>
+                                <Stack direction='row' justifyContent='center' flexWrap='wrap' gap={2} sx={{ mx: 'auto', maxWidth: '90%', mt: 2 }}>
+                                    <Chip icon={<CodeRoundedIcon />} label="Code" />
+                                    <Chip icon={<AutoAwesomeRoundedIcon />} label="Summarize" />
+                                    <Chip icon={<LocalDiningRoundedIcon />} label="Recipe" />
+                                    <Chip icon={<FlightTakeoffRoundedIcon />} label="Travel" />
+                                    <Chip icon={<MovieRoundedIcon />} label="Movies" />
+                                </Stack>
+                            </Stack>
+                        </Box>}
+                        <List>
+                            {conversation.map((content, _) => {
+                                return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
+                            })}
+                            {isLoading && <ChatLoader />}
+                            <Box ref={messagesEndRef} />
+                        </List>
+                    </Container>
                 </Box>
                 {/* footer */}
-                <Box position={'sticky'} bottom={0} left={0}>
+                <Container sx={{ position: 'sticky', bottom: 16, left: 0 }} maxWidth="md" >
                     <Collapse in={Boolean(errorVisible)} unmountOnExit orientation='vertical'>
                         <Alert
                             variant="filled"
@@ -244,15 +336,16 @@ const Chatbot = () => {
 
 
                     </Collapse>
-                    <Card elevation={1} sx={{ borderRadius, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderBottomColor: 'transparent' }}>
-                        <CardContent sx={{ borderRadius }}>
-                            <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999 }}>
+                    <Card elevation={1} sx={{ borderRadius }}>
+                        <CardContent sx={{ borderRadius, px: 0 }}>
+                            <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999, paddingBottom: 0 }}>
                                 <Controller
                                     name="t"
                                     control={control}
                                     rules={{ required: 'Ask Something !' }}
                                     render={({ field }) => (
                                         <TextField
+
                                             sx={{
                                                 flex: 1,
                                                 '& .MuiInputBase-root': {
@@ -272,40 +365,19 @@ const Chatbot = () => {
                                             onBlur={field.onBlur}
                                             name={field.name}
                                             inputRef={field.ref}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <IconButton>
+
+                                                            <AttachFileRoundedIcon />
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
                                         />
                                     )}
                                 />
-                            </CardActions>
-                            <Stack direction={'row'}>
-                                <Box sx={{ position: 'relative' }}>
-                                    <IconButton
-                                        id="basic-button"
-
-                                        aria-haspopup="true"
-
-                                    >
-                                        <AddCircleOutlineRoundedIcon />
-                                    </IconButton>
-                                    <Menu
-                                        open={false}
-                                        anchorOrigin={{
-                                            horizontal: 'right',
-                                            vertical: 'top'
-                                        }}
-                                        id="basic-menu"
-
-                                    >
-                                        <MenuItem>
-                                            <InsertDriveFileRoundedIcon fontSize='small' sx={{ mr: 1 }} />
-                                            Files
-                                        </MenuItem>
-                                        <MenuItem>My account</MenuItem>
-                                    </Menu>
-                                </Box>
-                                <Box flexGrow={1} />
-                                <IconButton>
-                                    <MicRoundedIcon />
-                                </IconButton>
                                 <IconButton
                                     disableRipple
                                     disableTouchRipple
@@ -320,12 +392,16 @@ const Chatbot = () => {
                                         <AutoAwesomeRoundedIcon color='warning' />
                                     )}
                                 </IconButton>
-                            </Stack>
+
+                            </CardActions>
+
+
+
                         </CardContent>
                     </Card>
-                </Box>
+                </Container>
             </Stack>
-        </Container>
+        </Box>
     )
 }
 
