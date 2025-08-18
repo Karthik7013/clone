@@ -313,7 +313,7 @@ const Chatbot = () => {
                     </Container>
                 </Box>
                 {/* footer */}
-                <Container sx={{ position: 'sticky', bottom: 16, left: 0 }} maxWidth="md" >
+                <Container sx={{ position: 'sticky', bottom: 10, left: 0 }} maxWidth="md" >
                     <Collapse in={Boolean(errorVisible)} unmountOnExit orientation='vertical'>
                         <Alert
                             variant="filled"
@@ -336,7 +336,7 @@ const Chatbot = () => {
 
 
                     </Collapse>
-                    <Card elevation={1} sx={{ borderRadius }}>
+                    <Card elevation={1} sx={{ borderRadius*100 }}>
                         <CardContent sx={{ borderRadius, px: 0 }}>
                             <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999, paddingBottom: 0 }}>
                                 <Controller
