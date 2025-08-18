@@ -279,7 +279,7 @@ const Chatbot = () => {
                     scrollbarWidth: 'none',
                     msOverflowStyle: 'none',
                 }}>
-                    <Container maxWidth="md" sx={{ height: "100%",overflow:'hidden' }}>
+                    <Container maxWidth="md" sx={{ height: "100%" }}>
                         {!conversation.length && <Box height={'100%'} display='flex' alignItems='center' flexDirection='column' justifyContent='space-between'>
                             <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
                                 <Typography
