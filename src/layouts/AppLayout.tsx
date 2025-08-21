@@ -23,7 +23,7 @@ const AppLayout = () => {
         <Partners />
         <Providers />
         <Outlet />
-        <Upload />
+        
         <Link to={'chat'}>Chatbot</Link>
         <Footer />
     </AuthProvider>
