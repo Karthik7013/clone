@@ -75,7 +75,7 @@ const Chatbot = () => {
     const [errorVisible, setErrorVisible] = React.useState<undefined | FetchBaseQueryError | SerializedError | undefined>(undefined);
     const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius)
     const dispatch: AppDispatch = useDispatch()
-    const { handleSubmit, control, watch, setValue, reset } = useForm<BotSubmitType>({
+    const { handleSubmit, control, watch, setValue} = useForm<BotSubmitType>({
         defaultValues: {
             t: '',
             file: undefined
@@ -351,7 +351,7 @@ const Chatbot = () => {
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
-                                                        <Upload setValue={setValue} reset={reset} />
+                                                        <Upload setValue={setValue} />
                                                     </InputAdornment>
                                                 ),
                                                 endAdornment: (
