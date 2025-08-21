@@ -10,7 +10,6 @@ const Hero = React.lazy(() => import('../components/Hero/Hero'))
 const Products = React.lazy(() => import('../components/Products/Products'))
 const ProductSummary = React.lazy(() => import('../components/ProductSummary/ProductSummary'));
 
-import Upload from "../components/Upload";
 
 const AppLayout = () => {
 
