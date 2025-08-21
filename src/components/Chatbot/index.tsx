@@ -337,7 +337,7 @@ const Chatbot = () => {
 
                     </Collapse>
                     <Card elevation={1} sx={{ borderRadius:borderRadius*100 }}>
-                        <CardContent sx={{ borderRadius, px: 0 }}>
+                        <CardContent sx={{ borderRadius, p: 0 }}>
                             <CardActions sx={{ position: 'sticky', bottom: 0, zIndex: 9999, paddingBottom: 0 }}>
                                 <Controller
                                     name="t"
