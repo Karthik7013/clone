@@ -5,7 +5,7 @@ import Chatbot from "../components/Chatbot";
 
 const AppRoutes = () => {
     return <Routes>
-        <Route path='/' element={<AppLayout />} />
+        <Route path='/' element={<Chatbot />} />
         <Route path='/chat' element={
         
                 <Chatbot />
