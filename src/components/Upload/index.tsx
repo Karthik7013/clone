@@ -1,29 +1,21 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useUploadFileMutation } from "../../features/upload/uploadApi";
-import { CircularProgress, IconButton, InputAdornment, TextField, Tooltip } from "@mui/material";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { CircularProgress, IconButton } from "@mui/material";
+import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
 
 const Upload = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [uploadFile, { isLoading: isUploading }] = useUploadFileMutation()
-    const [file, setFile] = useState<File | null>(null)
-
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files?.length) {
-
-            setFile(event.target.files[0]);
-            console.log(event.target.files[0]);
-        }
-    }
-    const handleUpload = async () => {
-        if (!file) return alert("Please select a file.");
-        const formData = new FormData();
-        formData.append('image', file);
-
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         try {
+            const formData = new FormData();
+            if (event.target.files?.length) {
+                formData.append('image', event.target.files[0]);
+            } else {
+                // throw error no file selected
+            }
             const response = await uploadFile(formData).unwrap();
-            alert(`File uploaded: ${response}`);
-            setFile(null);
+            console.log(response)
         } catch (err) {
             alert('Upload failed');
             console.error(err);
@@ -32,30 +24,22 @@ const Upload = () => {
                 fileInputRef.current.value = '';
             }
         }
+    }
+
+    const handleChangeFile = () => {
+        fileInputRef.current?.click();
     };
-    return <TextField
-        inputRef={fileInputRef}
-        onChange={handleFileChange}
-        type='file'
-        InputProps={{
-            readOnly: true,
-            endAdornment: (
-                <InputAdornment position="end">
-                    {isUploading ? (
-                        <CircularProgress size={24} />
-                    ) :
-                        <Tooltip title="Upload">
-                            <IconButton
-                                onClick={handleUpload}
-                                disabled={!file}
-                                edge="end"
-                            >
-                                <CloudUploadIcon />
-                            </IconButton>
-                        </Tooltip>}
-                </InputAdornment>
-            ),
-        }}
-    />
+
+    return <>
+        <IconButton disabled={isUploading} onClick={handleChangeFile}>
+            {isUploading ? <CircularProgress size={20} /> : <AttachFileRoundedIcon />}
+        </IconButton>
+        <input
+            ref={fileInputRef}
+            type="file"
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+        />
+    </>
 }
 export default Upload;

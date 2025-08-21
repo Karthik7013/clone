@@ -137,6 +137,19 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
                 },
 
             },
+            MuiCardContent: {
+                styleOverrides: {
+                    root: {
+                        padding: 16, // or whatever you want
+                        "&:last-child": {
+                            paddingBottom: 16, // 👈 works now
+                        },
+                        borderRadius: borderRadius
+                    },
+
+                },
+            },
+
             // MuiDataGrid: {
             //     styleOverrides: {
             //         root: {
