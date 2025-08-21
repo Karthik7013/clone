@@ -157,182 +157,162 @@ const Chatbot = () => {
 `;
 
 
+
+
     return (
-        <Box
-            sx={{ height: '100dvh', padding: 0, transition: 'all .1s linear', display: 'flex' }}>
-
-
-            {/* <Sidebar /> */}
-            <Stack height={"100%"} flexGrow={1} position={'relative'} bgcolor={'background.paper'} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
-                {/* header */}
-                <Title
-                    title='Gemini AI | Chatbot-model'
-                    description='An intelligent, conversational AI designed to understand user intent, provide accurate responses, and deliver seamless, human-like interactions across a variety of topics and services.'
-                    metacontent="Google AI Pro &amp; Ultra — get access to Gemini 2.5 Pro &amp; more"
-                    icon='https://gemini.google/images/spark_4c.png'
-                />
-                <Helmet>
-                    <meta name="theme-color" content={muiTheme.palette.background.paper} />
-                </Helmet>
-                <Box position={'sticky'} top={0} left={0}>
-                    <Box>
-                        <Toolbar sx={{ gap: 2 }}>
-                            <AnimatedWrapper animation={rotate}>
-                                <Avatar src={chat_bot} sx={{ width: 34, height: 34 }} />
-
-                            </AnimatedWrapper>
-
-                            <Box flexGrow={1}>
-                                <Typography variant='h6' fontWeight={500}>Gemini AI</Typography>
-                            </Box>
-                            <IconButton>
-                                <ChatBubbleOutlineRoundedIcon />
-                            </IconButton>
-                        </Toolbar>
-                        <Divider />
+        <Stack sx={{ height: '100dvh', position: 'relative', overflowY: 'auto' }} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
+            <Title
+                title='Gemini AI | Chatbot-model'
+                description='An intelligent, conversational AI designed to understand user intent, provide accurate responses, and deliver seamless, human-like interactions across a variety of topics and services.'
+                metacontent="Google AI Pro &amp; Ultra — get access to Gemini 2.5 Pro &amp; more"
+                icon='https://gemini.google/images/spark_4c.png'
+            />
+            <Helmet>
+                <meta name="theme-color" content={muiTheme.palette.primary.main} />
+            </Helmet>
+            <Box sx={{ position: 'sticky', top: 0, left: 0, zIndex: 99 }}>
+                <Toolbar sx={{ gap: 2, bgcolor: 'background.paper' }}>
+                    <Avatar src={chat_bot} sx={{ width: 34, height: 34 }} />
+                    <Box flexGrow={1}>
+                        <Typography variant='h6' fontWeight={500}>Gemini AI</Typography>
                     </Box>
-                </Box>
-                {/* body */}
-                <Box flexGrow={1} overflow={'auto'} sx={{
-                    position: 'relative',
-                    '&::-webkit-scrollbar': {
-                        display: 'none',
-                    },
+                    <IconButton>
+                        <ChatBubbleOutlineRoundedIcon />
+                    </IconButton>
+                </Toolbar>
+                <Divider />
+            </Box>
 
-                    scrollbarWidth: 'none',
-                    msOverflowStyle: 'none',
-                }}>
-                    <Container maxWidth="md" sx={{ height: "100%" }}>
-                        {!conversation.length && <Box height={'100%'} display='flex' alignItems='center' flexDirection='column' justifyContent='space-between'>
-                            <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
-                                <Typography
-                                    variant="h5"
-                                    fontWeight={600}
-                                    textAlign="center"
-                                    sx={{
-                                        background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
-                                        WebkitBackgroundClip: 'text',
-                                        WebkitTextFillColor: 'transparent'
-                                    }}
-                                >
-                                    🖐 Hi there<br /> how can I help you today?
-                                </Typography>
-                                <Stack direction='row' justifyContent='center' flexWrap='wrap' gap={2} sx={{ mx: 'auto', maxWidth: '90%', mt: 2 }}>
-                                    <Chip icon={<CodeRoundedIcon />} label="Code" />
-                                    <Chip icon={<AutoAwesomeRoundedIcon />} label="Summarize" />
-                                    <Chip icon={<LocalDiningRoundedIcon />} label="Recipe" />
-                                    <Chip icon={<FlightTakeoffRoundedIcon />} label="Travel" />
-                                    <Chip icon={<MovieRoundedIcon />} label="Movies" />
-                                </Stack>
-                            </Stack>
-                        </Box>}
-                        <List>
-                            {conversation.map((content, _) => {
-                                return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
-                            })}
-                            {isLoading && <ChatLoader />}
-                            <Box ref={messagesEndRef} />
-                        </List>
-                    </Container>
-                </Box>
-                {/* footer */}
-                <Container sx={{ position: 'sticky', bottom: 10, left: 0 }} maxWidth="md" >
-                    <Collapse in={Boolean(errorVisible)} unmountOnExit orientation='vertical'>
-                        <Alert
-                            variant="filled"
-                            severity="error"
-                            sx={{ width: '100%', borderRadius, mb: 0.5 }}
-                            action={
-                                <Button size="small" onClick={handleClose} color="inherit">
-                                    Close
-                                </Button>
-                            }
+            <Container maxWidth="md" sx={{ flexGrow: 1 }}>
+                {!conversation.length ? <Box height={'100%'} display='flex' margin={'auto'} alignItems='center' flexDirection='column' justifyContent='space-between'>
+                    <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
+                        <Typography
+                            variant="h5"
+                            fontWeight={600}
+                            textAlign="center"
+                            sx={{
+                                background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent'
+                            }}
                         >
-                            {(isFetchBaseQueryError(error) &&
-                                typeof error.data === 'object' &&
-                                error.data !== null &&
-                                'message' in error.data &&
-                                typeof error.data.message === 'string')
-                                ? error.data.message
-                                : "An error occurred while processing your request."}
-                        </Alert>
+                            🖐 Hi there<br /> how can I help you today?
+                        </Typography>
+                        <Stack direction='row' justifyContent='center' flexWrap='wrap' gap={2} sx={{ mx: 'auto', maxWidth: '90%', mt: 2 }}>
+                            <Chip icon={<CodeRoundedIcon />} label="Code" />
+                            <Chip icon={<AutoAwesomeRoundedIcon />} label="Summarize" />
+                            <Chip icon={<LocalDiningRoundedIcon />} label="Recipe" />
+                            <Chip icon={<FlightTakeoffRoundedIcon />} label="Travel" />
+                            <Chip icon={<MovieRoundedIcon />} label="Movies" />
+                        </Stack>
+                    </Stack>
+                </Box> :
+                    <List>
+                        {conversation.map((content, _) => {
+                            return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
+                        })}
+                        {isLoading && <ChatLoader />}
+                        <Box ref={messagesEndRef} />
+                    </List>}
+            </Container>
+            <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
+                <Collapse in={Boolean(errorVisible)} unmountOnExit orientation='vertical'>
+                    <Alert
+                        variant="filled"
+                        severity="error"
+                        sx={{ width: '100%', borderRadius, mb: 0.5 }}
+                        action={
+                            <Button size="small" onClick={handleClose} color="inherit">
+                                Close
+                            </Button>
+                        }
+                    >
+                        {(isFetchBaseQueryError(error) &&
+                            typeof error.data === 'object' &&
+                            error.data !== null &&
+                            'message' in error.data &&
+                            typeof error.data.message === 'string')
+                            ? error.data.message
+                            : "An error occurred while processing your request."}
+                    </Alert>
 
 
-                    </Collapse>
-                    <Card sx={{ borderRadius: borderRadius, display: 'flex', alignItems: 'center' }}>
-                        <CardContent sx={{
-                            display: 'flex', flexGrow: 1, alignItems: 'center',
-                            "&:last-child": {
-                                pb: 1.5, // remove last-child padding-bottom
-                            },
-                            padding: 2,
-                        }}>
+                </Collapse>
+                <Card sx={{ borderRadius: borderRadius, display: 'flex', alignItems: 'center' }}>
+                    <CardContent sx={{
+                        display: 'flex', flexGrow: 1, alignItems: 'center',
+                        "&:last-child": {
+                            pb: 1.5, // remove last-child padding-bottom
+                        },
+                        padding: 2,
+                    }}>
 
 
-                            <Controller
-                                name="t"
-                                control={control}
-                                rules={{ required: 'Ask Something !' }}
-                                render={({ field }) => (
-                                    <TextField
+                        <Controller
+                            name="t"
+                            control={control}
+                            rules={{ required: 'Ask Something !' }}
+                            render={({ field }) => (
+                                <TextField
 
-                                        sx={{
-                                            flex: 1,
-                                            '& .MuiInputBase-root': {
-                                                border: 'none',
-                                            },
-                                            '& .MuiInput-root:before, & .MuiInput-root:after': {
-                                                display: 'none', // removes default underline from 'standard' variant
-                                            },
-                                        }}
-                                        placeholder='Ask anything'
-                                        multiline
-                                        size='small'
-                                        maxRows={16}
-                                        variant="standard"
-                                        value={field.value}
-                                        onChange={field.onChange}
-                                        onBlur={field.onBlur}
-                                        name={field.name}
-                                        inputRef={field.ref}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <IconButton>
+                                    sx={{
+                                        flex: 1,
+                                        '& .MuiInputBase-root': {
+                                            border: 'none',
+                                        },
+                                        '& .MuiInput-root:before, & .MuiInput-root:after': {
+                                            display: 'none', // removes default underline from 'standard' variant
+                                        },
+                                    }}
+                                    placeholder='Ask anything'
+                                    multiline
+                                    size='small'
+                                    maxRows={16}
+                                    variant="standard"
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    onBlur={field.onBlur}
+                                    name={field.name}
+                                    inputRef={field.ref}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <IconButton>
 
-                                                        <AttachFileRoundedIcon />
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            ),
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        disableRipple
-                                                        disableTouchRipple
-                                                        disableFocusRipple
-                                                        type='submit'
-                                                        disabled={isLoading}
-                                                        color='default'
-                                                    >
-                                                        {isLoading ? (
-                                                            <StopCircleRoundedIcon color='action' />
-                                                        ) : (
-                                                            <AutoAwesomeRoundedIcon color='warning' />
-                                                        )}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                    />
-                                )}
-                            />
+                                                    <AttachFileRoundedIcon />
+                                                </IconButton>
+                                            </InputAdornment>
+                                        ),
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    disableRipple
+                                                    disableTouchRipple
+                                                    disableFocusRipple
+                                                    type='submit'
+                                                    disabled={isLoading}
+                                                    color='default'
+                                                >
+                                                    {isLoading ? (
+                                                        <StopCircleRoundedIcon color='action' />
+                                                    ) : (
+                                                        <AutoAwesomeRoundedIcon color='warning' />
+                                                    )}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                />
+                            )}
+                        />
 
-                        </CardContent>
+                    </CardContent>
 
-                    </Card>
-                </Container>
-            </Stack>
-        </Box>
+                </Card>
+                <Box sx={{ textAlign: 'center', bgcolor: 'background.paper' }}>
+                    <Typography variant='caption' color='text.secondary' >Gemini can make mistakes.read the policies</Typography></Box>
+            </Container>
+        </Stack >
     )
 }
 
