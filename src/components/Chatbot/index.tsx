@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Alert, Avatar, Box, Button, Card, CardContent, Chip, Collapse, Container, Divider, IconButton, InputAdornment, keyframes, List, ListItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography, useTheme } from '@mui/material';
+import { Alert, Avatar, Box, Button, Card, CardContent, Chip, Collapse, Container, Divider, IconButton, InputAdornment, keyframes, List, ListItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -46,6 +46,11 @@ function isFetchBaseQueryError(
 
 const Chatbot = () => {
     const muiTheme = useTheme();
+    const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
+    // const isTablet = useMediaQuery(muiTheme.breakpoints.between("sm", "md"));
+    // const isDesktop = useMediaQuery(muiTheme.breakpoints.up("md"));
+
+
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const theme = useSelector((state: RootState) => state.themeReducer.mode)
     useEffect(() => {
@@ -183,7 +188,10 @@ const Chatbot = () => {
                 <Divider />
             </Box>
 
-            <Container maxWidth="md" sx={{ flexGrow: 1 }}>
+            <Container maxWidth="md" sx={{
+                flexGrow: 1,
+                padding: isMobile ? 0 : "initial"
+            }}>
                 {!conversation.length ? <Box height={'100%'} display='flex' margin={'auto'} alignItems='center' flexDirection='column' justifyContent='space-between'>
                     <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
                         <Typography
