@@ -31,9 +31,17 @@ type conversationProps = {
     response: string,
     timeStamp: string
 }
-interface BotSubmitType {
+export type file = {
+    filename: string,
+    size_formatted: string,
+    url: string,
+    thumb_url: string,
+    delete_url: string
+}
+
+export interface BotSubmitType {
     t: string,
-    file_url?: string | undefined
+    file?: file | undefined
 }
 
 function isFetchBaseQueryError(
@@ -67,12 +75,13 @@ const Chatbot = () => {
     const [errorVisible, setErrorVisible] = React.useState<undefined | FetchBaseQueryError | SerializedError | undefined>(undefined);
     const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius)
     const dispatch: AppDispatch = useDispatch()
-    const { handleSubmit, control } = useForm<BotSubmitType>({
+    const { handleSubmit, control, watch, setValue, reset } = useForm<BotSubmitType>({
         defaultValues: {
             t: '',
-            file_url: undefined
+            file: undefined
         }
     })
+    const file = watch('file');
     const conversation = useSelector((state: RootState) => state.chatbotReducer.conversation);
     const [handleSendMessage, { isLoading, error }] = useSendMessageMutation();
 
@@ -301,18 +310,17 @@ const Chatbot = () => {
                             },
                             paddingX: 1.5
                         }}>
-                            <Box component='a' href='#' download>
+                            {file && <Box component='a' href={file.url} download>
                                 {<Card sx={{ maxWidth: 180, py: 2, px: 1, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', gap: 1, cursor: 'pointer' }}>
-                                    <Box width={36} height={36} display={'flex'} justifyContent={'center'} alignItems={'center'} bgcolor={''} borderRadius={2}>
+                                    <Box width={36} height={36} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2}>
                                         {<DescriptionRoundedIcon />}
                                     </Box>
                                     <Box flexGrow={1} display={'flex'} flexDirection={'column'}>
-                                        <Typography variant='caption'>New File.mp3</Typography>
-                                        <Typography variant='caption'>53kb</Typography>
+                                        <Typography variant='caption'>{file.filename}</Typography>
+                                        <Typography variant='caption'>{file.size_formatted}</Typography>
                                     </Box>
                                 </Card>}
-
-                            </Box>
+                            </Box>}
                             <Stack direction='row'>
                                 <Controller
                                     name="t"
@@ -343,7 +351,7 @@ const Chatbot = () => {
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
-                                                        <Upload />
+                                                        <Upload setValue={setValue} reset={reset} />
                                                     </InputAdornment>
                                                 ),
                                                 endAdornment: (
