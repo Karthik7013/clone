@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import AppLayout from "../layouts/AppLayout";
+// import AppLayout from "../layouts/AppLayout";
 import PageNotFound from "../components/PageNotFound";
 import Chatbot from "../components/Chatbot";
 
