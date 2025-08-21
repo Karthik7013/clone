@@ -3,12 +3,11 @@ import { useUploadFileMutation } from "../../features/upload/uploadApi";
 import { CircularProgress, IconButton } from "@mui/material";
 import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
 import { BotSubmitType, file } from "../Chatbot";
-import { UseFormReset, UseFormSetValue } from "react-hook-form";
+import { UseFormSetValue } from "react-hook-form";
 const Upload = ({
     setValue
 }: {
-    setValue: UseFormSetValue<BotSubmitType>,
-    reset: UseFormReset<BotSubmitType>
+    setValue: UseFormSetValue<BotSubmitType>
 }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [uploadFile, { isLoading: isUploading }] = useUploadFileMutation()
