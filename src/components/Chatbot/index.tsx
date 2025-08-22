@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Alert, Avatar, Box, Button, Card, CardContent, Chip, Collapse, Container, IconButton, InputAdornment, keyframes, List, ListItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Alert, Avatar, Box, Button, Card, CardContent, Chip, Collapse, Container, Dialog, Drawer, IconButton, InputAdornment, keyframes, List, ListItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -26,7 +26,8 @@ import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineR
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
 // import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-import GoogleButton from '../GoogleButton';
+import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
+// import GoogleButton from '../GoogleButton';
 import DarkMode from '../Darkmode';
 import Upload from '../Upload';
 type conversationProps = {
@@ -59,6 +60,8 @@ function isFetchBaseQueryError(
 }
 
 const Chatbot = () => {
+    const [assistant, setAssistant] = useState(false);
+    const [integration, setIntegration] = useState(false);
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
     // const isTablet = useMediaQuery(muiTheme.breakpoints.between("sm", "md"));
@@ -85,9 +88,9 @@ const Chatbot = () => {
         }
     })
     const file = watch('file');
+    const t = watch('t');
     const conversation = useSelector((state: RootState) => state.chatbotReducer.conversation);
     const [handleSendMessage, { isLoading, error }] = useSendMessageMutation();
-
     const onHandleSubmit: SubmitHandler<BotSubmitType> = async (data) => {
         dispatch(pushMessage({
             canditate: 'user',
@@ -222,6 +225,8 @@ const Chatbot = () => {
     //     </Box>
     // }
 
+    const handleIntegration = () => setIntegration((prev) => !prev)
+    const handleAssistant = () => setAssistant((prev) => !prev);
 
 
     return (
@@ -241,11 +246,22 @@ const Chatbot = () => {
                     <Box flexGrow={1}>
                         <Typography variant='h6' fontWeight={500}>Gemini AI</Typography>
                     </Box>
-                    <GoogleButton />
                     <DarkMode />
-                    <IconButton>
+                    <IconButton onClick={handleIntegration}>
                         <ChatBubbleOutlineRoundedIcon />
                     </IconButton>
+                    <Drawer anchor='right' onClose={handleIntegration} open={integration}>
+                        <CardContent>
+                            <IconButton>
+                                <ChatBubbleOutlineRoundedIcon />
+                            </IconButton>
+                            <IconButton>
+                                <ChatBubbleOutlineRoundedIcon />
+                            </IconButton>
+                            <br />
+                            <Button fullWidth>Submit</Button>
+                        </CardContent>
+                    </Drawer>
                 </Toolbar>
                 {/* <Divider /> */}
             </Box>
@@ -381,26 +397,34 @@ const Chatbot = () => {
                                                 ),
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <IconButton
-                                                            disableRipple
-                                                            disableTouchRipple
-                                                            disableFocusRipple
-                                                            type='submit'
-                                                            disabled={isLoading}
-                                                            color='default'
-                                                        >
-                                                            {isLoading ? (
-                                                                <StopCircleRoundedIcon color='action' />
-                                                            ) : (
-                                                                <AutoAwesomeRoundedIcon color='warning' />
-                                                            )}
-                                                        </IconButton>
+
+                                                        {t === '' ? <IconButton onClick={handleAssistant} color='primary' sx={{ borderRadius }}>
+                                                            <GraphicEqRoundedIcon />
+                                                        </IconButton> :
+                                                            <IconButton
+                                                                sx={{ borderRadius }}
+                                                                disableRipple
+                                                                disableTouchRipple
+                                                                disableFocusRipple
+                                                                type='submit'
+                                                                disabled={isLoading}
+                                                                color='info'
+                                                            >
+                                                                {isLoading ? (
+                                                                    <StopCircleRoundedIcon color='action' />
+                                                                ) : (
+                                                                    <AutoAwesomeRoundedIcon color='warning' />
+                                                                )}
+                                                            </IconButton>}
                                                     </InputAdornment>
                                                 )
                                             }}
                                         />
                                     )}
                                 />
+                                <Dialog sx={{ bgcolor: muiTheme.palette.common.black }} open={assistant} onClose={handleAssistant}>
+                                    <video autoPlay loop src="https://cdn.dribbble.com/userupload/13391587/file/original-c2fc6f1a7cd4b57bbae21a246e09c763.mp4"></video>
+                                </Dialog>
                             </Stack>
                         </CardContent>
                     </Card>
