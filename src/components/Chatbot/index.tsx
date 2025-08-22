@@ -309,34 +309,38 @@ const Chatbot = () => {
                         <CardContent sx={{
                             display: 'flex',
                             flexDirection: 'column',
-                            // gap: 2,
+                            
                             "&:last-child": {
                                 pb: 1.5, // remove last-child padding-bottom
                             },
                             paddingX: 1.5
                         }}>
                             <Collapse in={Boolean(file)} orientation='vertical'>
-                                {file && <Card sx={{ width: 180, py: 1, px: 1, mb: 2, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', gap: 1, position: 'relative' }}>
-                                    <Box display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
+                                {file && <Card sx={{ maxWidth: 'fit-content', mb: 3, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', position: 'relative' }}>
+                                    <Box height={56} minWidth={56} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
 
                                         {file.thumb_url ? <img width={'100%'} height={'100%'} src={file.thumb_url} alt={':('} />
                                             : <DescriptionRoundedIcon />}
                                     </Box>
-                                    <Box flexGrow={1} display={'flex'} flexDirection={'column'}>
-                                        <Typography sx={{
-                                            display: "inline-block",   // or "block"
-                                            maxWidth: 100,             // 👈 adjust based on your layout
-                                            overflow: "hidden",
-                                            textOverflow: "ellipsis",
-                                            whiteSpace: "nowrap",
-                                        }} component={'a'} target='_blank' href={file.url} download >{file.filename}</Typography>
-                                        <Typography variant='caption'>{file.size_formatted}</Typography>
-                                    </Box>
-                                    <Box onClick={() => reset({
-                                        file: undefined
-                                    })}>
-                                        <CancelRoundedIcon fontSize='small' color='error' sx={{ cursor: 'pointer', mt: 1 }} />
-                                    </Box>
+                                    <Stack direction={'row'} gap={1} flexGrow={1} padding={1}>
+                                        <Box
+                                            flexGrow={1} display={'flex'} flexDirection={'column'}>
+                                            <Typography sx={{
+                                                display: "inline-block",   // or "block"
+                                                maxWidth: 100,             // 👈 adjust based on your layout
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
+                                                whiteSpace: "nowrap",
+                                            }} component={'a'} target='_blank' href={file.url} download >{file.filename}</Typography>
+                                            <Typography variant='caption'>{file.size_formatted}</Typography>
+                                        </Box>
+                                        <Box onClick={() => reset({
+                                            file: undefined
+                                        })}>
+                                            <CancelRoundedIcon fontSize='small' color='error' sx={{ cursor: 'pointer', mt: 1 }} />
+                                        </Box>
+                                    </Stack>
+
                                 </Card>}
                             </Collapse>
                             <Stack direction='row'>
