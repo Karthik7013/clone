@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Alert, Avatar, Box, Button, Card, CardContent, Chip, Collapse, Container, Divider, IconButton, InputAdornment, keyframes, List, ListItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Alert, Avatar, Box, Button, Card, CardContent, Chip, Collapse, Container, IconButton, InputAdornment, keyframes, List, ListItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { AppDispatch, RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -24,7 +24,8 @@ import Title from '../Title/Title';
 import Helmet from "react-helmet";
 import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+// import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import Upload from '../Upload';
 type conversationProps = {
     candidate: 'user' | 'bot',
@@ -75,7 +76,7 @@ const Chatbot = () => {
     const [errorVisible, setErrorVisible] = React.useState<undefined | FetchBaseQueryError | SerializedError | undefined>(undefined);
     const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius)
     const dispatch: AppDispatch = useDispatch()
-    const { handleSubmit, control, watch, setValue} = useForm<BotSubmitType>({
+    const { handleSubmit, control, watch, setValue, reset } = useForm<BotSubmitType>({
         defaultValues: {
             t: '',
             file: undefined
@@ -97,6 +98,10 @@ const Chatbot = () => {
                 t: result.data.response,
                 timeStamp: result.data.timeStamp
             }));
+            reset({
+                file: undefined,
+                t: ""
+            });
         } catch (err) {
             console.log(err)
         }
@@ -173,51 +178,47 @@ const Chatbot = () => {
   }
 `;
 
-    const WeatherWidget = () => {
-        return <Card sx={{ width: '100%', maxWidth: 360, borderRadius }}>
-            <CardContent sx={{ gap: 2, display: 'flex', flexDirection: 'column' }}>
-                <Stack flexDirection={'row'}>
-                    <Box flexGrow={1}>
-                        <Typography variant='h1'>32
-                            <sup>o</sup> C</Typography>
+    // const WeatherWidget = () => {
+    //     return <Card sx={{ width: '100%', maxWidth: 360, borderRadius }}>
+    //         <CardContent sx={{ gap: 2, display: 'flex', flexDirection: 'column' }}>
+    //             <Stack flexDirection={'row'}>
+    //                 <Box flexGrow={1}>
+    //                     <Typography variant='h1'>32
+    //                         <sup>o</sup> C</Typography>
 
-                        <Typography variant='h6'>overcast clouds</Typography>
-                    </Box>
-                    <Box width={60} height={60}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" className="icon" version="1.1"><path d="M704.80522 372.838812h104.730542c90.024788 0 162.978115 72.985295 162.978115 163.010084 0 44.980425-18.254316 85.708969-47.729762 115.216385-29.475446 29.475446-70.235959 47.729762-115.248353 47.729761H214.783928c-89.992819 0-162.946146-72.985295-162.946146-162.946146 0-45.012394 18.222347-85.772907 47.729762-115.280322 29.475446-29.475446 70.235959-47.729762 115.216384-47.729762h4.923231c0-133.918267 108.630764-242.549031 242.54903-242.54903 133.950236 0 242.549031 108.630764 242.549031 242.54903z" fill="#8B87C1" /><path d="M704.80522 395.217133a22.378321 22.378321 0 0 1-22.378321-22.378321c0-121.402391-98.768318-220.17071-220.17071-220.170709s-220.17071 98.768318-220.170709 220.170709a22.378321 22.378321 0 1 1-44.756642 0c0-146.082483 118.844869-264.927352 264.927351-264.927351s264.927352 118.844869 264.927352 264.927351a22.378321 22.378321 0 0 1-22.378321 22.378321z" fill="#4F46A3" /><path d="M809.535762 721.173363H214.783928c-102.185807 0-185.324467-83.135463-185.324467-185.324467 0-49.539209 19.277325-96.102101 54.283413-131.104992 35.006088-35.006088 81.540208-54.283413 131.037857-54.283413a22.378321 22.378321 0 1 1 0 44.756642c-37.541232 0-72.838238 14.622634-99.391714 41.172914s-41.176111 61.872861-41.176111 99.455652c0 77.508913 63.058912 140.567825 140.567825 140.567825h594.755031c37.56361 0 72.873404-14.622634 99.423684-41.17611 26.550279-26.575855 41.176111-61.879254 41.17611-99.391715 0-77.544079-63.071699-140.631763-140.596597-140.631763a22.378321 22.378321 0 1 1 0-44.756642c102.204989 0 185.353239 83.164235 185.353239 185.388405 0 49.459286-19.274128 95.990209-54.277019 131.031464-35.012482 35.015679-81.559389 54.296201-131.079417 54.2962z" fill="#4F46A3" /><path d="M809.535762 395.217133h-179.154444a22.378321 22.378321 0 1 1 0-44.756642h179.154444a22.378321 22.378321 0 1 1 0 44.756642zM186.922918 915.768849a22.378321 22.378321 0 0 1-13.733895-40.057195l142.326122-110.421029a22.378321 22.378321 0 1 1 27.435821 35.357747l-142.326121 110.42103a22.282414 22.282414 0 0 1-13.701927 4.699447zM394.721613 915.768849a22.378321 22.378321 0 0 1-13.733895-40.057195l142.326122-110.421029a22.378321 22.378321 0 0 1 27.435821 35.357747l-142.326121 110.42103a22.282414 22.282414 0 0 1-13.701927 4.699447zM602.517112 915.768849a22.378321 22.378321 0 0 1-13.733896-40.057195l142.329319-110.421029a22.378321 22.378321 0 0 1 27.435821 35.357747l-142.329318 110.42103a22.282414 22.282414 0 0 1-13.701926 4.699447z" fill="#4F46A3" /></svg>
-                    </Box>
-                </Stack>
-                <Divider></Divider>
-                <Stack flexDirection={'row'}>
-                    <Box flexGrow={1} display={'flex'} alignItems={'center'}>
-                        <LocationOnRoundedIcon sx={{ mr: 1 }} /> <Typography variant='h6'>Visakhapatnam</Typography>
-                    </Box>
+    //                     <Typography variant='h6'>overcast clouds</Typography>
+    //                 </Box>
+    //                 <Box width={60} height={60}>
+    //                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" className="icon" version="1.1"><path d="M704.80522 372.838812h104.730542c90.024788 0 162.978115 72.985295 162.978115 163.010084 0 44.980425-18.254316 85.708969-47.729762 115.216385-29.475446 29.475446-70.235959 47.729762-115.248353 47.729761H214.783928c-89.992819 0-162.946146-72.985295-162.946146-162.946146 0-45.012394 18.222347-85.772907 47.729762-115.280322 29.475446-29.475446 70.235959-47.729762 115.216384-47.729762h4.923231c0-133.918267 108.630764-242.549031 242.54903-242.54903 133.950236 0 242.549031 108.630764 242.549031 242.54903z" fill="#8B87C1" /><path d="M704.80522 395.217133a22.378321 22.378321 0 0 1-22.378321-22.378321c0-121.402391-98.768318-220.17071-220.17071-220.170709s-220.17071 98.768318-220.170709 220.170709a22.378321 22.378321 0 1 1-44.756642 0c0-146.082483 118.844869-264.927352 264.927351-264.927351s264.927352 118.844869 264.927352 264.927351a22.378321 22.378321 0 0 1-22.378321 22.378321z" fill="#4F46A3" /><path d="M809.535762 721.173363H214.783928c-102.185807 0-185.324467-83.135463-185.324467-185.324467 0-49.539209 19.277325-96.102101 54.283413-131.104992 35.006088-35.006088 81.540208-54.283413 131.037857-54.283413a22.378321 22.378321 0 1 1 0 44.756642c-37.541232 0-72.838238 14.622634-99.391714 41.172914s-41.176111 61.872861-41.176111 99.455652c0 77.508913 63.058912 140.567825 140.567825 140.567825h594.755031c37.56361 0 72.873404-14.622634 99.423684-41.17611 26.550279-26.575855 41.176111-61.879254 41.17611-99.391715 0-77.544079-63.071699-140.631763-140.596597-140.631763a22.378321 22.378321 0 1 1 0-44.756642c102.204989 0 185.353239 83.164235 185.353239 185.388405 0 49.459286-19.274128 95.990209-54.277019 131.031464-35.012482 35.015679-81.559389 54.296201-131.079417 54.2962z" fill="#4F46A3" /><path d="M809.535762 395.217133h-179.154444a22.378321 22.378321 0 1 1 0-44.756642h179.154444a22.378321 22.378321 0 1 1 0 44.756642zM186.922918 915.768849a22.378321 22.378321 0 0 1-13.733895-40.057195l142.326122-110.421029a22.378321 22.378321 0 1 1 27.435821 35.357747l-142.326121 110.42103a22.282414 22.282414 0 0 1-13.701927 4.699447zM394.721613 915.768849a22.378321 22.378321 0 0 1-13.733895-40.057195l142.326122-110.421029a22.378321 22.378321 0 0 1 27.435821 35.357747l-142.326121 110.42103a22.282414 22.282414 0 0 1-13.701927 4.699447zM602.517112 915.768849a22.378321 22.378321 0 0 1-13.733896-40.057195l142.329319-110.421029a22.378321 22.378321 0 0 1 27.435821 35.357747l-142.329318 110.42103a22.282414 22.282414 0 0 1-13.701926 4.699447z" fill="#4F46A3" /></svg>
+    //                 </Box>
+    //             </Stack>
+    //             <Divider></Divider>
+    //             <Stack flexDirection={'row'}>
+    //                 <Box flexGrow={1} display={'flex'} alignItems={'center'}>
+    //                     <LocationOnRoundedIcon sx={{ mr: 1 }} /> <Typography variant='h6'>Visakhapatnam</Typography>
+    //                 </Box>
 
-                    <Box>
-                        <Typography variant='h4'>10:53 PM</Typography>
-                    </Box>
-                </Stack>
-            </CardContent>
-        </Card >
-    }
+    //                 <Box>
+    //                     <Typography variant='h4'>10:53 PM</Typography>
+    //                 </Box>
+    //             </Stack>
+    //         </CardContent>
+    //     </Card >
+    // }
     // const NewsCardWidget = () => {
     //     return <></>
     // }
 
-    const VideoWidget = () => {
-        return <Box component={Card} sx={{ aspectRatio: "16/9", maxWidth: 360, borderRadius }}>
-            <iframe
-                width="100%"
-                height="100%"
-                src="https://pixabay.com/static/videos/hero3.mp4"
-                style={{ border: 'none' }} // Or any other border style you need
-            />
-        </Box>
-    }
-
-    useEffect(() => {
-        console.log(file, 'file details')
-    }, [file])
+    // const VideoWidget = () => {
+    //     return <Box component={Card} sx={{ aspectRatio: "16/9", maxWidth: 360, borderRadius }}>
+    //         <iframe
+    //             width="100%"
+    //             height="100%"
+    //             src="https://pixabay.com/static/videos/hero3.mp4"
+    //             style={{ border: 'none' }} // Or any other border style you need
+    //         />
+    //     </Box>
+    // }
 
 
 
@@ -278,8 +279,8 @@ const Chatbot = () => {
 
                         {isLoading && <ChatLoader />}
                         <Box ref={messagesEndRef} />
-                        <WeatherWidget />
-                        <VideoWidget />
+                        {/* <WeatherWidget />
+                        <VideoWidget /> */}
                     </List>}
             </Container>
             <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
@@ -308,23 +309,36 @@ const Chatbot = () => {
                         <CardContent sx={{
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: 2,
+                            // gap: 2,
                             "&:last-child": {
                                 pb: 1.5, // remove last-child padding-bottom
                             },
                             paddingX: 1.5
                         }}>
-                            {file && <Box component='a' target='_blank' href={file.url} download>
-                                {<Card sx={{ maxWidth: 180, py: 2, px: 1, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', gap: 1, cursor: 'pointer' }}>
-                                    <Box width={36} height={36} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2}>
-                                        {<DescriptionRoundedIcon />}
+                            <Collapse in={Boolean(file)} orientation='vertical'>
+                                {file && <Card sx={{ width: 180, py: 1, px: 1, mb: 2, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', gap: 1, position: 'relative' }}>
+                                    <Box display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
+
+                                        {file.thumb_url ? <img width={'100%'} height={'100%'} src={file.thumb_url} alt={':('} />
+                                            : <DescriptionRoundedIcon />}
                                     </Box>
                                     <Box flexGrow={1} display={'flex'} flexDirection={'column'}>
-                                        <Typography variant='caption'>{file.filename}</Typography>
+                                        <Typography sx={{
+                                            display: "inline-block",   // or "block"
+                                            maxWidth: 100,             // 👈 adjust based on your layout
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis",
+                                            whiteSpace: "nowrap",
+                                        }} component={'a'} target='_blank' href={file.url} download >{file.filename}</Typography>
                                         <Typography variant='caption'>{file.size_formatted}</Typography>
                                     </Box>
+                                    <Box onClick={() => reset({
+                                        file: undefined
+                                    })}>
+                                        <CancelRoundedIcon fontSize='small' color='error' sx={{ cursor: 'pointer', mt: 1 }} />
+                                    </Box>
                                 </Card>}
-                            </Box>}
+                            </Collapse>
                             <Stack direction='row'>
                                 <Controller
                                     name="t"

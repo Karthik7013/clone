@@ -20,8 +20,14 @@ const Upload = ({
                 // throw error no file selected
             }
             const { data } = await uploadFile(formData).unwrap();
-            const file: file = data;
-            console.log('check file here', file)
+            const file: file = {
+                filename: data?.filename,
+                size_formatted: data?.size_formatted,
+                url: data?.url,
+                thumb_url: data?.thumb?.url,
+                delete_url: data?.delete_url
+            };
+
             setValue('file', file);
         } catch (err) {
             alert('Upload failed');
@@ -36,6 +42,8 @@ const Upload = ({
     const handleChangeFile = () => {
         fileInputRef.current?.click();
     };
+
+
 
     return <>
         <IconButton disabled={isUploading} onClick={handleChangeFile}>
