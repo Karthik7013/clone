@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Avatar, CircularProgress, Stack } from "@mui/material";
-import Button from "../ui/Button/Button";
+import Button from "../ui/Button";
 import { Google } from '@mui/icons-material';
 
 const LoginButton = () => {

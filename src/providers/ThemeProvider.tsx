@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider, CssBaseline, alpha, useTheme } from "@mui/material";
+import { createTheme, ThemeProvider, CssBaseline, useTheme } from "@mui/material";
 import { RootState } from "../store/store";
 import { useSelector } from "react-redux";
 
@@ -151,30 +151,10 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
                         "&:last-child": {
                             paddingBottom: 16, // 👈 works now
                         },
-                        borderRadius: borderRadius
+                        borderRadius
                     },
-
                 },
             },
-
-            // MuiDataGrid: {
-            //     styleOverrides: {
-            //         root: {
-            //             borderRadius: borderRadius,
-            //             overflow: 'hidden',
-            //             // backgroundColor: theme.palette.background.default
-            //         },
-            //         columnHeader: {
-            //             backgroundColor: theme.palette.primary.light,
-            //             color: theme.palette.background.default
-            //         },
-            //         row: {
-            //             '&:hover': {
-            //                 backgroundColor: alpha(theme.palette.primary.dark, 0.2), // Row hover color
-            //             },
-            //         },
-            //     },
-            // },
             MuiDrawer: {
                 styleOverrides: {
                     root: {
@@ -186,7 +166,8 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
                 styleOverrides: {
                     root: {
                         minWidth: '24px',
-                        marginRight: 0
+                        marginRight: 0,
+                        borderRadius
                     }
                 }
             },
@@ -194,46 +175,22 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
                 styleOverrides: {
                     root: {
                         borderRadius,
-                        "&:hover": {
-                            backgroundColor: theme.palette.primary.main,
-                            color: theme.palette.common.white,
-                        },
-                        textDecoration: 'none',
-                        marginBottom: 3,
-                        "&:active": {
-                            backgroundColor: theme.palette.primary.main,
-                        }
                     }
                 }
             },
             MuiLink: {
                 styleOverrides: {
                     root: {
-                        textDecoration: "none",
                         // color: theme.palette.common.black
                     }
                 }
             },
             MuiChip: {
                 styleOverrides: {
-                    outlined: {
-                        '&.MuiChip-colorPrimary': {
-                            backgroundColor: alpha(theme.palette.primary.light, 0.15)
-                        },
-                        '&.MuiChip-colorError': {
-                            backgroundColor: alpha(theme.palette.error.light, 0.15)
-                        },
-                        '&.MuiChip-colorWarning': {
-                            backgroundColor: alpha(theme.palette.warning.light, 0.15)
-                        },
-                        '&.MuiChip-colorSuccess': {
-                            backgroundColor: alpha(theme.palette.success.light, 0.15)
-                        }
-                    },
-                    root: {
-                        // fontSize: '0.1em'
-                    }
 
+                    root: {
+                        borderRadius
+                    }
                 }
             },
             MuiAlert: {
@@ -310,7 +267,7 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
             MuiTextField: {
                 styleOverrides: {
                     root: {
-                        backdropFilter: 'blur(2px)'
+                        borderRadius
                     }
                 }
             }

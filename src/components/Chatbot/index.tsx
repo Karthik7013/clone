@@ -1,35 +1,49 @@
 import React, { useEffect, useRef, useState } from 'react';
-import chat_bot from "../../assets/images/gemini_ai_.svg";
-import { Alert, Avatar, Box, Button, Card, CardContent, Chip, Collapse, Container, Dialog, Drawer, IconButton, InputAdornment, keyframes, List, ListItem, Paper, Skeleton, Stack, TextField, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { AppDispatch, RootState } from '../../store/store';
+import { Alert, Box, CardContent, Chip, Collapse, Container, Dialog, Divider, Drawer, IconButton, InputAdornment, keyframes, List, ListItem, Paper, Skeleton, Stack, Toolbar, useMediaQuery, useTheme } from '@mui/material';
+
+
+// custom components
+import Card from "../ui/Card"
+import Typography from "../ui/Typography"
+// import Avatar from "../ui/Avatar"
+import Button from "../ui/Button"
+import TextField from "../ui/InputField"
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
-import { useSendMessageMutation } from '../../features/chatbot/chatbotApi';
-import { pushMessage } from '../../features/chatbot/chatbotSlice';
 import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
 import LocalDiningRoundedIcon from '@mui/icons-material/LocalDiningRounded';
 import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import MovieRoundedIcon from '@mui/icons-material/MovieRounded';
+import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
+// import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 // import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
+import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
+import { GeminiIcon } from '../../assets/icons';
+
+import { AppDispatch, RootState } from '../../store/store';
+import { useSendMessageMutation } from '../../features/chatbot/chatbotApi';
+import { pushMessage } from '../../features/chatbot/chatbotSlice';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { SerializedError } from '@reduxjs/toolkit';
+
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
 import Markdown from 'react-markdown';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { SerializedError } from '@reduxjs/toolkit';
-import AnimatedWrapper from '../AnimatedWrapper/AnimatedWrapper';
+import AnimatedWrapper from '../AnimatedWrapper';
 import Title from '../Title/Title';
 import Helmet from "react-helmet";
-import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-// import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
-import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
+
 // import GoogleButton from '../GoogleButton';
 import DarkMode from '../Darkmode';
 import Upload from '../Upload';
+// import { GeminiText } from '../../assets/icons/GeminiText';
+
 type conversationProps = {
     candidate: 'user' | 'bot',
     response: string,
@@ -134,7 +148,8 @@ const Chatbot = () => {
                         width: '100%'
                     }}>
                         <CardContent>
-                            <Avatar sx={{ width: '26px', height: '26px' }} src={chat_bot} alt="Remy Sharp" />
+
+                            <GeminiIcon />
                             <Markdown
                                 remarkPlugins={[remarkGfm]}
                                 rehypePlugins={[rehypeRaw, rehypeHighlight]}
@@ -150,10 +165,10 @@ const Chatbot = () => {
         )
     }
 
-    const ChatLoader = () => <ListItem>
-        <Box sx={{ padding: '10px', borderRadius: '10px', overflowY: 'auto', width: '100%' }}>
-            <AnimatedWrapper animation={rotate} duration="2s" timingFunction="ease-in-out" sx={{ mr: 2 }}>
-                <Avatar src={chat_bot} sx={{ width: '26px', height: '26px' }} />
+    const ChatLoader = () => <ListItem sx={{ padding: isMobile ? 0 : "initial" }}>
+        <Box sx={{ borderRadius: '10px', overflowY: 'auto', width: '100%' }}>
+            <AnimatedWrapper sx={{ width: '26px', height: '26px' }} animation={rotate} duration="2s" timingFunction="ease-in-out">
+                <GeminiIcon />
             </AnimatedWrapper>
             <Box position='relative' mb={1}>
                 <Stack>
@@ -163,7 +178,7 @@ const Chatbot = () => {
                 </Stack>
             </Box>
         </Box>
-    </ListItem>
+    </ListItem >
 
     const handleClose = () => setErrorVisible(undefined)
 
@@ -242,7 +257,8 @@ const Chatbot = () => {
             </Helmet>
             <Box sx={{ position: 'sticky', top: 0, left: 0, zIndex: 99 }}>
                 <Toolbar sx={{ gap: 2, bgcolor: 'background.paper' }}>
-                    <Avatar src={chat_bot} sx={{ width: 34, height: 34 }} />
+                    <GeminiIcon />
+                    {/* <GeminiText /> */}
                     <Box flexGrow={1}>
                         <Typography variant='h6' fontWeight={500}>Gemini AI</Typography>
                     </Box>
@@ -263,11 +279,11 @@ const Chatbot = () => {
                         </CardContent>
                     </Drawer>
                 </Toolbar>
-                {/* <Divider /> */}
+                <Divider />
             </Box>
 
             <Container maxWidth="md" sx={{
-                flexGrow: 1,
+                flexGrow: 1
             }}>
                 {!conversation.length ? <Box height={'100%'} display='flex' margin={'auto'} alignItems='center' flexDirection='column' justifyContent='space-between'>
                     <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
@@ -284,11 +300,11 @@ const Chatbot = () => {
                             🖐 Hi there<br /> how can I help you today?
                         </Typography>
                         <Stack direction='row' justifyContent='center' flexWrap='wrap' gap={2} sx={{ mx: 'auto', maxWidth: '90%', mt: 2 }}>
-                            <Chip icon={<CodeRoundedIcon />} label="Code" />
-                            <Chip icon={<AutoAwesomeRoundedIcon />} label="Summarize" />
-                            <Chip icon={<LocalDiningRoundedIcon />} label="Recipe" />
-                            <Chip icon={<FlightTakeoffRoundedIcon />} label="Travel" />
-                            <Chip icon={<MovieRoundedIcon />} label="Movies" />
+                            <Chip clickable variant='outlined' color='primary' icon={<CodeRoundedIcon />} label="Code" />
+                            <Chip variant='outlined' color='success' icon={<AutoAwesomeRoundedIcon />} label="Summarize" />
+                            <Chip variant='outlined' color='secondary' icon={<LocalDiningRoundedIcon />} label="Recipe" />
+                            <Chip variant='outlined' color='info' icon={<FlightTakeoffRoundedIcon />} label="Travel" />
+                            <Chip variant='outlined' color='error' icon={<MovieRoundedIcon />} label="Movies" />
                         </Stack>
                     </Stack>
                 </Box> :
@@ -297,7 +313,7 @@ const Chatbot = () => {
                             return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
                         })}
 
-                        {isLoading && <ChatLoader />}
+                        {!isLoading && <ChatLoader />}
                         <Box ref={messagesEndRef} />
                         {/* <WeatherWidget />
                         <VideoWidget /> */}
@@ -350,7 +366,7 @@ const Chatbot = () => {
                                                 overflow: "hidden",
                                                 textOverflow: "ellipsis",
                                                 whiteSpace: "nowrap",
-                                            }} component={'a'} target='_blank' href={file.url} download >{file.filename}</Typography>
+                                            }}>{file.filename}</Typography>
                                             <Typography variant='caption'>{file.size_formatted}</Typography>
                                         </Box>
                                         <Box onClick={() => reset({
