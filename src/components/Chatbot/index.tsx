@@ -26,6 +26,8 @@ import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineR
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
 // import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
+import GoogleButton from '../GoogleButton';
+import DarkMode from '../Darkmode';
 import Upload from '../Upload';
 type conversationProps = {
     candidate: 'user' | 'bot',
@@ -239,6 +241,8 @@ const Chatbot = () => {
                     <Box flexGrow={1}>
                         <Typography variant='h6' fontWeight={500}>Gemini AI</Typography>
                     </Box>
+                    <GoogleButton />
+                    <DarkMode />
                     <IconButton>
                         <ChatBubbleOutlineRoundedIcon />
                     </IconButton>
@@ -309,9 +313,8 @@ const Chatbot = () => {
                         <CardContent sx={{
                             display: 'flex',
                             flexDirection: 'column',
-                            
                             "&:last-child": {
-                                pb: 1.5, // remove last-child padding-bottom
+                                pb: 1.5,
                             },
                             paddingX: 1.5
                         }}>

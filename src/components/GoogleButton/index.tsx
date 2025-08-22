@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Avatar, CircularProgress, Stack } from "@mui/material";
 import Button from "../ui/Button/Button";
-import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
+import { Google } from '@mui/icons-material';
 
 const LoginButton = () => {
     const { loginWithRedirect, isAuthenticated, user, logout, isLoading } = useAuth0();
@@ -16,12 +16,12 @@ const LoginButton = () => {
     if (isLoading) {
         return <CircularProgress size={10} />
     }
-  
+
     return <div>
         {!isAuthenticated ? (
             <Button
                 variant="contained"
-                onClick={() => loginWithRedirect()} startIcon={<LoginRoundedIcon />}>
+                onClick={() => loginWithRedirect()} startIcon={<Google />}>
                 Signin
             </Button>
         ) : (
@@ -31,7 +31,7 @@ const LoginButton = () => {
                     variant="outlined"
                     color="error"
                     onClick={handleLogout}
-                    startIcon={<LoginRoundedIcon />}>
+                    startIcon={<Google />}>
                     Logout
                 </Button>
             </Stack>
