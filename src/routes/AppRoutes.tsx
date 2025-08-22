@@ -1,16 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-// import AppLayout from "../layouts/AppLayout";
-import PageNotFound from "../components/PageNotFound";
-import Chatbot from "../components/Chatbot";
-
+import AppLayout from "../layouts/AppLayout";
 const AppRoutes = () => {
     return <Routes>
-        <Route path='/' element={<Chatbot />} />
-        <Route path='/chat' element={
-        
-                <Chatbot />
-        } />
-        <Route path='*' element={<PageNotFound />} />
+        <Route path='/' element={<AppLayout />} />
     </Routes>
 }
 export default AppRoutes;

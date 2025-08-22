@@ -5,7 +5,18 @@ import { useSelector } from "react-redux";
 type props = {
     children: React.ReactNode
 }
-const getSystemMode = (): 'light' | 'dark' => "dark"
+
+const getSystemMode = (): 'light' | 'dark' => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark';
+        } else {
+            return 'light';
+        }
+    }
+    return 'light';
+};
+
 const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element => {
     const theme = useTheme();
     const { borderRadius, fontFamily, mode } = useSelector((state: RootState) => state.themeReducer);
@@ -14,7 +25,6 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
         palette: {
             mode: newMode
         },
-
         typography: {
             fontFamily: fontFamily,
             fontWeightLight: 300,
@@ -79,8 +89,6 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
                 textTransform: 'uppercase',
             },
         },
-
-
         components: {
             MuiButton: {
                 styleOverrides: {
@@ -101,7 +109,6 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
             MuiAppBar: {
                 styleOverrides: {
                     root: {
-                        // backgroundColor: dark ? "#003f67" : '#23a8fa'
                     },
                 }
             },
@@ -307,6 +314,9 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
                     }
                 }
             }
+        },
+        shape: {
+            borderRadius
         }
     })
     return <ThemeProvider theme={newtheme}>

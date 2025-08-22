@@ -7,7 +7,6 @@ import Loader from './components/Loader/Loader'
 import AppRoutes from './routes/AppRoutes'
 import ContextProvider from './providers/ContextProvider'
 
-
 function App() {
   return (
     <ContextProvider>

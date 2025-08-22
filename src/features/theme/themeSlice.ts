@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
+const mode = localStorage.getItem('mode');
 
 type initialProps = {
     borderRadius: number,
@@ -13,7 +13,7 @@ type initialProps = {
 const initialState: initialProps = {
     fontFamily: 'Montserrat, sans-serif',
     borderRadius: 4,
-    mode: 'dark',
+    mode: (mode === 'dark' || mode === 'light' || mode === 'system') ? mode : 'system',
     variant: 'middle',
     primaryColor: '#23a8fa'
 }
@@ -24,7 +24,8 @@ const themeSlice = createSlice({
     reducers: {
         toggleMode: (state, action: { payload: 'light' | 'dark' | 'system', type: string }) => {
             const { payload } = action
-            state.mode = payload
+            state.mode = payload;
+            localStorage.setItem('mode', payload);
         }
     }
 })
