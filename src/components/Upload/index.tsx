@@ -19,20 +19,9 @@ const Upload = ({
             } else {
                 // throw error no file selected
             }
-            const {
-                delete_url,
-                filename,
-                size_formatted,
-                thumb_url,
-                url
-            }: file = await uploadFile(formData).unwrap();
-            const file = {
-                delete_url,
-                filename,
-                size_formatted,
-                thumb_url,
-                url
-            };
+            const { data } = await uploadFile(formData).unwrap();
+            const file: file = data;
+            console.log('check file here', file)
             setValue('file', file);
         } catch (err) {
             alert('Upload failed');
@@ -55,6 +44,7 @@ const Upload = ({
         <input
             ref={fileInputRef}
             type="file"
+            accept="image/*"
             style={{ display: "none" }}
             onChange={handleFileChange}
         />

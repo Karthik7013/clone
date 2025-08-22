@@ -215,6 +215,10 @@ const Chatbot = () => {
         </Box>
     }
 
+    useEffect(() => {
+        console.log(file, 'file details')
+    }, [file])
+
 
 
     return (
@@ -238,7 +242,7 @@ const Chatbot = () => {
                         <ChatBubbleOutlineRoundedIcon />
                     </IconButton>
                 </Toolbar>
-                <Divider />
+                {/* <Divider /> */}
             </Box>
 
             <Container maxWidth="md" sx={{
@@ -310,7 +314,7 @@ const Chatbot = () => {
                             },
                             paddingX: 1.5
                         }}>
-                            {file && <Box component='a' href={file.url} download>
+                            {file && <Box component='a' target='_blank' href={file.url} download>
                                 {<Card sx={{ maxWidth: 180, py: 2, px: 1, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', gap: 1, cursor: 'pointer' }}>
                                     <Box width={36} height={36} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2}>
                                         {<DescriptionRoundedIcon />}
