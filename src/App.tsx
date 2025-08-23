@@ -3,7 +3,7 @@ import './App.css'
 import ThemeProvider from './providers/ThemeProvider'
 import { BrowserRouter } from "react-router-dom"
 import { Suspense } from "react"
-import Loader from './components/Loader/Loader'
+import Loader from './components/Loader'
 import AppRoutes from './routes/AppRoutes'
 import ContextProvider from './providers/ContextProvider'
 

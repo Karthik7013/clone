@@ -1,12 +1,11 @@
 // components/Scrollbar.tsx
 import { Box, useTheme } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { styled, SxProps } from "@mui/material/styles";
 import React from "react";
 
 interface ScrollbarProps {
     children: React.ReactNode;
-    height?: string | number;
-    width?: string | number;
+    sx: SxProps
 }
 
 const ScrollContainer = styled(Box)<{ mode: "light" | "dark" }>(({ theme, mode }) => ({
@@ -34,10 +33,10 @@ const ScrollContainer = styled(Box)<{ mode: "light" | "dark" }>(({ theme, mode }
     },
 }));
 
-const Scrollbar: React.FC<ScrollbarProps> = ({ children, height = "100%" }) => {
+const Scrollbar: React.FC<ScrollbarProps> = ({ children, sx }) => {
     const theme = useTheme();
     return (
-        <ScrollContainer mode={theme.palette.mode} sx={{ height }}>
+        <ScrollContainer mode={theme.palette.mode} sx={{ ...sx }}>
             {children}
         </ScrollContainer>
     );

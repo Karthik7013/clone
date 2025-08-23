@@ -1,29 +1,30 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Box, CardContent, Chip, Collapse, Container, Dialog, Divider, Drawer, IconButton, InputAdornment, keyframes, List, ListItem, Paper, Skeleton, Stack, Toolbar, useMediaQuery, useTheme } from '@mui/material';
-
+import { Alert, Box, CardContent, Chip, Collapse, Container, Dialog, InputAdornment, List, ListItem, Skeleton, Stack, useMediaQuery, useTheme } from '@mui/material';
 
 // custom components
 import Card from "../ui/Card"
 import Typography from "../ui/Typography"
 // import Avatar from "../ui/Avatar"
 import Button from "../ui/Button"
+import IconButton from "../ui/IconButton"
 import TextField from "../ui/InputField"
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
+
+
 import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
 import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
 import LocalDiningRoundedIcon from '@mui/icons-material/LocalDiningRounded';
 import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import MovieRoundedIcon from '@mui/icons-material/MovieRounded';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
-// import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 // import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-import GraphicEqRoundedIcon from '@mui/icons-material/GraphicEqRounded';
-import { GeminiIcon } from '../../assets/icons';
+// custom icons
+import AudioLines from '../../assets/icons/audio-lines';
+import GeminiIcon from '../../assets/icons/GeminiIcon';
+import ArrowUp from '../../assets/icons/arrow-up';
 
 import { AppDispatch, RootState } from '../../store/store';
 import { useSendMessageMutation } from '../../features/chatbot/chatbotApi';
@@ -35,13 +36,11 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
 import Markdown from 'react-markdown';
-import AnimatedWrapper from '../AnimatedWrapper';
-import Title from '../Title/Title';
-import Helmet from "react-helmet";
 
 // import GoogleButton from '../GoogleButton';
-import DarkMode from '../Darkmode';
 import Upload from '../Upload';
+import Header from '../Header';
+// import ChatContainer from '../ChatContainer';
 // import { GeminiText } from '../../assets/icons/GeminiText';
 
 type conversationProps = {
@@ -49,6 +48,7 @@ type conversationProps = {
     response: string,
     timeStamp: string
 }
+
 export type file = {
     filename: string,
     size_formatted: string,
@@ -73,9 +73,9 @@ function isFetchBaseQueryError(
     );
 }
 
+
 const Chatbot = () => {
     const [assistant, setAssistant] = useState(false);
-    const [integration, setIntegration] = useState(false);
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
     // const isTablet = useMediaQuery(muiTheme.breakpoints.between("sm", "md"));
@@ -111,16 +111,16 @@ const Chatbot = () => {
             t: data.t
         }));
         try {
+            reset({
+                file: undefined,
+                t: ""
+            });
             const result = await handleSendMessage(data).unwrap();
             dispatch(pushMessage({
                 canditate: 'bot',
                 t: result.data.response,
                 timeStamp: result.data.timeStamp
             }));
-            reset({
-                file: undefined,
-                t: ""
-            });
         } catch (err) {
             console.log(err)
         }
@@ -130,12 +130,14 @@ const Chatbot = () => {
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
     useEffect(() => {
         scrollToBottom();
     }, [conversation]);
     useEffect(() => {
         setErrorVisible(error);
     }, [error]);
+
     const Conversation = ({ candidate, response }: conversationProps) => {
         return (
             <ListItem sx={{
@@ -148,7 +150,6 @@ const Chatbot = () => {
                         width: '100%'
                     }}>
                         <CardContent>
-
                             <GeminiIcon />
                             <Markdown
                                 remarkPlugins={[remarkGfm]}
@@ -157,9 +158,9 @@ const Chatbot = () => {
                         </CardContent>
                     </Box>}
                 {(candidate === 'user') &&
-                    <Paper sx={{ p: 1.5, borderRadius, borderTopRightRadius: 0, maxWidth: '320px' }}>
+                    <Card elevation={0} sx={{ p: 1.5, borderRadius, borderTopRightRadius: 0, maxWidth: '320px' }}>
                         <Typography variant='body2'>{response}</Typography>
-                    </Paper>
+                    </Card>
                 }
             </ListItem>
         )
@@ -167,14 +168,14 @@ const Chatbot = () => {
 
     const ChatLoader = () => <ListItem sx={{ padding: isMobile ? 0 : "initial" }}>
         <Box sx={{ borderRadius: '10px', overflowY: 'auto', width: '100%' }}>
-            <AnimatedWrapper sx={{ width: '26px', height: '26px' }} animation={rotate} duration="2s" timingFunction="ease-in-out">
-                <GeminiIcon />
-            </AnimatedWrapper>
+            <GeminiIcon />
             <Box position='relative' mb={1}>
                 <Stack>
-                    <Skeleton animation="wave" width={'25%'} />
+                    <Skeleton animation="pulse" sx={{ p: 1 }}>Thinking...
+                    </Skeleton>
                     <Skeleton animation="wave" width={'50%'} />
                     <Skeleton animation="wave" width={'70%'} />
+
                 </Stack>
             </Box>
         </Box>
@@ -182,143 +183,49 @@ const Chatbot = () => {
 
     const handleClose = () => setErrorVisible(undefined)
 
-
-    const rotate = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  40% {
-    transform: rotate(180deg);
-  }
-  60% {
-    transform: rotate(200deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-`;
-
-    // const WeatherWidget = () => {
-    //     return <Card sx={{ width: '100%', maxWidth: 360, borderRadius }}>
-    //         <CardContent sx={{ gap: 2, display: 'flex', flexDirection: 'column' }}>
-    //             <Stack flexDirection={'row'}>
-    //                 <Box flexGrow={1}>
-    //                     <Typography variant='h1'>32
-    //                         <sup>o</sup> C</Typography>
-
-    //                     <Typography variant='h6'>overcast clouds</Typography>
-    //                 </Box>
-    //                 <Box width={60} height={60}>
-    //                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" className="icon" version="1.1"><path d="M704.80522 372.838812h104.730542c90.024788 0 162.978115 72.985295 162.978115 163.010084 0 44.980425-18.254316 85.708969-47.729762 115.216385-29.475446 29.475446-70.235959 47.729762-115.248353 47.729761H214.783928c-89.992819 0-162.946146-72.985295-162.946146-162.946146 0-45.012394 18.222347-85.772907 47.729762-115.280322 29.475446-29.475446 70.235959-47.729762 115.216384-47.729762h4.923231c0-133.918267 108.630764-242.549031 242.54903-242.54903 133.950236 0 242.549031 108.630764 242.549031 242.54903z" fill="#8B87C1" /><path d="M704.80522 395.217133a22.378321 22.378321 0 0 1-22.378321-22.378321c0-121.402391-98.768318-220.17071-220.17071-220.170709s-220.17071 98.768318-220.170709 220.170709a22.378321 22.378321 0 1 1-44.756642 0c0-146.082483 118.844869-264.927352 264.927351-264.927351s264.927352 118.844869 264.927352 264.927351a22.378321 22.378321 0 0 1-22.378321 22.378321z" fill="#4F46A3" /><path d="M809.535762 721.173363H214.783928c-102.185807 0-185.324467-83.135463-185.324467-185.324467 0-49.539209 19.277325-96.102101 54.283413-131.104992 35.006088-35.006088 81.540208-54.283413 131.037857-54.283413a22.378321 22.378321 0 1 1 0 44.756642c-37.541232 0-72.838238 14.622634-99.391714 41.172914s-41.176111 61.872861-41.176111 99.455652c0 77.508913 63.058912 140.567825 140.567825 140.567825h594.755031c37.56361 0 72.873404-14.622634 99.423684-41.17611 26.550279-26.575855 41.176111-61.879254 41.17611-99.391715 0-77.544079-63.071699-140.631763-140.596597-140.631763a22.378321 22.378321 0 1 1 0-44.756642c102.204989 0 185.353239 83.164235 185.353239 185.388405 0 49.459286-19.274128 95.990209-54.277019 131.031464-35.012482 35.015679-81.559389 54.296201-131.079417 54.2962z" fill="#4F46A3" /><path d="M809.535762 395.217133h-179.154444a22.378321 22.378321 0 1 1 0-44.756642h179.154444a22.378321 22.378321 0 1 1 0 44.756642zM186.922918 915.768849a22.378321 22.378321 0 0 1-13.733895-40.057195l142.326122-110.421029a22.378321 22.378321 0 1 1 27.435821 35.357747l-142.326121 110.42103a22.282414 22.282414 0 0 1-13.701927 4.699447zM394.721613 915.768849a22.378321 22.378321 0 0 1-13.733895-40.057195l142.326122-110.421029a22.378321 22.378321 0 0 1 27.435821 35.357747l-142.326121 110.42103a22.282414 22.282414 0 0 1-13.701927 4.699447zM602.517112 915.768849a22.378321 22.378321 0 0 1-13.733896-40.057195l142.329319-110.421029a22.378321 22.378321 0 0 1 27.435821 35.357747l-142.329318 110.42103a22.282414 22.282414 0 0 1-13.701926 4.699447z" fill="#4F46A3" /></svg>
-    //                 </Box>
-    //             </Stack>
-    //             <Divider></Divider>
-    //             <Stack flexDirection={'row'}>
-    //                 <Box flexGrow={1} display={'flex'} alignItems={'center'}>
-    //                     <LocationOnRoundedIcon sx={{ mr: 1 }} /> <Typography variant='h6'>Visakhapatnam</Typography>
-    //                 </Box>
-
-    //                 <Box>
-    //                     <Typography variant='h4'>10:53 PM</Typography>
-    //                 </Box>
-    //             </Stack>
-    //         </CardContent>
-    //     </Card >
-    // }
-    // const NewsCardWidget = () => {
-    //     return <></>
-    // }
-
-    // const VideoWidget = () => {
-    //     return <Box component={Card} sx={{ aspectRatio: "16/9", maxWidth: 360, borderRadius }}>
-    //         <iframe
-    //             width="100%"
-    //             height="100%"
-    //             src="https://pixabay.com/static/videos/hero3.mp4"
-    //             style={{ border: 'none' }} // Or any other border style you need
-    //         />
-    //     </Box>
-    // }
-
-    const handleIntegration = () => setIntegration((prev) => !prev)
     const handleAssistant = () => setAssistant((prev) => !prev);
-
 
     return (
         <Stack sx={{ height: '100dvh', position: 'relative', overflowY: 'auto' }} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
-            <Title
-                title='Gemini AI | Chatbot-model'
-                description='An intelligent, conversational AI designed to understand user intent, provide accurate responses, and deliver seamless, human-like interactions across a variety of topics and services.'
-                metacontent="Google AI Pro &amp; Ultra — get access to Gemini 2.5 Pro &amp; more"
-                icon='https://gemini.google/images/spark_4c.png'
-            />
-            <Helmet>
-                <meta name="theme-color" content={muiTheme.palette.primary.main} />
-            </Helmet>
-            <Box sx={{ position: 'sticky', top: 0, left: 0, zIndex: 99 }}>
-                <Toolbar sx={{ gap: 2, bgcolor: 'background.paper' }}>
-                    <GeminiIcon />
-                    {/* <GeminiText /> */}
-                    <Box flexGrow={1}>
-                        <Typography variant='h6' fontWeight={500}>Gemini AI</Typography>
-                    </Box>
-                    <DarkMode />
-                    <IconButton onClick={handleIntegration}>
-                        <ChatBubbleOutlineRoundedIcon />
-                    </IconButton>
-                    <Drawer anchor='right' onClose={handleIntegration} open={integration}>
-                        <CardContent>
-                            <IconButton>
-                                <ChatBubbleOutlineRoundedIcon />
-                            </IconButton>
-                            <IconButton>
-                                <ChatBubbleOutlineRoundedIcon />
-                            </IconButton>
-                            <br />
-                            <Button fullWidth>Submit</Button>
-                        </CardContent>
-                    </Drawer>
-                </Toolbar>
-                <Divider />
-            </Box>
-
+            <Header />
             <Container maxWidth="md" sx={{
                 flexGrow: 1
             }}>
-                {!conversation.length ? <Box height={'100%'} display='flex' margin={'auto'} alignItems='center' flexDirection='column' justifyContent='space-between'>
-                    <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
-                        <Typography
-                            variant="h5"
-                            fontWeight={600}
-                            textAlign="center"
-                            sx={{
-                                background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent'
-                            }}
-                        >
-                            🖐 Hi there<br /> how can I help you today?
-                        </Typography>
-                        <Stack direction='row' justifyContent='center' flexWrap='wrap' gap={2} sx={{ mx: 'auto', maxWidth: '90%', mt: 2 }}>
-                            <Chip clickable variant='outlined' color='primary' icon={<CodeRoundedIcon />} label="Code" />
-                            <Chip variant='outlined' color='success' icon={<AutoAwesomeRoundedIcon />} label="Summarize" />
-                            <Chip variant='outlined' color='secondary' icon={<LocalDiningRoundedIcon />} label="Recipe" />
-                            <Chip variant='outlined' color='info' icon={<FlightTakeoffRoundedIcon />} label="Travel" />
-                            <Chip variant='outlined' color='error' icon={<MovieRoundedIcon />} label="Movies" />
+                {!conversation.length ?
+                    <Box height={'100%'} display='flex' margin={'auto'} alignItems='center' flexDirection='column' justifyContent='space-between'>
+                        <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
+                            <Typography
+                                variant="h5"
+                                fontWeight={600}
+                                textAlign="center"
+                                sx={{
+                                    background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent'
+                                }}
+                            >
+                                🖐 Hi there<br /> how can I help you today?
+                            </Typography>
+                            <Stack direction='row' justifyContent='center' flexWrap='wrap' gap={2} sx={{ mx: 'auto', maxWidth: '90%', mt: 2 }}>
+                                <Chip clickable variant='outlined' color='primary' icon={<CodeRoundedIcon />} label="Code" />
+                                <Chip variant='outlined' color='success' icon={<ArrowUp />} label="Summarize" />
+                                <Chip variant='outlined' color='secondary' icon={<LocalDiningRoundedIcon />} label="Recipe" />
+                                <Chip variant='outlined' color='info' icon={<FlightTakeoffRoundedIcon />} label="Travel" />
+                                <Chip variant='outlined' color='error' icon={<MovieRoundedIcon />} label="Movies" />
+                            </Stack>
                         </Stack>
-                    </Stack>
-                </Box> :
+                    </Box> :
                     <List>
                         {conversation.map((content, _) => {
                             return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
                         })}
-
-                        {isLoading && <ChatLoader />}
+                        {!isLoading && <ChatLoader />}
                         <Box ref={messagesEndRef} />
                         {/* <WeatherWidget />
                         <VideoWidget /> */}
                     </List>}
             </Container>
+            {/* <ChatContainer /> */}
             <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
                 <Collapse in={Boolean(errorVisible)} unmountOnExit orientation='vertical'>
                     <Alert
@@ -340,115 +247,111 @@ const Chatbot = () => {
                             : "An error occurred while processing your request."}
                     </Alert>
                 </Collapse>
-                <Box>
-                    <Card sx={{ borderRadius: borderRadius }}>
-                        <CardContent sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            "&:last-child": {
-                                pb: 1.5,
-                            },
-                            paddingX: 1.5
-                        }}>
-                            <Collapse in={Boolean(file)} orientation='vertical'>
-                                {file && <Card sx={{ maxWidth: 'fit-content', mb: 3, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', position: 'relative' }}>
-                                    <Box height={56} minWidth={56} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
+                <Card sx={{ borderRadius: borderRadius }}>
+                    <CardContent sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        "&:last-child": {
+                            pb: 1.5,
+                        },
+                        paddingX: 1.5
+                    }}>
+                        <Collapse in={Boolean(file)} orientation='vertical'>
+                            {file && <Card sx={{ maxWidth: 'fit-content', mb: 3, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', position: 'relative' }}>
+                                <Box height={56} minWidth={56} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
 
-                                        {file.thumb_url ? <img width={'100%'} height={'100%'} src={file.thumb_url} alt={':('} />
-                                            : <DescriptionRoundedIcon />}
+                                    {file.thumb_url ? <img width={'100%'} height={'100%'} src={file.thumb_url} alt={':('} />
+                                        : <DescriptionRoundedIcon />}
+                                </Box>
+                                <Stack direction={'row'} gap={1} flexGrow={1} padding={1}>
+                                    <Box
+                                        flexGrow={1} display={'flex'} flexDirection={'column'}>
+                                        <Typography sx={{
+                                            display: "inline-block",   // or "block"
+                                            maxWidth: 100,             // 👈 adjust based on your layout
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis",
+                                            whiteSpace: "nowrap",
+                                        }}>{file.filename}</Typography>
+                                        <Typography variant='caption'>{file.size_formatted}</Typography>
                                     </Box>
-                                    <Stack direction={'row'} gap={1} flexGrow={1} padding={1}>
-                                        <Box
-                                            flexGrow={1} display={'flex'} flexDirection={'column'}>
-                                            <Typography sx={{
-                                                display: "inline-block",   // or "block"
-                                                maxWidth: 100,             // 👈 adjust based on your layout
-                                                overflow: "hidden",
-                                                textOverflow: "ellipsis",
-                                                whiteSpace: "nowrap",
-                                            }}>{file.filename}</Typography>
-                                            <Typography variant='caption'>{file.size_formatted}</Typography>
-                                        </Box>
-                                        <Box onClick={() => reset({
-                                            file: undefined
-                                        })}>
-                                            <CancelRoundedIcon fontSize='small' color='error' sx={{ cursor: 'pointer', mt: 1 }} />
-                                        </Box>
-                                    </Stack>
+                                    <Box onClick={() => reset({
+                                        file: undefined
+                                    })}>
+                                        <CancelRoundedIcon fontSize='small' color='error' sx={{ cursor: 'pointer', mt: 1 }} />
+                                    </Box>
+                                </Stack>
 
-                                </Card>}
-                            </Collapse>
-                            <Stack direction='row'>
-                                <Controller
-                                    name="t"
-                                    control={control}
-                                    rules={{ required: 'Ask Something !' }}
-                                    render={({ field }) => (
-                                        <TextField
+                            </Card>}
+                        </Collapse>
+                        <Stack direction='row'>
+                            <Controller
+                                name="t"
+                                control={control}
+                                rules={{ required: 'Ask Something !' }}
+                                render={({ field }) => (
+                                    <TextField
 
-                                            sx={{
-                                                flex: 1,
-                                                '& .MuiInputBase-root': {
-                                                    border: 'none',
-                                                },
-                                                '& .MuiInput-root:before, & .MuiInput-root:after': {
-                                                    display: 'none', // removes default underline from 'standard' variant
-                                                },
-                                            }}
-                                            placeholder='Ask anything'
-                                            multiline
-                                            size='small'
-                                            maxRows={16}
-                                            variant="standard"
-                                            value={field.value}
-                                            onChange={field.onChange}
-                                            onBlur={field.onBlur}
-                                            name={field.name}
-                                            inputRef={field.ref}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <Upload setValue={setValue} />
-                                                    </InputAdornment>
-                                                ),
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
+                                        sx={{
+                                            flex: 1,
+                                            '& .MuiInputBase-root': {
+                                                border: 'none',
+                                            },
+                                            '& .MuiInput-root:before, & .MuiInput-root:after': {
+                                                display: 'none', // removes default underline from 'standard' variant
+                                            },
+                                        }}
+                                        placeholder='Ask anything'
+                                        multiline
+                                        size='small'
+                                        maxRows={16}
+                                        variant="standard"
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        onBlur={field.onBlur}
+                                        name={field.name}
+                                        inputRef={field.ref}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <Upload setValue={setValue} />
+                                                </InputAdornment>
+                                            ),
+                                            endAdornment: (
+                                                <InputAdornment position="end">
 
-                                                        {t === '' ? <IconButton onClick={handleAssistant} color='primary' sx={{ borderRadius }}>
-                                                            <GraphicEqRoundedIcon />
-                                                        </IconButton> :
-                                                            <IconButton
-                                                                sx={{ borderRadius }}
-                                                                disableRipple
-                                                                disableTouchRipple
-                                                                disableFocusRipple
-                                                                type='submit'
-                                                                disabled={isLoading}
-                                                                color='info'
-                                                            >
-                                                                {isLoading ? (
-                                                                    <StopCircleRoundedIcon color='action' />
-                                                                ) : (
-                                                                    <AutoAwesomeRoundedIcon color='warning' />
-                                                                )}
-                                                            </IconButton>}
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                        />
-                                    )}
-                                />
-                                <Dialog sx={{ bgcolor: muiTheme.palette.common.black }} open={assistant} onClose={handleAssistant}>
-                                    <video autoPlay loop src="https://cdn.dribbble.com/userupload/13391587/file/original-c2fc6f1a7cd4b57bbae21a246e09c763.mp4"></video>
-                                </Dialog>
-                            </Stack>
-                        </CardContent>
-                    </Card>
-                </Box>
+                                                    {t === '' ? <IconButton onClick={handleAssistant} color='primary'>
+                                                        <AudioLines />
+                                                    </IconButton> :
+                                                        <IconButton
+                                                            sx={{ borderRadius }}
+
+                                                            type='submit'
+                                                            disabled={isLoading}
+                                                        >
+                                                            {isLoading ? (
+                                                                <StopCircleRoundedIcon color='action' />
+                                                            ) : (
+                                                                <ArrowUp />
+                                                            )}
+                                                        </IconButton>}
+                                                </InputAdornment>
+                                            )
+                                        }}
+                                    />
+                                )}
+                            />
+                            <Dialog sx={{ bgcolor: muiTheme.palette.common.black }} open={assistant} onClose={handleAssistant}>
+                                <video autoPlay loop src="https://cdn.dribbble.com/userupload/13391587/file/original-c2fc6f1a7cd4b57bbae21a246e09c763.mp4"></video>
+                            </Dialog>
+                        </Stack>
+                    </CardContent>
+                </Card>
                 <Box sx={{ textAlign: 'center', bgcolor: 'background.paper' }}>
-                    <Typography variant='caption' color='text.secondary' >Gemini can make mistakes.read the policies</Typography></Box>
-            </Container >
-        </Stack >
+                    <Typography variant='caption' color='text.secondary' >Gemini can make mistakes.read the policies</Typography>
+                </Box>
+            </Container>
+        </Stack>
     )
 }
 

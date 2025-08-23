@@ -11,8 +11,8 @@ type initialProps = {
 }
 
 const initialState: initialProps = {
-    fontFamily: 'Montserrat, sans-serif',
-    borderRadius: 4,
+    fontFamily: 'Poppins, sans-serif',
+    borderRadius: 6,
     mode: (mode === 'dark' || mode === 'light' || mode === 'system') ? mode : 'system',
     variant: 'middle',
     primaryColor: '#23a8fa'

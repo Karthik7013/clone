@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useUploadFileMutation } from "../../features/upload/uploadApi";
-import { CircularProgress, IconButton } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import IconButton from "../ui/IconButton"
 import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
 import { BotSubmitType, file } from "../Chatbot";
 import { UseFormSetValue } from "react-hook-form";
