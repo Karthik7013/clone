@@ -40,6 +40,7 @@ import Markdown from 'react-markdown';
 // import GoogleButton from '../GoogleButton';
 import Upload from '../Upload';
 import Header from '../Header';
+import Scrollbar from '../Scrollbar/Scrollbar';
 // import ChatContainer from '../ChatContainer';
 // import { GeminiText } from '../../assets/icons/GeminiText';
 
@@ -188,7 +189,8 @@ const Chatbot = () => {
     const handleAssistant = () => setAssistant((prev) => !prev);
 
     return (
-        <Stack sx={{ height: '100dvh', position: 'relative', overflowY: 'auto' }} component='form' onSubmit={handleSubmit(onHandleSubmit)}>
+        <Scrollbar
+            component='form' onSubmit={handleSubmit(onHandleSubmit)} sx={{ height: '100dvh', position: 'relative', overflowY: 'auto', display: 'flex', flexDirection: "column" }} mode={muiTheme.palette.mode}>
             <Header />
             <Container maxWidth="md" sx={{
                 flexGrow: 1
@@ -223,8 +225,6 @@ const Chatbot = () => {
                         })}
                         {isLoading && <ChatLoader />}
                         <Box ref={messagesEndRef} />
-                        {/* <WeatherWidget />
-                        <VideoWidget /> */}
                     </List>}
             </Container>
             {/* <ChatContainer /> */}
@@ -353,7 +353,8 @@ const Chatbot = () => {
                     <Typography variant='caption' color='text.secondary' >Gemini can make mistakes.read the policies</Typography>
                 </Box>
             </Container>
-        </Stack>
+        </Scrollbar>
+        // </Stack>
     )
 }
 
