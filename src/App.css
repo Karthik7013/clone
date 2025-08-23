@@ -11,21 +11,19 @@
 
 .chat-bot-readme th,
 .chat-bot-readme td {
-    border: 1px solid #ddd;
+    border: 1px solid #ffffffa2;
     padding: 8px 12px;
     text-align: left;
 }
 
 .chat-bot-readme th {
-    background-color: #f5f5f5;
     font-weight: bold;
 }
 
-.chat-bot-readme tr:nth-child(even) {
-    background-color: #fafafa;
-}
+
 
 /* Make it scroll horizontally on small screens */
 .chat-bot-readme {
+    max-width: '100%';
     overflow-x: auto;
 }
