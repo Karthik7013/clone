@@ -4,4 +4,4 @@ const useThemeHook = () => {
 
     return useTheme()
 }
-export default useTheme
+export default useThemeHook
