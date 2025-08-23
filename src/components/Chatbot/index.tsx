@@ -151,10 +151,12 @@ const Chatbot = () => {
                     }}>
                         <CardContent>
                             <GeminiIcon />
-                            <Markdown
-                                remarkPlugins={[remarkGfm]}
-                                rehypePlugins={[rehypeRaw, rehypeHighlight]}
-                            >{response}</Markdown>
+                            <Box className="chat-bot-readme">
+                                <Markdown
+                                    remarkPlugins={[remarkGfm]}
+                                    rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                                >{response}</Markdown>
+                            </Box>
                         </CardContent>
                     </Box>}
                 {(candidate === 'user') &&
