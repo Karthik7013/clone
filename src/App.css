@@ -8,8 +8,6 @@
     /* max-width: 300px; */
     padding: 1em;
     border-radius: 8px;
-    box-shadow: 5px 5px white;
-    margin-bottom: 4em;
 }
 
 /* Headings */
@@ -97,7 +95,6 @@
 
 /* Blockquotes */
 .chat-bot-readme blockquote {
-    border-left: 4px solid #d1d5db;
     /* gray-300 */
     /* gray-50 */
     padding: 0.5rem 1rem;
@@ -118,6 +115,7 @@
     margin: 1rem 0;
     font-size: 14px;
     overflow-x: scroll;
+    border-radius: 8px;
 }
 
 .chat-bot-readme th,
