@@ -219,7 +219,7 @@ const Chatbot = () => {
                         {conversation.map((content, _) => {
                             return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
                         })}
-                        {!isLoading && <ChatLoader />}
+                        {isLoading && <ChatLoader />}
                         <Box ref={messagesEndRef} />
                         {/* <WeatherWidget />
                         <VideoWidget /> */}
