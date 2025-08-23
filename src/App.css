@@ -79,7 +79,6 @@
 /* Inline Code */
 .chat-bot-readme code {
     font-family: monospace;
-    background: #f3f4f6;
     /* gray-100 */
     padding: 0.1rem 0.25rem;
     border-radius: 4px;
@@ -90,7 +89,6 @@
 .chat-bot-readme pre {
     font-family: monospace;
     font-size: 0.85em;
-    background: #f3f4f6;
     padding: 1rem;
     border-radius: 6px;
     overflow-x: auto;
@@ -101,7 +99,6 @@
 .chat-bot-readme blockquote {
     border-left: 4px solid #d1d5db;
     /* gray-300 */
-    background: #f9fafb;
     /* gray-50 */
     padding: 0.5rem 1rem;
     font-style: italic;
@@ -113,10 +110,6 @@
     color: #3b82f6;
     /* blue-500 */
     text-decoration: underline;
-}
-
-.chat-bot-readme code {
-    border-radius: 1em;
 }
 
 .chat-bot-readme table {
@@ -132,13 +125,4 @@
     border: 1px solid #ddd;
     padding: 8px 12px;
     text-align: left;
-}
-
-.chat-bot-readme th {
-    background-color: #f5f5f5;
-    font-weight: bold;
-}
-
-.chat-bot-readme tr:nth-child(even) {
-    background-color: #fafafa;
 }
