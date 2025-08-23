@@ -1,11 +1,12 @@
-
 .chat-bot-readme table {
     width: 100%;
     border-collapse: collapse;
     margin: 1rem 0;
     font-size: 14px;
-    overflow-x: scroll;
-    border-radius: 8px;
+    border-radius: 12px;
+    /* use smaller radius for better look */
+    overflow: hidden;
+    /* ensures radius applies to cells */
 }
 
 .chat-bot-readme th,
@@ -13,4 +14,18 @@
     border: 1px solid #ddd;
     padding: 8px 12px;
     text-align: left;
+}
+
+.chat-bot-readme th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.chat-bot-readme tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Make it scroll horizontally on small screens */
+.chat-bot-readme {
+    overflow-x: auto;
 }
