@@ -27,3 +27,7 @@
     max-width: '100%';
     overflow-x: auto;
 }
+
+.chat-bot-readme code {
+    border-radius: 14px;
+}
