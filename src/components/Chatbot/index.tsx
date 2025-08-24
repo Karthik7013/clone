@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Box, CardContent, Chip, Collapse, Container, Dialog, InputAdornment, List, ListItem, Skeleton, Stack, useMediaQuery, useTheme } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
+import { Alert, Box, CardContent, Chip, Collapse, Container, InputAdornment, List, ListItem, Skeleton, Stack, useMediaQuery, useTheme } from '@mui/material';
 
 // custom components
 import Card from "../ui/Card"
@@ -76,7 +76,6 @@ function isFetchBaseQueryError(
 
 
 const Chatbot = () => {
-    const [assistant, setAssistant] = useState(false);
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
     // const isTablet = useMediaQuery(muiTheme.breakpoints.between("sm", "md"));
@@ -186,7 +185,6 @@ const Chatbot = () => {
 
     const handleClose = () => setErrorVisible(undefined)
 
-    const handleAssistant = () => setAssistant((prev) => !prev);
 
     return (
         <Scrollbar
@@ -293,7 +291,6 @@ const Chatbot = () => {
                                 rules={{ required: 'Ask Something !' }}
                                 render={({ field }) => (
                                     <TextField
-
                                         sx={{
                                             flex: 1,
                                             '& .MuiInputBase-root': {
@@ -322,7 +319,7 @@ const Chatbot = () => {
                                             endAdornment: (
                                                 <InputAdornment position="end">
 
-                                                    {t === '' ? <IconButton onClick={handleAssistant} color='primary'>
+                                                    {(t === '' && !isLoading) ? <IconButton color='primary'>
                                                         <AudioLines />
                                                     </IconButton> :
                                                         <IconButton
@@ -343,9 +340,7 @@ const Chatbot = () => {
                                     />
                                 )}
                             />
-                            <Dialog sx={{ bgcolor: muiTheme.palette.common.black }} open={assistant} onClose={handleAssistant}>
-                                <video autoPlay loop src="https://cdn.dribbble.com/userupload/13391587/file/original-c2fc6f1a7cd4b57bbae21a246e09c763.mp4"></video>
-                            </Dialog>
+
                         </Stack>
                     </CardContent>
                 </Card>
