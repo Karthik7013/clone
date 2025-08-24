@@ -128,7 +128,7 @@ const Chatbot = () => {
         } else {
             import('highlight.js/styles/default.css');
         }
-    }, [muiTheme]);
+    }, [muiTheme.palette.mode]);
 
     useEffect(() => {
         scrollToBottom();

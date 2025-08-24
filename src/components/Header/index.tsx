@@ -22,7 +22,7 @@ const Header = () => {
             <Box flexGrow={1}>
                 <Typography variant='h6' fontWeight={500}>Gemini AI</Typography>
             </Box>
-            <DarkMode />
+
             <IconButton onClick={handleDrawer}>
                 <MessageCircleDashed />
             </IconButton>
@@ -36,6 +36,7 @@ const Header = () => {
                     <WeatherWidget />
                     Video Tool
                     <Video />
+                    <DarkMode />
                 </CardContent>
             </Drawer>
         </Toolbar>
