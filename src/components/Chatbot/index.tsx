@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { Alert, Box, CardContent, Chip, Collapse, Container, InputAdornment, List, ListItem, Skeleton, Stack, useMediaQuery, useTheme } from '@mui/material';
-
 // custom components
 import Card from "../ui/Card"
 import Typography from "../ui/Typography"
@@ -83,14 +82,6 @@ const Chatbot = () => {
 
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const theme = useSelector((state: RootState) => state.themeReducer.mode)
-    useEffect(() => {
-        if (theme === 'dark') {
-            import('highlight.js/styles/github.css');
-        } else {
-            import('highlight.js/styles/github-dark.css');
-        }
-    }, [theme]);
 
     const [errorVisible, setErrorVisible] = React.useState<undefined | FetchBaseQueryError | SerializedError | undefined>(undefined);
     const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius)
@@ -130,6 +121,14 @@ const Chatbot = () => {
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+    useEffect(() => {
+        if (muiTheme.palette.mode === 'dark') {
+            import('highlight.js/styles/tomorrow-night-bright.css');
+        } else {
+            import('highlight.js/styles/default.css');
+        }
+    }, [muiTheme]);
 
     useEffect(() => {
         scrollToBottom();

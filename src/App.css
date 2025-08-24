@@ -20,14 +20,100 @@
     font-weight: bold;
 }
 
-
-
-/* Make it scroll horizontally on small screens */
 .chat-bot-readme {
-    max-width: '100%';
-    overflow-x: auto;
+    line-height: 1.5;
+    word-wrap: break-word;
 }
 
+/* Headings */
+.chat-bot-readme h1 {
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 700;
+    margin: 1rem 0 0.5rem;
+}
+
+.chat-bot-readme h2 {
+    font-size: 1.125rem;
+    /* 18px */
+    font-weight: 600;
+    margin: 1rem 0 0.5rem;
+}
+
+.chat-bot-readme h3 {
+    font-size: 1rem;
+    /* 16px */
+    font-weight: 600;
+    margin: 0.75rem 0 0.4rem;
+}
+
+.chat-bot-readme h4 {
+    font-size: 0.9375rem;
+    /* 15px */
+    font-weight: 600;
+    margin: 0.75rem 0 0.4rem;
+}
+
+.chat-bot-readme h5 {
+    font-size: 0.875rem;
+    /* 14px */
+    font-weight: 600;
+    margin: 0.5rem 0 0.3rem;
+}
+
+.chat-bot-readme h6 {
+    font-size: 0.8125rem;
+    /* 13px */
+    font-weight: 600;
+    margin: 0.5rem 0 0.3rem;
+}
+
+/* Paragraphs */
+.chat-bot-readme p {
+    margin-bottom: 0.75rem;
+}
+
+/* Strong/Bold Text */
+.chat-bot-readme strong {
+    font-weight: 600;
+}
+
+/* Lists */
+.chat-bot-readme ul,
+.chat-bot-readme ol {
+    padding-left: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.chat-bot-readme li {
+    margin-bottom: 0.25rem;
+}
+
+/* Inline Code */
 .chat-bot-readme code {
-    border-radius: 14px;
+    padding: 0.1rem 0.25rem;
+    border-radius: 8px;
+}
+
+/* Code Blocks */
+.chat-bot-readme pre {
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+/* Blockquotes */
+.chat-bot-readme blockquote {
+    border-left: 4px solid #d1d5db;
+    padding: 0.5rem 1rem;
+    font-style: italic;
+    margin: 1rem 0;
+}
+
+/* Links */
+.chat-bot-readme a {
+    color: #3b82f6;
+    /* blue-500 */
+    text-decoration: underline;
 }
