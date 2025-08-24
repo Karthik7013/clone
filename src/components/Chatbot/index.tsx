@@ -123,11 +123,23 @@ const Chatbot = () => {
     };
 
     useEffect(() => {
-        if (muiTheme.palette.mode === 'dark') {
-            import('highlight.js/styles/tomorrow-night-bright.css');
-        } else {
-            import('highlight.js/styles/default.css');
+        // Remove old theme if exists
+        const existingLink = document.getElementById("hljs-theme") as HTMLLinkElement;
+        if (existingLink) {
+            existingLink.remove();
         }
+
+        // Create new theme link
+        const link = document.createElement("link");
+        link.id = "hljs-theme";
+        link.rel = "stylesheet";
+        link.type = "text/css";
+        link.href =
+            muiTheme.palette.mode === "dark"
+                ? "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tomorrow-night-bright.min.css"
+                : "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css";
+
+        document.head.appendChild(link);
     }, [muiTheme.palette.mode]);
 
     useEffect(() => {
