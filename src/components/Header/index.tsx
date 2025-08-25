@@ -14,7 +14,7 @@ const Header = () => {
         <Helmet>
             <meta name="theme-color" content={muiTheme.palette.primary.main} />
         </Helmet>
-        <Toolbar sx={{ gap: 2}}>
+        <Toolbar sx={{ gap: 2, backgroundColor: 'background.paper'}}>
             <GeminiIcon />
             <Box flexGrow={1}>
                 <Typography variant='h6' fontWeight={500}>Gemini AI</Typography>
