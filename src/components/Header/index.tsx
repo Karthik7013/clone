@@ -1,14 +1,11 @@
-import { Box, CardContent, Divider, Toolbar, useTheme } from "@mui/material";
+import { Box, Divider, Toolbar, useTheme } from "@mui/material";
 import GeminiIcon from "../../assets/icons/GeminiIcon";
 import Typography from "../ui/Typography";
-import DarkMode from "../Darkmode";
 import IconButton from "../ui/IconButton";
 import MessageCircleDashed from "../../assets/icons/message-circle-dashed";
 import Helmet from "react-helmet";
-import Drawer from "../ui/Drawer";
-import WeatherWidget from "../Widgets/weather";
-import Video from "../Widgets/video";
 import { useState } from "react";
+import Sidebar from "../Sidebar";
 const Header = () => {
     const muiTheme = useTheme();
     const [open, setOpen] = useState(false);
@@ -17,28 +14,15 @@ const Header = () => {
         <Helmet>
             <meta name="theme-color" content={muiTheme.palette.primary.main} />
         </Helmet>
-        <Toolbar sx={{ gap: 2, bgcolor: 'background.paper' }}>
+        <Toolbar sx={{ gap: 2}}>
             <GeminiIcon />
             <Box flexGrow={1}>
                 <Typography variant='h6' fontWeight={500}>Gemini AI</Typography>
             </Box>
-
             <IconButton onClick={handleDrawer}>
                 <MessageCircleDashed />
             </IconButton>
-            <Drawer anchor='left' onClose={handleDrawer} open={open}>
-                <Toolbar>
-                    <Typography variant="h4">Tools</Typography>
-                </Toolbar>
-                <Divider />
-                <CardContent>
-                    Weather Tool
-                    <WeatherWidget />
-                    Video Tool
-                    <Video />
-                    <DarkMode />
-                </CardContent>
-            </Drawer>
+            <Sidebar open={open} onClose={handleDrawer} />
         </Toolbar>
         <Divider
         />
