@@ -192,7 +192,7 @@ const AppLayout = () => {
             </Box>
         </Box>
     </ListItem >
-    const sample = "My Awesome React Project\n\nA brief, one-sentence description of your project.\n\n## Table of Contents\n\n- [About the Project](#about-the-project)\n- [Features](#features)\n- [Getting Started](#getting-started)\n- [Installation](#installation)\n- [Usage](#usage)\n- [Contributing](#contributing)\n- [License](#license)\n\n---\n\n## About the Project\n\nThis is where you can elaborate on what your project does, its purpose, and the problem it solves. You can also mention the technologies used and the overall architecture.\n\n### Built With\n\n*   [React](https://reactjs.org/)\n*   [react-markdown](https://www.npmjs.com/package/react-markdown)\n*   [Other Libraries/Frameworks]\n\n---\n\n## Features\n\nList the key features of your project. Use bullet points for clarity.\n\n*   **Feature 1:** Description of the first feature.\n*   **Feature 2:** Description of the second feature.\n*   **Feature 3:** Description of the third feature.\n*   ...\n\n---\n\n## Getting Started\n\nThis section guides users on how to get the project up and running on their local machine.\n\n### Prerequisites\n\nMake sure you have the following installed:\n\n*   Node.js (version X.X.X or higher)\n*   npm or yarn\n\n### Installation\n\n1.  **Clone the repo:**\n    ```bash\n    git clone https://github.com/yourusername/my-awesome-react-project.git\n    ```\n2.  **Navigate to the project directory:**\n    ```bash\n    cd my-awesome-react-project\n    ```\n3.  **Install dependencies:**\n    ```bash\n    npm install\n    # or\n    yarn install\n    ```\n\n---\n\n## Usage\n\nExplain how to use the project. This could include commands to run the development server, build the project, or specific instructions for interacting with your application.\n\n### Running the Development Server\n\nTo start the development server:\n\n```bash\nnpm start\n# or\nyarn start\n```"
+    // const sample = "My Awesome React Project\n\nA brief, one-sentence description of your project.\n\n## Table of Contents\n\n- [About the Project](#about-the-project)\n- [Features](#features)\n- [Getting Started](#getting-started)\n- [Installation](#installation)\n- [Usage](#usage)\n- [Contributing](#contributing)\n- [License](#license)\n\n---\n\n## About the Project\n\nThis is where you can elaborate on what your project does, its purpose, and the problem it solves. You can also mention the technologies used and the overall architecture.\n\n### Built With\n\n*   [React](https://reactjs.org/)\n*   [react-markdown](https://www.npmjs.com/package/react-markdown)\n*   [Other Libraries/Frameworks]\n\n---\n\n## Features\n\nList the key features of your project. Use bullet points for clarity.\n\n*   **Feature 1:** Description of the first feature.\n*   **Feature 2:** Description of the second feature.\n*   **Feature 3:** Description of the third feature.\n*   ...\n\n---\n\n## Getting Started\n\nThis section guides users on how to get the project up and running on their local machine.\n\n### Prerequisites\n\nMake sure you have the following installed:\n\n*   Node.js (version X.X.X or higher)\n*   npm or yarn\n\n### Installation\n\n1.  **Clone the repo:**\n    ```bash\n    git clone https://github.com/yourusername/my-awesome-react-project.git\n    ```\n2.  **Navigate to the project directory:**\n    ```bash\n    cd my-awesome-react-project\n    ```\n3.  **Install dependencies:**\n    ```bash\n    npm install\n    # or\n    yarn install\n    ```\n\n---\n\n## Usage\n\nExplain how to use the project. This could include commands to run the development server, build the project, or specific instructions for interacting with your application.\n\n### Running the Development Server\n\nTo start the development server:\n\n```bash\nnpm start\n# or\nyarn start\n```"
 
     const handleClose = () => setErrorVisible(undefined)
 
@@ -204,7 +204,7 @@ const AppLayout = () => {
             <Container maxWidth="md" sx={{
                 flexGrow: 1
             }}>
-                {/* {!conversation.length ?
+                {!conversation.length ?
                     <Box height={'100%'} display='flex' margin={'auto'} alignItems='center' flexDirection='column' justifyContent='space-between'>
                         <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
                             <Typography
@@ -234,12 +234,12 @@ const AppLayout = () => {
                         })}
                         {isLoading && <ChatLoader />}
                         <Box ref={messagesEndRef} />
-                    </List>} */}
-                <List>
+                    </List>}
+                {/* <List>
                     <Conversation candidate={'bot'} response={sample} timeStamp={''} />
 
 
-                </List>
+                </List> */}
             </Container>
             {/* <ChatContainer /> */}
             <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
