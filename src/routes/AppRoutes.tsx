@@ -1,8 +1,10 @@
+import react from "react"
 import { Route, Routes } from "react-router-dom";
-import AppLayout from "../layouts/AppLayout";
+const AppLayout = react.lazy(async () => await import('../layouts/AppLayout'))
 const AppRoutes = () => {
     return <Routes>
         <Route path='/' element={<AppLayout />} />
+        <Route path='/auth' element={<>Signin - Signup</>} />
     </Routes>
 }
 export default AppRoutes;
