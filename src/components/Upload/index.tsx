@@ -3,7 +3,7 @@ import { useUploadFileMutation } from "../../features/upload/uploadApi";
 import { CircularProgress } from "@mui/material";
 import IconButton from "../ui/IconButton"
 import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
-import { BotSubmitType, file } from "../Chatbot";
+import { BotSubmitType, file } from "../../layouts/AppLayout";
 import { UseFormSetValue } from "react-hook-form";
 const Upload = ({
     setValue
