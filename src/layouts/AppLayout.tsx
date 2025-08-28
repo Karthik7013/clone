@@ -17,6 +17,7 @@ import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
 import LocalDiningRoundedIcon from '@mui/icons-material/LocalDiningRounded';
 import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import MovieRoundedIcon from '@mui/icons-material/MovieRounded';
+import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
@@ -154,7 +155,7 @@ const AppLayout = () => {
     }, [error]);
 
 
-    const CodeBlock = ({ inline, className, children, ...props }: CodeProps) => {
+    const CodeBlock = ({ className, children, ...props }: CodeProps) => {
         const [copied, setCopied] = useState(false);
         const code = React.Children.toArray(children)
             .map((child) => (typeof child === "string" ? child : ""))
@@ -170,7 +171,7 @@ const AppLayout = () => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         };
-        if (inline) return <code className={className} {...props}>{children}</code>
+        if (language === 'text') return <code className={className} {...props}>{children}</code>
 
         return <div className={`code-block-wrapper ${className}`} >
             <div className="code-block-header"
@@ -182,7 +183,7 @@ const AppLayout = () => {
                 }} as='span'>{language}</Typography>
                 <Box>
                     <Button onClick={handleCopy} startIcon={copied ? <CheckRoundedIcon /> : <ContentCopyRoundedIcon />} size='small'>{copied ? "Copied!" : "Copy"}</Button>
-                    <Button size='small'>Edit</Button>
+                    <Button startIcon={<FileDownloadRoundedIcon />} size='small'>Download</Button>
                 </Box>
             </div>
             <code className={className} {...props}>{children}</code>
@@ -237,65 +238,7 @@ const AppLayout = () => {
         </Box>
     </ListItem >
 
-//     const sample = `
-// Here are the Java and Python codes to print the Fibonacci series up to 100, along with a comparison of their difficulty:
-
-// **Java Code:**
-
-// \`\`\`java
-// public class FibonacciSeries {
-//     public static void main(String[] args) {
-//         int limit = 100;
-//         int firstTerm = 0;
-//         int secondTerm = 1;
-
-//         System.out.println("Fibonacci Series up to " + limit + ":");
-
-//         if (firstTerm <= limit) {
-//             System.out.print(firstTerm + " ");
-//         }
-//         if (secondTerm <= limit) {
-//             System.out.print(secondTerm + " ");
-//         }
-
-//         while (true) {
-//             int nextTerm = firstTerm + secondTerm;
-//             if (nextTerm > limit) break;
-//             System.out.print(nextTerm + " ");
-//             firstTerm = secondTerm;
-//             secondTerm = nextTerm;
-//         }
-//         System.out.println();
-//     }
-// }
-// \`\`\`
-
-// **Python Code:**
-
-// \`\`\`python
-// def fibonacci_series(limit):
-//     first_term = 0
-//     second_term = 1
-
-//     print(f"Fibonacci Series up to {limit}:")
-
-//     if first_term <= limit:
-//         print(first_term, end=" ")
-//     if second_term <= limit:
-//         print(second_term, end=" ")
-
-//     while True:
-//         next_term = first_term + second_term
-//         if next_term > limit:
-//             break
-//         print(next_term, end=" ")
-//         first_term = second_term
-//         second_term = next_term
-//     print()
-
-// fibonacci_series(100)
-// \`\`\`
-// `;
+    // const sample = "Here's the Python code to print numbers from 1 to 100:\n\n```python\nfor i in range(1, 101):\n  print(i)\n```\n\n**Explanation:**\n\n*   `for i in range(1, 101):` This line initiates a `for` loop.\n    *   `range(1, 101)` generates a sequence of numbers starting from 1 (inclusive) up to, but not including, 101. This effectively gives us the numbers 1, 2, 3, ..., 100.\n    *   The variable `i` will take on each value from this sequence one by one in each iteration of the loop.\n*   `print(i)`: Inside the loop, this line prints the current value of `i` to the console."
 
 
     const handleClose = () => setErrorVisible(undefined)
