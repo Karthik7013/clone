@@ -185,10 +185,8 @@ const AppLayout = () => {
                     <Button size='small'>Edit</Button>
                 </Box>
             </div>
-            <pre {...props}>
-                <code className={className}>{code}</code>
-            </pre>
-        </div >
+            <code className={className} {...props}>{children}</code>
+        </div>
     };
 
     const Conversation = ({ candidate, response }: conversationProps) => {
@@ -238,7 +236,67 @@ const AppLayout = () => {
             </Box>
         </Box>
     </ListItem >
-    // const sample = "My Awesome React Project\n\nA brief, one-sentence description of your project.\n\n## Table of Contents\n\n- [About the Project](#about-the-project)\n- [Features](#features)\n- [Getting Started](#getting-started)\n- [Installation](#installation)\n- [Usage](#usage)\n- [Contributing](#contributing)\n- [License](#license)\n\n---\n\n## About the Project\n\nThis is where you can elaborate on what your project does, its purpose, and the problem it solves. You can also mention the technologies used and the overall architecture.\n\n### Built With\n\n*   [React](https://reactjs.org/)\n*   [react-markdown](https://www.npmjs.com/package/react-markdown)\n*   [Other Libraries/Frameworks]\n\n---\n\n## Features\n\nList the key features of your project. Use bullet points for clarity.\n\n*   **Feature 1:** Description of the first feature.\n*   **Feature 2:** Description of the second feature.\n*   **Feature 3:** Description of the third feature.\n*   ...\n\n---\n\n## Getting Started\n\nThis section guides users on how to get the project up and running on their local machine.\n\n### Prerequisites\n\nMake sure you have the following installed:\n\n*   Node.js (version X.X.X or higher)\n*   npm or yarn\n\n### Installation\n\n1.  **Clone the repo:**\n    ```bash\n    git clone https://github.com/yourusername/my-awesome-react-project.git\n    ```\n2.  **Navigate to the project directory:**\n    ```bash\n    cd my-awesome-react-project\n    ```\n3.  **Install dependencies:**\n    ```bash\n    npm install\n    # or\n    yarn install\n    ```\n\n---\n\n## Usage\n\nExplain how to use the project. This could include commands to run the development server, build the project, or specific instructions for interacting with your application.\n\n### Running the Development Server\n\nTo start the development server:\n\n```bash\nnpm start\n# or\nyarn start\n```"
+
+//     const sample = `
+// Here are the Java and Python codes to print the Fibonacci series up to 100, along with a comparison of their difficulty:
+
+// **Java Code:**
+
+// \`\`\`java
+// public class FibonacciSeries {
+//     public static void main(String[] args) {
+//         int limit = 100;
+//         int firstTerm = 0;
+//         int secondTerm = 1;
+
+//         System.out.println("Fibonacci Series up to " + limit + ":");
+
+//         if (firstTerm <= limit) {
+//             System.out.print(firstTerm + " ");
+//         }
+//         if (secondTerm <= limit) {
+//             System.out.print(secondTerm + " ");
+//         }
+
+//         while (true) {
+//             int nextTerm = firstTerm + secondTerm;
+//             if (nextTerm > limit) break;
+//             System.out.print(nextTerm + " ");
+//             firstTerm = secondTerm;
+//             secondTerm = nextTerm;
+//         }
+//         System.out.println();
+//     }
+// }
+// \`\`\`
+
+// **Python Code:**
+
+// \`\`\`python
+// def fibonacci_series(limit):
+//     first_term = 0
+//     second_term = 1
+
+//     print(f"Fibonacci Series up to {limit}:")
+
+//     if first_term <= limit:
+//         print(first_term, end=" ")
+//     if second_term <= limit:
+//         print(second_term, end=" ")
+
+//     while True:
+//         next_term = first_term + second_term
+//         if next_term > limit:
+//             break
+//         print(next_term, end=" ")
+//         first_term = second_term
+//         second_term = next_term
+//     print()
+
+// fibonacci_series(100)
+// \`\`\`
+// `;
+
 
     const handleClose = () => setErrorVisible(undefined)
 
@@ -281,7 +339,7 @@ const AppLayout = () => {
                         {isLoading && <ChatLoader />}
                         <Box ref={messagesEndRef} />
                     </List>}
-                {/* <List>
+                {/* <List sx={{ display: 'flex', gap: 2, flexDirection: 'column' }}>
                     <Conversation candidate={'bot'} response={sample} timeStamp={''} />
                 </List> */}
             </Container>
