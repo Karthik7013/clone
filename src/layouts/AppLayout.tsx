@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Box, CardContent, Chip, Collapse, Container, InputAdornment, List, ListItem, Skeleton, Stack, useMediaQuery, useTheme } from '@mui/material';
 // custom components
 import Card from "../components/ui/Card"
@@ -17,6 +17,8 @@ import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
 import LocalDiningRoundedIcon from '@mui/icons-material/LocalDiningRounded';
 import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import MovieRoundedIcon from '@mui/icons-material/MovieRounded';
+import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
 // import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
@@ -73,7 +75,11 @@ function isFetchBaseQueryError(
     );
 }
 
+import { ComponentPropsWithoutRef } from "react";
 
+type CodeProps = ComponentPropsWithoutRef<"code"> & {
+    inline?: boolean;
+};
 const AppLayout = () => {
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
@@ -147,6 +153,44 @@ const AppLayout = () => {
         setErrorVisible(error);
     }, [error]);
 
+
+    const CodeBlock = ({ inline, className, children, ...props }: CodeProps) => {
+
+        const [copied, setCopied] = useState(false);
+        const code = String(children).replace(/\n$/, "");
+
+        // Extract the language from className (e.g. "language-bash")
+        const match = /language-(\w+)/.exec(className || "");
+        const language = match ? match[1] : "text";
+        const handleCopy = () => {
+            navigator.clipboard.writeText(code);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        };
+
+        return !inline ? (
+            <div className={`code-block-wrapper ${className}`} >
+                <div className="code-block-header"
+                    style={{
+                        backgroundColor: muiTheme.palette.divider
+                    }}>
+                    <span className="language-label">{language}</span>
+                    <Box>
+
+
+                        <Button onClick={handleCopy} startIcon={copied ? <CheckRoundedIcon /> : <ContentCopyRoundedIcon />} size='small'>{copied ? "Copied!" : "Copy"}</Button>
+                        <Button size='small'>Edit</Button>
+                    </Box>
+                </div>
+                <pre {...props}>
+                    <code className={className}>{code}</code>
+                </pre>
+            </div >
+        ) : (
+            <code className={className} {...props}>{children}</code>
+        );
+    };
+
     const Conversation = ({ candidate, response }: conversationProps) => {
         return (
             <ListItem sx={{
@@ -162,6 +206,9 @@ const AppLayout = () => {
                             <GeminiIcon />
                             <Box className="chat-bot-readme">
                                 <Markdown
+                                    components={{
+                                        code: CodeBlock
+                                    }}
                                     remarkPlugins={[remarkGfm]}
                                     rehypePlugins={[rehypeRaw, rehypeHighlight]}
                                 >{response}</Markdown>
@@ -236,8 +283,6 @@ const AppLayout = () => {
                     </List>}
                 {/* <List>
                     <Conversation candidate={'bot'} response={sample} timeStamp={''} />
-
-
                 </List> */}
             </Container>
             {/* <ChatContainer /> */}

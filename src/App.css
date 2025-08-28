@@ -42,28 +42,24 @@
 
 .chat-bot-readme h3 {
     font-size: 1rem;
-    /* 16px */
     font-weight: 600;
     margin: 0.75rem 0 0.4rem;
 }
 
 .chat-bot-readme h4 {
     font-size: 0.9375rem;
-    /* 15px */
     font-weight: 600;
     margin: 0.75rem 0 0.4rem;
 }
 
 .chat-bot-readme h5 {
     font-size: 0.875rem;
-    /* 14px */
     font-weight: 600;
     margin: 0.5rem 0 0.3rem;
 }
 
 .chat-bot-readme h6 {
     font-size: 0.8125rem;
-    /* 13px */
     font-weight: 600;
     margin: 0.5rem 0 0.3rem;
 }
@@ -89,18 +85,12 @@
     margin-bottom: 0.25rem;
 }
 
-/* Inline Code */
-.chat-bot-readme code {
-    padding: 0.1rem 0.25rem;
-    border-radius: 8px;
-}
 
 /* Code Blocks */
 .chat-bot-readme pre {
-    padding: 1rem;
     border-radius: 6px;
     overflow-x: auto;
-    margin-bottom: 1rem;
+    margin: 0 auto;
 }
 
 /* Blockquotes */
@@ -114,6 +104,25 @@
 /* Links */
 .chat-bot-readme a {
     color: #3b82f6;
-    /* blue-500 */
     text-decoration: underline;
+}
+
+
+
+.code-block-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.code-block-header {
+    position: sticky;
+    justify-content: space-between;
+    display: flex;
+    padding: 0.5em 1em;
+}
+
+.code-block-header button {
+    font-size: 12px;
+    padding: 2px 6px;
+    cursor: pointer;
 }
