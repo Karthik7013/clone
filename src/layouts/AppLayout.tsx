@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Box, CardContent, Chip, Collapse, Container, InputAdornment, List, ListItem, Skeleton, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Alert, Box, CardContent, Chip, Collapse, Container, List, ListItem, Skeleton, Stack, useMediaQuery, useTheme } from '@mui/material';
 // custom components
 import Card from "../components/ui/Card"
 import Typography from "../components/ui/Typography"
 // import Avatar from "../components/ui/Avatar"
 import Button from "../components/ui/Button"
 import IconButton from "../components/ui/IconButton"
-import TextField from "../components/ui/InputField"
+// import TextField from "../components/ui/InputField"
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -21,6 +21,7 @@ import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+// import BiotechRoundedIcon from '@mui/icons-material/BiotechRounded';
 // import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 // custom icons
@@ -84,8 +85,7 @@ type CodeProps = ComponentPropsWithoutRef<"code"> & {
 const AppLayout = () => {
     const muiTheme = useTheme();
     const contentRef = useRef<HTMLDivElement>(null);
-    const preview = useSelector((state: RootState) => state.themeReducer.preview)
-    const [markdown, setMarkdown] = React.useState<string>("Here's the Python code to print numbers from 1 to 100:\n\n```python\nfor i in range(1, 101):\n  print(i)\n```\n\n**Explanation:**\n\n*   `for i in range(1, 101):` This line initiates a `for` loop.\n    *   `range(1, 101)` generates a sequence of numbers starting from 1 (inclusive) up to, but not including, 101. This effectively gives us the numbers 1, 2, 3, ..., 100.\n    *   The variable `i` will take on each value from this sequence one by one in each iteration of the loop.\n*   `print(i)`: Inside the loop, this line prints the current value of `i` to the console.");
+
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
     // const isTablet = useMediaQuery(muiTheme.breakpoints.between("sm", "md"));
     // const isDesktop = useMediaQuery(muiTheme.breakpoints.up("md"));
@@ -111,10 +111,10 @@ const AppLayout = () => {
             t: data.t
         }));
         try {
-            reset({
-                file: undefined,
-                t: ""
-            });
+            if (contentRef.current) {
+                contentRef.current.textContent = '';
+            }
+            setValue('t', '', { shouldValidate: false });
             const result = await handleSendMessage(data).unwrap();
             dispatch(pushMessage({
                 canditate: 'bot',
@@ -219,7 +219,12 @@ const AppLayout = () => {
                     </Box>}
                 {(candidate === 'user') &&
                     <Card elevation={0} sx={{ p: 1.5, borderTopRightRadius: 0, maxWidth: '320px' }}>
-                        <Typography noWrap={false} variant='body2'>{response}</Typography>
+                        <Typography noWrap={false} variant='body2'
+                            sx={{
+                                whiteSpace: 'pre-wrap', // This preserves line breaks
+                                wordWrap: 'break-word'
+                            }}
+                        >{response}</Typography>
                     </Card>
                 }
             </ListItem>
@@ -242,17 +247,17 @@ const AppLayout = () => {
 
 
     const handleClose = () => setErrorVisible(undefined)
-    const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
-        const current = e.currentTarget;
-        const text = current.textContent || '';
-        setMarkdown(text); // Save to state
+
+    const handleInput = () => {
+        const text = contentRef.current?.textContent || '';
+        setValue('t', text, { shouldValidate: true });
     };
-    
-    React.useEffect(() => {
-        if (contentRef.current && !contentRef.current.textContent) {
-            contentRef.current.textContent = markdown;
+    const handleFocus = () => {
+        if (contentRef.current?.textContent === 'Ask anything.') {
+            contentRef.current.textContent = '';
         }
-    }, [markdown]);
+    };
+
 
     return (
         <Scrollbar
@@ -261,63 +266,42 @@ const AppLayout = () => {
             <Container maxWidth="md" sx={{
                 flexGrow: 1
             }}>
-                {preview &&
-                    <>
-                        <Box
-                            component="div"
-                            ref={contentRef}
-                            contentEditable
-                            onInput={handleInput}
-                            sx={{
-                                border: '1px solid #ccc',
-                                padding: '10px',
-                                minHeight: '100px',
-                                outline: 'none',
-                                borderRadius: '4px',
-                                whiteSpace: 'pre-wrap', // Preserves line breaks
-                            }}
-                            suppressContentEditableWarning
-                        />
-                        <List sx={{ display: 'flex', gap: 2, flexDirection: 'column' }}>
-                            <Conversation candidate={'bot'} response={markdown} timeStamp={''} />
-                        </List>
-                    </>
-                }
-                {!preview && <>
 
 
-                    {!conversation.length ?
-                        <Box height={'100%'} display='flex' margin={'auto'} alignItems='center' flexDirection='column' justifyContent='space-between'>
-                            <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
-                                <Typography
-                                    variant="h5"
-                                    fontWeight={600}
-                                    textAlign="center"
-                                    sx={{
-                                        background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
-                                        WebkitBackgroundClip: 'text',
-                                        WebkitTextFillColor: 'transparent'
-                                    }}
-                                >
-                                    🖐 Hi there<br /> how can I help you today?
-                                </Typography>
-                                <Stack direction='row' justifyContent='center' flexWrap='wrap' gap={2} sx={{ mx: 'auto', maxWidth: '90%', mt: 2 }}>
-                                    <Chip clickable variant='outlined' color='primary' icon={<CodeRoundedIcon />} label="Code" />
-                                    <Chip variant='outlined' color='success' icon={<ArrowUp />} label="Summarize" />
-                                    <Chip variant='outlined' color='secondary' icon={<LocalDiningRoundedIcon />} label="Recipe" />
-                                    <Chip variant='outlined' color='info' icon={<FlightTakeoffRoundedIcon />} label="Travel" />
-                                    <Chip variant='outlined' color='error' icon={<MovieRoundedIcon />} label="Movies" />
-                                </Stack>
+
+
+                {!conversation.length ?
+                    <Box height={'100%'} display='flex' margin={'auto'} alignItems='center' flexDirection='column' justifyContent='space-between'>
+                        <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
+                            <Typography
+                                variant="h5"
+                                fontWeight={600}
+                                textAlign="center"
+                                sx={{
+                                    background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent'
+                                }}
+                            >
+                                🖐 Hi there<br /> how can I help you today?
+                            </Typography>
+                            <Stack direction='row' justifyContent='center' flexWrap='wrap' gap={2} sx={{ mx: 'auto', maxWidth: '90%', mt: 2 }}>
+                                <Chip clickable variant='outlined' color='primary' icon={<CodeRoundedIcon />} label="Code" />
+                                <Chip variant='outlined' color='success' icon={<ArrowUp />} label="Summarize" />
+                                <Chip variant='outlined' color='secondary' icon={<LocalDiningRoundedIcon />} label="Recipe" />
+                                <Chip variant='outlined' color='info' icon={<FlightTakeoffRoundedIcon />} label="Travel" />
+                                <Chip variant='outlined' color='error' icon={<MovieRoundedIcon />} label="Movies" />
                             </Stack>
-                        </Box> :
-                        <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2 }}>
-                            {conversation.map((content, _) => {
-                                return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
-                            })}
-                            {isLoading && <ChatLoader />}
-                            <Box ref={messagesEndRef} />
-                        </List>}
-                </>}
+                        </Stack>
+                    </Box> :
+                    <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2 }}>
+                        {conversation.map((content, _) => {
+                            return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
+                        })}
+                        {isLoading && <ChatLoader />}
+                        <Box ref={messagesEndRef} />
+                    </List>}
+
             </Container>
             {/* <ChatContainer /> */}
             <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
@@ -341,17 +325,13 @@ const AppLayout = () => {
                             : "An error occurred while processing your request."}
                     </Alert>
                 </Collapse>
-                <Card elevation={0} sx={{ borderRadius: borderRadius, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
+                <Card elevation={0} sx={{ borderRadius: '26px', boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
                     <CardContent sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        "&:last-child": {
-                            pb: 1.5,
-                        },
-                        paddingX: 1.5
                     }}>
                         <Collapse in={Boolean(file)} orientation='vertical'>
-                            {file && <Card sx={{ maxWidth: 'fit-content', mb: 3, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', position: 'relative' }}>
+                            {file && <Card sx={{ maxWidth: 'fit-content', mb: 2, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', position: 'relative' }}>
                                 <Box height={56} minWidth={56} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
 
                                     {file.thumb_url ? <img width={'100%'} height={'100%'} src={file.thumb_url} alt={':('} />
@@ -378,8 +358,56 @@ const AppLayout = () => {
 
                             </Card>}
                         </Collapse>
-                        <Stack direction='row'>
+                        <Box>
+                            {/* <Box
+                                component="div"
+                                ref={contentRef}
+                                contentEditable
+                                onInput={handleInput}
+                                sx={{
+                                    padding: '10px',
+                                    maxHeight: 300,
+                                    outline: 'none',
+                                    overflow: 'auto',
+                                    whiteSpace: 'pre-wrap', // Preserves line breaks
+                                }}
+                                suppressContentEditableWarning
+                            >
+                                Ask anything.
+                            </Box> */}
                             <Controller
+                                name="t"
+                                control={control}
+                                rules={{
+                                    validate: value => {
+                                        const trimmedValue = value?.trim();
+                                        return trimmedValue && trimmedValue !== 'Ask anything.' || 'Ask Something!';
+                                    }
+                                }}
+                                render={() => (
+                                    <Box
+                                        component="div"
+                                        ref={contentRef}
+                                        contentEditable
+                                        onInput={handleInput}
+                                        onFocus={handleFocus}
+                                        sx={{
+                                            padding: '12px',
+                                            borderRadius: 1,
+                                            minHeight: 48,
+                                            maxHeight: 300,
+                                            outline: 'none',
+                                            overflow: 'auto',
+                                            whiteSpace: 'pre-wrap',
+                                        }}
+                                        suppressContentEditableWarning
+                                    >
+                                        Ask anything.
+                                    </Box>
+                                )}
+                            />
+                            <Stack direction='row' alignItems={'center'} gap={1}>
+                                {/* <Controller
                                 name="t"
                                 control={control}
                                 rules={{ required: 'Ask Something !' }}
@@ -433,9 +461,30 @@ const AppLayout = () => {
                                         }}
                                     />
                                 )}
-                            />
+                            /> */}
+                                <Box>
+                                    <Upload setValue={setValue} />
+                                </Box>
+                                <Box flexGrow={1}>
 
-                        </Stack>
+                                </Box>
+                                <Box>{(t === '' && !isLoading) ? <IconButton color='primary'>
+                                    <AudioLines />
+                                </IconButton> :
+                                    <IconButton
+                                        sx={{ borderRadius }}
+
+                                        type='submit'
+                                        disabled={isLoading}
+                                    >
+                                        {isLoading ? (
+                                            <StopCircleRoundedIcon color='action' />
+                                        ) : (
+                                            <ArrowUp />
+                                        )}
+                                    </IconButton>}</Box>
+                            </Stack>
+                        </Box>
                     </CardContent>
                 </Card>
                 <Box sx={{ textAlign: 'center', bgcolor: 'background.paper' }}>
