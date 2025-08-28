@@ -6,3 +6,5 @@ const ArrowUp = (props: SvgIconProps) => {
     </SvgIcon>
 }
 export default ArrowUp;
+
+

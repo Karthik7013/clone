@@ -170,15 +170,15 @@ const AppLayout = () => {
 
                     </Box>}
                 {(candidate === 'user') &&
-                    <Card elevation={0} sx={{ p: 1.5, borderRadius, borderTopRightRadius: 0, maxWidth: '320px' }}>
-                        <Typography variant='body2'>{response}</Typography>
+                    <Card elevation={0} sx={{ p: 1.5, borderTopRightRadius: 0, maxWidth: '320px' }}>
+                        <Typography noWrap={false} variant='body2'>{response}</Typography>
                     </Card>
                 }
             </ListItem>
         )
     }
 
-    const ChatLoader = () => <ListItem sx={{ padding: isMobile ? 0 : "initial" }}>
+    const ChatLoader = () => <ListItem>
         <Box sx={{ borderRadius: '10px', overflowY: 'auto', width: '100%' }}>
             <GeminiIcon />
             <Box position='relative' mb={1}>
@@ -187,7 +187,6 @@ const AppLayout = () => {
                     </Skeleton>
                     <Skeleton animation="wave" width={'50%'} />
                     <Skeleton animation="wave" width={'70%'} />
-
                 </Stack>
             </Box>
         </Box>
@@ -228,7 +227,7 @@ const AppLayout = () => {
                             </Stack>
                         </Stack>
                     </Box> :
-                    <List>
+                    <List sx={{ display: 'flex', gap: 2, flexDirection: 'column' }}>
                         {conversation.map((content, _) => {
                             return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
                         })}
