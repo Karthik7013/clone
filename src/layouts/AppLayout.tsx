@@ -83,6 +83,9 @@ type CodeProps = ComponentPropsWithoutRef<"code"> & {
 };
 const AppLayout = () => {
     const muiTheme = useTheme();
+    const contentRef = useRef<HTMLDivElement>(null);
+    const preview = useSelector((state: RootState) => state.themeReducer.preview)
+    const [markdown, setMarkdown] = React.useState<string>("Here's the Python code to print numbers from 1 to 100:\n\n```python\nfor i in range(1, 101):\n  print(i)\n```\n\n**Explanation:**\n\n*   `for i in range(1, 101):` This line initiates a `for` loop.\n    *   `range(1, 101)` generates a sequence of numbers starting from 1 (inclusive) up to, but not including, 101. This effectively gives us the numbers 1, 2, 3, ..., 100.\n    *   The variable `i` will take on each value from this sequence one by one in each iteration of the loop.\n*   `print(i)`: Inside the loop, this line prints the current value of `i` to the console.");
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
     // const isTablet = useMediaQuery(muiTheme.breakpoints.between("sm", "md"));
     // const isDesktop = useMediaQuery(muiTheme.breakpoints.up("md"));
@@ -213,7 +216,6 @@ const AppLayout = () => {
                                 >{response}</Markdown>
                             </Box>
                         </CardContent>
-
                     </Box>}
                 {(candidate === 'user') &&
                     <Card elevation={0} sx={{ p: 1.5, borderTopRightRadius: 0, maxWidth: '320px' }}>
@@ -236,13 +238,21 @@ const AppLayout = () => {
                 </Stack>
             </Box>
         </Box>
-    </ListItem >
-
-    // const sample = "Here's the Python code to print numbers from 1 to 100:\n\n```python\nfor i in range(1, 101):\n  print(i)\n```\n\n**Explanation:**\n\n*   `for i in range(1, 101):` This line initiates a `for` loop.\n    *   `range(1, 101)` generates a sequence of numbers starting from 1 (inclusive) up to, but not including, 101. This effectively gives us the numbers 1, 2, 3, ..., 100.\n    *   The variable `i` will take on each value from this sequence one by one in each iteration of the loop.\n*   `print(i)`: Inside the loop, this line prints the current value of `i` to the console."
+    </ListItem>
 
 
     const handleClose = () => setErrorVisible(undefined)
-
+    const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
+        const current = e.currentTarget;
+        const text = current.textContent || '';
+        setMarkdown(text); // Save to state
+    };
+    
+    React.useEffect(() => {
+        if (contentRef.current && !contentRef.current.textContent) {
+            contentRef.current.textContent = markdown;
+        }
+    }, [markdown]);
 
     return (
         <Scrollbar
@@ -251,40 +261,63 @@ const AppLayout = () => {
             <Container maxWidth="md" sx={{
                 flexGrow: 1
             }}>
-                {!conversation.length ?
-                    <Box height={'100%'} display='flex' margin={'auto'} alignItems='center' flexDirection='column' justifyContent='space-between'>
-                        <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
-                            <Typography
-                                variant="h5"
-                                fontWeight={600}
-                                textAlign="center"
-                                sx={{
-                                    background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent'
-                                }}
-                            >
-                                🖐 Hi there<br /> how can I help you today?
-                            </Typography>
-                            <Stack direction='row' justifyContent='center' flexWrap='wrap' gap={2} sx={{ mx: 'auto', maxWidth: '90%', mt: 2 }}>
-                                <Chip clickable variant='outlined' color='primary' icon={<CodeRoundedIcon />} label="Code" />
-                                <Chip variant='outlined' color='success' icon={<ArrowUp />} label="Summarize" />
-                                <Chip variant='outlined' color='secondary' icon={<LocalDiningRoundedIcon />} label="Recipe" />
-                                <Chip variant='outlined' color='info' icon={<FlightTakeoffRoundedIcon />} label="Travel" />
-                                <Chip variant='outlined' color='error' icon={<MovieRoundedIcon />} label="Movies" />
+                {preview &&
+                    <>
+                        <Box
+                            component="div"
+                            ref={contentRef}
+                            contentEditable
+                            onInput={handleInput}
+                            sx={{
+                                border: '1px solid #ccc',
+                                padding: '10px',
+                                minHeight: '100px',
+                                outline: 'none',
+                                borderRadius: '4px',
+                                whiteSpace: 'pre-wrap', // Preserves line breaks
+                            }}
+                            suppressContentEditableWarning
+                        />
+                        <List sx={{ display: 'flex', gap: 2, flexDirection: 'column' }}>
+                            <Conversation candidate={'bot'} response={markdown} timeStamp={''} />
+                        </List>
+                    </>
+                }
+                {!preview && <>
+
+
+                    {!conversation.length ?
+                        <Box height={'100%'} display='flex' margin={'auto'} alignItems='center' flexDirection='column' justifyContent='space-between'>
+                            <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
+                                <Typography
+                                    variant="h5"
+                                    fontWeight={600}
+                                    textAlign="center"
+                                    sx={{
+                                        background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
+                                        WebkitBackgroundClip: 'text',
+                                        WebkitTextFillColor: 'transparent'
+                                    }}
+                                >
+                                    🖐 Hi there<br /> how can I help you today?
+                                </Typography>
+                                <Stack direction='row' justifyContent='center' flexWrap='wrap' gap={2} sx={{ mx: 'auto', maxWidth: '90%', mt: 2 }}>
+                                    <Chip clickable variant='outlined' color='primary' icon={<CodeRoundedIcon />} label="Code" />
+                                    <Chip variant='outlined' color='success' icon={<ArrowUp />} label="Summarize" />
+                                    <Chip variant='outlined' color='secondary' icon={<LocalDiningRoundedIcon />} label="Recipe" />
+                                    <Chip variant='outlined' color='info' icon={<FlightTakeoffRoundedIcon />} label="Travel" />
+                                    <Chip variant='outlined' color='error' icon={<MovieRoundedIcon />} label="Movies" />
+                                </Stack>
                             </Stack>
-                        </Stack>
-                    </Box> :
-                    <List sx={{ display: 'flex', gap: 2, flexDirection: 'column' }}>
-                        {conversation.map((content, _) => {
-                            return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
-                        })}
-                        {isLoading && <ChatLoader />}
-                        <Box ref={messagesEndRef} />
-                    </List>}
-                {/* <List sx={{ display: 'flex', gap: 2, flexDirection: 'column' }}>
-                    <Conversation candidate={'bot'} response={sample} timeStamp={''} />
-                </List> */}
+                        </Box> :
+                        <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2 }}>
+                            {conversation.map((content, _) => {
+                                return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
+                            })}
+                            {isLoading && <ChatLoader />}
+                            <Box ref={messagesEndRef} />
+                        </List>}
+                </>}
             </Container>
             {/* <ChatContainer /> */}
             <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>

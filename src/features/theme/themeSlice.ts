@@ -7,7 +7,8 @@ type initialProps = {
     fontFamily: string,
     variant: string,
     primaryColor: string,
-    mode: 'dark' | 'light' | 'system'
+    mode: 'dark' | 'light' | 'system',
+    preview: boolean
 }
 
 const initialState: initialProps = {
@@ -15,7 +16,8 @@ const initialState: initialProps = {
     borderRadius: 6,
     mode: (mode === 'dark' || mode === 'light' || mode === 'system') ? mode : 'system',
     variant: 'middle',
-    primaryColor: '#23a8fa'
+    primaryColor: '#23a8fa',
+    preview: false
 }
 
 const themeSlice = createSlice({
@@ -26,9 +28,13 @@ const themeSlice = createSlice({
             const { payload } = action
             state.mode = payload;
             localStorage.setItem('mode', payload);
+        },
+        togglePreview: (state, action: { payload: boolean, type: string }) => {
+            const { payload } = action
+            state.preview = payload;
         }
     }
 })
 
-export const { toggleMode } = themeSlice.actions;
+export const { toggleMode, togglePreview } = themeSlice.actions;
 export default themeSlice.reducer;
