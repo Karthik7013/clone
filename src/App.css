@@ -82,7 +82,10 @@
 }
 
 .chat-bot-readme li {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.255rem;
+}
+.language-label {
+    font-weight: bold;
 }
 
 

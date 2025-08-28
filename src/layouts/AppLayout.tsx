@@ -155,40 +155,40 @@ const AppLayout = () => {
 
 
     const CodeBlock = ({ inline, className, children, ...props }: CodeProps) => {
-
         const [copied, setCopied] = useState(false);
-        const code = String(children).replace(/\n$/, "");
+        const code = React.Children.toArray(children)
+            .map((child) => (typeof child === "string" ? child : ""))
+            .join("")
+            .replace(/\n$/, "");
 
-        // Extract the language from className (e.g. "language-bash")
+        // Extract language (null-safe)
         const match = /language-(\w+)/.exec(className || "");
-        const language = match ? match[1] : "text";
+        const language = match?.[1] ?? "text";
+
         const handleCopy = () => {
             navigator.clipboard.writeText(code);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         };
+        if (inline) return <code className={className} {...props}>{children}</code>
 
-        return !inline ? (
-            <div className={`code-block-wrapper ${className}`} >
-                <div className="code-block-header"
-                    style={{
-                        backgroundColor: muiTheme.palette.divider
-                    }}>
-                    <span className="language-label">{language}</span>
-                    <Box>
-
-
-                        <Button onClick={handleCopy} startIcon={copied ? <CheckRoundedIcon /> : <ContentCopyRoundedIcon />} size='small'>{copied ? "Copied!" : "Copy"}</Button>
-                        <Button size='small'>Edit</Button>
-                    </Box>
-                </div>
-                <pre {...props}>
-                    <code className={className}>{code}</code>
-                </pre>
-            </div >
-        ) : (
-            <code className={className} {...props}>{children}</code>
-        );
+        return <div className={`code-block-wrapper ${className}`} >
+            <div className="code-block-header"
+                style={{
+                    backgroundColor: muiTheme.palette.divider
+                }}>
+                <Typography sx={{
+                    color: muiTheme.palette.text.disabled
+                }} as='span'>{language}</Typography>
+                <Box>
+                    <Button onClick={handleCopy} startIcon={copied ? <CheckRoundedIcon /> : <ContentCopyRoundedIcon />} size='small'>{copied ? "Copied!" : "Copy"}</Button>
+                    <Button size='small'>Edit</Button>
+                </Box>
+            </div>
+            <pre {...props}>
+                <code className={className}>{code}</code>
+            </pre>
+        </div >
     };
 
     const Conversation = ({ candidate, response }: conversationProps) => {
