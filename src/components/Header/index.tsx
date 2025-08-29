@@ -1,12 +1,11 @@
 import { Box, Toolbar, useMediaQuery, useTheme } from "@mui/material";
-import GeminiIcon from "../../assets/icons/GeminiIcon";
-import Typography from "../ui/Typography";
 import IconButton from "../ui/IconButton";
 import MessageCircleDashed from "../../assets/icons/message-circle-dashed";
 import Helmet from "react-helmet";
 import { useState } from "react";
 import Sidebar from "../Sidebar";
 import SideMenu from "../../assets/icons/side-menu";
+import { GeminiText } from "../../assets/icons/GeminiText";
 const Header = () => {
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
@@ -21,11 +20,12 @@ const Header = () => {
                 <SideMenu />
             </IconButton>}
             <Box flexGrow={1} display='flex' gap={2} justifyContent={isMobile ? 'center' : 'flex-start'}>
-                <GeminiIcon />
-                <Typography variant='h6' fontWeight={500}>Gemini AI</Typography>
+                <GeminiText sx={{
+                    width: 'fit-content'
+                }} />
             </Box>
 
-            <IconButton onClick={handleDrawer}>
+            <IconButton>
                 <MessageCircleDashed />
             </IconButton>
 

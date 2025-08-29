@@ -1,41 +1,25 @@
-import { Avatar, Box, Button, CardContent, Divider, Drawer, Stack, Toolbar, Typography } from "@mui/material";
-import WeatherWidget from "../Widgets/weather";
+import { Avatar, Box, Button, CardContent, Divider, Drawer, Stack, Toolbar } from "@mui/material";
 import DarkMode from "../Darkmode";
-import Video from "../Widgets/video";
 import ScrollContainer from "../Scrollbar/Scrollbar";
-import GeminiIcon from "../../assets/icons/GeminiIcon";
-
+import { GeminiText } from "../../assets/icons/GeminiText";
 type sidebarProps = {
     open: boolean,
     onClose: () => void
 }
 
 const Sidebar = (props: sidebarProps) => {
-    return <Drawer anchor='left' onClose={props.onClose} open={props.open}>
-        <Stack sx={{ height: "100dvh" }}>
+    return <Drawer anchor='left' onClose={props.onClose} open={props.open} >
+        <Stack sx={{ height: "100dvh", bgcolor: 'background.paper', width: '320px' }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Stack gap={1} direction={'row'}>
-                    <GeminiIcon />
-                    <Typography variant='h6' fontWeight={500}>Gemini AI</Typography>
+                    <GeminiText sx={{ width: '100%' }} />
                 </Stack>
                 <DarkMode />
             </Toolbar>
-            <Divider />
-            <ScrollContainer flexGrow={1} sx={{ bgcolor: 'background.paper' }} overflow={'auto'}>
+            <ScrollContainer flexGrow={1} overflow={'auto'}>
 
                 <CardContent>
-                    Weather Tool
-                    <WeatherWidget />
-                    Video Tool
-                    <Video />
-                    Weather Tool
-                    <WeatherWidget />
-                    Video Tool
-                    <Video />
-                    Weather Tool
-                    <WeatherWidget />
-                    Video Tool
-                    <Video />
+
 
                 </CardContent>
             </ScrollContainer>
