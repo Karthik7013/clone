@@ -264,7 +264,7 @@ const AppLayout = () => {
 
     return (
         <Scrollbar
-            component='form' onSubmit={handleSubmit(onHandleSubmit)} sx={{ height: '100dvh', position: 'relative', overflowY: 'auto', display: 'flex', flexDirection: "column" }} mode={muiTheme.palette.mode}>
+            component='form' onSubmit={handleSubmit(onHandleSubmit)} sx={{ height: '100dvh', position: 'relative', overflowY: 'auto', display: 'flex', flexDirection: "column" }}>
             <Header />
             <Container maxWidth="md" sx={{
                 flexGrow: 1
@@ -327,7 +327,7 @@ const AppLayout = () => {
                             : "An error occurred while processing your request."}
                     </Alert>
                 </Collapse>
-                <Card elevation={0} sx={{borderRadius:5, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
+                <Card elevation={0} sx={{ borderRadius: 5, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
                     <CardContent sx={{
                         display: 'flex',
                         flexDirection: 'column',
