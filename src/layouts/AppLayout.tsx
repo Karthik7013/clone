@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Box, CardContent, Chip, Collapse, Container, List, ListItem, Skeleton, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Alert, Box, CardActionArea, CardContent, Chip, Collapse, Container, List, ListItem, Skeleton, Stack, useMediaQuery, useTheme } from '@mui/material';
 // custom components
 import Card from "../components/ui/Card"
 import Typography from "../components/ui/Typography"
@@ -218,14 +218,17 @@ const AppLayout = () => {
                         </CardContent>
                     </Box>}
                 {(candidate === 'user') &&
-                    <Card elevation={0} sx={{ p: 1.5, borderTopRightRadius: 0, maxWidth: '320px' }}>
-                        <Typography noWrap={false} variant='body2'
-                            sx={{
-                                whiteSpace: 'pre-wrap', // This preserves line breaks
-                                wordWrap: 'break-word'
-                            }}
-                        >{response}</Typography>
-                    </Card>
+
+                    <CardActionArea sx={{ cursor: 'initial', maxWidth: '320px', width: 'fit-content' }}>
+                        <Card elevation={0} sx={{ p: 1.5 }}>
+                            <Typography noWrap={false} variant='body2'
+                                sx={{
+                                    whiteSpace: 'pre-wrap', // This preserves line breaks
+                                    wordWrap: 'break-word'
+                                }}
+                            >{response}</Typography>
+                        </Card>
+                    </CardActionArea>
                 }
             </ListItem>
         )
@@ -303,7 +306,6 @@ const AppLayout = () => {
                     </List>}
 
             </Container>
-            {/* <ChatContainer /> */}
             <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
                 <Collapse in={Boolean(errorVisible)} unmountOnExit orientation='vertical'>
                     <Alert
@@ -325,10 +327,14 @@ const AppLayout = () => {
                             : "An error occurred while processing your request."}
                     </Alert>
                 </Collapse>
-                <Card elevation={0} sx={{ borderRadius: '26px', boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
+                <Card elevation={0} sx={{borderRadius:5, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
                     <CardContent sx={{
                         display: 'flex',
                         flexDirection: 'column',
+                        padding: 1,
+                        '&:last-child': { // Targeting the last child
+                            paddingBottom: 1 // Remove bottom padding specifically
+                        }
                     }}>
                         <Collapse in={Boolean(file)} orientation='vertical'>
                             {file && <Card sx={{ maxWidth: 'fit-content', mb: 2, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', position: 'relative' }}>
@@ -359,22 +365,6 @@ const AppLayout = () => {
                             </Card>}
                         </Collapse>
                         <Box>
-                            {/* <Box
-                                component="div"
-                                ref={contentRef}
-                                contentEditable
-                                onInput={handleInput}
-                                sx={{
-                                    padding: '10px',
-                                    maxHeight: 300,
-                                    outline: 'none',
-                                    overflow: 'auto',
-                                    whiteSpace: 'pre-wrap', // Preserves line breaks
-                                }}
-                                suppressContentEditableWarning
-                            >
-                                Ask anything.
-                            </Box> */}
                             <Controller
                                 name="t"
                                 control={control}
@@ -407,61 +397,6 @@ const AppLayout = () => {
                                 )}
                             />
                             <Stack direction='row' alignItems={'center'} gap={1}>
-                                {/* <Controller
-                                name="t"
-                                control={control}
-                                rules={{ required: 'Ask Something !' }}
-                                render={({ field }) => (
-                                    <TextField
-                                        sx={{
-                                            flex: 1,
-                                            '& .MuiInputBase-root': {
-                                                border: 'none',
-                                            },
-                                            '& .MuiInput-root:before, & .MuiInput-root:after': {
-                                                display: 'none', // removes default underline from 'standard' variant
-                                            },
-                                        }}
-                                        placeholder='Ask anything'
-                                        multiline
-                                        size='small'
-                                        maxRows={16}
-                                        variant="standard"
-                                        value={field.value}
-                                        onChange={field.onChange}
-                                        onBlur={field.onBlur}
-                                        name={field.name}
-                                        inputRef={field.ref}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <Upload setValue={setValue} />
-                                                </InputAdornment>
-                                            ),
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-
-                                                    {(t === '' && !isLoading) ? <IconButton color='primary'>
-                                                        <AudioLines />
-                                                    </IconButton> :
-                                                        <IconButton
-                                                            sx={{ borderRadius }}
-
-                                                            type='submit'
-                                                            disabled={isLoading}
-                                                        >
-                                                            {isLoading ? (
-                                                                <StopCircleRoundedIcon color='action' />
-                                                            ) : (
-                                                                <ArrowUp />
-                                                            )}
-                                                        </IconButton>}
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                    />
-                                )}
-                            /> */}
                                 <Box>
                                     <Upload setValue={setValue} />
                                 </Box>
