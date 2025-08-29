@@ -34,18 +34,13 @@ import { useSendMessageMutation } from '../features/chatbot/chatbotApi';
 import { pushMessage } from '../features/chatbot/chatbotSlice';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
-
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
 import Markdown from 'react-markdown';
-
-// import GoogleButton from '../GoogleButton';
 import Upload from '../components/Upload';
 import Header from '../components/Header';
 import Scrollbar from '../components/Scrollbar/Scrollbar';
-// import ChatContainer from '../ChatContainer';
-// import { GeminiText } from '../../assets/icons/GeminiText';
 
 type conversationProps = {
     candidate: 'user' | 'bot',
@@ -87,9 +82,6 @@ const AppLayout = () => {
     const contentRef = useRef<HTMLDivElement>(null);
 
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
-    // const isTablet = useMediaQuery(muiTheme.breakpoints.between("sm", "md"));
-    // const isDesktop = useMediaQuery(muiTheme.breakpoints.up("md"));
-
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [errorVisible, setErrorVisible] = React.useState<undefined | FetchBaseQueryError | SerializedError | undefined>(undefined);
