@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Box, CardActionArea, CardContent, Chip, Collapse, Container, List, ListItem, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Alert, Box, CardActionArea, CardContent, Collapse, Container, List, ListItem, Snackbar, Stack, useMediaQuery, useTheme } from '@mui/material';
 // custom components
 import Card from "../components/ui/Card"
 import Typography from "../components/ui/Typography"
@@ -13,10 +13,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 
 import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
-import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
-import LocalDiningRoundedIcon from '@mui/icons-material/LocalDiningRounded';
-import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
-import MovieRoundedIcon from '@mui/icons-material/MovieRounded';
+
 import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
@@ -74,6 +71,7 @@ function isFetchBaseQueryError(
 
 import { ComponentPropsWithoutRef } from "react";
 import ChatLoader from '../components/ChatLoader';
+import Hero from '../components/Hero';
 
 type CodeProps = ComponentPropsWithoutRef<"code"> & {
     inline?: boolean;
@@ -226,8 +224,6 @@ const AppLayout = () => {
         )
     }
 
-
-
     const handleClose = () => setErrorVisible(undefined)
 
     const handleInput = () => {
@@ -245,38 +241,31 @@ const AppLayout = () => {
         <Scrollbar
             component='form' onSubmit={handleSubmit(onHandleSubmit)} sx={{ height: '100dvh', position: 'relative', overflowY: 'auto', display: 'flex', flexDirection: "column" }}>
             <Header />
+            <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+                <Snackbar sx={{ position: 'absolute' }} open={Boolean(errorVisible)}
+                    onClose={handleClose}
+                    autoHideDuration={2000} anchorOrigin={{
+                        horizontal: 'center',
+                        vertical: 'top'
+                    }}>
+                    <Alert action={
+                        <Button size="small" onClick={handleClose} color="inherit">
+                            Close
+                        </Button>
+                    } severity='error' variant='filled' sx={{ maxWidth: 'fit-content', margin: 'auto', borderRadius: '1em' }}>{(isFetchBaseQueryError(error) &&
+                        typeof error.data === 'object' &&
+                        error.data !== null &&
+                        'message' in error.data &&
+                        typeof error.data.message === 'string')
+                        ? error.data.message
+                        : "An error occurred while processing your request."}</Alert>
+                </Snackbar>
+            </Box>
             <Container maxWidth="md" sx={{
                 flexGrow: 1
             }}>
-
-
-
-
-
                 {!conversation.length ?
-                    <Box height={'100%'} display='flex' margin={'auto'} alignItems='center' flexDirection='column' justifyContent='space-between'>
-                        <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
-                            <Typography
-                                variant="h5"
-                                fontWeight={600}
-                                textAlign="center"
-                                sx={{
-                                    background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent'
-                                }}
-                            >
-                                🖐 Hi there<br /> how can I help you today?
-                            </Typography>
-                            <Stack direction='row' justifyContent='center' flexWrap='wrap' gap={2} sx={{ mx: 'auto', maxWidth: '90%', mt: 2 }}>
-                                <Chip clickable variant='outlined' color='primary' icon={<CodeRoundedIcon />} label="Code" />
-                                <Chip variant='outlined' color='success' icon={<ArrowUp />} label="Summarize" />
-                                <Chip variant='outlined' color='secondary' icon={<LocalDiningRoundedIcon />} label="Recipe" />
-                                <Chip variant='outlined' color='info' icon={<FlightTakeoffRoundedIcon />} label="Travel" />
-                                <Chip variant='outlined' color='error' icon={<MovieRoundedIcon />} label="Movies" />
-                            </Stack>
-                        </Stack>
-                    </Box> :
+                    <Hero /> :
                     <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2 }}>
                         {conversation.map((content, _) => {
                             return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
@@ -288,31 +277,9 @@ const AppLayout = () => {
                     <Conversation candidate={'bot'} response={
                         '`jsonb const x = 10`'
                     } timeStamp={''} />
-
-
                 </List> */}
             </Container>
             <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
-                <Collapse in={Boolean(errorVisible)} unmountOnExit orientation='vertical'>
-                    <Alert
-                        variant="filled"
-                        severity="error"
-                        sx={{ width: '100%', borderRadius, mb: 0.5 }}
-                        action={
-                            <Button size="small" onClick={handleClose} color="inherit">
-                                Close
-                            </Button>
-                        }
-                    >
-                        {(isFetchBaseQueryError(error) &&
-                            typeof error.data === 'object' &&
-                            error.data !== null &&
-                            'message' in error.data &&
-                            typeof error.data.message === 'string')
-                            ? error.data.message
-                            : "An error occurred while processing your request."}
-                    </Alert>
-                </Collapse>
                 <Card elevation={0} sx={{ borderRadius: 5, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
                     <CardContent sx={{
                         display: 'flex',
