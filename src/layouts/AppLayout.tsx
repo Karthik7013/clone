@@ -26,7 +26,7 @@ import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 // custom icons
 import AudioLines from '../assets/icons/audio-lines';
-import GeminiIcon from '../assets/icons/GeminiIcon';
+// import GeminiIcon from '../assets/icons/GeminiIcon';
 import ArrowUp from '../assets/icons/arrow-up';
 
 import { AppDispatch, RootState } from '../store/store';
@@ -73,7 +73,7 @@ function isFetchBaseQueryError(
 }
 
 import { ComponentPropsWithoutRef } from "react";
-import ChatLoader from '../components/ChatLoad';
+import ChatLoader from '../components/ChatLoader';
 
 type CodeProps = ComponentPropsWithoutRef<"code"> & {
     inline?: boolean;
@@ -195,7 +195,7 @@ const AppLayout = () => {
                         width: '100%'
                     }}>
                         <CardContent>
-                            <GeminiIcon />
+
                             <Box className="chat-bot-readme">
                                 <Markdown
                                     components={{
@@ -246,7 +246,7 @@ const AppLayout = () => {
             <Container maxWidth="md" sx={{
                 flexGrow: 1
             }}>
-                
+
 
 
 
