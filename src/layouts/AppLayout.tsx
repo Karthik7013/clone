@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { sendMessageStream } from '../features/chatbot/chatbotApi';
+import React, { ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react';
 import { Alert, Box, CardActionArea, CardContent, Collapse, Container, List, ListItem, Snackbar, Stack, useMediaQuery, useTheme } from '@mui/material';
 // custom components
 import Card from "../components/ui/Card"
@@ -27,10 +28,6 @@ import AudioLines from '../assets/icons/audio-lines';
 import ArrowUp from '../assets/icons/arrow-up';
 
 import { AppDispatch, RootState } from '../store/store';
-import { useSendMessageMutation } from '../features/chatbot/chatbotApi';
-import { pushMessage } from '../features/chatbot/chatbotSlice';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { SerializedError } from '@reduxjs/toolkit';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
@@ -38,12 +35,7 @@ import Markdown from 'react-markdown';
 import Upload from '../components/Upload';
 import Header from '../components/Header';
 import Scrollbar from '../components/Scrollbar/Scrollbar';
-
-type conversationProps = {
-    candidate: 'user' | 'bot',
-    response: string,
-    timeStamp: string
-}
+import Hero from '../components/Hero';
 
 export type file = {
     filename: string,
@@ -58,67 +50,42 @@ export interface BotSubmitType {
     file?: file | undefined
 }
 
-function isFetchBaseQueryError(
-    error: unknown
-): error is FetchBaseQueryError {
-    return (
-        typeof error === 'object' &&
-        error !== null &&
-        'status' in error &&
-        'data' in error
-    );
-}
-
-import { ComponentPropsWithoutRef } from "react";
-import ChatLoader from '../components/ChatLoader';
-import Hero from '../components/Hero';
-
 type CodeProps = ComponentPropsWithoutRef<"code"> & {
     inline?: boolean;
 };
+
 const AppLayout = () => {
+    const dispatch: AppDispatch = useDispatch();
     const muiTheme = useTheme();
-    const contentRef = useRef<HTMLDivElement>(null);
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
+    const contentRef = useRef<HTMLDivElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const [errorVisible, setErrorVisible] = React.useState<undefined | FetchBaseQueryError | SerializedError | undefined>(undefined);
     const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius)
-    const dispatch: AppDispatch = useDispatch()
     const { handleSubmit, control, watch, setValue, reset } = useForm<BotSubmitType>({
         defaultValues: {
             t: '',
             file: undefined
         }
     })
+    const { messages, isLoading, error } = useSelector((state: RootState) => state.chat);
+
+
     const file = watch('file');
     const t = watch('t');
-    const conversation = useSelector((state: RootState) => state.chatbotReducer.conversation);
-    const [handleSendMessage, { isLoading, error }] = useSendMessageMutation();
+
+
     const onHandleSubmit: SubmitHandler<BotSubmitType> = async (data) => {
-        dispatch(pushMessage({
-            canditate: 'user',
-            t: data.t
-        }));
         try {
             if (contentRef.current) {
                 contentRef.current.textContent = '';
             }
             setValue('t', '', { shouldValidate: false });
-            const result = await handleSendMessage(data).unwrap();
-            dispatch(pushMessage({
-                canditate: 'bot',
-                t: result.data.response,
-                timeStamp: result.data.timeStamp
-            }));
+            dispatch(sendMessageStream(data));
         } catch (err) {
             console.log(err)
         }
     };
-    const scrollToBottom = () => {
-        if (messagesEndRef?.current?.scrollIntoView) {
-            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
+
 
     useEffect(() => {
         // Remove old theme if exists
@@ -139,12 +106,23 @@ const AppLayout = () => {
         document.head.appendChild(link);
     }, [muiTheme.palette.mode]);
 
+    const scrollToBottom = () => {
+        if (messagesEndRef?.current?.scrollIntoView) {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
     useEffect(() => {
         scrollToBottom();
-    }, [conversation]);
-    useEffect(() => {
-        setErrorVisible(error);
-    }, [error]);
+    }, [messages]);
+    const handleInput = () => {
+        const text = contentRef.current?.textContent || '';
+        setValue('t', text, { shouldValidate: true });
+    };
+    const handleFocus = () => {
+        if (contentRef.current?.textContent === 'Ask anything.') {
+            contentRef.current.textContent = '';
+        }
+    };
 
     const CodeBlock = ({ inline, className, children, ...props }: CodeProps) => {
         const [copied, setCopied] = useState(false);
@@ -183,7 +161,9 @@ const AppLayout = () => {
         </div>
     };
 
-    const Conversation = ({ candidate, response }: conversationProps) => {
+
+
+    const Conversation = ({ candidate, response }: { candidate: 'user' | 'assistant', response: string }) => {
         return (
             <ListItem sx={{
                 display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end'
@@ -224,61 +204,147 @@ const AppLayout = () => {
         )
     }
 
-    const handleClose = () => setErrorVisible(undefined)
-
-    const handleInput = () => {
-        const text = contentRef.current?.textContent || '';
-        setValue('t', text, { shouldValidate: true });
-    };
-    const handleFocus = () => {
-        if (contentRef.current?.textContent === 'Ask anything.') {
-            contentRef.current.textContent = '';
-        }
-    };
-
 
     return (
         <Scrollbar
             component='form' onSubmit={handleSubmit(onHandleSubmit)} sx={{ height: '100dvh', position: 'relative', overflowY: 'auto', display: 'flex', flexDirection: "column" }}>
             <Header />
             <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
-                <Snackbar sx={{ position: 'absolute' }} open={Boolean(errorVisible)}
-                    onClose={handleClose}
+                <Snackbar sx={{ position: 'absolute' }} open={Boolean(error)}
+                    // onClose={handleClose}
                     autoHideDuration={2000} anchorOrigin={{
                         horizontal: 'center',
                         vertical: 'top'
                     }}>
                     <Alert action={
-                        <Button size="small" onClick={handleClose} color="inherit">
+                        <Button size="small"
+                            // onClick={handleClose}
+                            color="inherit">
                             Close
                         </Button>
-                    } severity='error' variant='filled' sx={{ maxWidth: 'fit-content', margin: 'auto', borderRadius: '1em' }}>{(isFetchBaseQueryError(error) &&
-                        typeof error.data === 'object' &&
-                        error.data !== null &&
-                        'message' in error.data &&
-                        typeof error.data.message === 'string')
-                        ? error.data.message
-                        : "An error occurred while processing your request."}</Alert>
+                    } severity='error' variant='filled' sx={{ maxWidth: 'fit-content', margin: 'auto', borderRadius: '1em' }}>{error?.message}</Alert>
                 </Snackbar>
             </Box>
             <Container maxWidth="md" sx={{
                 flexGrow: 1
             }}>
-                {!conversation.length ?
+                {/* <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2 }}>
+                    {
+                        messages.map((message, index) => {
+                            return <div key={index}>
+                                <strong>{message.type}:</strong> {message.message}
+                            </div>
+                        })
+                    }
+                    <Box ref={messagesEndRef} />
+                </List> */}
+                {!messages.length ?
                     <Hero /> :
                     <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2 }}>
-                        {conversation.map((content, _) => {
-                            return <Conversation key={_} candidate={content.candidate} response={content.response} timeStamp={content.timeStamp} />
+                        {messages.map((message, _) => {
+                            return <Conversation key={_} candidate={message.type} response={message.message} />
                         })}
-                        {isLoading && <ChatLoader />}
                         <Box ref={messagesEndRef} />
                     </List>}
-                {/* <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2 }}>
-                    <Conversation candidate={'bot'} response={
-                        '`jsonb const x = 10`'
-                    } timeStamp={''} />
-                </List> */}
             </Container>
+            {/* <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
+                <Card elevation={0} sx={{ borderRadius: 5, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
+                    <CardContent sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        padding: 1,
+                        '&:last-child': { // Targeting the last child
+                            paddingBottom: 1 // Remove bottom padding specifically
+                        }
+                    }}>
+                        <Collapse in={Boolean(file)} orientation='vertical'>
+                            {file && <Card sx={{ maxWidth: 'fit-content', mb: 2, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', position: 'relative' }}>
+                                <Box height={56} minWidth={56} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
+
+                                    {file.thumb_url ? <img width={'100%'} height={'100%'} src={file.thumb_url} alt={':('} />
+                                        : <DescriptionRoundedIcon />}
+                                </Box>
+                                <Stack direction={'row'} gap={1} flexGrow={1} padding={1}>
+                                    <Box
+                                        flexGrow={1} display={'flex'} flexDirection={'column'}>
+                                        <Typography sx={{
+                                            display: "inline-block",   // or "block"
+                                            maxWidth: 100,             // 👈 adjust based on your layout
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis",
+                                            whiteSpace: "nowrap",
+                                        }}>{file.filename}</Typography>
+                                        <Typography variant='caption'>{file.size_formatted}</Typography>
+                                    </Box>
+                                    <Box onClick={() => reset({
+                                        file: undefined
+                                    })}>
+                                        <CancelRoundedIcon fontSize='small' color='error' sx={{ cursor: 'pointer', mt: 1 }} />
+                                    </Box>
+                                </Stack>
+
+                            </Card>}
+                        </Collapse>
+                        <Box>
+                            <Controller
+                                name="t"
+                                control={control}
+                                rules={{
+                                    validate: value => {
+                                        const trimmedValue = value?.trim();
+                                        return trimmedValue && trimmedValue !== 'Ask anything.' || 'Ask Something!';
+                                    }
+                                }}
+                                render={() => (
+                                    <Box
+                                        component="div"
+                                        ref={contentRef}
+                                        contentEditable
+                                        onInput={handleInput}
+                                        onFocus={handleFocus}
+                                        sx={{
+                                            padding: '12px',
+                                            borderRadius: 1,
+                                            minHeight: 48,
+                                            maxHeight: 300,
+                                            outline: 'none',
+                                            overflow: 'auto',
+                                            whiteSpace: 'pre-wrap',
+                                        }}
+                                        suppressContentEditableWarning
+                                    >
+                                        Ask anything.
+                                    </Box>
+                                )}
+                            />
+                            <Stack direction='row' alignItems={'center'} gap={1}>
+                                <Box>
+                                    <Upload setValue={setValue} />
+                                </Box>
+                                <Box flexGrow={1}>
+
+                                </Box>
+                                <Box>
+
+                                    <IconButton
+                                        sx={{ borderRadius }}
+
+                                        type='submit'
+                                    >
+                                        <ArrowUp />
+                                    </IconButton>
+                                </Box>
+                            </Stack>
+                        </Box>
+                    </CardContent>
+                </Card>
+                <Box sx={{ textAlign: 'center', bgcolor: 'background.paper' }}>
+                    <Typography variant='caption' color='text.secondary' >Gemini can make mistakes.read the policies</Typography>
+                </Box>
+            </Container> */}
+
+
+
             <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
                 <Card elevation={0} sx={{ borderRadius: 5, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
                     <CardContent sx={{

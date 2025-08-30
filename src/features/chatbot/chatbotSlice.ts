@@ -1,37 +1,55 @@
-import { createSlice } from "@reduxjs/toolkit";
+// actions/chatActions.js or inside your slice
+import { createSlice } from '@reduxjs/toolkit';
 
 
-type conversation = {
-    response: string,
-    candidate: 'bot' | 'user',
-    timeStamp: string
-}
 type initialProps = {
-    loading: boolean,
-    conversation: conversation[]
+    messages: { type: 'user' | 'assistant', message: string }[] | [],
+    isLoading: boolean,
+    error: null | Error
 }
-
 const initialState: initialProps = {
-    loading: false,
-    conversation: []
+    error: null,
+    isLoading: false,
+    messages: []
 }
 
-const chatbotSlice = createSlice({
-    name: 'chatbot',
+const chatSlice = createSlice({
+    name: 'chat',
     initialState,
     reducers: {
-        pushMessage: (state, action: { payload: { t: string, canditate: 'user' | 'bot', timeStamp?: string }, type: string }) => {
-            const { payload } = action
-            state.conversation.push(
-                {
-                    response: payload.t,
-                    candidate: payload.canditate,
-                    timeStamp: payload.timeStamp || new Date().toISOString()
-                }
-            )
-        }
-    }
-})
+        addMessage: (state, action: { payload: { type: 'user' | 'assistant', message: string } }) => {
+            const { payload } = action;
+            state.messages.push(payload)
+        },
+        startStreaming: (state) => {
+            state.isLoading = true;
+            state.error = null;
+        },
+        streamChunk: (state, action) => {
+            const { payload } = action;
+            const lastMsg = state.messages[state.messages.length - 1];
+            if (lastMsg && lastMsg.type === 'assistant') {
+                lastMsg.message += payload;
+            } else {
+                state.messages.push({ type: 'assistant', message: payload });
+            }
+        },
+        streamComplete: (state) => {
+            state.isLoading = false;
+        },
+        streamError: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+    },
+});
 
-export const { pushMessage } = chatbotSlice.actions;
-export default chatbotSlice.reducer;
+export const {
+    addMessage,
+    startStreaming,
+    streamChunk,
+    streamComplete,
+    streamError,
+} = chatSlice.actions;
+
+export default chatSlice.reducer;
