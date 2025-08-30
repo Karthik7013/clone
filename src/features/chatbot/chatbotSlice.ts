@@ -2,8 +2,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 
+type Message = { type: 'user' | 'assistant', message: string };
+
 type initialProps = {
-    messages: { type: 'user' | 'assistant', message: string }[] | [],
+    messages: Message[],
     isLoading: boolean,
     error: null | Error
 }
@@ -25,7 +27,7 @@ const chatSlice = createSlice({
             state.isLoading = true;
             state.error = null;
         },
-        streamChunk: (state, action) => {
+        streamChunk: (state, action: { payload: string }) => {
             const { payload } = action;
             const lastMsg = state.messages[state.messages.length - 1];
             if (lastMsg && lastMsg.type === 'assistant') {
