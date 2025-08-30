@@ -162,7 +162,7 @@ const AppLayout = () => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         };
-        if (language === 'text' && inline) return <code style={{
+        if (language === 'text' && !inline) return <code style={{
             backgroundColor: muiTheme.palette.divider, padding: '0.2em 0.5em', borderRadius: '4px'
         }} className={className} {...props}>{children}</code>
 
