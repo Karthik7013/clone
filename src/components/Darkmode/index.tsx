@@ -9,7 +9,7 @@ const DarkMode: React.FC = () => {
     const mode = useSelector((state: RootState) => state.themeReducer.mode);
     const handleChange = (event: SelectChangeEvent<"light" | "dark" | "system" | unknown>) => dispatch(toggleMode(event.target.value as "light" | "dark" | "system"));
     return (
-        <Select size='small' value={mode} onChange={handleChange}>
+        <Select fullWidth size='small' value={mode} onChange={handleChange}>
             <MenuItem value="light">Light</MenuItem>
             <MenuItem value="dark">Dark</MenuItem>
             <MenuItem value="system">System</MenuItem>

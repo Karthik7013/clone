@@ -3,7 +3,7 @@ import { Avatar, CircularProgress, Stack } from "@mui/material";
 import Button from "../ui/Button";
 import { Google } from '@mui/icons-material';
 
-const LoginButton = () => {
+const GoogleButton = () => {
     const { loginWithRedirect, isAuthenticated, user, logout, isLoading } = useAuth0();
     console.log(user);
     const handleLogout = () => {
@@ -38,4 +38,4 @@ const LoginButton = () => {
         )}
     </div >
 };
-export default LoginButton;
+export default GoogleButton;

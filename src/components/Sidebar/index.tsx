@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, CardContent, Divider, Drawer, List, ListItem, ListItemButton, ListItemText, Stack, Toolbar, useTheme } from "@mui/material";
+import { Avatar, Box, CardContent, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, useTheme } from "@mui/material";
 import DarkMode from "../Darkmode";
 import ScrollContainer from "../Scrollbar/Scrollbar";
 import { GeminiText } from "../../assets/icons/GeminiText";
@@ -7,6 +7,8 @@ import Edit from "../../assets/icons/edit";
 import WorkFlow from "../../assets/icons/workflow";
 import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
+import PannelLeft from "../../assets/icons/pannel-left";
+import DownUp from "../../assets/icons/up-down";
 type sidebarProps = {
     open: boolean,
     onClose: () => void
@@ -25,7 +27,10 @@ const Sidebar = (props: sidebarProps) => {
                 <Stack gap={1} direction={'row'}>
                     <GeminiText sx={{ width: '100%' }} />
                 </Stack>
-                <DarkMode />
+                <Box>
+                    <IconButton size="small" onClick={props.onClose}><PannelLeft fontSize="inherit" /></IconButton>
+                </Box>
+
             </Toolbar>
             <ScrollContainer flexGrow={1} overflow={'auto'}>
                 <List dense sx={{ position: 'sticky', top: 0, left: 0, background: theme.palette.background.paper, zIndex: 99 }}>
@@ -55,8 +60,6 @@ const Sidebar = (props: sidebarProps) => {
                     </ListItem>
                 </List>
                 <CardContent>
-
-
                     <List dense subheader="Chats">
                         {Array.from({ length: 20 }, (_, i) => (
                             <ListItem key={i} secondaryAction={<MoreHorizRoundedIcon />}>
@@ -64,15 +67,20 @@ const Sidebar = (props: sidebarProps) => {
                             </ListItem>
                         ))}
                     </List>
+                    <DarkMode />
                 </CardContent>
             </ScrollContainer>
-            <Divider />
-            <Toolbar sx={{ justifyContent: 'space-between' }}>
-                <Box>
-                    <Avatar src="https://avatar.iran.liara.run/public">K</Avatar>
-                </Box>
-                <Button color="error" variant="contained">Logout</Button>
-            </Toolbar>
+            <Divider variant="middle" />
+            <Box sx={{ p: 1 }}>
+                <ListItemButton>
+                    <ListItem disableGutters disablePadding secondaryAction={<DownUp fontSize="inherit" />}>
+                        <ListItemIcon sx={{ mr: 1 }}>
+                            <Avatar src="https://avatar.iran.liara.run/public">K</Avatar>
+                        </ListItemIcon>
+                        <ListItemText secondary="karthiktumala143@gmail.com" primary="Karthik" />
+                    </ListItem>
+                </ListItemButton>
+            </Box>
 
         </Stack>
     </Drawer>

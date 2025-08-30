@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Box, CardActionArea, CardContent, Chip, Collapse, Container, List, ListItem, Skeleton, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Alert, Box, CardActionArea, CardContent, Chip, Collapse, Container, List, ListItem, Stack, useMediaQuery, useTheme } from '@mui/material';
 // custom components
 import Card from "../components/ui/Card"
 import Typography from "../components/ui/Typography"
@@ -73,6 +73,7 @@ function isFetchBaseQueryError(
 }
 
 import { ComponentPropsWithoutRef } from "react";
+import ChatLoader from '../components/ChatLoad';
 
 type CodeProps = ComponentPropsWithoutRef<"code"> & {
     inline?: boolean;
@@ -80,9 +81,7 @@ type CodeProps = ComponentPropsWithoutRef<"code"> & {
 const AppLayout = () => {
     const muiTheme = useTheme();
     const contentRef = useRef<HTMLDivElement>(null);
-
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
-
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [errorVisible, setErrorVisible] = React.useState<undefined | FetchBaseQueryError | SerializedError | undefined>(undefined);
     const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius)
@@ -148,7 +147,6 @@ const AppLayout = () => {
     useEffect(() => {
         setErrorVisible(error);
     }, [error]);
-
 
     const CodeBlock = ({ className, children, ...props }: CodeProps) => {
         const [copied, setCopied] = useState(false);
@@ -226,19 +224,6 @@ const AppLayout = () => {
         )
     }
 
-    const ChatLoader = () => <ListItem>
-        <Box sx={{ borderRadius: '10px', overflowY: 'auto', width: '100%' }}>
-            <GeminiIcon />
-            <Box position='relative' mb={1}>
-                <Stack>
-                    <Skeleton animation="pulse" sx={{ p: 1 }}>Thinking...
-                    </Skeleton>
-                    <Skeleton animation="wave" width={'50%'} />
-                    <Skeleton animation="wave" width={'70%'} />
-                </Stack>
-            </Box>
-        </Box>
-    </ListItem>
 
 
     const handleClose = () => setErrorVisible(undefined)
@@ -261,6 +246,7 @@ const AppLayout = () => {
             <Container maxWidth="md" sx={{
                 flexGrow: 1
             }}>
+                
 
 
 

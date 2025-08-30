@@ -6,6 +6,7 @@ import { useState } from "react";
 import Sidebar from "../Sidebar";
 import SideMenu from "../../assets/icons/side-menu";
 import { GeminiText } from "../../assets/icons/GeminiText";
+// import GoogleButton from "../GoogleButton";
 const Header = () => {
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
@@ -28,6 +29,8 @@ const Header = () => {
             <IconButton>
                 <MessageCircleDashed />
             </IconButton>
+
+            {/* <GoogleButton /> */}
 
             <Sidebar open={open} onClose={handleDrawer} />
         </Toolbar>
