@@ -148,7 +148,7 @@ const AppLayout = () => {
         setErrorVisible(error);
     }, [error]);
 
-    const CodeBlock = ({ className, children, ...props }: CodeProps) => {
+    const CodeBlock = ({ inline, className, children, ...props }: CodeProps) => {
         const [copied, setCopied] = useState(false);
         const code = React.Children.toArray(children)
             .map((child) => (typeof child === "string" ? child : ""))
@@ -164,7 +164,9 @@ const AppLayout = () => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         };
-        if (language === 'text') return <code className={className} {...props}>{children}</code>
+        if (language === 'text' || inline) return <code style={{
+            backgroundColor: muiTheme.palette.divider, padding: '0.2em 0.5em', borderRadius: '4px'
+        }} className={className} {...props}>{children}</code>
 
         return <div className={`code-block-wrapper ${className}`} >
             <div className="code-block-header"
@@ -282,7 +284,13 @@ const AppLayout = () => {
                         {isLoading && <ChatLoader />}
                         <Box ref={messagesEndRef} />
                     </List>}
+                {/* <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2 }}>
+                    <Conversation candidate={'bot'} response={
+                        '`jsonb const x = 10`'
+                    } timeStamp={''} />
 
+
+                </List> */}
             </Container>
             <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
                 <Collapse in={Boolean(errorVisible)} unmountOnExit orientation='vertical'>

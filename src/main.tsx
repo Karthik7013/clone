@@ -8,6 +8,7 @@ if (import.meta.env.VITE_NODE_ENV === 'PRODUCTION') {
   console.warn = () => { };
   console.error = () => { };
 }
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <App />
 )
