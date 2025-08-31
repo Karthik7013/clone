@@ -9,6 +9,9 @@ import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import PannelLeft from "../../assets/icons/pannel-left";
 import DownUp from "../../assets/icons/up-down";
+import { AppDispatch } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { newChat } from "../../features/chatbot/chatbotSlice";
 type sidebarProps = {
     open: boolean,
     onClose: () => void
@@ -20,6 +23,14 @@ const generateRandomMessage = () => {
     return `${subjects[Math.floor(Math.random() * subjects.length)]} ${verbs[Math.floor(Math.random() * verbs.length)]} ${nouns[Math.floor(Math.random() * nouns.length)]}!`;
 };
 const Sidebar = (props: sidebarProps) => {
+    const dispatch: AppDispatch = useDispatch();
+
+
+    const handleNewChat = () => {
+        dispatch(newChat())
+        props.onClose()
+    };
+
     const theme = useTheme()
     return <Drawer anchor='left' onClose={props.onClose} open={props.open} >
         <Stack sx={{ height: "100dvh", bgcolor: 'background.paper', width: '320px' }}>
@@ -35,7 +46,7 @@ const Sidebar = (props: sidebarProps) => {
             <ScrollContainer flexGrow={1} overflow={'auto'}>
                 <List dense sx={{ position: 'sticky', top: 0, left: 0, background: theme.palette.background.paper, zIndex: 99 }}>
                     <ListItem>
-                        <ListItemButton >
+                        <ListItemButton onClick={handleNewChat}>
                             <Edit fontSize="inherit" sx={{ mr: 1 }} />
                             <ListItemText primary="New Chat" />
                         </ListItemButton>

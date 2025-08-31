@@ -43,6 +43,9 @@ const chatSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
+        newChat: (state) => {
+            state.messages = [];
+        }
     },
 });
 
@@ -52,6 +55,7 @@ export const {
     streamChunk,
     streamComplete,
     streamError,
+    newChat
 } = chatSlice.actions;
 
 export default chatSlice.reducer;
