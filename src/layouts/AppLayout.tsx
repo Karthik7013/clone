@@ -1,6 +1,6 @@
 import { sendMessageStream } from '../features/chatbot/chatbotApi';
 import React, { ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react';
-import { Alert, Box, CardActionArea, CardContent, Collapse, Container, Divider, List, ListItem, Paper, Snackbar, Stack, Table, useMediaQuery, useTheme, Link as MuiLink, CardMedia } from '@mui/material';
+import { Alert, Box, CardActionArea, CardContent, Collapse, Container, Divider, List, ListItem, Paper, Snackbar, Stack, Table, useMediaQuery, useTheme, Link as MuiLink, CardMedia, Toolbar, Switch } from '@mui/material';
 // custom components
 import Card from "../components/ui/Card"
 import Typography from "../components/ui/Typography"
@@ -26,6 +26,10 @@ import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import AudioLines from '../assets/icons/audio-lines';
 // import GeminiIcon from '../assets/icons/GeminiIcon';
 import ArrowUp from '../assets/icons/arrow-up';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import HeadphonesRoundedIcon from '@mui/icons-material/HeadphonesRounded';
+import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
+import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 
 import { AppDispatch, RootState } from '../store/store';
 import remarkGfm from 'remark-gfm';
@@ -55,6 +59,11 @@ type CodeProps = ComponentPropsWithoutRef<"code"> & {
 };
 
 const AppLayout = () => {
+    const [previewMode, setPreviewMode] = useState(true);
+
+    const handlePreviewMode = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPreviewMode(event.target.checked);
+    };
     const dispatch: AppDispatch = useDispatch();
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
@@ -234,13 +243,12 @@ const AppLayout = () => {
             }}>
                 {!(candidate === 'user') &&
                     <Box sx={{
-                        borderRadius, overflowY: 'auto',
+                        overflowY: 'auto',
                         width: '100%'
                     }}>
                         <CardContent>
-
                             <Box className="chat-bot-readme">
-                                <Markdown
+                                {previewMode ? <Markdown
                                     components={{
                                         code: CodeBlock,
                                         table: TableBlock,
@@ -248,13 +256,39 @@ const AppLayout = () => {
                                         a: LinkBlock,
                                         ul: ListBlock,
                                         ol: OrderedListBlock,
-                                        li: ListItemBlock,  
+                                        li: ListItemBlock,
                                         img: ImageBlock
 
                                     }}
                                     remarkPlugins={[remarkGfm]}
                                     rehypePlugins={[rehypeRaw, rehypeHighlight]}
                                 >{response}</Markdown>
+                                    : <pre>
+                                        {
+                                            response
+
+                                        }
+                                    </pre>}
+                                <Toolbar disableGutters sx={{ columnGap: 1 }}>
+                                    <IconButton size='small'>
+                                        <ContentCopyIcon fontSize='inherit' /></IconButton>
+                                    <IconButton size='small'>
+                                        <HeadphonesRoundedIcon fontSize='inherit' />
+                                    </IconButton>
+                                    <IconButton size='small'>
+                                        <ShareRoundedIcon fontSize='inherit' />
+                                    </IconButton>
+                                    <IconButton size='small'>
+                                        <DownloadRoundedIcon fontSize='inherit' />
+                                    </IconButton>
+                                    <Switch
+                                        size='small'
+                                        checked={previewMode}
+                                        onChange={handlePreviewMode}
+                                    />
+                                </Toolbar>
+
+
                             </Box>
                         </CardContent>
                     </Box>}
