@@ -222,7 +222,7 @@ const AppLayout = () => {
                             color="inherit">
                             Close
                         </Button>
-                    } severity='error' variant='filled' sx={{ maxWidth: 'fit-content', margin: 'auto', borderRadius: '1em' }}>{error?.message}</Alert>
+                    } severity='error' variant='filled' sx={{ maxWidth: 'fit-content', margin: 'auto', borderRadius: '1em' }}>{error?.message || 'Something went wrong !'}</Alert>
                 </Snackbar>
             </Box>
             <Container maxWidth="md" sx={{
