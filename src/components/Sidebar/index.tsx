@@ -1,4 +1,4 @@
-import { Avatar, Box, CardContent, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, useTheme } from "@mui/material";
+import { Avatar, Box, CardContent, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Skeleton, Stack, Toolbar, Typography } from "@mui/material";
 import DarkMode from "../Darkmode";
 import ScrollContainer from "../Scrollbar/Scrollbar";
 import { GeminiText } from "../../assets/icons/GeminiText";
@@ -31,9 +31,8 @@ const Sidebar = (props: sidebarProps) => {
         props.onClose()
     };
 
-    const theme = useTheme()
     return <Drawer anchor='left' onClose={props.onClose} open={props.open} >
-        <Stack sx={{ height: "100dvh", bgcolor: 'background.paper', width: '320px' }}>
+        <Stack sx={{ height: "100dvh", bgcolor: 'background.paper', width: '280px' }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Stack gap={1} direction={'row'}>
                     <GeminiText sx={{ width: '100%' }} />
@@ -43,42 +42,59 @@ const Sidebar = (props: sidebarProps) => {
                 </Box>
 
             </Toolbar>
+            <List dense>
+                <ListItem>
+                    <ListItemButton onClick={handleNewChat}>
+                        <Edit fontSize="inherit" sx={{ mr: 1 }} />
+                        <ListItemText primary="New Chat" />
+                    </ListItemButton>
+                </ListItem>
+                <ListItem>
+                    <ListItemButton>
+                        <SearchRoundedIcon fontSize="inherit" sx={{ mr: 1 }} />
+                        <ListItemText primary="Search" />
+                    </ListItemButton>
+                </ListItem>
+                <ListItem>
+                    <ListItemButton>
+                        <WorkFlow fontSize="inherit" sx={{ mr: 1 }} />
+                        <ListItemText primary="Integrations" />
+                    </ListItemButton>
+                </ListItem>
+                <ListItem>
+                    <ListItemButton>
+                        <ExploreRoundedIcon fontSize="inherit" sx={{ mr: 1 }} />
+                        <ListItemText primary="Discover" />
+                    </ListItemButton>
+                </ListItem>
+            </List>
+
             <ScrollContainer flexGrow={1} overflow={'auto'}>
-                <List dense sx={{ position: 'sticky', top: 0, left: 0, background: theme.palette.background.paper, zIndex: 99 }}>
-                    <ListItem>
-                        <ListItemButton onClick={handleNewChat}>
-                            <Edit fontSize="inherit" sx={{ mr: 1 }} />
-                            <ListItemText primary="New Chat" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemButton>
-                            <SearchRoundedIcon fontSize="inherit" sx={{ mr: 1 }} />
-                            <ListItemText primary="Search" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemButton>
-                            <WorkFlow fontSize="inherit" sx={{ mr: 1 }} />
-                            <ListItemText primary="Integrations" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemButton>
-                            <ExploreRoundedIcon fontSize="inherit" sx={{ mr: 1 }} />
-                            <ListItemText primary="Discover" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-                <CardContent>
-                    <List dense subheader="Chats">
+                <CardContent sx={{ py: 0 }}>
+
+
+                    <List dense disablePadding subheader={
+                        <ListSubheader
+                            sx={{
+                                position: "sticky",
+                                top: -1,
+                                bgcolor: "background.paper", // important, so text doesn’t overlap background
+                                pl: 2
+                            }}
+                        >
+                            <Typography fontSize={'0.75rem'} variant="subtitle2">Chats</Typography>
+                        </ListSubheader>
+                    }>
                         {Array.from({ length: 20 }, (_, i) => (
                             <ListItem key={i} secondaryAction={<MoreHorizRoundedIcon />}>
                                 <ListItemText primary={generateRandomMessage()} />
                             </ListItem>
                         ))}
+                        <ListItem >
+                            <ListItemText primary={<Skeleton animation='wave' variant="text" />} />
+                        </ListItem>
                     </List>
-                    <DarkMode />
+                <DarkMode />
                 </CardContent>
             </ScrollContainer>
             <Divider variant="middle" />
@@ -92,9 +108,8 @@ const Sidebar = (props: sidebarProps) => {
                     </ListItem>
                 </ListItemButton>
             </Box>
-
         </Stack>
-    </Drawer>
+    </Drawer >
 }
 
 export default Sidebar;

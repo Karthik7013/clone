@@ -1,6 +1,6 @@
 import { sendMessageStream } from '../features/chatbot/chatbotApi';
 import React, { ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react';
-import { Alert, Box, CardActionArea, CardContent, Collapse, Container, Divider, List, ListItem, Paper, Snackbar, Stack, Table, useMediaQuery, useTheme, Link as MuiLink, CardMedia, Toolbar, Switch } from '@mui/material';
+import { Alert, Box, CardActionArea, CardContent, Collapse, Container, Divider, List, ListItem, Paper, Snackbar, Stack, Table, useMediaQuery, useTheme, Link as MuiLink, CardMedia, Toolbar, Switch, TypographyProps } from '@mui/material';
 // custom components
 import Card from "../components/ui/Card"
 import Typography from "../components/ui/Typography"
@@ -115,14 +115,12 @@ const AppLayout = () => {
         document.head.appendChild(link);
     }, [muiTheme.palette.mode]);
 
-    const scrollToBottom = () => {
-        if (messagesEndRef?.current?.scrollIntoView) {
-            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-    useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
+    // const scrollToBottom = () => {
+    //     if (messagesEndRef?.current?.scrollIntoView) {
+    //         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    //     }
+    // };
+
     const handleInput = () => {
         const text = contentRef.current?.textContent || '';
         setValue('t', text, { shouldValidate: true });
@@ -150,7 +148,7 @@ const AppLayout = () => {
             setTimeout(() => setCopied(false), 2000);
         };
         if (language === 'text' && !inline) return <code style={{
-            backgroundColor: muiTheme.palette.divider, padding: '0.2em 0.5em', borderRadius: '4px'
+            backgroundColor: muiTheme.palette.primary.main, padding: '0.2em 0.5em', borderRadius: '4px'
         }} className={className} {...props}>{children}</code>
 
         return <div className={`code-block-wrapper ${className}`} >
@@ -162,8 +160,8 @@ const AppLayout = () => {
                     color: muiTheme.palette.text.disabled
                 }} as='span'>{language}</Typography>
                 <Box>
-                    <Button onClick={handleCopy} startIcon={copied ? <CheckRoundedIcon /> : <ContentCopyRoundedIcon />} size='small'>{copied ? "Copied!" : "Copy"}</Button>
-                    <Button startIcon={<FileDownloadRoundedIcon />} size='small'>Download</Button>
+                    <Button color='inherit' onClick={handleCopy} startIcon={copied ? <CheckRoundedIcon /> : <ContentCopyRoundedIcon />} size='small'>{copied ? "Copied!" : "Copy"}</Button>
+                    <Button color='inherit' startIcon={<FileDownloadRoundedIcon />} size='small'>Download</Button>
                 </Box>
             </div>
             <code className={className} {...props}>{children}</code>
@@ -199,28 +197,32 @@ const AppLayout = () => {
         );
     };
 
-    const HrBlock = () => <Divider />;
+    const HrBlock = () => <Divider sx={{ my: 1 }} />;
     const LinkBlock = (props: CodeProps) => (
         <MuiLink target="_blank" rel="noopener noreferrer" {...props} />
     );
     const ListBlock = (props: CodeProps) => (
-        <List
+        <List dense disablePadding
             sx={{
                 listStyleType: "disc",
                 pl: 0,
                 "& li": { display: "list-item" },
+                paddingLeft: '1.25rem',
+                paddingBottom: '0.75rem'
             }}
             {...props}
         />
     );
 
     const OrderedListBlock = (props: CodeProps) => (
-        <List
+        <List dense disablePadding
             component="ol"
             sx={{
                 listStyleType: "decimal",
                 pl: 0,
                 "& li": { display: "list-item" },
+                paddingLeft: '1.25rem',
+                paddingBottom: '0.75rem'
             }}
             {...props}
         />
@@ -234,6 +236,22 @@ const AppLayout = () => {
             {...props}
         />
     );
+    const HeadingBlock = (level: number) => {
+        const variantMap: Record<number, TypographyProps['variant']> = {
+            1: "h4",
+            2: "h5",
+            3: "h6",
+            4: "subtitle1",
+            5: "subtitle2",
+            6: "body1",
+        };
+        return (props: CodeProps) => (
+            <Typography gutterBottom variant={variantMap[level]} {...props} />
+        );
+    };
+    const ParagraphBlock = (props: CodeProps) => (
+        <Typography paragraph variant="body1" {...props} />
+    );
 
     const Conversation = ({ candidate, response }: { candidate: 'user' | 'assistant', response: string }) => {
         return (
@@ -241,7 +259,7 @@ const AppLayout = () => {
                 display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end'
                 , padding: isMobile ? 0 : "initial"
             }}>
-                {!(candidate === 'user') &&
+                {(candidate === 'assistant') &&
                     <Box sx={{
                         overflowY: 'auto',
                         width: '100%'
@@ -257,7 +275,17 @@ const AppLayout = () => {
                                         ul: ListBlock,
                                         ol: OrderedListBlock,
                                         li: ListItemBlock,
-                                        img: ImageBlock
+                                        img: ImageBlock,
+                                        // Headings
+                                        h1: HeadingBlock(1),
+                                        h2: HeadingBlock(2),
+                                        h3: HeadingBlock(3),
+                                        h4: HeadingBlock(4),
+                                        h5: HeadingBlock(5),
+                                        h6: HeadingBlock(6),
+
+                                        // Text
+                                        p: ParagraphBlock,
 
                                     }}
                                     remarkPlugins={[remarkGfm]}
@@ -266,7 +294,6 @@ const AppLayout = () => {
                                     : <pre>
                                         {
                                             response
-
                                         }
                                     </pre>}
                                 <Toolbar disableGutters sx={{ columnGap: 1 }}>
@@ -293,19 +320,17 @@ const AppLayout = () => {
                         </CardContent>
                     </Box>}
                 {(candidate === 'user') &&
-
                     <CardActionArea sx={{ cursor: 'initial', maxWidth: '320px', width: 'fit-content' }}>
-                        <Card elevation={0} sx={{ p: 1.5 }}>
+                        <Card sx={{ p: 1.5, border: 'none', bgcolor: muiTheme.palette.primary.main }}>
                             <Typography noWrap={false} variant='body2'
                                 sx={{
-                                    whiteSpace: 'pre-wrap', // This preserves line breaks
-                                    wordWrap: 'break-word'
+                                    whiteSpace: 'pre-wrap'
                                 }}
                             >{response}</Typography>
                         </Card>
                     </CardActionArea>
                 }
-            </ListItem>
+            </ListItem >
         )
     }
 
@@ -343,7 +368,7 @@ const AppLayout = () => {
                     </List>}
             </Container>
             <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
-                <Card elevation={0} sx={{ borderRadius: 5, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
+                <Card elevation={0} sx={{ borderRadius: 3, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
                     <CardContent sx={{
                         display: 'flex',
                         flexDirection: 'column',

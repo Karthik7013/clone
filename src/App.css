@@ -1,96 +1,18 @@
-
-
-.chat-bot-readme {
-    line-height: 1.5;
-    word-wrap: break-word;
-}
-
-/* Headings */
-.chat-bot-readme h1 {
-    font-size: 1.25rem;
-    /* 20px */
-    font-weight: 700;
-    margin: 1rem 0 0.5rem;
-}
-
-.chat-bot-readme h2 {
-    font-size: 1.125rem;
-    /* 18px */
-    font-weight: 600;
-    margin: 1rem 0 0.5rem;
-}
-
-.chat-bot-readme h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0.75rem 0 0.4rem;
-}
-
-.chat-bot-readme h4 {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    margin: 0.75rem 0 0.4rem;
-}
-
-.chat-bot-readme h5 {
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin: 0.5rem 0 0.3rem;
-}
-
-.chat-bot-readme h6 {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    margin: 0.5rem 0 0.3rem;
-}
-
-/* Paragraphs */
-.chat-bot-readme p {
-    margin-bottom: 0.75rem;
-}
-
-/* Strong/Bold Text */
-.chat-bot-readme strong {
-    font-weight: 600;
-}
-
-/* Lists */
-.chat-bot-readme ul,
-.chat-bot-readme ol {
-    padding-left: 1.25rem;
-    margin-bottom: 0.75rem;
-}
-
-.chat-bot-readme li {
-    margin-bottom: 0.255rem;
-}
-
-.language-label {
-    font-weight: bold;
-}
-
-
 /* Code Blocks */
 .chat-bot-readme pre {
     border-radius: 6px;
     overflow-x: auto;
-    margin: 0 auto;
+    margin: 1em auto;
 }
 
-/* Blockquotes */
+/* Blockquotes
 .chat-bot-readme blockquote {
     border-left: 4px solid #d1d5db;
     padding: 0.5rem 1rem;
     font-style: italic;
     margin: 1rem 0;
     background-color: #3b82f6;
-}
-
-/* Links */
-.chat-bot-readme a {
-    color: #3b82f6;
-    text-decoration: underline;
-}
+} */
 
 
 
@@ -107,7 +29,6 @@
 }
 
 .code-block-header button {
-    font-size: 12px;
     padding: 2px 6px;
     cursor: pointer;
 }
