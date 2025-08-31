@@ -1,24 +1,4 @@
-.chat-bot-readme table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1rem 0;
-    font-size: 14px;
-    border-radius: 12px;
-    /* use smaller radius for better look */
-    overflow: hidden;
-    /* ensures radius applies to cells */
-}
 
-.chat-bot-readme th,
-.chat-bot-readme td {
-    border: 1px solid #ffffffa2;
-    padding: 8px 12px;
-    text-align: left;
-}
-
-.chat-bot-readme th {
-    font-weight: bold;
-}
 
 .chat-bot-readme {
     line-height: 1.5;

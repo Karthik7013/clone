@@ -4,15 +4,87 @@ import { createSlice } from '@reduxjs/toolkit';
 
 type Message = { type: 'user' | 'assistant', message: string };
 
+
+
 type initialProps = {
     messages: Message[],
     isLoading: boolean,
     error: null | Error
 }
+const sampleMarkdown = `
+# Heading Level 1
+## Heading Level 2
+### Heading Level 3
+#### Heading Level 4
+##### Heading Level 5
+###### Heading Level 6
+
+This is a **bold** word, this is *italic*, and this is a [link to OpenAI](https://openai.com).
+
+---
+
+Here’s an image:
+
+![Sample Image](https://diplo-media.s3.eu-central-1.amazonaws.com/2025/06/que-es-perplexity-869880273.png)
+
+---
+
+### Unordered List
+- First item
+- Second item
+  - Nested item
+- Third item
+
+### Ordered List
+1. First ordered
+2. Second ordered
+   1. Nested ordered
+3. Third ordered
+
+---
+
+### Table Example
+| Name   | Age | Role      |
+|--------|-----|-----------|
+| Alice  | 25  | Developer |
+| Bob    | 30  | Designer  |
+| Charlie| 35  | Manager   |
+
+---
+
+### Code Examples
+
+Inline code: \`const x = 42;\`
+
+Block code:
+
+\`\`\`ts
+function greet(name: string): string {
+  return \`Hello, \${name}!\`;
+}
+console.log(greet("World"));
+\`\`\`
+
+---
+
+Here’s a horizontal rule above ☝️ and below 👇
+
+---
+
+Final paragraph with a mix of **bold**, *italic*, [link](https://example.com), and inline \`code\`.
+`;
+
 const initialState: initialProps = {
     error: null,
     isLoading: false,
-    messages: []
+    messages: [{
+        type: 'user',
+        message: "hi there"
+    },
+    {
+        type: 'assistant',
+        message: sampleMarkdown
+    }]
 }
 
 const chatSlice = createSlice({

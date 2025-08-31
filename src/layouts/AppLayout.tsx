@@ -1,6 +1,6 @@
 import { sendMessageStream } from '../features/chatbot/chatbotApi';
 import React, { ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react';
-import { Alert, Box, CardActionArea, CardContent, Collapse, Container, List, ListItem, Snackbar, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Alert, Box, CardActionArea, CardContent, Collapse, Container, Divider, List, ListItem, Paper, Snackbar, Stack, Table, useMediaQuery, useTheme, Link as MuiLink, CardMedia } from '@mui/material';
 // custom components
 import Card from "../components/ui/Card"
 import Typography from "../components/ui/Typography"
@@ -161,7 +161,70 @@ const AppLayout = () => {
         </div>
     };
 
+    const TableBlock = ({ children, ...props }: CodeProps) => {
+        return (
+            <Box sx={{ overflowX: "auto", my: 2 }}>
+                <Table
+                    elevation={1}
+                    component={Paper}
+                    {...props}
+                    sx={{
+                        borderCollapse: "collapse",
+                        width: "100%",
+                        overflow: 'hidden',
+                        borderRadius: '0.5em',
+                        border: `1px solid ${muiTheme.palette.divider}`,
+                        "& th, & td": {
+                            border: `1px solid ${muiTheme.palette.divider}`,
+                            padding: "8px",
+                            textAlign: "left",
+                        },
+                        "& th": {
+                            backgroundColor: muiTheme.palette.divider,
+                        },
+                    }}
+                >
+                    {children}
+                </Table>
+            </Box>
+        );
+    };
 
+    const HrBlock = () => <Divider />;
+    const LinkBlock = (props: CodeProps) => (
+        <MuiLink target="_blank" rel="noopener noreferrer" {...props} />
+    );
+    const ListBlock = (props: CodeProps) => (
+        <List
+            sx={{
+                listStyleType: "disc",
+                pl: 0,
+                "& li": { display: "list-item" },
+            }}
+            {...props}
+        />
+    );
+
+    const OrderedListBlock = (props: CodeProps) => (
+        <List
+            component="ol"
+            sx={{
+                listStyleType: "decimal",
+                pl: 0,
+                "& li": { display: "list-item" },
+            }}
+            {...props}
+        />
+    );
+
+    const ListItemBlock = (props: CodeProps) => <ListItem {...props} />;
+    const ImageBlock = (props: CodeProps) => (
+        <CardMedia
+            component="img"
+            sx={{ borderRadius: 2, my: 2, maxHeight: 400, objectFit: "contain" }}
+            {...props}
+        />
+    );
 
     const Conversation = ({ candidate, response }: { candidate: 'user' | 'assistant', response: string }) => {
         return (
@@ -179,7 +242,15 @@ const AppLayout = () => {
                             <Box className="chat-bot-readme">
                                 <Markdown
                                     components={{
-                                        code: CodeBlock
+                                        code: CodeBlock,
+                                        table: TableBlock,
+                                        hr: HrBlock,
+                                        a: LinkBlock,
+                                        ul: ListBlock,
+                                        ol: OrderedListBlock,
+                                        li: ListItemBlock,  
+                                        img: ImageBlock
+
                                     }}
                                     remarkPlugins={[remarkGfm]}
                                     rehypePlugins={[rehypeRaw, rehypeHighlight]}
@@ -228,16 +299,6 @@ const AppLayout = () => {
             <Container maxWidth="md" sx={{
                 flexGrow: 1
             }}>
-                {/* <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2 }}>
-                    {
-                        messages.map((message, index) => {
-                            return <div key={index}>
-                                <strong>{message.type}:</strong> {message.message}
-                            </div>
-                        })
-                    }
-                    <Box ref={messagesEndRef} />
-                </List> */}
                 {!messages.length ?
                     <Hero /> :
                     <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2 }}>
@@ -247,104 +308,6 @@ const AppLayout = () => {
                         <Box ref={messagesEndRef} />
                     </List>}
             </Container>
-            {/* <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
-                <Card elevation={0} sx={{ borderRadius: 5, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
-                    <CardContent sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        padding: 1,
-                        '&:last-child': { // Targeting the last child
-                            paddingBottom: 1 // Remove bottom padding specifically
-                        }
-                    }}>
-                        <Collapse in={Boolean(file)} orientation='vertical'>
-                            {file && <Card sx={{ maxWidth: 'fit-content', mb: 2, bgcolor: 'divider', height: 56, borderRadius: 3, display: 'flex', alignItems: 'center', boxSizing: 'border-box', position: 'relative' }}>
-                                <Box height={56} minWidth={56} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
-
-                                    {file.thumb_url ? <img width={'100%'} height={'100%'} src={file.thumb_url} alt={':('} />
-                                        : <DescriptionRoundedIcon />}
-                                </Box>
-                                <Stack direction={'row'} gap={1} flexGrow={1} padding={1}>
-                                    <Box
-                                        flexGrow={1} display={'flex'} flexDirection={'column'}>
-                                        <Typography sx={{
-                                            display: "inline-block",   // or "block"
-                                            maxWidth: 100,             // 👈 adjust based on your layout
-                                            overflow: "hidden",
-                                            textOverflow: "ellipsis",
-                                            whiteSpace: "nowrap",
-                                        }}>{file.filename}</Typography>
-                                        <Typography variant='caption'>{file.size_formatted}</Typography>
-                                    </Box>
-                                    <Box onClick={() => reset({
-                                        file: undefined
-                                    })}>
-                                        <CancelRoundedIcon fontSize='small' color='error' sx={{ cursor: 'pointer', mt: 1 }} />
-                                    </Box>
-                                </Stack>
-
-                            </Card>}
-                        </Collapse>
-                        <Box>
-                            <Controller
-                                name="t"
-                                control={control}
-                                rules={{
-                                    validate: value => {
-                                        const trimmedValue = value?.trim();
-                                        return trimmedValue && trimmedValue !== 'Ask anything.' || 'Ask Something!';
-                                    }
-                                }}
-                                render={() => (
-                                    <Box
-                                        component="div"
-                                        ref={contentRef}
-                                        contentEditable
-                                        onInput={handleInput}
-                                        onFocus={handleFocus}
-                                        sx={{
-                                            padding: '12px',
-                                            borderRadius: 1,
-                                            minHeight: 48,
-                                            maxHeight: 300,
-                                            outline: 'none',
-                                            overflow: 'auto',
-                                            whiteSpace: 'pre-wrap',
-                                        }}
-                                        suppressContentEditableWarning
-                                    >
-                                        Ask anything.
-                                    </Box>
-                                )}
-                            />
-                            <Stack direction='row' alignItems={'center'} gap={1}>
-                                <Box>
-                                    <Upload setValue={setValue} />
-                                </Box>
-                                <Box flexGrow={1}>
-
-                                </Box>
-                                <Box>
-
-                                    <IconButton
-                                        sx={{ borderRadius }}
-
-                                        type='submit'
-                                    >
-                                        <ArrowUp />
-                                    </IconButton>
-                                </Box>
-                            </Stack>
-                        </Box>
-                    </CardContent>
-                </Card>
-                <Box sx={{ textAlign: 'center', bgcolor: 'background.paper' }}>
-                    <Typography variant='caption' color='text.secondary' >Gemini can make mistakes.read the policies</Typography>
-                </Box>
-            </Container> */}
-
-
-
             <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
                 <Card elevation={0} sx={{ borderRadius: 5, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
                     <CardContent sx={{
