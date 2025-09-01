@@ -44,6 +44,14 @@ type Message = { type: 'user' | 'assistant', message: string };
 // | Charlie| 35  | Manager   |
 
 // ---
+// > this is blockquote
+// > sub blockquote
+// ---
+
+
+
+// <video controls src="https://pixabay.com/static/videos/hero3.mp4"></video>
+// <audio controls src="https://assets.mixkit.co/active_storage/sfx/2290/2290-preview.mp3"></audio>
 
 // ### Code Examples
 
@@ -59,9 +67,7 @@ type Message = { type: 'user' | 'assistant', message: string };
 // \`\`\`
 
 // ---
-
 // Here’s a horizontal rule above ☝️ and below 👇
-
 // ---
 
 // Final paragraph with a mix of **bold**, *italic*, [link](https://example.com), and inline \`code\`.

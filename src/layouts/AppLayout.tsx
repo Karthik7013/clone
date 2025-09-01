@@ -148,7 +148,7 @@ const AppLayout = () => {
             setTimeout(() => setCopied(false), 2000);
         };
         if (language === 'text' && !inline) return <code style={{
-            backgroundColor: muiTheme.palette.primary.main, padding: '0.2em 0.5em', borderRadius: '4px'
+            backgroundColor: muiTheme.palette.primary[muiTheme.palette.mode], padding: '0.2em 0.5em', borderRadius: '4px'
         }} className={className} {...props}>{children}</code>
 
         return <div className={`code-block-wrapper ${className}`} >
@@ -187,7 +187,7 @@ const AppLayout = () => {
                             textAlign: "left",
                         },
                         "& th": {
-                            backgroundColor: muiTheme.palette.divider,
+                            backgroundColor: muiTheme.palette.divider
                         },
                     }}
                 >
@@ -196,6 +196,16 @@ const AppLayout = () => {
             </Box>
         );
     };
+    const QuoteBlock = ({ children, ...props }: CodeProps) => {
+        return <Box sx={{
+            borderLeft: `4px solid ${muiTheme.palette.primary[muiTheme.palette.mode]}`,
+            padding: '1rem',
+            pb: 1,
+            fontStyle: 'italic',
+            margin: '1em 0'
+        }
+        } {...props}> {children}</Box >
+    }
 
     const HrBlock = () => <Divider sx={{ my: 1 }} />;
     const LinkBlock = (props: CodeProps) => (
@@ -236,6 +246,16 @@ const AppLayout = () => {
             {...props}
         />
     );
+    const VideoBlock = (props: CodeProps) => (
+        <CardMedia
+            component="video"
+            sx={{ borderRadius: borderRadius, my: 2, objectFit: "contain" }}
+            {...props}
+        />
+    );
+    const AudioBlock = (props: CodeProps) => {
+        return <CardMedia component='audio' {...props}></CardMedia>
+    }
     const HeadingBlock = (level: number) => {
         const variantMap: Record<number, TypographyProps['variant']> = {
             1: "h4",
@@ -276,6 +296,8 @@ const AppLayout = () => {
                                         ol: OrderedListBlock,
                                         li: ListItemBlock,
                                         img: ImageBlock,
+                                        video: VideoBlock,
+                                        audio: AudioBlock,
                                         // Headings
                                         h1: HeadingBlock(1),
                                         h2: HeadingBlock(2),
@@ -286,7 +308,7 @@ const AppLayout = () => {
 
                                         // Text
                                         p: ParagraphBlock,
-
+                                        blockquote: QuoteBlock
                                     }}
                                     remarkPlugins={[remarkGfm]}
                                     rehypePlugins={[rehypeRaw, rehypeHighlight]}
@@ -314,15 +336,14 @@ const AppLayout = () => {
                                         onChange={handlePreviewMode}
                                     />
                                 </Toolbar>
-
-
+                                <Divider />
                             </Box>
                         </CardContent>
                     </Box>}
                 {(candidate === 'user') &&
                     <CardActionArea sx={{ cursor: 'initial', maxWidth: '320px', width: 'fit-content' }}>
-                        <Card sx={{ p: 1.5, border: 'none', bgcolor: muiTheme.palette.primary.main }}>
-                            <Typography noWrap={false} variant='body2'
+                        <Card elevation={5} sx={{ p: 1.5, bgcolor: muiTheme.palette.primary[muiTheme.palette.mode] }}>
+                            <Typography noWrap={false} variant='caption'
                                 sx={{
                                     whiteSpace: 'pre-wrap'
                                 }}
@@ -367,7 +388,7 @@ const AppLayout = () => {
                         <Box ref={messagesEndRef} />
                     </List>}
             </Container>
-            <Container maxWidth="md" sx={{ position: 'sticky', left: 0, bottom: 0, zIndex: 99 }}>
+            <Container maxWidth="md" sx={{ position: 'sticky',bgcolor:'background.paper', left: 0, bottom: 0, zIndex: 99 }}>
                 <Card elevation={0} sx={{ borderRadius: 3, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
                     <CardContent sx={{
                         display: 'flex',

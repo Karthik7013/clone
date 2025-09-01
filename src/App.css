@@ -1,20 +1,8 @@
-/* Code Blocks */
 .chat-bot-readme pre {
     border-radius: 6px;
     overflow-x: auto;
     margin: 1em auto;
 }
-
-/* Blockquotes
-.chat-bot-readme blockquote {
-    border-left: 4px solid #d1d5db;
-    padding: 0.5rem 1rem;
-    font-style: italic;
-    margin: 1rem 0;
-    background-color: #3b82f6;
-} */
-
-
 
 .code-block-wrapper {
     overflow: hidden;
