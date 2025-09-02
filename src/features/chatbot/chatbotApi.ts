@@ -10,7 +10,7 @@ import { BotSubmitType } from '../../layouts/AppLayout';
 
 export const sendMessageStream = createAsyncThunk(
     'chat/sendMessageStream',
-    async ({ t }: BotSubmitType, { dispatch }) => {
+    async ({ t, file }: BotSubmitType, { dispatch }) => {
         // Save user message first
         dispatch(addMessage({ type: 'user', message: t }));
         dispatch(startStreaming());
@@ -20,7 +20,7 @@ export const sendMessageStream = createAsyncThunk(
         return new Promise<void>((resolve, reject) => {
             try {
                 // Create SSE connection
-                const es = new EventSource(`${BASE_URL}/event?query=${t}`);
+                const es = new EventSource(`${BASE_URL}/event?query=${t}?fileUrl=${file?.url || ''}`);
 
                 es.onmessage = (event) => {
                     console.log(JSON.parse(event.data))

@@ -89,6 +89,7 @@ const AppLayout = () => {
                 contentRef.current.textContent = '';
             }
             setValue('t', '', { shouldValidate: false });
+            setValue('file', undefined, { shouldValidate: false });
             dispatch(sendMessageStream(data));
         } catch (err) {
             console.log(err)
@@ -388,7 +389,7 @@ const AppLayout = () => {
                         <Box ref={messagesEndRef} />
                     </List>}
             </Container>
-            <Container maxWidth="md" sx={{ position: 'sticky',bgcolor:'background.paper', left: 0, bottom: 0, zIndex: 99 }}>
+            <Container maxWidth="md" sx={{ position: 'sticky', bgcolor: 'background.paper', left: 0, bottom: 0, zIndex: 99 }}>
                 <Card elevation={0} sx={{ borderRadius: 3, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
                     <CardContent sx={{
                         display: 'flex',
