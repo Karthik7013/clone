@@ -53,7 +53,6 @@ const Upload = ({
         <input
             ref={fileInputRef}
             type="file"
-            accept="image/*"
             style={{ display: "none" }}
             onChange={handleFileChange}
         />
