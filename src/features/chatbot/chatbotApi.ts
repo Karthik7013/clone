@@ -20,7 +20,14 @@ export const sendMessageStream = createAsyncThunk(
         return new Promise<void>((resolve, reject) => {
             try {
                 // Create SSE connection
-                const es = new EventSource(`${BASE_URL}/event?query=${t}?fileUrl=${file?.url || ''}`);
+                let url = `${BASE_URL}/event?query=${encodeURIComponent(t)}`;
+
+                if (file?.url) {
+                    url += `&fileUrl=${encodeURIComponent(file.url)}`;
+                }
+
+                const es = new EventSource(url);
+
 
                 es.onmessage = (event) => {
                     console.log(JSON.parse(event.data))
