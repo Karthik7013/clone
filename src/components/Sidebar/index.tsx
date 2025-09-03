@@ -5,13 +5,14 @@ import { GeminiText } from "../../assets/icons/GeminiText";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import Edit from "../../assets/icons/edit";
 import WorkFlow from "../../assets/icons/workflow";
-import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import PannelLeft from "../../assets/icons/pannel-left";
 import DownUp from "../../assets/icons/up-down";
+import Compass from '../../assets/icons/compass'
 import { AppDispatch } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { newChat } from "../../features/chatbot/chatbotSlice";
+
 type sidebarProps = {
     open: boolean,
     onClose: () => void
@@ -23,6 +24,7 @@ const generateRandomMessage = () => {
     return `${subjects[Math.floor(Math.random() * subjects.length)]} ${verbs[Math.floor(Math.random() * verbs.length)]} ${nouns[Math.floor(Math.random() * nouns.length)]}!`;
 };
 const Sidebar = (props: sidebarProps) => {
+
     const dispatch: AppDispatch = useDispatch();
 
 
@@ -63,7 +65,7 @@ const Sidebar = (props: sidebarProps) => {
                 </ListItem>
                 <ListItem>
                     <ListItemButton>
-                        <ExploreRoundedIcon fontSize="inherit" sx={{ mr: 1 }} />
+                        <Compass fontSize="inherit" sx={{ mr: 1 }} />
                         <ListItemText primary="Discover" />
                     </ListItemButton>
                 </ListItem>
@@ -93,20 +95,23 @@ const Sidebar = (props: sidebarProps) => {
                         <ListItem >
                             <ListItemText primary={<Skeleton animation='wave' variant="text" />} />
                         </ListItem>
+                        <DarkMode />
                     </List>
-                <DarkMode />
                 </CardContent>
             </ScrollContainer>
             <Divider variant="middle" />
-            <Box sx={{ p: 1 }}>
-                <ListItemButton>
-                    <ListItem disableGutters disablePadding secondaryAction={<DownUp fontSize="inherit" />}>
-                        <ListItemIcon sx={{ mr: 1 }}>
-                            <Avatar src="https://avatar.iran.liara.run/public">K</Avatar>
+            <Box>
+
+                <List disablePadding>
+                    <ListItem secondaryAction={<DownUp fontSize="inherit" />}>
+                        <ListItemIcon>
+                            <Avatar sx={{
+                                width: '36px', height: '36px'
+                            }} src="https://avatar.iran.liara.run/public">K</Avatar>
                         </ListItemIcon>
-                        <ListItemText secondary="karthiktumala143@gmail.com" primary="Karthik" />
+                        <ListItemText secondary={<Typography variant="caption">karthiktumala143</Typography>} primary={<Typography variant="subtitle2">@karthik2451</Typography>} />
                     </ListItem>
-                </ListItemButton>
+                </List>
             </Box>
         </Stack>
     </Drawer >

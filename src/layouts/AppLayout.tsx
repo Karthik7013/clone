@@ -1,6 +1,6 @@
 import { sendMessageStream } from '../features/chatbot/chatbotApi';
 import React, { ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react';
-import { Alert, Box, CardActionArea, CardContent, Collapse, Container, Divider, List, ListItem, Paper, Snackbar, Stack, Table, useMediaQuery, useTheme, Link as MuiLink, CardMedia, Toolbar, Switch, TypographyProps } from '@mui/material';
+import { Alert, Box, CardActionArea, CardContent, Collapse, Container, Divider, List, ListItem, Paper, Snackbar, Stack, Table, useMediaQuery, useTheme, Link as MuiLink, CardMedia, Toolbar, TypographyProps } from '@mui/material';
 // custom components
 import Card from "../components/ui/Card"
 import Typography from "../components/ui/Typography"
@@ -59,11 +59,7 @@ type CodeProps = ComponentPropsWithoutRef<"code"> & {
 };
 
 const AppLayout = () => {
-    const [previewMode, setPreviewMode] = useState(true);
 
-    const handlePreviewMode = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPreviewMode(event.target.checked);
-    };
     const dispatch: AppDispatch = useDispatch();
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
@@ -287,7 +283,7 @@ const AppLayout = () => {
                     }}>
                         <CardContent>
                             <Box className="chat-bot-readme">
-                                {previewMode ? <Markdown
+                                <Markdown
                                     components={{
                                         code: CodeBlock,
                                         table: TableBlock,
@@ -314,11 +310,7 @@ const AppLayout = () => {
                                     remarkPlugins={[remarkGfm]}
                                     rehypePlugins={[rehypeRaw, rehypeHighlight]}
                                 >{response}</Markdown>
-                                    : <pre>
-                                        {
-                                            response
-                                        }
-                                    </pre>}
+
                                 <Toolbar disableGutters sx={{ columnGap: 1 }}>
                                     <IconButton size='small'>
                                         <ContentCopyIcon fontSize='inherit' /></IconButton>
@@ -331,11 +323,6 @@ const AppLayout = () => {
                                     <IconButton size='small'>
                                         <DownloadRoundedIcon fontSize='inherit' />
                                     </IconButton>
-                                    <Switch
-                                        size='small'
-                                        checked={previewMode}
-                                        onChange={handlePreviewMode}
-                                    />
                                 </Toolbar>
                                 <Divider />
                             </Box>

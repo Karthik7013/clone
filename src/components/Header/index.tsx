@@ -30,9 +30,9 @@ const Header = () => {
             <meta name="theme-color" content={muiTheme.palette.background.default} />
         </Helmet>
         <Toolbar sx={{ gap: 2, backgroundColor: 'background.paper' }}>
-            {isMobile && <IconButton onClick={handleDrawer}>
+            <IconButton onClick={handleDrawer}>
                 <SideMenu />
-            </IconButton>}
+            </IconButton>
             <Box flexGrow={1} display='flex' gap={2} justifyContent={isMobile ? 'center' : 'flex-start'}>
                 <GeminiText sx={{
                     width: 'fit-content'
