@@ -1,9 +1,9 @@
-import { Avatar, Box, Chip, Stack, Typography } from "@mui/material";
-import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
-import LocalDiningRoundedIcon from '@mui/icons-material/LocalDiningRounded';
-import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
-import MovieRoundedIcon from '@mui/icons-material/MovieRounded';
-import ArrowUp from '../../assets/icons/arrow-up';
+import { Avatar, Box, Stack, Typography } from "@mui/material";
+// import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
+// import LocalDiningRoundedIcon from '@mui/icons-material/LocalDiningRounded';
+// import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
+// import MovieRoundedIcon from '@mui/icons-material/MovieRounded';
+// import ArrowUp from '../../assets/icons/arrow-up';
 import { useEffect } from "react";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
@@ -11,7 +11,6 @@ import Incognito from "../../assets/icons/Incognito";
 
 const Hero = () => {
     const filters = useSelector((state: RootState) => state.urlReducer)
-
     useEffect(() => {
         console.log(filters)
         const currentUrl = new URL(window.location.href);
@@ -25,7 +24,7 @@ const Hero = () => {
         window.history.pushState({}, '', currentUrl);
     }, [filters])
 
-    return <Box height={'100%'} display='flex' margin={'auto'} alignItems='center' flexDirection='column' justifyContent='space-between'>
+    return <Box height={'100%'} display='flex' marginX={'auto'}  alignItems='center' flexDirection='column' justifyContent='space-between'>
         <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
             {
                 !filters.mode ? <>
@@ -42,11 +41,11 @@ const Hero = () => {
                         🖐 Hi there<br /> how can I help you today?
                     </Typography>
                     <Stack direction='row' justifyContent='center' flexWrap='wrap' gap={2} sx={{ mx: 'auto', maxWidth: '90%', mt: 2 }}>
-                        <Chip clickable variant='outlined' color='primary' icon={<CodeRoundedIcon />} label="Code" />
+                        {/* <Chip clickable variant='outlined' color='primary' icon={<CodeRoundedIcon />} label="Code" />
                         <Chip variant='outlined' color='success' icon={<ArrowUp />} label="Summarize" />
                         <Chip variant='outlined' color='secondary' icon={<LocalDiningRoundedIcon />} label="Recipe" />
                         <Chip variant='outlined' color='info' icon={<FlightTakeoffRoundedIcon />} label="Travel" />
-                        <Chip variant='outlined' color='error' icon={<MovieRoundedIcon />} label="Movies" />
+                        <Chip variant='outlined' color='error' icon={<MovieRoundedIcon />} label="Movies" /> */}
                     </Stack>
                 </> :
 

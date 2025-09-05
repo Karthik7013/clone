@@ -8,7 +8,7 @@ const ScrollContainer = styled(Box)(({ theme }) => {
         overflowY: "auto",
         scrollbarColor:
             mode === "dark"
-                ? `${theme.palette.grey[700]} ${theme.palette.background.default}`
+                ? `${theme.palette.grey[800]} ${theme.palette.background.default}`
                 : `${theme.palette.grey[400]} ${theme.palette.background.default}`,
 
         "&::-webkit-scrollbar": {
@@ -16,14 +16,14 @@ const ScrollContainer = styled(Box)(({ theme }) => {
             height: "8px",
         },
         "&::-webkit-scrollbar-track": {
-            backgroundColor: theme.palette.background.default,
+            backgroundColor:theme.palette.action.hover,
             borderRadius: "8px",
         },
         "&::-webkit-scrollbar-thumb": {
             backgroundColor: mode === "dark" ? theme.palette.grey[700] : theme.palette.grey[400],
             borderRadius: "8px",
             "&:hover": {
-                backgroundColor: mode === "dark" ? theme.palette.grey[600] : theme.palette.grey[500]
+                backgroundColor: mode === "dark" ? theme.palette.grey[100] : theme.palette.grey[500]
             },
         },
     }

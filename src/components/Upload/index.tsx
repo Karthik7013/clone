@@ -5,6 +5,8 @@ import IconButton from "../ui/IconButton"
 import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
 import { BotSubmitType, file } from "../../layouts/AppLayout";
 import { UseFormSetValue } from "react-hook-form";
+// Maximum file size (5MB in bytes)
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const Upload = ({
     setValue
 }: {
@@ -16,8 +18,13 @@ const Upload = ({
         try {
             const formData = new FormData();
             if (event.target.files?.length) {
+                if (event.target.files[0].size > MAX_FILE_SIZE) {
+                    alert('File size must be under 5MB.')
+                    return
+                }
                 formData.append('image', event.target.files[0]);
             } else {
+                return
                 // throw error no file selected
             }
             const { data } = await uploadFile(formData).unwrap();

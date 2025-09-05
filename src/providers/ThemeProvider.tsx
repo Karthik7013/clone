@@ -25,10 +25,17 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
             mode: newMode
         },
         typography: {
-            fontFamily: fontFamily
+            fontFamily
         },
         components: {
             MuiCardMedia: {
+                styleOverrides: {
+                    root: {
+                        borderRadius
+                    }
+                }
+            },
+            MuiCard: {
                 styleOverrides: {
                     root: {
                         borderRadius
