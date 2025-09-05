@@ -14,7 +14,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 
 import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
-
+import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';
 import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
@@ -151,12 +151,18 @@ const AppLayout = () => {
             backgroundColor: muiTheme.palette.primary[mode], padding: '0.2em 0.5em', borderRadius: '4px'
         }} className={className} {...props}>{children}</code>
 
-        return <div className={`code-block-wrapper ${className}`} >
-            <div className="code-block-header"
-                style={{
-                    backgroundColor: muiTheme.palette.divider,
+        return <Box sx={{
+            borderRadius,
+            // overflow: 'hidden'
+        }}>
+            <Box
+                sx={{
+                    bgcolor: mode === 'dark' ? muiTheme.palette.grey[900] : muiTheme.palette.grey[300],
                     position: 'sticky',
-                    top: 0
+                    top: 0,
+                    justifyContent: 'space-between',
+                    display: 'flex',
+                    padding: '0.5em 1em',
                 }}>
                 <Typography sx={{
                     color: muiTheme.palette.text.disabled
@@ -164,10 +170,11 @@ const AppLayout = () => {
                 <Box>
                     <Button color='inherit' onClick={handleCopy} startIcon={copied ? <CheckRoundedIcon /> : <ContentCopyRoundedIcon />} size='small'>{copied ? "Copied!" : "Copy"}</Button>
                     <Button color='inherit' startIcon={<FileDownloadRoundedIcon />} size='small'>Download</Button>
+                    {language === 'html' && <Button color='inherit' startIcon={<PlayCircleRoundedIcon />} size='small'>Run</Button>}
                 </Box>
-            </div>
+            </Box>
             <code className={className} {...props}>{children}</code>
-        </div>
+        </Box>
     };
 
     const TableBlock = ({ children, ...props }: CodeProps) => {
@@ -284,55 +291,47 @@ const AppLayout = () => {
                 , padding: isMobile ? 0 : "initial"
             }}>
                 {(candidate === 'assistant') &&
-                    <Box sx={{
-                        overflowY: 'auto',
-                        width: '100%'
-                    }}>
-                        <CardContent>
-                            <Box className="chat-bot-readme">
-                                <Markdown
-                                    components={{
-                                        code: CodeBlock,
-                                        table: TableBlock,
-                                        hr: HrBlock,
-                                        a: LinkBlock,
-                                        ul: ListBlock,
-                                        ol: OrderedListBlock,
-                                        li: ListItemBlock,
-                                        img: ImageBlock,
-                                        video: VideoBlock,
-                                        audio: AudioBlock,
-                                        // Headings
-                                        h1: HeadingBlock(1),
-                                        h2: HeadingBlock(2),
-                                        h3: HeadingBlock(3),
-                                        h4: HeadingBlock(4),
-                                        h5: HeadingBlock(5),
-                                        h6: HeadingBlock(6),
-                                        // Text
-                                        p: ParagraphBlock,
-                                        blockquote: QuoteBlock
-                                    }}
-                                    remarkPlugins={[remarkGfm]}
-                                    rehypePlugins={[rehypeRaw, rehypeHighlight]}
-                                >{response}</Markdown>
-
-                                <Toolbar disableGutters sx={{ columnGap: 1 }}>
-                                    <IconButton size='small'>
-                                        <ContentCopyIcon fontSize='inherit' /></IconButton>
-                                    <IconButton size='small'>
-                                        <HeadphonesRoundedIcon fontSize='inherit' />
-                                    </IconButton>
-                                    <IconButton size='small'>
-                                        <ShareRoundedIcon fontSize='inherit' />
-                                    </IconButton>
-                                    <IconButton size='small'>
-                                        <DownloadRoundedIcon fontSize='inherit' />
-                                    </IconButton>
-                                </Toolbar>
-                                <Divider />
-                            </Box>
-                        </CardContent>
+                    <Box component={CardContent} sx={{ width: '100%' }}>
+                        <Markdown
+                            components={{
+                                code: CodeBlock,
+                                table: TableBlock,
+                                hr: HrBlock,
+                                a: LinkBlock,
+                                ul: ListBlock,
+                                ol: OrderedListBlock,
+                                li: ListItemBlock,
+                                img: ImageBlock,
+                                video: VideoBlock,
+                                audio: AudioBlock,
+                                // Headings
+                                h1: HeadingBlock(1),
+                                h2: HeadingBlock(2),
+                                h3: HeadingBlock(3),
+                                h4: HeadingBlock(4),
+                                h5: HeadingBlock(5),
+                                h6: HeadingBlock(6),
+                                // Text
+                                p: ParagraphBlock,
+                                blockquote: QuoteBlock
+                            }}
+                            remarkPlugins={[remarkGfm]}
+                            rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                        >{response}</Markdown>
+                        <Toolbar disableGutters sx={{ columnGap: 1 }}>
+                            <IconButton size='small'>
+                                <ContentCopyIcon fontSize='inherit' /></IconButton>
+                            <IconButton size='small'>
+                                <HeadphonesRoundedIcon fontSize='inherit' />
+                            </IconButton>
+                            <IconButton size='small'>
+                                <ShareRoundedIcon fontSize='inherit' />
+                            </IconButton>
+                            <IconButton size='small'>
+                                <DownloadRoundedIcon fontSize='inherit' />
+                            </IconButton>
+                        </Toolbar>
+                        <Divider />
                     </Box>}
                 {(candidate === 'user') &&
                     <CardActionArea sx={{ cursor: 'initial', maxWidth: '320px', width: 'fit-content' }}>
@@ -357,35 +356,37 @@ const AppLayout = () => {
             <Drawer anchor='left' onClose={handleDrawer} open={isMobile && mobileDrawer}>
                 <Sidebar />
             </Drawer>
-            <Stack sx={{ height: '100%', width: '100%' }}>
+            <Stack sx={{ height: '100%', flexGrow: 1, width: '100%' }}>
                 <Header closeMobileDrawer={handleDrawer} closeDesktopDrawer={handleCollpase} />
                 <Stack sx={{ overflowY: 'auto', flexGrow: 1, justifyContent: 'center' }}>
                     <Scrollbar sx={{
                         flexGrow: !messages.length ? 0 : 1, transition: 'flex .2s linear'
                     }}>
-                        <Container maxWidth="md" sx={{
-                            flexGrow: 1
-                        }}>
+                        <Container maxWidth="md">
                             {!messages.length ?
                                 <Hero /> :
-                                <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2, height: '100%' }}>
+                                <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2, height: '100%', position: 'relative' }}>
                                     {messages.map((message, _) => {
                                         return <Conversation key={_} candidate={message.type} response={message.message} />
                                     })}
                                     <Box ref={messagesEndRef} />
+                                    <IconButton onClick={scrollToBottom} size='small' sx={{
+                                        position: 'sticky',
+                                        width: 'fit-content',
+                                        margin:'auto',
+                                        bottom: 10,
+                                        zIndex: 9999,
+                                        bgcolor: muiTheme.palette.primary[mode]
+                                    }}>
+                                        <ArrowDownwardRounded />
+                                    </IconButton>
+
                                 </List>
                             }
                         </Container>
                     </Scrollbar>
                     <Container maxWidth="md" sx={{ position: 'sticky', bgcolor: 'background.default', left: 0, bottom: 0, zIndex: 99 }}>
-                        <Box position={'relative'}>
-                            <IconButton onClick={scrollToBottom} size='small' sx={{
-                                position: 'absolute', right: 0, top: -50,
-                                bgcolor: muiTheme.palette.primary[mode]
-                            }}>
-                                <ArrowDownwardRounded />
-                            </IconButton>
-                        </Box>
+
                         <Card elevation={0} sx={{ borderRadius: 3, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
                             <CardContent sx={{
                                 display: 'flex',

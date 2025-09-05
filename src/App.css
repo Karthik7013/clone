@@ -1,18 +1,8 @@
-.chat-bot-readme pre {
-    border-radius: 6px;
-    overflow-x: auto;
-    margin: 1em auto;
-}
 
-.code-block-wrapper {
-    overflow: hidden;
-}
+
 
 .code-block-header {
-    position: sticky;
-    justify-content: space-between;
-    display: flex;
-    padding: 0.5em 1em;
+  
 }
 
 .code-block-header button {
