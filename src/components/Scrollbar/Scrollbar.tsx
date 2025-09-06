@@ -8,7 +8,7 @@ const ScrollContainer = styled(Box)(({ theme }) => {
         overflowY: "auto",
         scrollbarColor:
             mode === "dark"
-                ? `${theme.palette.grey[800]} ${theme.palette.background.default}`
+                ? `${theme.palette.grey[900]} ${theme.palette.background.default}`
                 : `${theme.palette.grey[400]} ${theme.palette.background.default}`,
 
         "&::-webkit-scrollbar": {

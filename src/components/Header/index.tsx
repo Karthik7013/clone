@@ -1,4 +1,4 @@
-import { Box, Toolbar, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
 import IconButton from "../ui/IconButton";
 import MessageCircleDashed from "../../assets/icons/message-circle-dashed";
 import Helmet from "react-helmet";
@@ -14,6 +14,7 @@ type headerProps = {
 }
 const Header = (props: headerProps) => {
     const mode = useSelector((state: RootState) => state.urlReducer.mode)
+    const messages = useSelector((state: RootState) => state.chat.messages)
     const dispatch: AppDispatch = useDispatch()
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
@@ -27,7 +28,7 @@ const Header = (props: headerProps) => {
     return <Box sx={{ position: 'sticky', top: 0, left: 0, zIndex: 99 }}>
         <Helmet>
             <meta name="theme-color" content={muiTheme.palette.background.paper} />
-            <title>Sample Markdown format - md</title>
+            {messages.length && <title>{messages[0].message}</title>}
         </Helmet>
         <Toolbar sx={{ gap: 2, backgroundColor: 'background.paper' }}>
             <IconButton onClick={isMobile
@@ -37,10 +38,19 @@ const Header = (props: headerProps) => {
 
 
 
-            <Box flexGrow={1} display='flex' gap={2} justifyContent={isMobile ? 'center' : 'flex-start'}>
-
+            <Box flexGrow={1} display='flex' gap={2} justifyContent={'center'}>
+                <Typography
+                    variant="subtitle2"
+                    textAlign={'center'}
+                    textOverflow={'ellipsis'}
+                    overflow={'hidden'}
+                    sx={{
+                        maxWidth: { xs:180,lg: 400},
+                        fontSize: 14,
+                        whiteSpace: 'nowrap'
+                    }}
+                >{messages[0]?.message}</Typography>
             </Box>
-
             <IconButton onClick={handleTemporaryMode}>
                 {mode ? <Message /> : <MessageCircleDashed />}
             </IconButton>

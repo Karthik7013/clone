@@ -3,7 +3,7 @@ import { useUploadFileMutation } from "../../features/upload/uploadApi";
 import { CircularProgress } from "@mui/material";
 import IconButton from "../ui/IconButton"
 import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
-import { BotSubmitType, file } from "../../layouts/AppLayout";
+import { BotSubmitType, file } from "../../types/app-types";
 import { UseFormSetValue } from "react-hook-form";
 // Maximum file size (5MB in bytes)
 const MAX_FILE_SIZE = 10 * 1024 * 1024;

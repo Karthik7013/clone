@@ -21,7 +21,7 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
     const { borderRadius, fontFamily, mode } = useSelector((state: RootState) => state.themeReducer);
     const newMode: 'light' | 'dark' | 'system' = mode === 'system' ? getSystemMode() : mode
     const newtheme = createTheme({
-        spacing:4,
+        spacing: 4,
         palette: {
             mode: newMode
         },

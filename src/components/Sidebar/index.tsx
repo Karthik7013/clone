@@ -30,7 +30,7 @@ const Sidebar = () => {
     };
 
     return (
-        <Stack sx={{ height: "100dvh", bgcolor: 'background.paper', borderRight: `1px solid ${theme.palette.divider}` }}>
+        <Stack sx={{ height: "100dvh", borderRight: `1px solid ${theme.palette.divider}` }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Stack gap={1} direction={'row'}>
                     <GeminiText sx={{ width: '100%' }} />

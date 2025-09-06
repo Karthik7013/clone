@@ -1,4 +1,4 @@
-import { Auth0Provider } from '@auth0/auth0-react';
+// import { Auth0Provider } from '@auth0/auth0-react';
 import './App.css'
 import ThemeProvider from './providers/ThemeProvider'
 import { BrowserRouter } from "react-router-dom"
@@ -10,25 +10,25 @@ import ContextProvider from './providers/ContextProvider'
 function App() {
   return (
     <ContextProvider>
-      <Auth0Provider
+      {/* <Auth0Provider
         domain={import.meta.env.VITE_DOMAIN}
         clientId={import.meta.env.VITE_CLIENT_ID}
         authorizationParams={{
           redirect_uri: window.location.origin
         }}
-      >
+      > */}
         <ThemeProvider>
           <Suspense fallback={<Loader />}>
             <BrowserRouter future={{
               v7_relativeSplatPath: true,
-              v7_startTransition: true, // 👈 Add this line
+              v7_startTransition: true
             }}
             >
               <AppRoutes />
             </BrowserRouter>
           </Suspense>
         </ThemeProvider>
-      </Auth0Provider>
+      {/* </Auth0Provider> */}
     </ContextProvider>
   )
 }

@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit'
-// import { chatbotApi } from '../features/chatbot/chatbotApi'
 import chartbotReducer from '../features/chatbot/chatbotSlice';
 import { uploadApi } from '../features/upload/uploadApi';
 import themeReducer from "../features/theme/themeSlice";
@@ -12,7 +11,6 @@ export const store = configureStore({
         themeReducer: themeReducer,
         urlReducer: urlReducer,
         chat: chatReducer,
-        // [chatbotApi.reducerPath]: chatbotApi.reducer,
         [uploadApi.reducerPath]: uploadApi.reducer
     },
     middleware: (getDefaultMiddleware) =>

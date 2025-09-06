@@ -446,7 +446,12 @@ type initialProps = {
 const initialState: initialProps = {
     error: null,
     isLoading: false,
-    messages: [{
+    messages: [
+        {
+            type: 'user',
+            message:'Write a poem for my story'
+        }
+        , {
         type: 'assistant',
         message: sampleMarkdown
     }]

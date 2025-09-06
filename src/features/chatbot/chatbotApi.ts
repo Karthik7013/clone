@@ -6,7 +6,7 @@ import {
     streamComplete,
     streamError,
 } from './chatbotSlice';
-import { BotSubmitType } from '../../layouts/AppLayout';
+import { BotSubmitType } from '../../types/app-types';
 
 export const sendMessageStream = createAsyncThunk(
     'chat/sendMessageStream',

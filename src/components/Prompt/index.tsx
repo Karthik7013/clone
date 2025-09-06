@@ -1,0 +1,146 @@
+import { Box, ButtonGroup, CardContent, Collapse, Container, IconButton, Stack, Typography, useTheme } from "@mui/material"
+import Card from "../ui/Card";
+import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
+import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
+import ArrowUp from '../../assets/icons/arrow-up';
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import Upload from "../Upload";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { useRef } from "react";
+import { BotSubmitType } from "../../types/app-types";
+import { sendMessageStream } from "../../features/chatbot/chatbotApi";
+
+const Prompt = () => {
+    const dispatch: AppDispatch = useDispatch();
+    const muiTheme = useTheme();
+    // const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
+    const contentRef = useRef<HTMLDivElement>(null);
+    const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius);
+    const { isLoading } = useSelector((state: RootState) => state.chat);
+    const { handleSubmit, control, watch, setValue, reset } = useForm<BotSubmitType>({
+        defaultValues: {
+            t: '',
+            file: undefined
+        }
+    })
+    const handleInput = () => {
+        const text = contentRef.current?.textContent || '';
+        setValue('t', text, { shouldValidate: true });
+    };
+    const handleFocus = () => {
+        if (contentRef.current?.textContent === 'Ask anything.') {
+            contentRef.current.textContent = '';
+        }
+    };
+    const onHandleSubmit: SubmitHandler<BotSubmitType> = async (data) => {
+        try {
+            if (contentRef.current) {
+                contentRef.current.textContent = '';
+            }
+            setValue('t', '', { shouldValidate: false });
+            setValue('file', undefined, { shouldValidate: false });
+            dispatch(sendMessageStream(data));
+        } catch (err) {
+            console.log(err)
+        }
+    };
+
+    const file = watch('file');
+    return <Container component='form' onSubmit={handleSubmit(onHandleSubmit)} maxWidth="md" sx={{
+        position: 'sticky', bottom: 10
+    }}>
+        <Card sx={{ borderRadius: muiTheme.shape.borderRadius, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
+            <CardContent sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                padding: 1,
+                '&:last-child': { // Targeting the last child
+                    paddingBottom: 1 // Remove bottom padding specifically
+                }
+            }}>
+                <Collapse in={Boolean(file)} orientation='vertical'>
+                    {file &&
+                        <Card sx={{ maxWidth: 'fit-content', height: 56, borderRadius: 2, display: 'flex', alignItems: 'center', bgcolor: muiTheme.palette.action.selected, position: 'relative' }}>
+                            <Box height={36} minWidth={36} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
+                                <DescriptionRoundedIcon color='success' />
+                            </Box>
+                            <Stack alignItems={'center'} direction={'row'} flexGrow={1} padding={1} pl={0}>
+                                <Box
+                                    flexGrow={1} display={'flex'} flexDirection={'column'}>
+                                    <Typography variant='caption' sx={{
+                                        display: "inline-block",   // or "block"
+                                        maxWidth: 100,             // 👈 adjust based on your layout
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        whiteSpace: "nowrap",
+                                    }}>{file.filename}</Typography>
+                                    <Typography variant='caption'>{file.size_formatted}</Typography>
+                                </Box>
+                                <Box onClick={() => reset({
+                                    file: undefined
+                                })}>
+                                    <CancelRoundedIcon fontSize='small' color='error' sx={{ cursor: 'pointer', mt: 1 }} />
+                                </Box>
+                            </Stack>
+
+                        </Card>
+                    }
+                </Collapse>
+                <Box>
+                    <Controller
+                        name="t"
+                        control={control}
+                        rules={{
+                            validate: value => {
+                                const trimmedValue = value?.trim();
+                                return trimmedValue && trimmedValue !== 'Ask anything.' || 'Ask Something!';
+                            }
+                        }}
+                        render={() => (
+                            <Box
+                                component="div"
+                                ref={contentRef}
+                                contentEditable
+                                onInput={handleInput}
+                                onFocus={handleFocus}
+                                sx={{
+                                    padding: '12px',
+                                    borderRadius: 1,
+                                    minHeight: 48,
+                                    maxHeight: 150,
+                                    outline: 'none',
+                                    overflowY: 'auto',
+                                    whiteSpace: 'pre-wrap',
+                                }}
+                                suppressContentEditableWarning
+                            >
+                                Ask anything.
+                            </Box>
+                        )}
+                    />
+                    <Stack direction='row' alignItems={'center'} justifyContent={'space-between'}>
+                        <ButtonGroup>
+                            <Upload setValue={setValue} />
+
+                        </ButtonGroup>
+                        <IconButton
+                            sx={{ borderRadius }}
+                            type='submit'
+                            disabled={isLoading}
+                        >
+                            {isLoading ? (
+                                <StopCircleRoundedIcon fontSize='inherit' />
+                            ) : (
+                                <ArrowUp fontSize='inherit' />
+                            )}
+                        </IconButton>
+                    </Stack>
+                </Box>
+            </CardContent>
+        </Card>
+
+    </Container>
+}
+export default Prompt;
