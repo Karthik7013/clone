@@ -449,7 +449,12 @@ const initialState: initialProps = {
     messages: [
         {
             type: 'user',
-            message:'Write a poem for my story'
+            message:`Heading Level 1
+Heading Level 2
+Heading Level 3
+Heading Level 4
+Heading Level 5
+Heading Level 6`
         }
         , {
         type: 'assistant',

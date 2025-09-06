@@ -1,11 +1,9 @@
-import { Avatar, Box, CardContent, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Skeleton, Stack, Toolbar, Typography, useTheme } from "@mui/material";
-import DarkMode from "../Darkmode";
+import { Avatar, Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography, useTheme } from "@mui/material";
 import ScrollContainer from "../Scrollbar/Scrollbar";
 import { GeminiText } from "../../assets/icons/GeminiText";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import Edit from "../../assets/icons/edit";
 import WorkFlow from "../../assets/icons/workflow";
-import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 // import PannelLeft from "../../assets/icons/pannel-left";
 import DownUp from "../../assets/icons/up-down";
 import Compass from '../../assets/icons/compass'
@@ -13,14 +11,10 @@ import { AppDispatch } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { newChat } from "../../features/chatbot/chatbotSlice";
 import React from "react";
+import ConversationList from "../ConversationList";
 
 
-const generateRandomMessage = () => {
-    const subjects = ['Meeting', 'Hi', 'File', 'Call', 'Done', 'Help', 'Later'];
-    const verbs = ['sent', 'done', 'ready', 'coming', 'here', 'updated'];
-    const nouns = ['now', 'today', 'soon', 'tomorrow', 'attached'];
-    return `${subjects[Math.floor(Math.random() * subjects.length)]} ${verbs[Math.floor(Math.random() * verbs.length)]} ${nouns[Math.floor(Math.random() * nouns.length)]}!`;
-};
+
 const Sidebar = () => {
     const theme = useTheme();
     const dispatch: AppDispatch = useDispatch();
@@ -30,7 +24,7 @@ const Sidebar = () => {
     };
 
     return (
-        <Stack sx={{ height: "100dvh", borderRight: `1px solid ${theme.palette.divider}` }}>
+        <Stack sx={{ height: "100dvh", borderRight: `1px solid ${theme.palette.divider}`, bgcolor: theme.palette.background.paper }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Stack gap={1} direction={'row'}>
                     <GeminiText sx={{ width: '100%' }} />
@@ -67,31 +61,8 @@ const Sidebar = () => {
                 </ListItem>
             </List>
 
-            <ScrollContainer flexGrow={1} overflow={'auto'}>
-                <CardContent sx={{ py: 0 }}>
-                    <List dense disablePadding subheader={
-                        <ListSubheader
-                            sx={{
-                                position: "sticky",
-                                top: -1,
-                                bgcolor: "background.paper",
-                                pl: 2
-                            }}
-                        >
-                            <Typography fontSize={'0.75rem'} variant="subtitle2">Chats</Typography>
-                        </ListSubheader>
-                    }>
-                        {Array.from({ length: 20 }, (_, i) => (
-                            <ListItem key={i} secondaryAction={<MoreHorizRoundedIcon />}>
-                                <ListItemText primary={generateRandomMessage()} />
-                            </ListItem>
-                        ))}
-                        <ListItem >
-                            <ListItemText primary={<Skeleton animation='wave' variant="text" />} />
-                        </ListItem>
-                        <DarkMode />
-                    </List>
-                </CardContent>
+            <ScrollContainer flexGrow={1}>
+                <ConversationList />
             </ScrollContainer>
             <Divider variant="middle" />
             <Box>
