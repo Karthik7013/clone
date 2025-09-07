@@ -4,7 +4,6 @@ import { user } from "../../types/app-types";
 type initialProps = {
     isLogin: boolean,
     user: null | user,
-
 }
 
 const initialState: initialProps = {
@@ -16,9 +15,9 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-
+        
     }
 })
 
-export const { } = authSlice.actions;
+// export const { } = authSlice.actions;
 export default authSlice.reducer;

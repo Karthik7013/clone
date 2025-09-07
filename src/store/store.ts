@@ -4,6 +4,7 @@ import { uploadApi } from '../features/upload/uploadApi';
 import themeReducer from "../features/theme/themeSlice";
 import urlReducer from "../features/url/urlSlice";
 import chatReducer from '../features/chatbot/chatbotSlice'
+import uiReducer from '../features/ui/uiSlice';
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         themeReducer: themeReducer,
         urlReducer: urlReducer,
         chat: chatReducer,
+        ui: uiReducer,
         [uploadApi.reducerPath]: uploadApi.reducer
     },
     middleware: (getDefaultMiddleware) =>

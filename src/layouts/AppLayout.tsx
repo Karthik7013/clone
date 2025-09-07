@@ -1,36 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Collapse, Stack, useMediaQuery, useTheme, Drawer, Box } from '@mui/material';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import ChatContainer from '../components/ChatContainer';
 import Prompt from '../components/Prompt';
 import PreviewMode from '../components/Preview';
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../store/store';
+import { setPreviewContent, toggleMobileDrawer, togglePreviewMode } from '../features/ui/uiSlice';
 
 const AppLayout = () => {
-    const [mobileDrawer, setMobileDrawer] = useState(false);
-    const [preview] = useState(false);
-    const [collapse, setCollapse] = useState(true);
-    const handleCollpase = () => setCollapse((prev) => !prev)
-    const handleDrawer = () => setMobileDrawer((prev) => !prev);
+    const dispatch: AppDispatch = useDispatch();
+    const mobileDrawer = useSelector((state: RootState) => state.ui.mobileDrawer);
+    const preview = useSelector((state: RootState) => state.ui.previewMode);
+    const collapse = useSelector((state: RootState) => state.ui.collapse);
+    const closeDrawer = () => dispatch(toggleMobileDrawer(false));
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
-
-
-
-
-
+    const closePreview = () => {
+        dispatch(setPreviewContent()); // reset the conent to default
+        dispatch(togglePreviewMode(false)) // close the preview slide
+    }
     return (
         <Stack direction={'row'} sx={{ height: '100dvh', width: '100%' }}>
             <Collapse orientation='horizontal' in={!isMobile && collapse} unmountOnExit>
                 <Sidebar />
             </Collapse>
-            <Drawer anchor='left' onClose={handleDrawer} open={isMobile && mobileDrawer}>
+            <Drawer anchor='left' onClose={closeDrawer} open={isMobile && mobileDrawer}>
                 <Sidebar />
             </Drawer>
             <Stack sx={{ height: '100%', flexGrow: 1, width: '100%' }}>
-                <Header closeMobileDrawer={handleDrawer} closeDesktopDrawer={handleCollpase} />
+                <Header />
                 <Stack sx={{ overflowY: 'auto', flexGrow: 1, justifyContent: 'center' }}>
                     <ChatContainer />
                     <Prompt />
@@ -42,7 +42,7 @@ const AppLayout = () => {
                     <PreviewMode />
                 </Collapse>
             </Box>
-            <Drawer anchor='right' open={isMobile && !mobileDrawer && preview}>
+            <Drawer anchor='right' onClose={closePreview} open={isMobile && !mobileDrawer && preview}>
                 <PreviewMode />
             </Drawer>
 

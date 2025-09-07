@@ -7,6 +7,9 @@ import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';
 import Copy from "../../assets/icons/copy";
 import Download from "../../assets/icons/download";
 import Checked from "../../assets/icons/checked";
+import { AppDispatch } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { setPreviewContent, toggleCollapse, togglePreviewMode } from "../../features/ui/uiSlice";
 
 type customButtonProps = {
     icon?: React.ReactNode;
@@ -24,23 +27,45 @@ const CustomButton = (props: customButtonProps) => {
     </Button>
 }
 export const CodeBlock = ({ inline, className, children, ...props }: MarkdownComponentProps) => {
+    const dispatch: AppDispatch = useDispatch();
     const muiTheme = useTheme();
     const mode = muiTheme.palette.mode;
     const borderRadius = muiTheme.shape.borderRadius;
     const [copied, setCopied] = useState(false);
-    const code = React.Children.toArray(children)
-        .map((child) => typeof child === 'string' ? child : '')
+    const openPreview = () => {
+        dispatch(togglePreviewMode(true)) // open preview slider
+        dispatch(toggleCollapse(false)); // close the sidedrawer
+        dispatch(setPreviewContent());
+        const content = extractTextFromNode(children);
+        dispatch(setPreviewContent(content));
+    }
+
 
     // Extract language (null-safe)
     const match = /language-(\w+)/.exec(className || "");
     const language = match?.[1] ?? "text";
 
+    const extractTextFromNode = (node: React.ReactNode): string => {
+        if (typeof node === 'string') return node;
+        if (typeof node === 'number') return String(node);
+        if (Array.isArray(node)) return node.map(extractTextFromNode).join('');
+
+        if (React.isValidElement(node)) {
+            return extractTextFromNode(node.props.children);
+        }
+
+        return '';
+    };
+
     const handleCopy = () => {
-        console.log(code);
-        // navigator.clipboard.writeText(code);
+        const codeToCopy = extractTextFromNode(children);
+        navigator.clipboard.writeText(codeToCopy);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
+
+
+
     if (language === 'text' && !inline) return <code style={{
         backgroundColor: muiTheme.palette.primary[mode], padding: '0.2em 0.5em', borderRadius: '4px',
 
@@ -68,7 +93,7 @@ export const CodeBlock = ({ inline, className, children, ...props }: MarkdownCom
                 <CustomButton icon={<Download fontSize="small" />} children="Download" />
 
                 {language === 'html' &&
-                    <CustomButton icon={<PlayCircleRoundedIcon fontSize="small" />} children="Run" />}
+                    <CustomButton onClick={openPreview} icon={<PlayCircleRoundedIcon fontSize="small" />} children="Run" />}
             </Box>
         </Box>
         <code className={className} {...props}>{children}</code>

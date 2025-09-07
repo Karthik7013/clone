@@ -8,15 +8,16 @@ import { AppDispatch, RootState } from "../../store/store";
 import { temporaryMode } from "../../features/url/urlSlice";
 import Message from "../../assets/icons/message-icon";
 import Share from "../../assets/icons/share";
+import { toggleCollapse, toggleMobileDrawer } from "../../features/ui/uiSlice";
 
-type headerProps = {
-    closeMobileDrawer?: () => void,
-    closeDesktopDrawer?: () => void
-}
-const Header = (props: headerProps) => {
+
+const Header = () => {
     const mode = useSelector((state: RootState) => state.urlReducer.mode)
     const messages = useSelector((state: RootState) => state.chat.messages)
-    const dispatch: AppDispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch();
+
+    const mobileDrawer = useSelector((state: RootState) => state.ui.mobileDrawer);
+    const collapse = useSelector((state: RootState) => state.ui.collapse);
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
     const handleTemporaryMode = () => {
@@ -26,19 +27,33 @@ const Header = (props: headerProps) => {
             dispatch(temporaryMode('temporary'))
         }
     }
+
+    const handleCollpase = () => {
+        if (collapse) {
+            dispatch(toggleCollapse(false))
+        }
+        else {
+            dispatch(toggleCollapse(true))
+        }
+    };
+    const handleDrawer = () => {
+        if (mobileDrawer) {
+            dispatch(toggleMobileDrawer(false))
+        }
+        else {
+            dispatch(toggleMobileDrawer(true))
+        }
+    }
+
     return <Box sx={{ position: 'sticky', top: 0, left: 0, zIndex: 99 }}>
         <Helmet>
             <meta name="theme-color" content={muiTheme.palette.background.paper} />
             {messages.length && <title>{messages[0].message}</title>}
         </Helmet>
         <Toolbar sx={{ gap: 2, backgroundColor: 'background.paper' }}>
-            <IconButton onClick={isMobile
-                ? props.closeMobileDrawer : props.closeDesktopDrawer}>
+            <IconButton onClick={isMobile ? handleDrawer : handleCollpase}>
                 <SideMenu />
             </IconButton>
-
-
-
             <Box flexGrow={1} display='flex' gap={2} justifyContent={'center'}>
                 <Typography
                     variant="subtitle2"

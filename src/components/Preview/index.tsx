@@ -1,5 +1,9 @@
-import { Stack, Toolbar, Typography } from "@mui/material";
+import { Box, IconButton, Stack, Toolbar, Typography } from "@mui/material";
 import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { toggleCollapse, togglePreviewMode } from "../../features/ui/uiSlice";
+import Cancel from "../../assets/icons/circle-x";
 
 
 const sample = `
@@ -304,12 +308,16 @@ const sample = `
 `
 
 const PreviewMode = () => {
+    const dispatch: AppDispatch = useDispatch();
+    const previewContent = useSelector((state: RootState) => state.ui.previewContent)
+    const closePreview = () => {
+        dispatch(toggleCollapse(true))
+        dispatch(togglePreviewMode(false));
+    }
     const iframeRef = useRef<HTMLIFrameElement>(null);
-
     useEffect(() => {
         const iframe = iframeRef.current;
         if (!iframe) return;
-
         try {
             const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
 
@@ -319,16 +327,20 @@ const PreviewMode = () => {
             }
 
             iframeDoc.open();
-            iframeDoc.write(sample);
+            iframeDoc.write(previewContent ? previewContent : sample);
             iframeDoc.close();
         } catch (error) {
             console.error('Error writing to iframe:', error);
         }
-    }, [sample]);
+    }, [previewContent]);
 
     return <Stack sx={{ height: '100%', minWidth: 400 }}>
         <Toolbar>
             <Typography variant="subtitle2">Login | Sample login</Typography>
+            <Box sx={{ flexGrow: 1 }}></Box>
+            <IconButton onClick={closePreview}>
+                <Cancel />
+            </IconButton>
         </Toolbar>
         <iframe style={{
             border: 'none',
