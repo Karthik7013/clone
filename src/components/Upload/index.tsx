@@ -2,9 +2,10 @@ import { useRef } from "react";
 import { useUploadFileMutation } from "../../features/upload/uploadApi";
 import { CircularProgress } from "@mui/material";
 import IconButton from "../ui/IconButton"
-import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
 import { BotSubmitType, file } from "../../types/app-types";
 import { UseFormSetValue } from "react-hook-form";
+import AttachFile from "../../assets/icons/attach";
+
 // Maximum file size (5MB in bytes)
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const Upload = ({
@@ -55,7 +56,7 @@ const Upload = ({
 
     return <>
         <IconButton disabled={isUploading} onClick={handleChangeFile}>
-            {isUploading ? <CircularProgress size={20} /> : <AttachFileRoundedIcon />}
+            {isUploading ? <CircularProgress size={20} /> : <AttachFile />}
         </IconButton>
         <input
             ref={fileInputRef}

@@ -4,9 +4,9 @@ import { Box, Button, IconButton, useMediaQuery, useTheme } from "@mui/material"
 
 import Typography from "../../components/ui/Typography"
 import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';
-import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded';
-import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import Copy from "../../assets/icons/copy";
+import Download from "../../assets/icons/download";
+import Checked from "../../assets/icons/checked";
 
 type customButtonProps = {
     icon?: React.ReactNode;
@@ -63,13 +63,12 @@ export const CodeBlock = ({ inline, className, children, ...props }: MarkdownCom
                 color: muiTheme.palette.text.disabled
             }} as='span'>{language}</Typography>
             <Box>
-                <CustomButton onClick={handleCopy} icon={copied ? <CheckRoundedIcon /> : <ContentCopyRoundedIcon />} children={copied ? "Copied!" : "Copy"} />
-
-
-                <CustomButton icon={<FileDownloadRoundedIcon />} children="Download" />
+                <CustomButton onClick={handleCopy} icon={copied ?
+                    <Checked fontSize="small" /> : <Copy fontSize="small" />} children={copied ? "Copied!" : "Copy"} />
+                <CustomButton icon={<Download fontSize="small" />} children="Download" />
 
                 {language === 'html' &&
-                    <CustomButton icon={<PlayCircleRoundedIcon />} children="Run" />}
+                    <CustomButton icon={<PlayCircleRoundedIcon fontSize="small" />} children="Run" />}
             </Box>
         </Box>
         <code className={className} {...props}>{children}</code>

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { temporaryMode } from "../../features/url/urlSlice";
 import Message from "../../assets/icons/message-icon";
+import Share from "../../assets/icons/share";
 
 type headerProps = {
     closeMobileDrawer?: () => void,
@@ -45,16 +46,19 @@ const Header = (props: headerProps) => {
                     textOverflow={'ellipsis'}
                     overflow={'hidden'}
                     sx={{
-                        maxWidth: { xs:180,lg: 400},
+                        maxWidth: { xs: 180, lg: 400 },
                         fontSize: 14,
                         whiteSpace: 'nowrap'
                     }}
                 >{messages[0]?.message}</Typography>
             </Box>
-            <IconButton onClick={handleTemporaryMode}>
+            {!messages.length ? < IconButton onClick={handleTemporaryMode}>
                 {mode ? <Message /> : <MessageCircleDashed />}
             </IconButton>
+                : <IconButton size='small'>
+                    <Share fontSize='inherit' />
+                </IconButton>}
         </Toolbar>
-    </Box>
+    </Box >
 }
 export default Header;

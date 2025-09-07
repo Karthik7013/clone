@@ -1,7 +1,7 @@
 import { CardContent, List, ListItem, ListItemText, ListSubheader, Skeleton, Typography } from "@mui/material";
 import DarkMode from "../Darkmode";
 import React from "react";
-import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
+import MoreHorizRound from "../../assets/icons/more";
 
 const generateRandomMessage = () => {
     const subjects = ['Meeting', 'Hi', 'File', 'Call', 'Done', 'Help', 'Later'];
@@ -24,7 +24,7 @@ const ConversationList = () => {
             </ListSubheader>
         }>
             {Array.from({ length: 20 }, (_, i) => (
-                <ListItem key={i} secondaryAction={<MoreHorizRoundedIcon />}>
+                <ListItem key={i} secondaryAction={<MoreHorizRound fontSize="inherit" />}>
                     <ListItemText primary={generateRandomMessage()} />
                 </ListItem>
             ))}

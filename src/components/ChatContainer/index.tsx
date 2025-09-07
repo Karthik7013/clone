@@ -8,7 +8,6 @@ import Conversation from "../Conversation";
 const ChatContainer = () => {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const { messages } = useSelector((state: RootState) => state.chat);
-    console.log(messages)
     return <Scrollbar sx={{
         flexGrow: !messages.length ? 0 : 1, transition: 'flex .2s linear'
     }}>

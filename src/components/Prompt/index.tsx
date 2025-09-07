@@ -1,8 +1,5 @@
 import { Box, ButtonGroup, CardContent, Collapse, Container, IconButton, Stack, Typography, useTheme } from "@mui/material"
 import Card from "../ui/Card";
-import StopCircleRoundedIcon from '@mui/icons-material/StopCircleRounded';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import ArrowUp from '../../assets/icons/arrow-up';
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import Upload from "../Upload";
@@ -11,6 +8,9 @@ import { AppDispatch, RootState } from "../../store/store";
 import { useRef } from "react";
 import { BotSubmitType } from "../../types/app-types";
 import { sendMessageStream } from "../../features/chatbot/chatbotApi";
+import File from "../../assets/icons/file";
+import Cancel from "../../assets/icons/circle-x";
+import StopCircle from "../../assets/icons/stop-circle";
 
 const Prompt = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -36,6 +36,7 @@ const Prompt = () => {
     };
     const onHandleSubmit: SubmitHandler<BotSubmitType> = async (data) => {
         try {
+            console.log(data);
             if (contentRef.current) {
                 contentRef.current.textContent = '';
             }
@@ -62,11 +63,11 @@ const Prompt = () => {
             }}>
                 <Collapse in={Boolean(file)} orientation='vertical'>
                     {file &&
-                        <Card sx={{ maxWidth: 'fit-content', height: 56, borderRadius: 2, display: 'flex', alignItems: 'center', bgcolor: muiTheme.palette.action.selected, position: 'relative' }}>
-                            <Box height={36} minWidth={36} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
-                                <DescriptionRoundedIcon color='success' />
+                        <Card sx={{ maxWidth: 'fit-content', height: 50, borderRadius: 2, display: 'flex', alignItems: 'center', bgcolor: muiTheme.palette.action.selected, position: 'relative', px: 1.2, gap: 2 }}>
+                            <Box bgcolor={muiTheme.palette.divider} height={36} minWidth={36} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
+                                <File fontSize="small" />
                             </Box>
-                            <Stack alignItems={'center'} direction={'row'} flexGrow={1} padding={1} pl={0}>
+                            <Stack alignItems={'center'} direction={'row'} flexGrow={1} padding={1} pl={0} gap={5}>
                                 <Box
                                     flexGrow={1} display={'flex'} flexDirection={'column'}>
                                     <Typography variant='caption' sx={{
@@ -81,7 +82,7 @@ const Prompt = () => {
                                 <Box onClick={() => reset({
                                     file: undefined
                                 })}>
-                                    <CancelRoundedIcon fontSize='small' color='error' sx={{ cursor: 'pointer', mt: 1 }} />
+                                    <Cancel fontSize='small' color='error' sx={{ cursor: 'pointer', mt: 1 }} />
                                 </Box>
                             </Stack>
 
@@ -123,7 +124,6 @@ const Prompt = () => {
                     <Stack direction='row' alignItems={'center'} justifyContent={'space-between'}>
                         <ButtonGroup>
                             <Upload setValue={setValue} />
-
                         </ButtonGroup>
                         <IconButton
                             sx={{ borderRadius }}
@@ -131,7 +131,7 @@ const Prompt = () => {
                             disabled={isLoading}
                         >
                             {isLoading ? (
-                                <StopCircleRoundedIcon fontSize='inherit' />
+                                <StopCircle fontSize='inherit' />
                             ) : (
                                 <ArrowUp fontSize='inherit' />
                             )}
