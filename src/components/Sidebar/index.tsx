@@ -1,10 +1,9 @@
-import { Avatar, Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography, useTheme } from "@mui/material";
+import { Avatar, Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack, Toolbar, Typography, useTheme } from "@mui/material";
 import ScrollContainer from "../Scrollbar/Scrollbar";
 import { GeminiText } from "../../assets/icons/GeminiText";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import Edit from "../../assets/icons/edit";
 import WorkFlow from "../../assets/icons/workflow";
-// import PannelLeft from "../../assets/icons/pannel-left";
 import DownUp from "../../assets/icons/up-down";
 import Compass from '../../assets/icons/compass'
 import { AppDispatch } from "../../store/store";
@@ -12,27 +11,38 @@ import { useDispatch } from "react-redux";
 import { newChat } from "../../features/chatbot/chatbotSlice";
 import React from "react";
 import ConversationList from "../ConversationList";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 
 const Sidebar = () => {
     const theme = useTheme();
     const dispatch: AppDispatch = useDispatch();
-
+    const { user, logout } = useAuth0();
     const handleNewChat = () => {
         dispatch(newChat())
     };
-
+    const handleLogout = () => {
+        logout({
+            logoutParams: {
+                returnTo: window.location.origin
+            }
+        });
+    };
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     return (
         <Stack sx={{ height: "100dvh", borderRight: `1px solid ${theme.palette.divider}`, bgcolor: theme.palette.background.paper }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Stack gap={1} direction={'row'}>
                     <GeminiText sx={{ width: '100%' }} />
                 </Stack>
-                {/* <Box>
-                    <IconButton size="small"><PannelLeft fontSize="inherit" /></IconButton>
-                </Box> */}
-
             </Toolbar>
             <List dense>
                 <ListItem>
@@ -66,17 +76,36 @@ const Sidebar = () => {
             </ScrollContainer>
             <Divider variant="middle" />
             <Box>
-
-                <List disablePadding>
-                    <ListItem secondaryAction={<DownUp fontSize="inherit" />}>
+                <List id="basic-button">
+                    <ListItem secondaryAction={
+                        <button
+                            style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', color: 'inherit' }}
+                            onClick={handleClick}
+                        >
+                            <DownUp fontSize="inherit" />
+                        </button>
+                    }>
                         <ListItemIcon>
                             <Avatar sx={{
                                 width: '36px', height: '36px'
-                            }} src="https://avatar.iran.liara.run/public">K</Avatar>
+                            }} src={user?.picture}></Avatar>
                         </ListItemIcon>
-                        <ListItemText secondary={<Typography variant="caption">karthiktumala143</Typography>} primary={<Typography variant="subtitle2">@karthik2451</Typography>} />
+                        <ListItemText
+                            primary={<Typography variant="subtitle2">{user?.name}</Typography>} />
                     </ListItem>
+
+
                 </List>
+                <Menu
+                    variant="selectedMenu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleClose}>Settings</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
             </Box>
         </Stack>
     )
