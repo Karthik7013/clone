@@ -8,14 +8,16 @@ import { AppDispatch, RootState } from "../../store/store";
 import { temporaryMode } from "../../features/url/urlSlice";
 import Message from "../../assets/icons/message-icon";
 import Share from "../../assets/icons/share";
+import { GeminiText } from "../../assets/icons/GeminiText";
 import { toggleCollapse, toggleMobileDrawer } from "../../features/ui/uiSlice";
+import GoogleButton from "../GoogleButton";
 
 
 const Header = () => {
     const mode = useSelector((state: RootState) => state.urlReducer.mode)
     const messages = useSelector((state: RootState) => state.chat.messages)
     const dispatch: AppDispatch = useDispatch();
-
+    const isLogin = useSelector((state: RootState) => state.auth.isLogin);
     const mobileDrawer = useSelector((state: RootState) => state.ui.mobileDrawer);
     const collapse = useSelector((state: RootState) => state.ui.collapse);
     const muiTheme = useTheme();
@@ -51,9 +53,11 @@ const Header = () => {
             {messages.length && <title>{messages[0].message}</title>}
         </Helmet>
         <Toolbar sx={{ gap: 2, backgroundColor: 'background.paper' }}>
-            <IconButton onClick={isMobile ? handleDrawer : handleCollpase}>
+            {isLogin ? <IconButton onClick={isMobile ? handleDrawer : handleCollpase}>
                 <SideMenu />
-            </IconButton>
+            </IconButton> : <GeminiText sx={{
+                fontSize: '4rem'
+            }} />}
             <Box flexGrow={1} display='flex' gap={2} justifyContent={'center'}>
                 <Typography
                     variant="subtitle2"
@@ -67,13 +71,19 @@ const Header = () => {
                     }}
                 >{messages[0]?.message}</Typography>
             </Box>
-            {!messages.length ? < IconButton onClick={handleTemporaryMode}>
-                {mode ? <Message /> : <MessageCircleDashed />}
-            </IconButton>
-                : <IconButton size='small'>
-                    <Share fontSize='inherit' />
-                </IconButton>}
+             <GoogleButton />
+            {
+                isLogin && <>
+                    {!messages.length ? < IconButton onClick={handleTemporaryMode}>
+                        {mode ? <Message /> : <MessageCircleDashed />}
+                    </IconButton>
+                        : <IconButton size='small'>
+                            <Share fontSize='inherit' />
+                        </IconButton>}
+                </>
+            }
+
         </Toolbar>
-    </Box >
+    </Box>
 }
 export default Header;
