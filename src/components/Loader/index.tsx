@@ -1,4 +1,4 @@
-import { Backdrop, keyframes, Typography } from "@mui/material";
+import { Backdrop, Grow, keyframes, Typography } from "@mui/material";
 import GeminiIcon from "../../assets/icons/GeminiIcon";
 import AnimatedWrapper from "../AnimatedWrapper";
 const rotate = keyframes`
@@ -17,22 +17,24 @@ const rotate = keyframes`
 `;
 
 const Loader = () => {
-    return <Backdrop
-        sx={(theme) => ({
-            color: theme.palette.background.paper, zIndex: theme.zIndex.drawer + 1,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 1
-        })}
-        open={true}
-    >
-        <AnimatedWrapper sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} animation={rotate} duration="2s" timingFunction="ease-in-out">
-            <GeminiIcon fontSize="large" />
-        </AnimatedWrapper>
-        <Typography color='text.secondary'>
-            Starting things...
-        </Typography>
-    </Backdrop>
+  return <Backdrop
+    TransitionComponent={Grow}
+    sx={(theme) => ({
+      color: theme.palette.background.paper,
+      zIndex: theme.zIndex.drawer + 1,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 1
+    })}
+    open={true}
+  >
+    <AnimatedWrapper sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} animation={rotate} duration="2s" timingFunction="ease-in-out">
+      <GeminiIcon fontSize="large" />
+    </AnimatedWrapper>
+    <Typography color='text.secondary'>
+      Starting things...
+    </Typography>
+  </Backdrop>
 
 }
 export default Loader;
