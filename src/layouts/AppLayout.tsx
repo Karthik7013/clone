@@ -8,9 +8,12 @@ import PreviewMode from '../components/Preview';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
 import { setPreviewContent, toggleMobileDrawer, togglePreviewMode } from '../features/ui/uiSlice';
+import { useAuth0 } from '@auth0/auth0-react';
+import SearchConversation from '../components/SeachConversation';
 
 const AppLayout = () => {
     const dispatch: AppDispatch = useDispatch();
+    const { user } = useAuth0()
     const mobileDrawer = useSelector((state: RootState) => state.ui.mobileDrawer);
     const preview = useSelector((state: RootState) => state.ui.previewMode);
     const collapse = useSelector((state: RootState) => state.ui.collapse);
@@ -23,15 +26,15 @@ const AppLayout = () => {
     }
     return (
         <Stack direction={'row'} sx={{ height: '100dvh', width: '100%' }}>
-            <Collapse orientation='horizontal' in={!isMobile && collapse} unmountOnExit>
+            <Collapse orientation='horizontal' in={!isMobile && collapse && Boolean(user)} unmountOnExit>
                 <Sidebar />
             </Collapse>
-            <Drawer anchor='left' onClose={closeDrawer} open={isMobile && mobileDrawer}>
+            <Drawer anchor='left' onClose={closeDrawer} open={Boolean(user) && isMobile && mobileDrawer}>
                 <Sidebar />
             </Drawer>
             <Stack sx={{ height: '100%', flexGrow: 1, width: '100%' }}>
                 <Header />
-                <Stack sx={{ overflowY: 'auto', flexGrow: 1, justifyContent: 'center' }}>
+                <Stack sx={{ overflowY: 'auto', flexGrow: 1, justifyContent: isMobile ? 'space-between' : 'center', gap: 16 }}>
                     <ChatContainer />
                     <Prompt />
                 </Stack>
@@ -45,7 +48,7 @@ const AppLayout = () => {
             <Drawer anchor='right' onClose={closePreview} open={isMobile && !mobileDrawer && preview}>
                 <PreviewMode />
             </Drawer>
-
+            <SearchConversation />
         </Stack>
     )
 }

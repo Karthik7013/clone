@@ -1,31 +1,39 @@
-import { Dialog, DialogContent, DialogTitle, InputAdornment, List, ListItem, ListItemText, TextField, Toolbar, useMediaQuery, useTheme } from "@mui/material";
-import { Search } from "@mui/icons-material";
+import { CardContent, Dialog, DialogTitle, InputAdornment, List, ListItem, ListItemText, TextField, Toolbar, useMediaQuery, useTheme } from "@mui/material";
+import { MoreHoriz, Search } from "@mui/icons-material";
+import ScrollContainer from "../Scrollbar/Scrollbar";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { toggleSearch } from "../../features/ui/uiSlice";
 const SearchConversation = () => {
-    const open = true;
+
+    const dispatch: AppDispatch = useDispatch();
+    const closeSearch = () => dispatch(toggleSearch(false))
+    const open = useSelector((state: RootState) => state.ui.search);
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
-    const handleClose = () => { }
-    return <Dialog fullScreen={isMobile} onClose={handleClose} fullWidth maxWidth="md" open={open}>
+    return <Dialog fullScreen={isMobile} onClose={closeSearch} fullWidth maxWidth="md" open={open}>
         <DialogTitle justifyContent={'space-between'} component={Toolbar}>
             <TextField
-
+                size="small"
                 placeholder="Search Chat"
                 InputProps={{
                     startAdornment: <InputAdornment position="start">
                         <Search />
                     </InputAdornment>
                 }}
-                fullWidth></TextField>
+                fullWidth>
+            </TextField>
         </DialogTitle>
-        <DialogContent>
+        <ScrollContainer component={CardContent}>
             <List disablePadding>
-                {Array(16).fill(null).map(() => <ListItem>
+                {Array(16).fill(null).map(() => <ListItem secondaryAction={<MoreHoriz />} divider>
                     <ListItemText
                         primary="Hia tehr"
                     />
                 </ListItem>)}
             </List>
-        </DialogContent>
+        </ScrollContainer>
+
     </Dialog>
 }
 export default SearchConversation;

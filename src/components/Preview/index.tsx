@@ -1,5 +1,5 @@
 import { Box, IconButton, Stack, Toolbar, Typography } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { toggleCollapse, togglePreviewMode } from "../../features/ui/uiSlice";
@@ -308,6 +308,7 @@ const sample = `
 `
 
 const PreviewMode = () => {
+    const [title, setTitle] = useState('Untitled')
     const dispatch: AppDispatch = useDispatch();
     const previewContent = useSelector((state: RootState) => state.ui.previewContent)
     const closePreview = () => {
@@ -318,6 +319,21 @@ const PreviewMode = () => {
     useEffect(() => {
         const iframe = iframeRef.current;
         if (!iframe) return;
+        // Function to handle the iframe load event
+        const handleIframeLoad = () => {
+            try {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+                if (!iframeDoc) {
+                    console.error('Cannot access iframe document after load');
+                    return;
+                }
+                // Now it's safe to access the title
+                console.log('Iframe loaded. Document title:', iframeDoc.title);
+                setTitle(iframeDoc.title || 'Untitled'); // Fallback to 'Untitled' if title is empty
+            } catch (error) {
+                console.error('Error accessing iframe document or title after load:', error);
+            }
+        };
         try {
             const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
 
@@ -325,18 +341,25 @@ const PreviewMode = () => {
                 console.error('Cannot access iframe document');
                 return;
             }
-
             iframeDoc.open();
             iframeDoc.write(previewContent ? previewContent : sample);
             iframeDoc.close();
+            // Add the load event listener
+            iframe.addEventListener('load', handleIframeLoad);
         } catch (error) {
             console.error('Error writing to iframe:', error);
         }
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+            if (iframe) {
+                iframe.removeEventListener('load', handleIframeLoad);
+            }
+        };
     }, [previewContent]);
 
-    return <Stack sx={{ height: '100%', minWidth: 400 }}>
+    return <Stack sx={{ height: '100%' }}>
         <Toolbar>
-            <Typography variant="subtitle2">Login | Sample login</Typography>
+            <Typography variant="subtitle2">{title}</Typography>
             <Box sx={{ flexGrow: 1 }}></Box>
             <IconButton onClick={closePreview}>
                 <Cancel />
@@ -345,7 +368,7 @@ const PreviewMode = () => {
         <iframe style={{
             border: 'none',
             flexGrow: 1
-        }} ref={iframeRef} sandbox="allow-same-origin" />
+        }} ref={iframeRef} />
     </Stack>
 };
 

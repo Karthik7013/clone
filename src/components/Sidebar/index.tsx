@@ -12,6 +12,7 @@ import { newChat } from "../../features/chatbot/chatbotSlice";
 import React from "react";
 import ConversationList from "../ConversationList";
 import { useAuth0 } from "@auth0/auth0-react";
+import { toggleMobileDrawer, toggleSearch } from "../../features/ui/uiSlice";
 
 
 
@@ -21,6 +22,7 @@ const Sidebar = () => {
     const { user, logout } = useAuth0();
     const handleNewChat = () => {
         dispatch(newChat())
+        dispatch(toggleMobileDrawer(false))
     };
     const handleLogout = () => {
         logout({
@@ -37,6 +39,7 @@ const Sidebar = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const openSearch = () => dispatch(toggleSearch(true))
     return (
         <Stack sx={{ height: "100dvh", borderRight: `1px solid ${theme.palette.divider}`, bgcolor: theme.palette.background.paper }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -52,7 +55,7 @@ const Sidebar = () => {
                     </ListItemButton>
                 </ListItem>
                 <ListItem>
-                    <ListItemButton>
+                    <ListItemButton onClick={openSearch}>
                         <SearchRoundedIcon fontSize="inherit" sx={{ mr: 1 }} />
                         <ListItemText primary="Search" />
                     </ListItemButton>

@@ -1,4 +1,4 @@
-import { Backdrop, Grow, keyframes, Typography } from "@mui/material";
+import { Backdrop, keyframes, Typography } from "@mui/material";
 import GeminiIcon from "../../assets/icons/GeminiIcon";
 import AnimatedWrapper from "../AnimatedWrapper";
 const rotate = keyframes`
@@ -18,7 +18,6 @@ const rotate = keyframes`
 
 const Loader = () => {
   return <Backdrop
-    TransitionComponent={Grow}
     sx={(theme) => ({
       color: theme.palette.background.paper,
       zIndex: theme.zIndex.drawer + 1,
