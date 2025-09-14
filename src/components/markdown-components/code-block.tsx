@@ -68,6 +68,8 @@ export const CodeBlock = ({ inline, className, children, ...props }: MarkdownCom
 
     if (language === 'text' && !inline) return <code style={{
         backgroundColor: muiTheme.palette.primary[mode], padding: '0.2em 0.5em', borderRadius: '4px',
+        textWrap: 'wrap',
+        overflowWrap: "break-word"
 
     }} className={className} {...props}>{children}</code>
 

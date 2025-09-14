@@ -1,4 +1,4 @@
-import { Avatar, Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Avatar, Box, Stack, Typography } from "@mui/material";
 // import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
 // import LocalDiningRoundedIcon from '@mui/icons-material/LocalDiningRounded';
 // import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
@@ -10,8 +10,6 @@ import { useSelector } from "react-redux";
 import Incognito from "../../assets/icons/Incognito";
 
 const Hero = () => {
-    const muiTheme = useTheme();
-    const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
     const filters = useSelector((state: RootState) => state.urlReducer)
     useEffect(() => {
         const currentUrl = new URL(window.location.href);
@@ -25,7 +23,7 @@ const Hero = () => {
         window.history.pushState({}, '', currentUrl);
     }, [filters])
 
-    return <Box height={'100%'} mt={isMobile ? 42 : 0} display='flex' alignItems='center' flexDirection='column' justifyContent='space-between'>
+    return <Box height={'100%'} display='flex' alignItems='center' flexDirection='column' justifyContent='space-between'>
         <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
             {
                 !filters.mode ? <>
