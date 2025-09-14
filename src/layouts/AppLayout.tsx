@@ -34,7 +34,7 @@ const AppLayout = () => {
             </Drawer>
             <Stack sx={{ height: '100%', flexGrow: 1, width: '100%' }}>
                 <Header />
-                <Stack sx={{ overflowY: 'auto', flexGrow: 1, justifyContent:'center',gap:16 }}>
+                <Stack sx={{ overflowY: 'auto', flexGrow: 1, justifyContent:'center' }}>
                     <ChatContainer />
                     <Prompt />
                 </Stack>
