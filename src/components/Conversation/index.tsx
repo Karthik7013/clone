@@ -1,4 +1,4 @@
-import { Box, Card, CardActionArea, CardContent, Divider, IconButton, ListItem, Stack, Toolbar, Typography, useTheme } from "@mui/material";
+import { Box, Card, CardActionArea, Divider, IconButton, ListItem, Stack, Toolbar, Typography, useTheme } from "@mui/material";
 import ReactMarkdown from "../MarkdownRender";
 import Copy from "../../assets/icons/copy";
 import Download from "../../assets/icons/download";
@@ -16,7 +16,7 @@ const Conversation = ({ candidate, response }: { candidate: 'user' | 'assistant'
             justifyContent: 'flex-end'
         }}>
             {(candidate === 'assistant') &&
-                <Box component={CardContent} sx={{ width: '100%' }}>
+                <Box sx={{ width: '100%' }}>
 
                     <ReactMarkdown>
                         {
