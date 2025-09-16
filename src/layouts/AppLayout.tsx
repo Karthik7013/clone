@@ -10,6 +10,7 @@ import { AppDispatch, RootState } from '../store/store';
 import { setPreviewContent, toggleMobileDrawer, togglePreviewMode } from '../features/ui/uiSlice';
 import { useAuth0 } from '@auth0/auth0-react';
 import SearchConversation from '../components/SeachConversation';
+// import Settings from '../components/Settings';
 
 const AppLayout = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -49,6 +50,7 @@ const AppLayout = () => {
                 <PreviewMode />
             </Drawer>
             <SearchConversation />
+            {/* <Settings  /> */}
         </Stack>
     )
 }

@@ -11,6 +11,7 @@ import { sendMessageStream } from "../../features/chatbot/chatbotApi";
 import File from "../../assets/icons/file";
 import Cancel from "../../assets/icons/circle-x";
 import StopCircle from "../../assets/icons/stop-circle";
+import StyledCard from "../ui/Card";
 
 const Prompt = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -63,8 +64,10 @@ const Prompt = () => {
             }}>
                 <Collapse in={Boolean(file)} orientation='vertical'>
                     {file &&
-                        <Card sx={{ maxWidth: 'fit-content', height: 50, borderRadius: 2, display: 'flex', alignItems: 'center', bgcolor: muiTheme.palette.action.selected, position: 'relative', px: 1.2, gap: 2 }}>
-                            <Box bgcolor={muiTheme.palette.divider} height={36} minWidth={36} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
+                        <StyledCard sx={{ maxWidth: 'fit-content', height: 50, borderRadius: 2, display: 'flex', alignItems: 'center', bgcolor: muiTheme.palette.action.selected, position: 'relative', px: 1.7, gap: 2 }}>
+                            <Box
+                                bgcolor={muiTheme.palette.primary[muiTheme.palette.mode]}
+                                height={36} minWidth={36} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
                                 <File fontSize="small" />
                             </Box>
                             <Stack alignItems={'center'} direction={'row'} flexGrow={1} padding={1} pl={0} gap={5}>
@@ -86,7 +89,7 @@ const Prompt = () => {
                                 </Box>
                             </Stack>
 
-                        </Card>
+                        </StyledCard>
                     }
                 </Collapse>
                 <Box>
@@ -107,13 +110,19 @@ const Prompt = () => {
                                 onInput={handleInput}
                                 onFocus={handleFocus}
                                 sx={{
-                                    padding: '12px',
-                                    borderRadius: 1,
+                                    padding: '12px 16px',
+                                    borderRadius,
                                     minHeight: 48,
-                                    maxHeight: 150,
+                                    maxHeight: 350,
                                     outline: 'none',
-                                    overflowY: 'auto',
                                     whiteSpace: 'pre-wrap',
+                                    overflowY: "auto",
+                                    overflowX: 'hidden',
+                                    scrollbarColor:
+                                        muiTheme.palette.mode === "dark"
+                                            ? `${muiTheme.palette.grey[900]} ${muiTheme.palette.background.default}`
+                                            : `${muiTheme.palette.grey[400]} ${muiTheme.palette.background.default}`,
+                                    scrollbarWidth: "thin"
                                 }}
                                 suppressContentEditableWarning
                             >

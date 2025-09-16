@@ -14,6 +14,7 @@ const ScrollContainer = styled(Box)(({ theme }) => {
         "&::-webkit-scrollbar": {
             width: "8px",
             height: "8px",
+            
         },
         "&::-webkit-scrollbar-track": {
             backgroundColor:theme.palette.action.hover,
