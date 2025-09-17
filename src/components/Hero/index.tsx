@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import Incognito from "../../assets/icons/Incognito";
+import ScrollText from "../ScrollText";
 
 const Hero = () => {
     const filters = useSelector((state: RootState) => state.urlReducer)
@@ -23,23 +24,12 @@ const Hero = () => {
         window.history.pushState({}, '', currentUrl);
     }, [filters])
 
-    return <Box height={'100%'} display='flex' alignItems='center' flexDirection='column' mb={16} justifyContent='space-between'>
+    return <Box height={'100%'} display='flex' alignItems='center' flexDirection='column' mb={10} justifyContent='space-between'>
+
         <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
             {
                 !filters.mode ? <>
-                    <Typography
-                        variant="h5"
-                        fontWeight={600}
-                        textAlign="center"
-                        sx={{
-                            background: 'linear-gradient(0deg, #4285F4, #9B72CB, #FF5CAA)', // Gemini-like gradient
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent'
-                        }}
-                    >
-                        🖐 Hi there<br /> how can I help you today?
-                    </Typography>
-
+                    <ScrollText />
                 </> :
 
                     <Stack gap={2} alignItems={'center'}>
