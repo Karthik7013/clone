@@ -55,8 +55,8 @@ const Upload = ({
 
 
     return <>
-        <IconButton disabled={isUploading} onClick={handleChangeFile}>
-            {isUploading ? <CircularProgress size={20} /> : <AttachFile />}
+        <IconButton size="small" disabled={isUploading} onClick={handleChangeFile}>
+            {isUploading ? <CircularProgress size={20} /> : <AttachFile fontSize="inherit" />}
         </IconButton>
         <input
             ref={fileInputRef}

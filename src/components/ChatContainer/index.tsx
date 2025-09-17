@@ -17,10 +17,10 @@ const ChatContainer = () => {
             {!messages.length ?
                 <Hero /> :
                 <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2, height: '100%', position: 'relative' }}>
-                    {!isLoading && <HeartBeat />}
                     {messages.map((message, _) => {
                         return <Conversation key={_} candidate={message.type} response={message.message} />
                     })}
+                    {isLoading && <HeartBeat />}
                     <Box ref={messagesEndRef} />
                 </List>
             }

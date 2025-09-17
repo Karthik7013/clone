@@ -1,4 +1,4 @@
-import { Box, ButtonGroup, CardContent, Collapse, Container, IconButton, Stack, Typography, useTheme } from "@mui/material"
+import { Box, ButtonGroup, CardContent, Chip, Collapse, Container, IconButton, Stack, Typography, useTheme } from "@mui/material"
 import Card from "../ui/Card";
 import ArrowUp from '../../assets/icons/arrow-up';
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -12,7 +12,8 @@ import File from "../../assets/icons/file";
 import Cancel from "../../assets/icons/circle-x";
 import StopCircle from "../../assets/icons/stop-circle";
 import StyledCard from "../ui/Card";
-
+import LanguageIcon from '@mui/icons-material/Language';
+import ScienceIcon from '@mui/icons-material/Science';
 const Prompt = () => {
     const dispatch: AppDispatch = useDispatch();
     const muiTheme = useTheme();
@@ -53,7 +54,10 @@ const Prompt = () => {
     return <Container component='form' onSubmit={handleSubmit(onHandleSubmit)} maxWidth="md" sx={{
         position: 'sticky', bottom: 10
     }}>
-        <Card sx={{ borderRadius: muiTheme.shape.borderRadius, boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)` }}>
+        <Card sx={{
+            borderRadius: muiTheme.shape.borderRadius,
+            boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)`
+        }}>
             <CardContent sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -131,20 +135,25 @@ const Prompt = () => {
                         )}
                     />
                     <Stack direction='row' alignItems={'center'} justifyContent={'space-between'}>
+                        <ButtonGroup sx={{ gap: 2 }}>
+
+                            <Chip color="primary" icon={<LanguageIcon fontSize="small" />} clickable variant="outlined" label="Search" />
+                            <Chip color="primary" icon={<ScienceIcon fontSize="small" />} clickable variant="outlined" label="Research" />
+                        </ButtonGroup>
                         <ButtonGroup>
                             <Upload setValue={setValue} />
+                            <IconButton
+                                sx={{ borderRadius }}
+                                type='submit'
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <StopCircle fontSize='inherit' />
+                                ) : (
+                                    <ArrowUp fontSize='inherit' />
+                                )}
+                            </IconButton>
                         </ButtonGroup>
-                        <IconButton
-                            sx={{ borderRadius }}
-                            type='submit'
-                            disabled={isLoading}
-                        >
-                            {isLoading ? (
-                                <StopCircle fontSize='inherit' />
-                            ) : (
-                                <ArrowUp fontSize='inherit' />
-                            )}
-                        </IconButton>
                     </Stack>
                 </Box>
             </CardContent>
