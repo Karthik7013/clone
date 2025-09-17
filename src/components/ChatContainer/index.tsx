@@ -5,7 +5,9 @@ import { useSelector } from "react-redux";
 import Hero from "../Hero";
 import { useRef } from "react";
 import Conversation from "../Conversation";
+import HeartBeat from "../Loader/HeartBeat";
 const ChatContainer = () => {
+    const { isLoading } = useSelector((state: RootState) => state.chat);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const { messages } = useSelector((state: RootState) => state.chat);
     return <Scrollbar sx={{
@@ -15,6 +17,7 @@ const ChatContainer = () => {
             {!messages.length ?
                 <Hero /> :
                 <List sx={{ display: 'flex', gap: 2, flexDirection: 'column', py: 2, height: '100%', position: 'relative' }}>
+                    {!isLoading && <HeartBeat />}
                     {messages.map((message, _) => {
                         return <Conversation key={_} candidate={message.type} response={message.message} />
                     })}
