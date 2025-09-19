@@ -1,10 +1,9 @@
 import { styled } from "@mui/material"
 import { Card } from "@mui/material"
 
-const StyledCard = styled(Card)(({theme}) => ({
+const StyledCard = styled(Card)(({ theme }) => ({
     border: `1px solid ${theme.palette.mode === 'dark' ? '#ffffff21' : '#0000004a'}`,
     boxShadow: 'none',
-    borderRadius:theme.shape.borderRadius,
-    overflow: 'hidden',
+    overflow: 'hidden'
 }))
 export default StyledCard;

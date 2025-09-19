@@ -1,4 +1,4 @@
-import { Box, Link, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Alert, Box, Link, Snackbar, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
 import IconButton from "../ui/IconButton";
 import MessageCircleDashed from "../../assets/icons/message-circle-dashed";
 import Helmet from "react-helmet";
@@ -88,6 +88,21 @@ const Header = () => {
 
 
         </Toolbar>
+
+        <Box sx={{ position: 'relative' }}>
+            <Snackbar
+                sx={{ position: 'absolute' }}
+                open={false}
+                anchorOrigin={{
+                    horizontal: 'center',
+                    vertical: "top"
+                }}
+            >
+                <Alert sx={{ width: '100%' }} color="success" title="Error">
+                    Error while error causeing the errrError while error causeing the
+                </Alert>
+            </Snackbar>
+        </Box>
     </Box>
 }
 export default Header;

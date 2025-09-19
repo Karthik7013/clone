@@ -1,4 +1,4 @@
-import { Box, ButtonGroup, CardContent, Chip, Collapse, Container, IconButton, Stack, Typography, useTheme } from "@mui/material"
+import { Box, ButtonGroup, CardContent, Chip, Collapse, Container, IconButton, Stack, Tooltip, Typography, useTheme } from "@mui/material"
 import Card from "../ui/Card";
 import ArrowUp from '../../assets/icons/arrow-up';
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -55,7 +55,6 @@ const Prompt = () => {
         position: 'sticky', bottom: 10
     }}>
         <Card sx={{
-            borderRadius: muiTheme.shape.borderRadius,
             boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)`
         }}>
             <CardContent sx={{
@@ -64,17 +63,21 @@ const Prompt = () => {
                 padding: 1,
                 '&:last-child': { // Targeting the last child
                     paddingBottom: 1 // Remove bottom padding specifically
-                }
+                },
+                boxShadow: `inset 
+                0px 16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#292929ff' : 'white'},
+                0px 0px 0px 0px rgb(0 0 0 / 0%),
+                0px 0px 0px 0px rgb(0 0 0 / 0%)`
             }}>
                 <Collapse in={Boolean(file)} orientation='vertical'>
                     {file &&
-                        <StyledCard sx={{ maxWidth: 'fit-content', height: 50, borderRadius: 2, display: 'flex', alignItems: 'center', bgcolor: muiTheme.palette.action.selected, position: 'relative', px: 1.7, gap: 2 }}>
+                        <StyledCard sx={{ maxWidth: '200px', height: 50, display: 'flex', alignItems: 'center', position: 'relative', px: 1, gap: 1 }}>
                             <Box
                                 bgcolor={muiTheme.palette.primary[muiTheme.palette.mode]}
                                 height={36} minWidth={36} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
                                 <File fontSize="small" />
                             </Box>
-                            <Stack alignItems={'center'} direction={'row'} flexGrow={1} padding={1} pl={0} gap={5}>
+                            <Stack alignItems={'center'} direction={'row'} flexGrow={1} padding={1} pl={0} gap={1}>
                                 <Box
                                     flexGrow={1} display={'flex'} flexDirection={'column'}>
                                     <Typography variant='caption' sx={{
@@ -115,7 +118,7 @@ const Prompt = () => {
                                 onFocus={handleFocus}
                                 sx={{
                                     padding: '12px 16px',
-                                    borderRadius,
+
                                     minHeight: 48,
                                     maxHeight: 350,
                                     outline: 'none',
@@ -134,11 +137,17 @@ const Prompt = () => {
                             </Box>
                         )}
                     />
-                    <Stack direction='row' alignItems={'center'} justifyContent={'space-between'}>
+                    <Stack direction='row' alignItems={'flex-end'} justifyContent={'space-between'}>
                         <ButtonGroup sx={{ gap: 2 }}>
+                            <Tooltip title="Think before responding to solve the resoning problems">
 
-                            <Chip color="primary" icon={<LanguageIcon fontSize="small" />} clickable variant="outlined" label="Search" />
-                            <Chip color="primary" icon={<ScienceIcon fontSize="small" />} clickable variant="outlined" label="Research" />
+                                <Chip color="primary" icon={<ScienceIcon fontSize="small" />} clickable variant="outlined" label="Research" />
+                            </Tooltip>
+                            <Tooltip title="Search in web when necessary">
+
+                                <Chip color="primary" icon={<LanguageIcon fontSize="small" />} clickable variant="outlined" label="Search" />
+                            </Tooltip>
+
                         </ButtonGroup>
                         <ButtonGroup>
                             <Upload setValue={setValue} />

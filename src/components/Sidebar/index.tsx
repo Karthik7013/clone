@@ -10,11 +10,11 @@ import { AppDispatch } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { newChat } from "../../features/chatbot/chatbotSlice";
 import React from "react";
-import ConversationList from "../ConversationList";
+
+const ConversationList = React.lazy(() => import("../ConversationList"));
+
 import { useAuth0 } from "@auth0/auth0-react";
 import { toggleMobileDrawer, toggleSearch } from "../../features/ui/uiSlice";
-
-
 
 const Sidebar = () => {
     const theme = useTheme();
@@ -75,7 +75,9 @@ const Sidebar = () => {
             </List>
 
             <ScrollContainer flexGrow={1}>
-                <ConversationList />
+                <React.Suspense fallback={<>loading...</>}>
+                    <ConversationList />
+                </React.Suspense>
             </ScrollContainer>
             <Divider variant="middle" />
             <Box>

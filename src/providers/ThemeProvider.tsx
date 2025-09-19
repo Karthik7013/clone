@@ -45,6 +45,23 @@ const CustomThemeProvider: React.FC<props> = (props: props): React.JSX.Element =
                         borderRadius
                     }
                 }
+            },
+            MuiAlert: {
+                defaultProps: {
+                    variant: "filled"
+                },
+                styleOverrides: {
+                    root: {
+                        borderRadius
+                    }
+                }
+            },
+            MuiChip: {
+                styleOverrides: {
+                    root: {
+                        borderRadius
+                    }
+                }
             }
         },
         shape: {

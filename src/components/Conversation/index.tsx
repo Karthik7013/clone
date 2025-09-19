@@ -39,7 +39,7 @@ const Conversation = ({ candidate, response }: { candidate: 'user' | 'assistant'
                 <Stack gap={2} alignItems={'flex-end'}>
                     {/* <FileCard filename="Untitled.mp3" size_formatted="1024" /> */}
                     <CardActionArea sx={{ cursor: 'initial', width: 'fit-content', overflow: 'auto' }}>
-                        <Card elevation={0} sx={{ p: '18px 16px', bgcolor: muiTheme.palette.primary[mode], borderRadius: muiTheme.shape.borderRadius }}>
+                        <Card elevation={0} sx={{ p: '18px 16px', bgcolor: muiTheme.palette.primary[mode] }}>
                             <Typography noWrap={false} variant='subtitle2'
                                 sx={{
                                     fontSize: 14,

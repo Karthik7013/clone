@@ -14,7 +14,8 @@ const FileCard = (file: FileProps) => {
     return <StyledCard sx={{
         width: '100%', maxWidth: "180px", height: 50,
         bgcolor: muiTheme.palette.action.selected,
-        borderRadius: 2, display: 'flex', alignItems: 'center', position: 'relative', px: 1.7, gap: 2
+        borderRadius: 2,
+        display: 'flex', alignItems: 'center', position: 'relative', px: 1.7, gap: 2
     }}>
         <Box
             bgcolor={muiTheme.palette.primary[muiTheme.palette.mode]}

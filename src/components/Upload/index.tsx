@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useUploadFileMutation } from "../../features/upload/uploadApi";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Tooltip } from "@mui/material";
 import IconButton from "../ui/IconButton"
 import { BotSubmitType, file } from "../../types/app-types";
 import { UseFormSetValue } from "react-hook-form";
@@ -55,9 +55,11 @@ const Upload = ({
 
 
     return <>
-        <IconButton size="small" disabled={isUploading} onClick={handleChangeFile}>
-            {isUploading ? <CircularProgress size={20} /> : <AttachFile fontSize="inherit" />}
-        </IconButton>
+        <Tooltip title="Upload docs or images (max 10mb each)">
+            <IconButton disabled={isUploading} onClick={handleChangeFile}>
+                {isUploading ? <CircularProgress size={20} /> : <AttachFile fontSize="inherit" />}
+            </IconButton>
+        </Tooltip>
         <input
             ref={fileInputRef}
             type="file"
