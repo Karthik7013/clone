@@ -3,23 +3,21 @@ import Scrollbar from "../Scrollbar/Scrollbar";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import Hero from "../Hero";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Conversation from "../Conversation";
 import HeartBeat from "../Loader/HeartBeat";
 const ChatContainer = () => {
     const { thinking, isLoading } = useSelector((state: RootState) => state.chat);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const { messages } = useSelector((state: RootState) => state.chat);
-    const scrollToBottom = () => {
-        if (messagesEndRef?.current?.scrollIntoView) {
-            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
+    // const scrollToBottom = () => {
+    //     if (messagesEndRef?.current?.scrollIntoView) {
+    //         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    //     }
+    // };
 
 
-    useEffect(() => {
-        scrollToBottom();
-    }, [messages])
+
     return <Scrollbar sx={{
         flexGrow: !messages.length ? 0 : 1, transition: 'flex .2s linear'
     }}>

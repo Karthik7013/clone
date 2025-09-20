@@ -1,4 +1,4 @@
-import { Alert, Box, Link, Snackbar, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Alert, Box, Button, Link, Snackbar, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
 import IconButton from "../ui/IconButton";
 import MessageCircleDashed from "../../assets/icons/message-circle-dashed";
 import Helmet from "react-helmet";
@@ -12,6 +12,7 @@ import { GeminiText } from "../../assets/icons/GeminiText";
 import { toggleCollapse, toggleMobileDrawer } from "../../features/ui/uiSlice";
 import GoogleButton from "../GoogleButton";
 import { useAuth0 } from "@auth0/auth0-react";
+import { clearStreamError } from "../../features/chatbot/chatbotSlice";
 
 
 const Header = () => {
@@ -32,7 +33,7 @@ const Header = () => {
             dispatch(temporaryMode('temporary'))
         }
     }
-
+    const clearErr = () => dispatch(clearStreamError());
     const handleCollpase = () => {
         if (collapse) {
             dispatch(toggleCollapse(false))
@@ -87,8 +88,6 @@ const Header = () => {
                     </IconButton>}
 
             </>}
-
-
         </Toolbar>
 
         <Box sx={{ position: 'relative' }}>
@@ -98,9 +97,8 @@ const Header = () => {
                 anchorOrigin={{
                     horizontal: 'center',
                     vertical: "top"
-                }}
-            >
-                <Alert severity="error" color="error">
+                }}>
+                <Alert action={<Button onClick={clearErr} color="inherit" size="small">Close</Button>} severity="error" color="error">
                     {error?.message || 'Something went wrong'}
                 </Alert>
             </Snackbar>

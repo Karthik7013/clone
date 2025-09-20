@@ -117,7 +117,7 @@ const Prompt = () => {
                                 onFocus={handleFocus}
                                 sx={{
                                     padding: '12px 16px',
-                                    color:"text.disabled",
+                                    color: "text.disabled",
                                     minHeight: 48,
                                     maxHeight: 350,
                                     outline: 'none',
@@ -140,11 +140,11 @@ const Prompt = () => {
                         <ButtonGroup sx={{ gap: 2 }}>
                             <Tooltip title="Think before responding to solve the resoning problems">
 
-                                <Chip color="primary" icon={<ScienceIcon fontSize="small" />} clickable variant="outlined" label="Research" />
+                                <Chip icon={<ScienceIcon fontSize="small" />} clickable variant="outlined" label="Research" />
                             </Tooltip>
                             <Tooltip title="Search in web when necessary">
 
-                                <Chip color="primary" icon={<LanguageIcon fontSize="small" />} clickable variant="outlined" label="Search" />
+                                <Chip icon={<LanguageIcon fontSize="small" />} clickable variant="outlined" label="Search" />
                             </Tooltip>
 
                         </ButtonGroup>
@@ -154,16 +154,21 @@ const Prompt = () => {
                                 type='submit'
                                 disabled={isLoading}
                                 sx={{
-                                    background: (theme: Theme) => alpha(theme.palette.primary[theme.palette.mode], 0.3)
-                                    , '&: hover': {
-                                        backgroundColor: (theme: Theme) => alpha(theme.palette.primary.main, 0.1)
+                                    color: (theme: Theme) => theme.palette.common['white'],
+                                    background: (theme: Theme) => theme.palette.primary[theme.palette.mode],
+                                    '&.Mui-disabled': {
+                                        background: (theme: Theme) => alpha(theme.palette.primary[theme.palette.mode], 0.7),
+                                        color: (theme: Theme) => alpha(theme.palette.common.white,0.7)
+                                    },
+                                    '&: hover': {
+                                        backgroundColor: (theme: Theme) => theme.palette.primary[theme.palette.mode]
                                     }
                                 }}
                             >
                                 {isLoading ? (
                                     <StopCircleIcon color="inherit" fontSize="inherit" />
                                 ) : (
-                                    <ArrowUp color="primary" fontSize='inherit' />
+                                    <ArrowUp color="inherit" fontSize='inherit' />
                                 )}
                             </IconButton>
                         </ButtonGroup>
