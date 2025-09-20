@@ -677,10 +677,7 @@ const initialState: initialProps = {
     error: null,
     isLoading: false,
     thinking: false,
-    messages: [{
-        type: "user",
-        message:"hi there"
-    }],
+    messages: [],
     conversation: {
         title: 'New chat',
         id: 'abd-efg-hij-klm'
