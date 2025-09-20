@@ -1,4 +1,4 @@
-import { Box, ButtonGroup, CardContent, Chip, Collapse, Container, IconButton, Stack, Tooltip, Typography, useTheme } from "@mui/material"
+import { alpha, Box, ButtonGroup, CardContent, Chip, Collapse, Container, IconButton, Stack, Theme, Tooltip, Typography, useTheme } from "@mui/material"
 import Card from "../ui/Card";
 import ArrowUp from '../../assets/icons/arrow-up';
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -10,16 +10,15 @@ import { BotSubmitType } from "../../types/app-types";
 import { sendMessageStream } from "../../features/chatbot/chatbotApi";
 import File from "../../assets/icons/file";
 import Cancel from "../../assets/icons/circle-x";
-import StopCircle from "../../assets/icons/stop-circle";
 import StyledCard from "../ui/Card";
 import LanguageIcon from '@mui/icons-material/Language';
 import ScienceIcon from '@mui/icons-material/Science';
+import StopCircleIcon from '@mui/icons-material/StopCircle';
 const Prompt = () => {
     const dispatch: AppDispatch = useDispatch();
     const muiTheme = useTheme();
     // const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
     const contentRef = useRef<HTMLDivElement>(null);
-    const borderRadius = useSelector((state: RootState) => state.themeReducer.borderRadius);
     const { isLoading } = useSelector((state: RootState) => state.chat);
     const { handleSubmit, control, watch, setValue, reset } = useForm<BotSubmitType>({
         defaultValues: {
@@ -118,7 +117,7 @@ const Prompt = () => {
                                 onFocus={handleFocus}
                                 sx={{
                                     padding: '12px 16px',
-
+                                    color:"text.disabled",
                                     minHeight: 48,
                                     maxHeight: 350,
                                     outline: 'none',
@@ -152,14 +151,19 @@ const Prompt = () => {
                         <ButtonGroup>
                             <Upload setValue={setValue} />
                             <IconButton
-                                sx={{ borderRadius }}
                                 type='submit'
                                 disabled={isLoading}
+                                sx={{
+                                    background: (theme: Theme) => alpha(theme.palette.primary[theme.palette.mode], 0.3)
+                                    , '&: hover': {
+                                        backgroundColor: (theme: Theme) => alpha(theme.palette.primary.main, 0.1)
+                                    }
+                                }}
                             >
                                 {isLoading ? (
-                                    <StopCircle fontSize='inherit' />
+                                    <StopCircleIcon color="inherit" fontSize="inherit" />
                                 ) : (
-                                    <ArrowUp fontSize='inherit' />
+                                    <ArrowUp color="primary" fontSize='inherit' />
                                 )}
                             </IconButton>
                         </ButtonGroup>
@@ -168,6 +172,6 @@ const Prompt = () => {
             </CardContent>
         </Card>
 
-    </Container>
+    </Container >
 }
 export default Prompt;

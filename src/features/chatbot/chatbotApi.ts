@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
     addMessage,
+    setThink,
     startStreaming,
     streamChunk,
     streamComplete,
@@ -14,28 +15,38 @@ export const sendMessageStream = createAsyncThunk(
         // Save user message first
         dispatch(addMessage({ type: 'user', message: t }));
         dispatch(startStreaming());
-
         const BASE_URL = import.meta.env.VITE_BASE_URL;
 
         return new Promise<void>((resolve, reject) => {
             try {
                 // Create SSE connection
-                let url = `${BASE_URL}/event?query=${encodeURIComponent(t)}`;
+                let url = `${BASE_URL}/event/1234?query=${encodeURIComponent(t)}`;
 
                 if (file?.url) {
                     url += `&fileUrl=${encodeURIComponent(file.url)}`;
                 }
 
                 const es = new EventSource(url);
+                es.addEventListener('thinking', (event) => {
+                    console.log(event.data, 'see here')
+                    if (event.data === '[START]') {
 
+                        dispatch(setThink(true))
+                    } else {
+                        dispatch(setThink(false))
+                    }
+                })
 
-                es.onmessage = (event) => {
-                    console.log(JSON.parse(event.data))
+                es.addEventListener('external_call', (event) => {
+                    console.log(event.data)
+                })
+
+                es.addEventListener('response', (event) => {
                     const data = JSON.parse(event.data);
                     if (data.type === 'chunk') {
                         dispatch(streamChunk(data.content));
                     }
-                };
+                })
 
                 es.addEventListener('end', () => {
                     // ✅ custom "end" event from backend

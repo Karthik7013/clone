@@ -661,17 +661,30 @@ type Message = {
 
 // Final paragraph with a mix of **bold**, *italic*, [link](https://example.com), and inline \`code\`.
 // `;
-
+type Conversation = {
+    title: string,
+    id: string
+}
 
 type initialProps = {
     messages: Message[],
+    thinking: boolean,
+    conversation: Conversation
     isLoading: boolean,
     error: null | Error
 }
 const initialState: initialProps = {
     error: null,
     isLoading: false,
-    messages: []
+    thinking: false,
+    messages: [{
+        type: "user",
+        message:"hi there"
+    }],
+    conversation: {
+        title: 'New chat',
+        id: 'abd-efg-hij-klm'
+    }
 }
 
 const chatSlice = createSlice({
@@ -702,8 +715,17 @@ const chatSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
+        clearStreamError: (state) => {
+            state.error = null;
+        },
         newChat: (state) => {
             state.messages = [];
+        },
+        titleSetter: (state, action: { payload: string }) => {
+            state.conversation.title = action.payload
+        },
+        setThink: (state, action: { payload: boolean }) => {
+            state.thinking = action.payload
         }
     },
 });
@@ -714,7 +736,10 @@ export const {
     streamChunk,
     streamComplete,
     streamError,
-    newChat
+    newChat,
+    clearStreamError,
+    titleSetter,
+    setThink
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

@@ -1,4 +1,4 @@
-import { Box, Container, List } from "@mui/material";
+import { Box, Container, List, Stack } from "@mui/material";
 import Scrollbar from "../Scrollbar/Scrollbar";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 import Conversation from "../Conversation";
 import HeartBeat from "../Loader/HeartBeat";
 const ChatContainer = () => {
-    const { isLoading } = useSelector((state: RootState) => state.chat);
+    const { thinking, isLoading } = useSelector((state: RootState) => state.chat);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const { messages } = useSelector((state: RootState) => state.chat);
     const scrollToBottom = () => {
@@ -30,7 +30,10 @@ const ChatContainer = () => {
                     {messages.map((message, _) => {
                         return <Conversation key={_} candidate={message.type} response={message.message} />
                     })}
-                    {isLoading && <HeartBeat />}
+                    {isLoading && <Stack alignItems={'center'} gap={1} direction="row" px={2}>
+                        <HeartBeat />{thinking && <span>thinking...</span>}
+                    </Stack>
+                    }
                     <Box ref={messagesEndRef} />
                 </List>
             }

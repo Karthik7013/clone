@@ -16,7 +16,7 @@ const initialState: initialProps = {
     borderRadius:16,
     mode: (mode === 'dark' || mode === 'light' || mode === 'system') ? mode : 'system',
     variant: 'middle',
-    primaryColor: '#23a8fa',
+    primaryColor: '#35fa23ff',
     preview: false
 }
 

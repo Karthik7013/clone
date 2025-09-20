@@ -18,6 +18,8 @@ const Header = () => {
     const { isAuthenticated } = useAuth0();
     const mode = useSelector((state: RootState) => state.urlReducer.mode)
     const messages = useSelector((state: RootState) => state.chat.messages)
+    const error = useSelector((state: RootState) => state.chat.error)
+    const { conversation } = useSelector((state: RootState) => state.chat)
     const dispatch: AppDispatch = useDispatch();
     const mobileDrawer = useSelector((state: RootState) => state.ui.mobileDrawer);
     const collapse = useSelector((state: RootState) => state.ui.collapse);
@@ -72,7 +74,7 @@ const Header = () => {
                         fontSize: 14,
                         whiteSpace: 'nowrap'
                     }}
-                >{messages[0]?.message}</Typography>
+                >{conversation.title}</Typography>
             </Box>
             {!isAuthenticated && <GoogleButton />}
             {isAuthenticated && <>
@@ -92,14 +94,14 @@ const Header = () => {
         <Box sx={{ position: 'relative' }}>
             <Snackbar
                 sx={{ position: 'absolute' }}
-                open={false}
+                open={Boolean(error)}
                 anchorOrigin={{
                     horizontal: 'center',
                     vertical: "top"
                 }}
             >
-                <Alert sx={{ width: '100%' }} color="success" title="Error">
-                    Error while error causeing the errrError while error causeing the
+                <Alert severity="error" color="error">
+                    {error?.message || 'Something went wrong'}
                 </Alert>
             </Snackbar>
         </Box>

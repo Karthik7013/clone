@@ -30,7 +30,6 @@ export const CodeBlock = ({ inline, className, children, ...props }: MarkdownCom
     const dispatch: AppDispatch = useDispatch();
     const muiTheme = useTheme();
     const mode = muiTheme.palette.mode;
-    const borderRadius = muiTheme.shape.borderRadius;
     const [copied, setCopied] = useState(false);
     const openPreview = () => {
         dispatch(togglePreviewMode(true)) // open preview slider
@@ -74,8 +73,8 @@ export const CodeBlock = ({ inline, className, children, ...props }: MarkdownCom
     }} className={className} {...props}>{children}</code>
 
     return <Box sx={{
-        borderRadius,
-        // overflow: 'hidden'
+        borderRadius: '16px',
+        overflow: 'clip',
     }}>
         <Box
             sx={{
