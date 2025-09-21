@@ -13,7 +13,8 @@ import Cancel from "../../assets/icons/circle-x";
 import StyledCard from "../ui/Card";
 import LanguageIcon from '@mui/icons-material/Language';
 import ScienceIcon from '@mui/icons-material/Science';
-import StopCircleIcon from '@mui/icons-material/StopCircle';
+
+import StopRoundedIcon from '@mui/icons-material/StopRounded';
 const Prompt = () => {
     const [webSearch, setWebsearch] = useState(true)
     const [reSearch, setResearch] = useState(true)
@@ -168,7 +169,7 @@ const Prompt = () => {
                                 }}
                             >
                                 {isLoading ? (
-                                    <StopCircleIcon color="inherit" fontSize="inherit" />
+                                    <StopRoundedIcon color="inherit" fontSize="inherit" />
                                 ) : (
                                     <ArrowUp color="inherit" fontSize='inherit' />
                                 )}
