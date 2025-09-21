@@ -73,7 +73,7 @@ export const CodeBlock = ({ inline, className, children, ...props }: MarkdownCom
     }} className={className} {...props}>{children}</code>
 
     return <Box sx={{
-        // borderRadius: '8px',
+        borderRadius: '8px',
         // overflow: 'hidden',
     }}>
         <Box

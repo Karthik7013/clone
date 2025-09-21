@@ -5,7 +5,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import Upload from "../Upload";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { BotSubmitType } from "../../types/app-types";
 import { sendMessageStream } from "../../features/chatbot/chatbotApi";
 import File from "../../assets/icons/file";
@@ -15,6 +15,8 @@ import LanguageIcon from '@mui/icons-material/Language';
 import ScienceIcon from '@mui/icons-material/Science';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
 const Prompt = () => {
+    const [webSearch, setWebsearch] = useState(true)
+    const [reSearch, setResearch] = useState(true)
     const dispatch: AppDispatch = useDispatch();
     const muiTheme = useTheme();
     // const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
@@ -140,11 +142,11 @@ const Prompt = () => {
                         <ButtonGroup sx={{ gap: 2 }}>
                             <Tooltip title="Think before responding to solve the resoning problems">
 
-                                <Chip icon={<ScienceIcon fontSize="small" />} clickable variant="outlined" label="Research" />
+                                <Chip onClick={() => setResearch((prev) => !prev)} color={reSearch ? "primary" : "default"} icon={<ScienceIcon fontSize="small" />} clickable variant="outlined" label="Research" />
                             </Tooltip>
                             <Tooltip title="Search in web when necessary">
 
-                                <Chip icon={<LanguageIcon fontSize="small" />} clickable variant="outlined" label="Search" />
+                                <Chip onClick={() => setWebsearch((prev) => !prev)} color={webSearch ? "primary" : "default"} icon={<LanguageIcon fontSize="small" />} clickable variant="outlined" label="Search" />
                             </Tooltip>
 
                         </ButtonGroup>
@@ -158,7 +160,7 @@ const Prompt = () => {
                                     background: (theme: Theme) => theme.palette.primary[theme.palette.mode],
                                     '&.Mui-disabled': {
                                         background: (theme: Theme) => alpha(theme.palette.primary[theme.palette.mode], 0.7),
-                                        color: (theme: Theme) => alpha(theme.palette.common.white,0.7)
+                                        color: (theme: Theme) => alpha(theme.palette.common.white, 0.7)
                                     },
                                     '&: hover': {
                                         backgroundColor: (theme: Theme) => theme.palette.primary[theme.palette.mode]

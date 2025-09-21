@@ -86,7 +86,6 @@ const Header = () => {
                     : <IconButton size='small'>
                         <Share fontSize='inherit' />
                     </IconButton>}
-
             </>}
         </Toolbar>
 

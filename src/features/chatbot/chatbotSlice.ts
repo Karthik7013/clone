@@ -611,9 +611,7 @@ export default Upload;
 
 \`\`\`
 
-Here’s an image:
 
-![Sample Image](https://diplo-media.s3.eu-central-1.amazonaws.com/2025/06/que-es-perplexity-869880273.png)
 
 ---
 
@@ -677,10 +675,7 @@ const initialState: initialProps = {
     error: null,
     isLoading: false,
     thinking: false,
-    messages: [{
-        type: "assistant",
-        message:sampleMarkdown
-    }],
+    messages: [],
     conversation: {
         title: 'New chat',
         id: 'abd-efg-hij-klm'

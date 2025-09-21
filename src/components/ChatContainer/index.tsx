@@ -6,7 +6,10 @@ import Hero from "../Hero";
 import { useRef, useState } from "react";
 import Conversation from "../Conversation";
 import HeartBeat from "../Loader/HeartBeat";
-import ReactMarkdown from "../MarkdownRender";
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
+import rehypeHighlight from 'rehype-highlight';
+import ReactMarkdown from 'react-markdown';
 import { sampleMarkdown } from "../../features/chatbot/chatbotSlice";
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 const ChatContainer = () => {
@@ -32,15 +35,15 @@ const ChatContainer = () => {
                     {messages.map((message, _) => {
                         return <Conversation key={_} candidate={message.type} response={message.message} />
                     })}
-                    {!isLoading && <Box px={2}>
+                    {isLoading && <Box px={2}>
                         <Stack sx={{
                             position: "sticky",
                             top: 0,
-                            zIndex: 99,
+                            zIndex: 9,
                             bgcolor: "background.paper"
                         }} alignItems={'center'} gap={1} direction="row">
                             <HeartBeat />
-                            <Collapse orientation="horizontal" unmountOnExit in={!thinking}>
+                            <Collapse orientation="horizontal" unmountOnExit in={thinking}>
                                 <Button sx={{
                                     textWrap: 'nowrap'
                                 }} onClick={() => setThink((prev: boolean) => !prev)} size="small" endIcon={<ExpandMoreRoundedIcon sx={{
@@ -50,18 +53,23 @@ const ChatContainer = () => {
 
                         </Stack>
                         <Box component={Collapse} in={think} p={2}
+
                             sx={{
                                 borderLeft: (theme: Theme) => `2px solid ${theme.palette.divider}`,
-                                maxHeight: '600px',
+                                maxWidth: '100%',
                                 overflow:'auto'
                             }}
                         >
                             <Box borderRadius={1}>
-                                <ReactMarkdown>
+                                <ReactMarkdown
+                                    remarkPlugins={[remarkGfm]}
+                                    rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                                >
                                     {
                                         sampleMarkdown
                                     }
                                 </ReactMarkdown>
+
                             </Box>
 
                         </Box>
