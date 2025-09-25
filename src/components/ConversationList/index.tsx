@@ -15,9 +15,7 @@ const ConversationList = () => {
             <ListSubheader
                 sx={{
                     position: "sticky",
-                    top: -1,
-                    bgcolor: "background.paper",
-                    pl: 2
+
                 }}
             >
                 <Typography fontSize={'0.75rem'} variant="subtitle2">Chats</Typography>
@@ -25,7 +23,19 @@ const ConversationList = () => {
         }>
             {Array.from({ length: 20 }, (_, i) => (
                 <ListItem key={i} secondaryAction={<MoreHorizRound fontSize="inherit" />}>
-                    <ListItemText primary={generateRandomMessage()} />
+                    <ListItemText primary={
+                        <Typography
+                            variant="subtitle2"
+                            textOverflow={'ellipsis'}
+                            overflow={'hidden'}
+                            sx={{
+                                maxWidth: { xs: 180, lg: 400 },
+                                fontSize: 14,
+                                whiteSpace: 'nowrap'
+                            }}
+                        >{generateRandomMessage()}</Typography>
+
+                    } />
                 </ListItem>
             ))}
             <ListItem >

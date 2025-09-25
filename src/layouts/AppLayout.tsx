@@ -1,5 +1,5 @@
 import React from 'react';
-import { Collapse, Stack, useMediaQuery, useTheme, Drawer, Box } from '@mui/material';
+import { Collapse, Stack, useMediaQuery, useTheme, Drawer } from '@mui/material';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import ChatContainer from '../components/ChatContainer';
@@ -10,7 +10,6 @@ import { AppDispatch, RootState } from '../store/store';
 import { setPreviewContent, toggleMobileDrawer, togglePreviewMode } from '../features/ui/uiSlice';
 import { useAuth0 } from '@auth0/auth0-react';
 import SearchConversation from '../components/SeachConversation';
-// import Settings from '../components/Settings';
 
 const AppLayout = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -25,34 +24,48 @@ const AppLayout = () => {
         dispatch(setPreviewContent()); // reset the conent to default
         dispatch(togglePreviewMode(false)) // close the preview slide
     }
-    return (
-        <Stack direction={'row'} sx={{ height: '100dvh', width: '100%' }}>
-            <Collapse orientation='horizontal' in={!isMobile && collapse && Boolean(user)} unmountOnExit>
+    return <Stack direction={'row'} sx={{ height: '100dvh', width: '100%' }}>
+            <Collapse
+            sx={{
+                "& .MuiCollapse-wrapperInner": {
+                    width: '100%'
+                }
+            }}
+                orientation='horizontal' in={!isMobile && collapse && Boolean(user)} unmountOnExit>
                 <Sidebar />
             </Collapse>
             <Drawer anchor='left' onClose={closeDrawer} open={Boolean(user) && isMobile && mobileDrawer}>
                 <Sidebar />
             </Drawer>
-            <Stack sx={{ height: '100%', flexGrow: 1, width: '100%' }}>
-                <Header />
-                <Stack sx={{ overflowY: 'auto', flexGrow: 1, justifyContent:'center' }}>
-                    <ChatContainer />
-                    <Prompt />
-                </Stack>
+        <Stack sx={{ width: (!isMobile && !collapse && preview) ? "50%" : "100%" }}>
+            <Header />
+            <Stack sx={{ overflowY: 'auto', flexGrow: 1, justifyContent: 'center' }}>
+                <ChatContainer />
+                <Prompt />
             </Stack>
-
-            <Box flexGrow={1}>
-                <Collapse orientation='horizontal' sx={{ height: '100dvh', overflowX: 'auto' }} unmountOnExit in={!isMobile && !collapse && preview}>
-                    <PreviewMode />
-                </Collapse>
-            </Box>
-            <Drawer anchor='right' onClose={closePreview} open={isMobile && !mobileDrawer && preview}>
-                <PreviewMode />
-            </Drawer>
-            <SearchConversation />
-            {/* <Settings  /> */}
         </Stack>
-    )
+
+        <Collapse
+            sx={{
+                flexGrow: 1,
+                "& .MuiCollapse-wrapperInner": {
+                    width: '100%'
+                }
+            }}
+            orientation='horizontal' unmountOnExit in={!isMobile && !collapse && preview}>
+            <PreviewMode />
+        </Collapse>
+        <Drawer
+            sx={{
+                '& .MuiDrawer-paper': {
+                    width: '100%'
+                }
+            }}
+            anchor='right' onClose={closePreview} open={isMobile && !mobileDrawer && preview}>
+            <PreviewMode />
+        </Drawer>
+        <SearchConversation />
+    </Stack >
 }
 
 export default React.memo(AppLayout);

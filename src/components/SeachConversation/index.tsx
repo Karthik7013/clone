@@ -35,9 +35,9 @@ const SearchConversation = () => {
         </DialogTitle>
         <ScrollContainer component={CardContent}>
             <List disablePadding>
-                {Array(16).fill(null).map(() => <ListItem secondaryAction={<MoreHoriz />} divider>
+                {Array(16).fill(null).map((item: null | string, index: number) => <ListItem secondaryAction={<MoreHoriz />} key={index} divider>
                     <ListItemText
-                        primary="Hia tehr"
+                        primary={item || "Hia tehr"}
                     />
                 </ListItem>)}
             </List>

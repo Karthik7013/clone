@@ -1,4 +1,4 @@
-import { Avatar, Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack, Toolbar, Typography, useTheme } from "@mui/material";
+import { Avatar, Box, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ScrollContainer from "../Scrollbar/Scrollbar";
 import { GeminiText } from "../../assets/icons/GeminiText";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
@@ -11,13 +11,16 @@ import { useDispatch } from "react-redux";
 import { newChat } from "../../features/chatbot/chatbotSlice";
 import React from "react";
 
-const ConversationList = React.lazy(() => import("../ConversationList"));
+// const ConversationList = React.lazy(() => import("../ConversationList"));
+import ConversationList from "../ConversationList";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import { toggleMobileDrawer, toggleSearch } from "../../features/ui/uiSlice";
+import { toggleCollapse, toggleMobileDrawer, toggleSearch } from "../../features/ui/uiSlice";
+import SideMenu from "../../assets/icons/pannel-left";
 
 const Sidebar = () => {
     const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
     const dispatch: AppDispatch = useDispatch();
     const { user, logout } = useAuth0();
     const handleNewChat = () => {
@@ -39,6 +42,14 @@ const Sidebar = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleCollpase = () => {
+        dispatch(toggleCollapse(false))
+    };
+    const handleDrawer = () => {
+        dispatch(toggleMobileDrawer(false))
+    }
+
     const openSearch = () => dispatch(toggleSearch(true))
     return (
         <Stack sx={{ height: "100dvh", borderRight: `1px solid ${theme.palette.divider}`, bgcolor: theme.palette.background.paper }}>
@@ -46,38 +57,38 @@ const Sidebar = () => {
                 <Stack gap={1} direction={'row'}>
                     <GeminiText sx={{ width: '100%' }} />
                 </Stack>
+                <Box></Box>
+                <IconButton size="small" onClick={isMobile ? handleDrawer : handleCollpase}><SideMenu fontSize="inherit" /></IconButton>
             </Toolbar>
             <List dense>
                 <ListItem>
                     <ListItemButton onClick={handleNewChat}>
                         <Edit fontSize="inherit" sx={{ mr: 1 }} />
-                        <ListItemText primary="New Chat" />
+                        <ListItemText sx={{ textWrap: 'nowrap' }} primary="New Chat" />
                     </ListItemButton>
                 </ListItem>
                 <ListItem>
                     <ListItemButton onClick={openSearch}>
                         <SearchRoundedIcon fontSize="inherit" sx={{ mr: 1 }} />
-                        <ListItemText primary="Search" />
+                        <ListItemText sx={{ textWrap: 'nowrap' }} primary="Search" />
                     </ListItemButton>
                 </ListItem>
                 <ListItem>
                     <ListItemButton>
                         <WorkFlow fontSize="inherit" sx={{ mr: 1 }} />
-                        <ListItemText primary="Integrations" />
+                        <ListItemText sx={{ textWrap: 'nowrap' }} primary="Integrations" />
                     </ListItemButton>
                 </ListItem>
                 <ListItem>
                     <ListItemButton>
                         <Compass fontSize="inherit" sx={{ mr: 1 }} />
-                        <ListItemText primary="Discover" />
+                        <ListItemText  sx={{ textWrap: 'nowrap' }} primary="Discover" />
                     </ListItemButton>
                 </ListItem>
             </List>
 
             <ScrollContainer flexGrow={1}>
-                <React.Suspense fallback={<>loading...</>}>
-                    <ConversationList />
-                </React.Suspense>
+                <ConversationList />
             </ScrollContainer>
             <Divider variant="middle" />
             <Box>

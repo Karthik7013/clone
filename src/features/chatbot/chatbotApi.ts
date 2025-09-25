@@ -20,7 +20,7 @@ export const sendMessageStream = createAsyncThunk(
         return new Promise<void>((resolve, reject) => {
             try {
                 // Create SSE connection
-                let url = `${BASE_URL}/event/1234?query=${encodeURIComponent(t)}`;
+                let url = `${BASE_URL}/chat/1234?query=${encodeURIComponent(t)}`;
 
                 if (file?.url) {
                     url += `&fileUrl=${encodeURIComponent(file.url)}`;

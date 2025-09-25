@@ -22,7 +22,7 @@ const Header = () => {
     const error = useSelector((state: RootState) => state.chat.error)
     const { conversation } = useSelector((state: RootState) => state.chat)
     const dispatch: AppDispatch = useDispatch();
-    const mobileDrawer = useSelector((state: RootState) => state.ui.mobileDrawer);
+    // const mobileDrawer = useSelector((state: RootState) => state.ui.mobileDrawer);
     const collapse = useSelector((state: RootState) => state.ui.collapse);
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
@@ -35,20 +35,10 @@ const Header = () => {
     }
     const clearErr = () => dispatch(clearStreamError());
     const handleCollpase = () => {
-        if (collapse) {
-            dispatch(toggleCollapse(false))
-        }
-        else {
-            dispatch(toggleCollapse(true))
-        }
+        dispatch(toggleCollapse(true))
     };
     const handleDrawer = () => {
-        if (mobileDrawer) {
-            dispatch(toggleMobileDrawer(false))
-        }
-        else {
-            dispatch(toggleMobileDrawer(true))
-        }
+        dispatch(toggleMobileDrawer(true))
     }
 
     return <Box sx={{ position: 'sticky', top: 0, left: 0, zIndex: 99 }}>
@@ -58,11 +48,13 @@ const Header = () => {
         </Helmet>
         <Toolbar sx={{ gap: 2, backgroundColor: 'background.paper' }}>
 
-            {isAuthenticated ? <IconButton onClick={isMobile ? handleDrawer : handleCollpase}>
-                <SideMenu />
-            </IconButton> : <Link href="/">
-                < GeminiText sx={{ fontSize: '4em' }} />
-            </Link>
+            {isAuthenticated ?
+                !collapse ? <IconButton onClick={isMobile ? handleDrawer : handleCollpase}>
+                    <SideMenu />
+                </IconButton> : null :
+                <Link href="/">
+                    < GeminiText sx={{ fontSize: '4em' }} />
+                </Link>
             }
             <Box flexGrow={1} display='flex' gap={2} justifyContent={'center'}>
                 <Typography
@@ -79,7 +71,6 @@ const Header = () => {
             </Box>
             {!isAuthenticated && <GoogleButton />}
             {isAuthenticated && <>
-
                 {!messages.length ? <IconButton onClick={handleTemporaryMode}>
                     {mode ? <Message /> : <MessageCircleDashed />}
                 </IconButton>
@@ -102,6 +93,6 @@ const Header = () => {
                 </Alert>
             </Snackbar>
         </Box>
-    </Box>
+    </Box >
 }
 export default Header;

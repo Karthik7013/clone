@@ -73,10 +73,12 @@ const Prompt = () => {
             }}>
                 <Collapse in={Boolean(file)} orientation='vertical'>
                     {file &&
-                        <StyledCard sx={{ maxWidth: '200px', height: 50, display: 'flex', alignItems: 'center', position: 'relative', px: 1, gap: 1 }}>
+                        <StyledCard sx={{ maxWidth: '200px', height: 50, display: 'flex', alignItems: 'center',borderRadius:"12px", position: 'relative', px: 1, gap: 1 }}>
                             <Box
                                 bgcolor={muiTheme.palette.primary[muiTheme.palette.mode]}
-                                height={36} minWidth={36} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={2} overflow={'hidden'}>
+                                height={36} minWidth={36} display={'flex'} justifyContent={'center'} alignItems={'center'}
+                                borderRadius={'12px'}
+                                overflow={'hidden'}>
                                 <File fontSize="small" />
                             </Box>
                             <Stack alignItems={'center'} direction={'row'} flexGrow={1} padding={1} pl={0} gap={1}>

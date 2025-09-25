@@ -357,7 +357,7 @@ const PreviewMode = () => {
         };
     }, [previewContent]);
 
-    return <Stack sx={{ height: '100%' }}>
+    return <Stack sx={{ height: '100%',width:'100%'}}>
         <Toolbar>
             <Typography variant="subtitle2">{title}</Typography>
             <Box sx={{ flexGrow: 1 }}></Box>
