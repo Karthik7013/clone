@@ -16,10 +16,11 @@ import ScienceIcon from '@mui/icons-material/Science';
 
 import StopRoundedIcon from '@mui/icons-material/StopRounded';
 const Prompt = () => {
-    const [webSearch, setWebsearch] = useState(true)
-    const [reSearch, setResearch] = useState(true)
+    const [webSearch, setWebsearch] = useState(false)
+    const [reSearch, setResearch] = useState(false)
     const dispatch: AppDispatch = useDispatch();
     const muiTheme = useTheme();
+    const { messages } = useSelector((state: RootState) => state.chat);
     // const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
     const contentRef = useRef<HTMLDivElement>(null);
     const { isLoading } = useSelector((state: RootState) => state.chat);
@@ -57,7 +58,7 @@ const Prompt = () => {
         position: 'sticky', bottom: 10
     }}>
         <Card sx={{
-            boxShadow: `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)`
+            boxShadow: !messages.length ? `0px 0px 80px ${alpha(muiTheme.palette.primary.dark, 0.2)}` : `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)`
         }}>
             <CardContent sx={{
                 display: 'flex',
@@ -73,7 +74,7 @@ const Prompt = () => {
             }}>
                 <Collapse in={Boolean(file)} orientation='vertical'>
                     {file &&
-                        <StyledCard sx={{ maxWidth: '200px', height: 50, display: 'flex', alignItems: 'center',borderRadius:"12px", position: 'relative', px: 1, gap: 1 }}>
+                        <StyledCard sx={{ maxWidth: '200px', height: 50, display: 'flex', alignItems: 'center', borderRadius: "12px", position: 'relative', px: 1, gap: 1 }}>
                             <Box
                                 bgcolor={muiTheme.palette.primary[muiTheme.palette.mode]}
                                 height={36} minWidth={36} display={'flex'} justifyContent={'center'} alignItems={'center'}
@@ -142,7 +143,7 @@ const Prompt = () => {
                         )}
                     />
                     <Stack direction='row' alignItems={'flex-end'} justifyContent={'space-between'}>
-                        <ButtonGroup sx={{ gap: 2 }}>
+                        <ButtonGroup sx={{ gap: 1 }}>
                             <Tooltip title="Think before responding to solve the resoning problems">
 
                                 <Chip onClick={() => setResearch((prev) => !prev)} color={reSearch ? "primary" : "default"} icon={<ScienceIcon fontSize="small" />} clickable variant="outlined" label="Research" />

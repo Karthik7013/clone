@@ -675,10 +675,7 @@ const initialState: initialProps = {
     error: null,
     isLoading: false,
     thinking: false,
-    messages: [{
-        message: sampleMarkdown,
-        type: "assistant"
-    }],
+    messages: [],
     conversation: {
         title: 'New chat',
         id: 'abd-efg-hij-klm'

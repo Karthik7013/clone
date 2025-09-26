@@ -31,12 +31,12 @@ const AppLayout = () => {
                     width: '100%'
                 }
             }}
-                orientation='horizontal' in={!isMobile && collapse && Boolean(user)} unmountOnExit>
-                <Sidebar />
-            </Collapse>
-            <Drawer anchor='left' onClose={closeDrawer} open={Boolean(user) && isMobile && mobileDrawer}>
-                <Sidebar />
-            </Drawer>
+            orientation='horizontal' in={!isMobile && collapse && Boolean(user)} unmountOnExit>
+            <Sidebar />
+        </Collapse>
+        <Drawer anchor='left' onClose={closeDrawer} open={Boolean(user) && isMobile && mobileDrawer}>
+            <Sidebar />
+        </Drawer>
         <Stack sx={{ width: (!isMobile && !collapse && preview) ? "50%" : "100%" }}>
             <Header />
             <Stack sx={{ overflowY: 'auto', flexGrow: 1, justifyContent: 'center' }}>
@@ -44,7 +44,6 @@ const AppLayout = () => {
                 <Prompt />
             </Stack>
         </Stack>
-
         <Collapse
             sx={{
                 flexGrow: 1,
@@ -65,7 +64,7 @@ const AppLayout = () => {
             <PreviewMode />
         </Drawer>
         <SearchConversation />
-    </Stack >
+    </Stack>
 }
 
 export default React.memo(AppLayout);

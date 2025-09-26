@@ -8,8 +8,10 @@ const AppRoutes = () => {
     }}
     >
         <Routes>
-            <Route path='/' element={<AppLayout />} />
-            <Route path='*' element={<>not -found</>} />
+            <Route path="/" element={<AppLayout />}>
+                <Route path="chat/:id" element={<>chat container by id</>} />
+            </Route>
+            <Route path='*' element={<>not -found </>} />
         </Routes>
     </BrowserRouter>
 }

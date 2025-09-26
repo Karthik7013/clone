@@ -5,6 +5,9 @@ import IconButton from "../ui/IconButton"
 import { BotSubmitType, file } from "../../types/app-types";
 import { UseFormSetValue } from "react-hook-form";
 import AttachFile from "../../assets/icons/attach";
+import { streamError } from "../../features/chatbot/chatbotSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
 
 // Maximum file size (5MB in bytes)
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -13,6 +16,7 @@ const Upload = ({
 }: {
     setValue: UseFormSetValue<BotSubmitType>
 }) => {
+    const dispatch: AppDispatch = useDispatch();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [uploadFile, { isLoading: isUploading }] = useUploadFileMutation()
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,11 +40,9 @@ const Upload = ({
                 thumb_url: data?.thumb?.url,
                 delete_url: data?.delete_url
             };
-
             setValue('file', file);
         } catch (err) {
-            alert('Upload failed');
-            console.error(err);
+            dispatch(streamError(new Error('Failed to upload')))
         } finally {
             if (fileInputRef.current?.value) {
                 fileInputRef.current.value = '';

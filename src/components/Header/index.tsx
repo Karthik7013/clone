@@ -14,7 +14,6 @@ import GoogleButton from "../GoogleButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { clearStreamError } from "../../features/chatbot/chatbotSlice";
 
-
 const Header = () => {
     const { isAuthenticated } = useAuth0();
     const mode = useSelector((state: RootState) => state.urlReducer.mode)
@@ -23,7 +22,7 @@ const Header = () => {
     const { conversation } = useSelector((state: RootState) => state.chat)
     const dispatch: AppDispatch = useDispatch();
     // const mobileDrawer = useSelector((state: RootState) => state.ui.mobileDrawer);
-    const collapse = useSelector((state: RootState) => state.ui.collapse);
+    // const collapse = useSelector((state: RootState) => state.ui.collapse);
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
     const handleTemporaryMode = () => {
@@ -41,17 +40,19 @@ const Header = () => {
         dispatch(toggleMobileDrawer(true))
     }
 
+
+
     return <Box sx={{ position: 'sticky', top: 0, left: 0, zIndex: 99 }}>
         <Helmet>
             <meta name="theme-color" content={muiTheme.palette.background.paper} />
             {messages.length && <title>{messages[0].message}</title>}
         </Helmet>
-        <Toolbar sx={{ gap: 2, backgroundColor: 'background.paper' }}>
+        <Toolbar sx={{ gap: 2, backgroundColor: 'background.paper', position: 'relative' }}>
 
             {isAuthenticated ?
-                !collapse ? <IconButton onClick={isMobile ? handleDrawer : handleCollpase}>
+                <IconButton onClick={isMobile ? handleDrawer : handleCollpase}>
                     <SideMenu />
-                </IconButton> : null :
+                </IconButton> :
                 <Link href="/">
                     < GeminiText sx={{ fontSize: '4em' }} />
                 </Link>
@@ -78,21 +79,24 @@ const Header = () => {
                         <Share fontSize='inherit' />
                     </IconButton>}
             </>}
-        </Toolbar>
-
-        <Box sx={{ position: 'relative' }}>
             <Snackbar
-                sx={{ position: 'absolute' }}
+
                 open={Boolean(error)}
                 anchorOrigin={{
                     horizontal: 'center',
                     vertical: "top"
                 }}>
-                <Alert action={<Button onClick={clearErr} color="inherit" size="small">Close</Button>} severity="error" color="error">
+                <Alert
+                    sx={{
+                        width: "100%"
+                    }}
+                    action={<Button onClick={clearErr} color="inherit" size="small">Close</Button>} severity="error" color="error">
                     {error?.message || 'Something went wrong'}
                 </Alert>
             </Snackbar>
-        </Box>
+        </Toolbar>
+
+
     </Box >
 }
 export default Header;
