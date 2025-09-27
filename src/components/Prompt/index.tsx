@@ -12,9 +12,11 @@ import File from "../../assets/icons/file";
 import Cancel from "../../assets/icons/circle-x";
 import StyledCard from "../ui/Card";
 import LanguageIcon from '@mui/icons-material/Language';
-import ScienceIcon from '@mui/icons-material/Science';
 
 import StopRoundedIcon from '@mui/icons-material/StopRounded';
+import Brain from "../../assets/icons/brain";
+import ScrollContainer from "../Scrollbar/Scrollbar";
+
 const Prompt = () => {
     const [webSearch, setWebsearch] = useState(false)
     const [reSearch, setResearch] = useState(false)
@@ -54,10 +56,13 @@ const Prompt = () => {
     };
 
     const file = watch('file');
+    const query = watch('t');
     return <Container component='form' onSubmit={handleSubmit(onHandleSubmit)} maxWidth="md" sx={{
         position: 'sticky', bottom: 10
     }}>
         <Card sx={{
+            border: `1.5px solid ${muiTheme.palette.divider}`,
+            borderRadius: "1.6em",
             boxShadow: !messages.length ? `0px 0px 80px ${alpha(muiTheme.palette.primary.dark, 0.2)}` : `0px -16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#121212' : 'white'}, 0px 0px 0px 0px rgb(0 0 0 / 0%), 0px 0px 0px 0px rgb(0 0 0 / 0%)`
         }}>
             <CardContent sx={{
@@ -66,11 +71,7 @@ const Prompt = () => {
                 padding: 1,
                 '&:last-child': { // Targeting the last child
                     paddingBottom: 1 // Remove bottom padding specifically
-                },
-                boxShadow: `inset 
-                0px 16px 16px 0px ${muiTheme.palette.mode === 'dark' ? '#292929ff' : 'white'},
-                0px 0px 0px 0px rgb(0 0 0 / 0%),
-                0px 0px 0px 0px rgb(0 0 0 / 0%)`
+                }
             }}>
                 <Collapse in={Boolean(file)} orientation='vertical'>
                     {file &&
@@ -115,14 +116,14 @@ const Prompt = () => {
                             }
                         }}
                         render={() => (
-                            <Box
+                            <ScrollContainer
                                 component="div"
                                 ref={contentRef}
                                 contentEditable
                                 onInput={handleInput}
                                 onFocus={handleFocus}
                                 sx={{
-                                    padding: '12px 16px',
+                                    padding: '10px 16px',
                                     color: "text.disabled",
                                     minHeight: 48,
                                     maxHeight: 350,
@@ -130,23 +131,21 @@ const Prompt = () => {
                                     whiteSpace: 'pre-wrap',
                                     overflowY: "auto",
                                     overflowX: 'hidden',
-                                    scrollbarColor:
-                                        muiTheme.palette.mode === "dark"
-                                            ? `${muiTheme.palette.grey[900]} ${muiTheme.palette.background.default}`
-                                            : `${muiTheme.palette.grey[400]} ${muiTheme.palette.background.default}`,
-                                    scrollbarWidth: "thin"
+                                    scrollbarWidth: 'think'
                                 }}
                                 suppressContentEditableWarning
                             >
                                 Ask anything.
-                            </Box>
+                            </ScrollContainer>
                         )}
                     />
                     <Stack direction='row' alignItems={'flex-end'} justifyContent={'space-between'}>
                         <ButtonGroup sx={{ gap: 1 }}>
                             <Tooltip title="Think before responding to solve the resoning problems">
 
-                                <Chip onClick={() => setResearch((prev) => !prev)} color={reSearch ? "primary" : "default"} icon={<ScienceIcon fontSize="small" />} clickable variant="outlined" label="Research" />
+                                <Chip onClick={() => setResearch((prev) => !prev)} color={reSearch ? "primary" : "default"} icon={<Brain sx={{
+                                    margin: "0 -6px 0 4px"
+                                }} fontSize="small" />} clickable variant="outlined" label="DeepThink" />
                             </Tooltip>
                             <Tooltip title="Search in web when necessary">
 
@@ -158,7 +157,7 @@ const Prompt = () => {
                             <Upload setValue={setValue} />
                             <IconButton
                                 type='submit'
-                                disabled={isLoading}
+                                disabled={isLoading || query === ''}
                                 sx={{
                                     color: (theme: Theme) => theme.palette.common['white'],
                                     background: (theme: Theme) => theme.palette.primary[theme.palette.mode],

@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Grow, Stack, Typography } from '@mui/material';
 import { styled, keyframes } from '@mui/system';
 import GeminiIcon from '../../assets/icons/GeminiIcon';
 
@@ -71,19 +71,19 @@ const Word = styled(Box)({
 const ScrollText = () => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-
-      <Typography
-        component={Stack}
-        flexDirection={'row'}
-        alignItems={'center'}
-        gap={1}
-        variant="h5"
-        fontWeight={600}
-        textAlign="center"
-      >
-        <GeminiIcon /> How can I help you?
-      </Typography>
-
+      <Grow in timeout={1000}>
+        <Typography
+          component={Stack}
+          flexDirection={'row'}
+          alignItems={'center'}
+          gap={1}
+          variant="h5"
+          fontWeight={600}
+          textAlign="center"
+        >
+          <GeminiIcon /> How can I help you?
+        </Typography>
+      </Grow>
       <Loader>
         <WordsWrapper>
           <Word component="span" className="word">

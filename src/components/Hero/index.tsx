@@ -24,7 +24,7 @@ const Hero = () => {
         window.history.pushState({}, '', currentUrl);
     }, [filters])
 
-    return <Box height={'100%'} display='flex' alignItems='center' flexDirection='column' justifyContent='space-between'>
+    return <Box height={'100%'} mb={6} display='flex' alignItems='center' flexDirection='column' justifyContent='space-between'>
 
         <Stack gap={2} justifyContent={'center'} width={'100%'} flexGrow={1}>
             {
