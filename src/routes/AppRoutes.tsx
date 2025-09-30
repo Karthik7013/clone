@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "../layouts/AppLayout";
+// import TestLayout from "../layouts/TestLayout";
 
 const AppRoutes = () => {
     return <BrowserRouter future={{
@@ -8,9 +9,7 @@ const AppRoutes = () => {
     }}
     >
         <Routes>
-            <Route path="/" element={<AppLayout />}>
-                <Route path="chat/:id" element={<>chat container by id</>} />
-            </Route>
+            <Route path="/" element={<AppLayout />} />
             <Route path='*' element={<>not -found </>} />
         </Routes>
     </BrowserRouter>

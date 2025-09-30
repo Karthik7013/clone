@@ -12,6 +12,7 @@ import rehypeHighlight from 'rehype-highlight';
 import ReactMarkdown from 'react-markdown';
 import { sampleMarkdown } from "../../features/chatbot/chatbotSlice";
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
+import ScrollBottom from "../ScrollBottom";
 const ChatContainer = () => {
     const [think, setThink] = useState(false);
     const { thinking, isLoading } = useSelector((state: RootState) => state.chat);
@@ -57,7 +58,7 @@ const ChatContainer = () => {
                             sx={{
                                 borderLeft: (theme: Theme) => `2px solid ${theme.palette.divider}`,
                                 maxWidth: '100%',
-                                overflow:'auto'
+                                overflow: 'auto'
                             }}
                         >
                             <Box borderRadius={1}>
@@ -78,6 +79,7 @@ const ChatContainer = () => {
                     <Box ref={messagesEndRef} />
                 </List>
             }
+            {Boolean(messages.length) && <ScrollBottom ref={messagesEndRef} />}
         </Container>
     </Scrollbar >
 }

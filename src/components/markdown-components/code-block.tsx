@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { MarkdownComponentProps } from "../../types/app-types";
-import { Box, Button, IconButton, useMediaQuery, useTheme } from "@mui/material";
-
+import { alpha, Box, Button, IconButton, useMediaQuery, useTheme } from "@mui/material";
 import Typography from "../../components/ui/Typography"
 import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';
 import Copy from "../../assets/icons/copy";
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import Download from "../../assets/icons/download";
-import Checked from "../../assets/icons/checked";
 import { AppDispatch } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { setPreviewContent, toggleCollapse, togglePreviewMode } from "../../features/ui/uiSlice";
+import { copyText } from "../../utils/copyText";
+import Mermaid from "./mermaid";
 
 type customButtonProps = {
     icon?: React.ReactNode;
@@ -58,7 +59,7 @@ export const CodeBlock = ({ inline, className, children, ...props }: MarkdownCom
 
     const handleCopy = () => {
         const codeToCopy = extractTextFromNode(children);
-        navigator.clipboard.writeText(codeToCopy);
+        copyText(codeToCopy);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
@@ -66,15 +67,18 @@ export const CodeBlock = ({ inline, className, children, ...props }: MarkdownCom
 
 
     if (language === 'text' && !inline) return <code style={{
-        backgroundColor: muiTheme.palette.divider, padding: '0.2em 0.5em', borderRadius: '4px',
+        backgroundColor: alpha(muiTheme.palette.divider, 0.1),
+        padding: '0.2em 0.5em',
+        borderRadius: '4px',
         textWrap: 'wrap',
         overflowWrap: "break-word"
-
     }} className={className} {...props}>{children}</code>
 
+    if (language === 'mermaid') return <Mermaid chart={extractTextFromNode(children)} />
+
     return <Box sx={{
-        borderRadius: '8px',
-        // overflow: 'hidden',
+        borderRadius: '16px',
+        overflow: 'clip',
     }}>
         <Box
             sx={{
@@ -90,7 +94,7 @@ export const CodeBlock = ({ inline, className, children, ...props }: MarkdownCom
             }} as='span'>{language}</Typography>
             <Box>
                 <CustomButton onClick={handleCopy} icon={copied ?
-                    <Checked fontSize="small" /> : <Copy fontSize="small" />} children={copied ? "Copied!" : "Copy"} />
+                    <CheckRoundedIcon fontSize="small" /> : <Copy fontSize="small" />} children={copied ? "Copied!" : "Copy"} />
                 <CustomButton icon={<Download fontSize="small" />} children="Download" />
 
                 {language === 'html' &&

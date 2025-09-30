@@ -10,11 +10,13 @@ type FileProps = {
 
 const FileCard = (file: FileProps) => {
     const muiTheme = useTheme();
-    return         <StyledCard sx={{ maxWidth: '200px', height: 50, display: 'flex', alignItems: 'center',borderRadius:"12px", position: 'relative', px: 1, gap: 1 }}>
+    return <StyledCard sx={{
+        maxWidth: '200px', height: 50, display: 'flex', alignItems: 'center', borderRadius: "12px", position: 'relative', px: 0.8, gap: 1, cursor: "pointer"
+     }}>
                                 <Box
                                     bgcolor={muiTheme.palette.primary[muiTheme.palette.mode]}
                                     height={36} minWidth={36} display={'flex'} justifyContent={'center'} alignItems={'center'}
-                                    borderRadius={'12px'}
+                                    borderRadius={'9px'}
                                     overflow={'hidden'}>
                                     <File fontSize="small" />
                                 </Box>

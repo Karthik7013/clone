@@ -58,7 +58,10 @@ const Prompt = () => {
     const file = watch('file');
     const query = watch('t');
     return <Container component='form' onSubmit={handleSubmit(onHandleSubmit)} maxWidth="md" sx={{
-        position: 'sticky', bottom: 10
+        position: 'sticky',
+        display: 'flex',
+        flexDirection: "column",
+        bottom: 0
     }}>
         <Card sx={{
             border: `1.5px solid ${muiTheme.palette.divider}`,
@@ -181,7 +184,12 @@ const Prompt = () => {
                 </Box>
             </CardContent>
         </Card>
+        {Boolean(messages.length) && <Typography textAlign={'center'} sx={{
+            fontSize: '0.7em',
+            fontWeight: 300,
+            my:'4px'
 
+        }} color={'text.secondary'}>Ai generated, for reference only.</Typography>}
     </Container >
 }
 export default Prompt;
