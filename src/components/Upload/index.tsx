@@ -24,7 +24,7 @@ const Upload = ({
             const formData = new FormData();
             if (event.target.files?.length) {
                 if (event.target.files[0].size > MAX_FILE_SIZE) {
-                    alert('File size must be under 5MB.')
+                    dispatch(streamError(new Error('File size must be under 10MB.')))
                     return
                 }
                 formData.append('image', event.target.files[0]);
