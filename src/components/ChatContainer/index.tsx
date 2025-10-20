@@ -1,21 +1,30 @@
-import { Box, Button, Collapse, Container, List, Stack, Theme } from "@mui/material";
+import {
+    Box,
+    // Button, Collapse,
+    Container, List,
+    // Stack, Theme
+} from "@mui/material";
 import Scrollbar from "../Scrollbar/Scrollbar";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import Hero from "../Hero";
-import { useRef, useState } from "react";
+import {
+    useRef,
+    
+    // useState
+} from "react";
 import Conversation from "../Conversation";
-import HeartBeat from "../Loader/HeartBeat";
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
-import rehypeHighlight from 'rehype-highlight';
-import ReactMarkdown from 'react-markdown';
-import { sampleMarkdown } from "../../features/chatbot/chatbotSlice";
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
+// import HeartBeat from "../Loader/HeartBeat";
+// import remarkGfm from 'remark-gfm';
+// import rehypeRaw from 'rehype-raw';
+// import rehypeHighlight from 'rehype-highlight';
+// import ReactMarkdown from 'react-markdown';
+// import { sampleMarkdown } from "../../features/chatbot/chatbotSlice";
+// import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ScrollBottom from "../ScrollBottom";
 const ChatContainer = () => {
-    const [think, setThink] = useState(false);
-    const { thinking, isLoading } = useSelector((state: RootState) => state.chat);
+    // const [think, setThink] = useState(false);
+    // const { thinking, isLoading } = useSelector((state: RootState) => state.chat);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const { messages } = useSelector((state: RootState) => state.chat);
     // const scrollToBottom = () => {
@@ -36,7 +45,7 @@ const ChatContainer = () => {
                     {messages.map((message, _) => {
                         return <Conversation key={_} candidate={message.type} response={message.message} />
                     })}
-                    {isLoading && <Box px={2}>
+                    {/* {isLoading && <Box px={2}>
                         <Stack sx={{
                             position: "sticky",
                             top: 0,
@@ -44,7 +53,7 @@ const ChatContainer = () => {
                             bgcolor: "background.paper"
                         }} alignItems={'center'} gap={1} direction="row">
                             <HeartBeat />
-                            <Collapse orientation="horizontal" unmountOnExit in={thinking}>
+                            <Collapse orientation="horizontal" unmountOnExit in={!thinking}>
                                 <Button sx={{
                                     textWrap: 'nowrap'
                                 }} onClick={() => setThink((prev: boolean) => !prev)} size="small" endIcon={<ExpandMoreRoundedIcon sx={{
@@ -54,7 +63,6 @@ const ChatContainer = () => {
 
                         </Stack>
                         <Box component={Collapse} in={think} p={2}
-
                             sx={{
                                 borderLeft: (theme: Theme) => `2px solid ${theme.palette.divider}`,
                                 maxWidth: '100%',
@@ -75,7 +83,7 @@ const ChatContainer = () => {
 
                         </Box>
                     </Box>
-                    }
+                    } */}
                     <Box ref={messagesEndRef} />
                 </List>
             }

@@ -41,11 +41,24 @@ interface BotSubmitType {
     file?: file | undefined
 }
 
+
+interface FormSubmit {
+    query: string,
+    file?: file | undefined,
+    temp: boolean,
+    think: boolean,
+    web_search: boolean,
+    model: string,
+    context: string
+    chat_id?: string
+}
+
 export type {
     conversation,
     message,
     user,
     MarkdownComponentProps,
+    FormSubmit,
     BotSubmitType,
     file
 }

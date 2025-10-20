@@ -1,51 +1,40 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
     addMessage,
-    setThink,
-    startStreaming,
+    newChat,
+    setError,
+    setLoading,
     streamChunk,
     streamComplete,
     streamError,
+    streamStart,
 } from './chatbotSlice';
-import { BotSubmitType } from '../../types/app-types';
+import { FormSubmit } from '../../types/app-types';
+import axios from 'axios';
 
-export const sendMessageStream = createAsyncThunk(
-    'chat/sendMessageStream',
-    async ({ t, file }: BotSubmitType, { dispatch }) => {
-        // Save user message first
-        dispatch(addMessage({ type: 'user', message: t }));
-        dispatch(startStreaming());
+export const streamChat = createAsyncThunk(
+    'chat/stream',
+    async (id: string, { dispatch }) => {
+        console.log("zzzzzzzzzzzzzzz")
         const BASE_URL = import.meta.env.VITE_BASE_URL;
-
         return new Promise<void>((resolve, reject) => {
             try {
-                // Create SSE connection
-                let url = `${BASE_URL}/chat/1234?query=${encodeURIComponent(t)}`;
-
-                if (file?.url) {
-                    url += `&fileUrl=${encodeURIComponent(file.url)}`;
-                }
-
+                const url = `${BASE_URL}/stream/${id}`;
                 const es = new EventSource(url);
-                es.addEventListener('thinking', (event) => {
-                    console.log(event.data, 'see here')
-                    if (event.data === '[START]') {
 
-                        dispatch(setThink(true))
-                    } else {
-                        dispatch(setThink(false))
-                    }
+                es.addEventListener('response-start', () => {
+                    dispatch(streamStart());
                 })
-
-                es.addEventListener('external_call', (event) => {
-                    console.log(event.data)
-                })
-
-                es.addEventListener('response', (event) => {
+                es.addEventListener('response-data', (event) => {
                     const data = JSON.parse(event.data);
                     if (data.type === 'chunk') {
+                        console.log(data.content)
                         dispatch(streamChunk(data.content));
                     }
+                })
+
+                es.addEventListener('response-end', () => {
+                    dispatch(streamComplete());
                 })
 
                 es.addEventListener('end', () => {
@@ -62,10 +51,51 @@ export const sendMessageStream = createAsyncThunk(
                     dispatch(streamError('Stream connection error'));
                     reject(err);
                 };
+                resolve()
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+);
+
+export const createChat = createAsyncThunk(
+    'new-chat',
+    async (data: FormSubmit, { dispatch }) => {
+        const BASE_URL = import.meta.env.VITE_BASE_URL;
+        return new Promise<void>((resolve, reject) => {
+            try {
+                dispatch(setLoading(true));
+                const url = `${BASE_URL}/chat`;
+                axios.post(url, {
+                    query: data,
+                    timestamp: new Date().toISOString(),
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(response => {
+                        const responseData = response.data.data;
+                        dispatch(newChat({
+                            title: responseData.title,
+                            id: responseData.cid
+                        }))
+                        dispatch(addMessage({ type: 'user', message: data.query }));
+                        dispatch(streamChat(responseData.cid))
+                        resolve();
+                    })
+                    .catch(error => {
+                        dispatch(setError(error));
+                        reject(error);
+                    }).finally(() => {
+                        dispatch(setLoading(false));
+                    })
+
             } catch (err) {
                 const message =
                     err instanceof Error ? err.message : 'Unknown error occurred';
-                dispatch(streamError(message));
+                console.log(message)
                 reject(err);
             }
         });

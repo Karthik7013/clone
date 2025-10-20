@@ -12,14 +12,14 @@ import { GeminiText } from "../../assets/icons/GeminiText";
 import { toggleCollapse, toggleMobileDrawer } from "../../features/ui/uiSlice";
 import GoogleButton from "../GoogleButton";
 import { useAuth0 } from "@auth0/auth0-react";
-import { clearStreamError } from "../../features/chatbot/chatbotSlice";
+// import { clearStreamError } from "../../features/chatbot/chatbotSlice";
 
 const Header = () => {
     const { isAuthenticated } = useAuth0();
     const mode = useSelector((state: RootState) => state.urlReducer.mode)
     const messages = useSelector((state: RootState) => state.chat.messages)
     const error = useSelector((state: RootState) => state.chat.error)
-    const { conversation } = useSelector((state: RootState) => state.chat)
+    // const { conversation } = useSelector((state: RootState) => state.chat)
     const dispatch: AppDispatch = useDispatch();
     // const mobileDrawer = useSelector((state: RootState) => state.ui.mobileDrawer);
     // const collapse = useSelector((state: RootState) => state.ui.collapse);
@@ -32,7 +32,7 @@ const Header = () => {
             dispatch(temporaryMode('temporary'))
         }
     }
-    const clearErr = () => dispatch(clearStreamError());
+    const clearErr = () => null;
     const handleCollpase = () => {
         dispatch(toggleCollapse(true))
     };
@@ -68,7 +68,7 @@ const Header = () => {
                         fontSize: 14,
                         whiteSpace: 'nowrap'
                     }}
-                >{conversation.title}</Typography>
+                >{"New Chat"}</Typography>
             </Box>
             {!isAuthenticated && <GoogleButton />}
             {isAuthenticated && <>

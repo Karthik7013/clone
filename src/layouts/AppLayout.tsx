@@ -3,7 +3,7 @@ import { Collapse, Stack, useMediaQuery, useTheme, Drawer } from '@mui/material'
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import ChatContainer from '../components/ChatContainer';
-import Prompt from '../components/Prompt';
+import Prompt from '../components/Prompt/TestPrompt';
 import PreviewMode from '../components/Preview';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
@@ -25,7 +25,7 @@ const AppLayout = () => {
         dispatch(togglePreviewMode(false)) // close the preview slide
     }
     return <Stack direction={'row'} sx={{ height: '100dvh', width: '100%' }}>
-            <Collapse
+        <Collapse
             sx={{
                 "& .MuiCollapse-wrapperInner": {
                     width: '100%'
@@ -68,4 +68,3 @@ const AppLayout = () => {
 }
 
 export default React.memo(AppLayout);
-

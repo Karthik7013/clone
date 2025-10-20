@@ -326,19 +326,18 @@ type Conversation = {
 type initialProps = {
     messages: Message[],
     thinking: boolean,
-    conversation: Conversation
+    conversation: Conversation | undefined,
+    isStreaming: boolean,
     isLoading: boolean,
     error: null | Error
 }
 const initialState: initialProps = {
     error: null,
     isLoading: false,
+    isStreaming: false,
     thinking: false,
     messages: [],
-    conversation: {
-        title: 'New chat',
-        id: 'abd-efg-hij-klm'
-    }
+    conversation: undefined
 }
 
 const chatSlice = createSlice({
@@ -349,12 +348,14 @@ const chatSlice = createSlice({
             const { payload } = action;
             state.messages.push(payload)
         },
-        startStreaming: (state) => {
-            state.isLoading = true;
-            state.error = null;
+
+
+        streamStart: (state) => {
+            state.isStreaming = true;
         },
         streamChunk: (state, action: { payload: string }) => {
             const { payload } = action;
+            console.log(payload, '=')
             const lastMsg = state.messages[state.messages.length - 1];
             if (lastMsg && lastMsg.type === 'assistant') {
                 lastMsg.message += payload;
@@ -363,8 +364,10 @@ const chatSlice = createSlice({
             }
         },
         streamComplete: (state) => {
-            state.isLoading = false;
+            state.isStreaming = false;
         },
+
+
         streamError: (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
@@ -372,28 +375,30 @@ const chatSlice = createSlice({
         clearStreamError: (state) => {
             state.error = null;
         },
-        newChat: (state) => {
-            state.messages = [];
+        newChat: (state, action: { payload: Conversation }) => {
+            state.conversation = action.payload
         },
-        titleSetter: (state, action: { payload: string }) => {
-            state.conversation.title = action.payload
+        setLoading: (state, action: { payload: boolean }) => {
+            state.isLoading = action.payload
         },
-        setThink: (state, action: { payload: boolean }) => {
-            state.thinking = action.payload
+        setError: (state, action) => {
+            state.error = action.payload;
         }
     },
 });
 
 export const {
+    newChat,
     addMessage,
-    startStreaming,
+    streamStart,
     streamChunk,
     streamComplete,
     streamError,
-    newChat,
     clearStreamError,
-    titleSetter,
-    setThink
+    // titleSetter,
+    // setThink,
+    setLoading,
+    setError
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

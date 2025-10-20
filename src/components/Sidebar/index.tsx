@@ -8,7 +8,7 @@ import DownUp from "../../assets/icons/up-down";
 import Compass from '../../assets/icons/compass'
 import { AppDispatch } from "../../store/store";
 import { useDispatch } from "react-redux";
-import { newChat } from "../../features/chatbot/chatbotSlice";
+// import { newChat } from "../../features/chatbot/chatbotSlice";
 import React from "react";
 
 // const ConversationList = React.lazy(() => import("../ConversationList"));
@@ -24,7 +24,7 @@ const Sidebar = () => {
     const dispatch: AppDispatch = useDispatch();
     const { user, logout } = useAuth0();
     const handleNewChat = () => {
-        dispatch(newChat())
+        // dispatch(newChat())
         dispatch(toggleMobileDrawer(false))
     };
     const handleLogout = () => {
@@ -82,7 +82,7 @@ const Sidebar = () => {
                 <ListItem>
                     <ListItemButton>
                         <Compass fontSize="inherit" sx={{ mr: 1 }} />
-                        <ListItemText  sx={{ textWrap: 'nowrap' }} primary="Discover" />
+                        <ListItemText sx={{ textWrap: 'nowrap' }} primary="Discover" />
                     </ListItemButton>
                 </ListItem>
             </List>

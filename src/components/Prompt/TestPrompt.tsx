@@ -1,18 +1,12 @@
-import { alpha, Box, ButtonGroup, CardContent, Chip, Collapse, Container, IconButton, Stack, Theme, Tooltip, Typography, useTheme } from "@mui/material"
+import { alpha, Box, ButtonGroup, CardContent, Chip, CircularProgress, Collapse, Container, IconButton, Stack, Theme, Tooltip, Typography, useTheme } from "@mui/material"
 import Card from "../ui/Card";
 import ArrowUp from '../../assets/icons/arrow-up';
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-// import Upload from "../Upload";
-import {
-    // useDispatch,
-    useSelector
-} from "react-redux";
-import {
-    // AppDispatch,
-    RootState
-} from "../../store/store";
+import Upload from "../Upload";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
 import { useRef, useState } from "react";
-import { BotSubmitType } from "../../types/app-types";
+import { FormSubmit } from "../../types/app-types";
 // import { sendMessageStream } from "../../features/chatbot/chatbotApi";
 import File from "../../assets/icons/file";
 import Cancel from "../../assets/icons/circle-x";
@@ -21,47 +15,56 @@ import LanguageIcon from '@mui/icons-material/Language';
 import StopRoundedIcon from '@mui/icons-material/StopRounded';
 import Brain from "../../assets/icons/brain";
 import ScrollContainer from "../Scrollbar/Scrollbar";
+import { createChat } from "../../features/chatbot/chatbotApi";
 
 const Prompt = () => {
     const [webSearch, setWebsearch] = useState(false)
     const [reSearch, setResearch] = useState(false)
-    // const dispatch: AppDispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
     const muiTheme = useTheme();
     const { messages } = useSelector((state: RootState) => state.chat);
     // const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
     const contentRef = useRef<HTMLDivElement>(null);
-    const { isLoading } = useSelector((state: RootState) => state.chat);
-    const { handleSubmit, control, watch, setValue, reset } = useForm<BotSubmitType>({
+    const { isLoading, isStreaming } = useSelector((state: RootState) => state.chat);
+
+
+    const { handleSubmit, control, watch, setValue, reset } = useForm<FormSubmit>({
         defaultValues: {
-            t: '',
+            chat_id: undefined,
+            context: "",
+            model: "default",
+            query: "",
+            temp: false,
+            think: false,
+            web_search: false,
             file: undefined
         }
     })
     const handleInput = () => {
         const text = contentRef.current?.textContent || '';
-        setValue('t', text, { shouldValidate: true });
+        setValue('query', text, { shouldValidate: true });
     };
     const handleFocus = () => {
         if (contentRef.current?.textContent === 'Ask anything.') {
             contentRef.current.textContent = '';
         }
     };
-    const onHandleSubmit: SubmitHandler<BotSubmitType> = async (data) => {
+
+    const onHandleSubmit: SubmitHandler<FormSubmit> = async (data) => {
         try {
-            console.log(data);
             if (contentRef.current) {
                 contentRef.current.textContent = '';
             }
-            setValue('t', '', { shouldValidate: false });
+            setValue('query', '', { shouldValidate: false });
             setValue('file', undefined, { shouldValidate: false });
-            // dispatch(sendMessageStream(data));
+            dispatch(createChat(data));
         } catch (err) {
             console.log(err)
         }
     };
 
     const file = watch('file');
-    const query = watch('t');
+    const query = watch('query');
     return <Container component='form' onSubmit={handleSubmit(onHandleSubmit)} maxWidth="md" sx={{
         position: 'sticky',
         display: 'flex',
@@ -115,7 +118,7 @@ const Prompt = () => {
                 </Collapse>
                 <Box>
                     <Controller
-                        name="t"
+                        name="query"
                         control={control}
                         rules={{
                             validate: value => {
@@ -150,19 +153,16 @@ const Prompt = () => {
                     <Stack direction='row' alignItems={'flex-end'} justifyContent={'space-between'}>
                         <ButtonGroup sx={{ gap: 1 }}>
                             <Tooltip title="Think before responding to solve the resoning problems">
-
                                 <Chip onClick={() => setResearch((prev) => !prev)} color={reSearch ? "primary" : "default"} icon={<Brain sx={{
                                     margin: "0 -6px 0 4px"
                                 }} fontSize="small" />} clickable variant="outlined" label="DeepThink" />
                             </Tooltip>
                             <Tooltip title="Search in web when necessary">
-
                                 <Chip onClick={() => setWebsearch((prev) => !prev)} color={webSearch ? "primary" : "default"} icon={<LanguageIcon fontSize="small" />} clickable variant="outlined" label="Search" />
                             </Tooltip>
-
                         </ButtonGroup>
                         <ButtonGroup>
-                            {/* <Upload setValue={setValue} /> */}
+                            <Upload setValue={setValue} />
                             <IconButton
                                 type='submit'
                                 disabled={isLoading || query === ''}
@@ -178,11 +178,15 @@ const Prompt = () => {
                                     }
                                 }}
                             >
-                                {isLoading ? (
-                                    <StopRoundedIcon color="inherit" fontSize="inherit" />
-                                ) : (
-                                    <ArrowUp color="inherit" fontSize='inherit' />
+                                {isLoading && (
+                                    <CircularProgress color={'inherit'} size={24} />
                                 )}
+                                {isStreaming && (
+                                    <StopRoundedIcon color="inherit" fontSize="inherit" />
+                                )}
+                                {(!isStreaming && !isLoading) &&
+                                    < ArrowUp color="inherit" fontSize='inherit' />
+                                }
                             </IconButton>
                         </ButtonGroup>
                     </Stack>
@@ -192,7 +196,7 @@ const Prompt = () => {
         {Boolean(messages.length) && <Typography textAlign={'center'} sx={{
             fontSize: '0.7em',
             fontWeight: 300,
-            my:'4px'
+            my: '4px'
 
         }} color={'text.secondary'}>Ai generated, for reference only.</Typography>}
     </Container >

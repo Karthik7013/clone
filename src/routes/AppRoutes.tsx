@@ -11,6 +11,7 @@ const AppRoutes = () => {
         <Routes>
             <Route path="/" element={<AppLayout />} />
             <Route path='*' element={<>not -found </>} />
+            <Route path='/test' element={<>not -found </>} />
         </Routes>
     </BrowserRouter>
 }
