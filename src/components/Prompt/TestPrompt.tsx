@@ -22,7 +22,7 @@ const Prompt = () => {
     const [reSearch, setResearch] = useState(false)
     const dispatch: AppDispatch = useDispatch();
     const muiTheme = useTheme();
-    const { messages } = useSelector((state: RootState) => state.chat);
+    const { messages, conversation } = useSelector((state: RootState) => state.chat);
     // const isMobile = useMediaQuery(muiTheme.breakpoints.down("lg"));
     const contentRef = useRef<HTMLDivElement>(null);
     const { isLoading, isStreaming } = useSelector((state: RootState) => state.chat);
@@ -49,7 +49,6 @@ const Prompt = () => {
             contentRef.current.textContent = '';
         }
     };
-
     const onHandleSubmit: SubmitHandler<FormSubmit> = async (data) => {
         try {
             if (contentRef.current) {
@@ -57,7 +56,9 @@ const Prompt = () => {
             }
             setValue('query', '', { shouldValidate: false });
             setValue('file', undefined, { shouldValidate: false });
-            dispatch(createChat(data));
+            setValue('chat_id', conversation?.id);
+            const mockedData = { ...data, chat_id: conversation?.id }
+            dispatch(createChat(mockedData));
         } catch (err) {
             console.log(err)
         }

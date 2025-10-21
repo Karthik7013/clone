@@ -15,7 +15,7 @@ import axios from 'axios';
 export const streamChat = createAsyncThunk(
     'chat/stream',
     async (id: string, { dispatch }) => {
-        console.log("zzzzzzzzzzzzzzz")
+        console.log('StreamID :', id)
         const BASE_URL = import.meta.env.VITE_BASE_URL;
         return new Promise<void>((resolve, reject) => {
             try {
@@ -28,7 +28,6 @@ export const streamChat = createAsyncThunk(
                 es.addEventListener('response-data', (event) => {
                     const data = JSON.parse(event.data);
                     if (data.type === 'chunk') {
-                        console.log(data.content)
                         dispatch(streamChunk(data.content));
                     }
                 })
@@ -62,15 +61,13 @@ export const streamChat = createAsyncThunk(
 export const createChat = createAsyncThunk(
     'new-chat',
     async (data: FormSubmit, { dispatch }) => {
+
         const BASE_URL = import.meta.env.VITE_BASE_URL;
         return new Promise<void>((resolve, reject) => {
             try {
                 dispatch(setLoading(true));
                 const url = `${BASE_URL}/chat`;
-                axios.post(url, {
-                    query: data,
-                    timestamp: new Date().toISOString(),
-                }, {
+                axios.post(url, data, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -78,7 +75,7 @@ export const createChat = createAsyncThunk(
                     .then(response => {
                         const responseData = response.data.data;
                         dispatch(newChat({
-                            title: responseData.title,
+                            title: responseData.title || "New Chat",
                             id: responseData.cid
                         }))
                         dispatch(addMessage({ type: 'user', message: data.query }));

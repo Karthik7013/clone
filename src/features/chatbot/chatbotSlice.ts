@@ -348,14 +348,11 @@ const chatSlice = createSlice({
             const { payload } = action;
             state.messages.push(payload)
         },
-
-
         streamStart: (state) => {
             state.isStreaming = true;
         },
         streamChunk: (state, action: { payload: string }) => {
             const { payload } = action;
-            console.log(payload, '=')
             const lastMsg = state.messages[state.messages.length - 1];
             if (lastMsg && lastMsg.type === 'assistant') {
                 lastMsg.message += payload;
@@ -366,8 +363,6 @@ const chatSlice = createSlice({
         streamComplete: (state) => {
             state.isStreaming = false;
         },
-
-
         streamError: (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
@@ -377,6 +372,10 @@ const chatSlice = createSlice({
         },
         newChat: (state, action: { payload: Conversation }) => {
             state.conversation = action.payload
+        },
+        clearChat: (state) => {
+            state.conversation = undefined;
+            state.messages = []
         },
         setLoading: (state, action: { payload: boolean }) => {
             state.isLoading = action.payload
@@ -390,6 +389,7 @@ const chatSlice = createSlice({
 export const {
     newChat,
     addMessage,
+    clearChat,
     streamStart,
     streamChunk,
     streamComplete,

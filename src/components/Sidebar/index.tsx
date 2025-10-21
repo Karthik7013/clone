@@ -17,6 +17,7 @@ import ConversationList from "../ConversationList";
 import { useAuth0 } from "@auth0/auth0-react";
 import { toggleCollapse, toggleMobileDrawer, toggleSearch } from "../../features/ui/uiSlice";
 import SideMenu from "../../assets/icons/pannel-left";
+import { clearChat } from "../../features/chatbot/chatbotSlice";
 
 const Sidebar = () => {
     const theme = useTheme();
@@ -24,7 +25,7 @@ const Sidebar = () => {
     const dispatch: AppDispatch = useDispatch();
     const { user, logout } = useAuth0();
     const handleNewChat = () => {
-        // dispatch(newChat())
+        dispatch(clearChat())
         dispatch(toggleMobileDrawer(false))
     };
     const handleLogout = () => {

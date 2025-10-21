@@ -50,7 +50,7 @@ interface FormSubmit {
     web_search: boolean,
     model: string,
     context: string
-    chat_id?: string
+    chat_id: string | undefined
 }
 
 export type {

@@ -21,7 +21,7 @@ import Conversation from "../Conversation";
 // import ReactMarkdown from 'react-markdown';
 // import { sampleMarkdown } from "../../features/chatbot/chatbotSlice";
 // import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
-import ScrollBottom from "../ScrollBottom";
+// import ScrollBottom from "../ScrollBottom";
 const ChatContainer = () => {
     // const [think, setThink] = useState(false);
     // const { thinking, isLoading } = useSelector((state: RootState) => state.chat);
@@ -87,7 +87,7 @@ const ChatContainer = () => {
                     <Box ref={messagesEndRef} />
                 </List>
             }
-            {Boolean(messages.length) && <ScrollBottom ref={messagesEndRef} />}
+            {/* {Boolean(messages.length) && <ScrollBottom ref={messagesEndRef} />} */}
         </Container>
     </Scrollbar >
 }
