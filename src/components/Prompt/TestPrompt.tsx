@@ -66,11 +66,12 @@ const Prompt = () => {
 
     const file = watch('file');
     const query = watch('query');
-    return <Container component='form' onSubmit={handleSubmit(onHandleSubmit)} maxWidth="md" sx={{
+    return <Container maxWidth="md" component='form' onSubmit={handleSubmit(onHandleSubmit)} sx={{
         position: 'sticky',
         display: 'flex',
         flexDirection: "column",
-        bottom: 0
+        bottom: 0,
+        
     }}>
         <Card sx={{
             border: `1.5px solid ${muiTheme.palette.divider}`,
@@ -117,7 +118,7 @@ const Prompt = () => {
                         </StyledCard>
                     }
                 </Collapse>
-                <Box>
+                <Stack>
                     <Controller
                         name="query"
                         control={control}
@@ -135,7 +136,7 @@ const Prompt = () => {
                                 onInput={handleInput}
                                 onFocus={handleFocus}
                                 sx={{
-                                    padding: '10px 16px',
+                                    padding: '1em',
                                     color: "text.disabled",
                                     minHeight: 48,
                                     maxHeight: 350,
@@ -191,7 +192,7 @@ const Prompt = () => {
                             </IconButton>
                         </ButtonGroup>
                     </Stack>
-                </Box>
+                </Stack>
             </CardContent>
         </Card>
         {Boolean(messages.length) && <Typography textAlign={'center'} sx={{

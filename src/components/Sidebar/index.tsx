@@ -18,6 +18,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { toggleCollapse, toggleMobileDrawer, toggleSearch } from "../../features/ui/uiSlice";
 import SideMenu from "../../assets/icons/pannel-left";
 import { clearChat } from "../../features/chatbot/chatbotSlice";
+import DarkMode from "../Darkmode";
 
 const Sidebar = () => {
     const theme = useTheme();
@@ -53,12 +54,12 @@ const Sidebar = () => {
 
     const openSearch = () => dispatch(toggleSearch(true))
     return (
-        <Stack sx={{ height: "100dvh", borderRight: `1px solid ${theme.palette.divider}`, bgcolor: theme.palette.background.paper }}>
+        <Stack sx={{ height: "100dvh", borderRight: `1px solid ${theme.palette.divider}`, bgcolor: theme.palette.background.paper}}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Stack gap={1} direction={'row'}>
                     <GeminiText sx={{ width: '100%' }} />
                 </Stack>
-                <Box></Box>
+
                 <IconButton size="small" onClick={isMobile ? handleDrawer : handleCollpase}><SideMenu fontSize="inherit" /></IconButton>
             </Toolbar>
             <List dense>
@@ -92,8 +93,9 @@ const Sidebar = () => {
                 <ConversationList />
             </ScrollContainer>
             <Divider variant="middle" />
+            <DarkMode />
             <Box>
-                <List id="basic-button">
+                <List>
                     <ListItem secondaryAction={
                         <button
                             style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', color: 'inherit' }}
@@ -107,11 +109,8 @@ const Sidebar = () => {
                                 width: '36px', height: '36px'
                             }} src={user?.picture}></Avatar>
                         </ListItemIcon>
-                        <ListItemText
-                            primary={<Typography variant="subtitle2">{user?.name}</Typography>} />
+                        <ListItemText primary={<Typography variant="subtitle2">{user?.name}</Typography>} />
                     </ListItem>
-
-
                 </List>
                 <Menu
                     variant="selectedMenu"

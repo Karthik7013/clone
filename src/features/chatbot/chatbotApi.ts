@@ -11,7 +11,7 @@ import {
 } from './chatbotSlice';
 import { FormSubmit } from '../../types/app-types';
 import axios from 'axios';
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 export const streamChat = createAsyncThunk(
     'chat/stream',
     async (id: string, { dispatch }) => {
@@ -98,3 +98,26 @@ export const createChat = createAsyncThunk(
         });
     }
 );
+
+// Need to use the React-specific entry point to import createApi
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+
+// Define a service using a base URL and expected endpoints
+export const getChatListApi = createApi({
+    reducerPath: 'getChatList',
+    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+    endpoints: (builder) => ({
+        // getUserChatList: builder.query({
+        //     query: () => `/api/v1/chat/list`,
+        // }),
+        getUserChatList: builder.mutation({
+            query: () => ({
+                url: `/chat/list`,
+                method: 'POST'
+            })
+        }),
+    }),
+})
+
+export const { useGetUserChatListMutation } = getChatListApi
+
